@@ -85,8 +85,10 @@ def subsets(A, i, aux):
     no_take = subsets(A, i+1, aux) # Case 2
 ```
 
-Draw recursion Tree. 
-![IMG_0036](https://user-images.githubusercontent.com/35702912/66323471-7a914e80-e941-11e9-84a9-11a333ac4f77.jpg)
+
+<img src="https://user-images.githubusercontent.com/35702912/66323471-7a914e80-e941-11e9-84a9-11a333ac4f77.jpg" width="400" 
+/> 
+
 
 How many leaf nodes? $2^n$ - one for each subset
 How many total nodes? $2^{n+1} - 1$
