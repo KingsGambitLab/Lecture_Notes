@@ -52,7 +52,7 @@ def pow(n, k):
 Why not f(n, k/2) * f(n, k/2+1) in the else condition? 
 To allow reuse of answers. 
 
-<img src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" data-canonical-src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" width="400" />
+<img src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" data-canonical-src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" width="500" />
 
 __Time Complexity__ (assuming all multiplications are O(1))? $O(\log_2 k)$
 
@@ -87,7 +87,7 @@ def subsets(A, i, aux):
 ```
 
 
-<img src="https://user-images.githubusercontent.com/35702912/66323471-7a914e80-e941-11e9-84a9-11a333ac4f77.jpg" width="400" 
+<img src="https://user-images.githubusercontent.com/35702912/66323471-7a914e80-e941-11e9-84a9-11a333ac4f77.jpg" width="500" 
 /> 
 
 How many leaf nodes? $2^n$ - one for each subset
@@ -149,11 +149,11 @@ For Array [0,1,2,3,4] Subsets in Lexicographical order,
 But don't print when going left - because already printed in parent. 
 
 
-<img src="https://user-images.githubusercontent.com/35702912/66468106-3d44d200-eaa3-11e9-96e7-c6a050be1219.jpg" width="400" 
+<img src="https://user-images.githubusercontent.com/35702912/66468106-3d44d200-eaa3-11e9-96e7-c6a050be1219.jpg" width="500" 
 /> 
 
 
-<img src="https://user-images.githubusercontent.com/35702912/66468119-42098600-eaa3-11e9-8f24-237be2a91d12.jpg" width="400" 
+<img src="https://user-images.githubusercontent.com/35702912/66468119-42098600-eaa3-11e9-8f24-237be2a91d12.jpg" width="500" 
 /> 
 ```python
 def subsets(A, i, aux, p):
@@ -180,7 +180,7 @@ The subsetSum problem can be divided into two subproblems.
 -  Exclude the current element from the sum and recur (i = i + 1) for the rest of the array. 
 
 
-<img src="https://user-images.githubusercontent.com/35702912/66469192-11c2e700-eaa5-11e9-9094-252ce842464a.jpg" width="400" 
+<img src="https://user-images.githubusercontent.com/35702912/66469192-11c2e700-eaa5-11e9-9094-252ce842464a.jpg" width="500" 
 /> 
 ```python
 def subsetSum(A,N,cur_sum, i, target):
@@ -211,7 +211,10 @@ Number of Subsets with a given Sum (Repetition Allowed)
 The subsetSum2 problem can be divided into two subproblems.   
 - Include the current element in the sum and recur for the rest of the array. Here the value of i is not incremented to incorporate the condition of including multiple occurances of a element. 
 -  Exclude the current element from the sum and recur (i = i + 1) for the rest of the array. 
-![IMG_0040](https://user-images.githubusercontent.com/35702912/66470200-c27db600-eaa6-11e9-8744-ca572d6000e1.jpg)
+
+<img src="https://user-images.githubusercontent.com/35702912/66470200-c27db600-eaa6-11e9-8744-ca572d6000e1.jpg" width="500" 
+/> 
+
 ```python
 def subsetSum2(A,N,cur_sum, i, target):
     if i == N:
