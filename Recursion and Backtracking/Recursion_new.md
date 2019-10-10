@@ -1,9 +1,10 @@
+﻿
 Recursion
 ----------
 Recursion - process of function calling itself
  directly or indirectly. 
 
- _Steps involved:_ 
+ __Steps involved:__ 
 - Base case
 - Self Work
 - Recursive Calls
@@ -34,9 +35,9 @@ def pow(n, k):
     if k == 0: return 1
     return n*pow(n, k - 1)
 ```
-_Time Complexity_: $O(n)$
+__Time Complexity__: $O(n)$
 
-_Optimised solution:_
+__Optimised solution:__
 ```python
 def pow(n, k):
     if k == 0: return 1
@@ -53,7 +54,7 @@ To allow reuse of answers.
 
 <img src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" data-canonical-src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" width="400" />
 
-_Time Complexity_ (assuming all multiplications are O(1))? $O(\log_2 k)$
+__Time Complexity__ (assuming all multiplications are O(1))? $O(\log_2 k)$
 
 
 Break it into 3 parts? k//3 and take care of mod1 and mod2.
@@ -89,11 +90,10 @@ def subsets(A, i, aux):
 <img src="https://user-images.githubusercontent.com/35702912/66323471-7a914e80-e941-11e9-84a9-11a333ac4f77.jpg" width="400" 
 /> 
 
-
 How many leaf nodes? $2^n$ - one for each subset
 How many total nodes? $2^{n+1} - 1$
 
-Complexity? $O(2^n)$
+__Time Complexity__: $O(2^n)$
 
 Subsets using Iteration
 -----------------------
@@ -149,6 +149,12 @@ For Array [0,1,2,3,4] Subsets in Lexicographical order,
 But don't print when going left - because already printed in parent. 
 
 
+<img src="https://user-images.githubusercontent.com/35702912/66468106-3d44d200-eaa3-11e9-96e7-c6a050be1219.jpg" width="400" 
+/> 
+
+
+<img src="https://user-images.githubusercontent.com/35702912/66468119-42098600-eaa3-11e9-8f24-237be2a91d12.jpg" width="400" 
+/> 
 ```python
 def subsets(A, i, aux, p):
     if p: print(aux)
@@ -158,8 +164,8 @@ def subsets(A, i, aux, p):
     no_take = subsets(A, i+1, aux, False)
 ```
 
-time: $O(2^n)$
-Space: $O(n^2)$, because we're creating new aux arrays.
+__Time Complexity__: $O(2^n)$
+__Space Complexity__: $O(n^2)$, because we're creating new aux arrays.
 
 -- --
 Number of Subsets with a given Sum
@@ -173,6 +179,9 @@ The subsetSum problem can be divided into two subproblems.
 - Include the current element in the sum and recur (i = i + 1) for the rest of the array
 -  Exclude the current element from the sum and recur (i = i + 1) for the rest of the array. 
 
+
+<img src="https://user-images.githubusercontent.com/35702912/66469192-11c2e700-eaa5-11e9-9094-252ce842464a.jpg" width="400" 
+/> 
 ```python
 def subsetSum(A,N,cur_sum, i, target):
     if i == N:
@@ -191,6 +200,8 @@ For eg,
 target = 6
 1, 2, 3 is good, but
 1, 2, 3, -1, 1 is also good. 
+__Time Complexity__:  $O(2^n)$
+__Space Complexity__: $O(n)$
 
 Number of Subsets with a given Sum (Repetition Allowed)
 ---------------
@@ -200,7 +211,7 @@ Number of Subsets with a given Sum (Repetition Allowed)
 The subsetSum2 problem can be divided into two subproblems.   
 - Include the current element in the sum and recur for the rest of the array. Here the value of i is not incremented to incorporate the condition of including multiple occurances of a element. 
 -  Exclude the current element from the sum and recur (i = i + 1) for the rest of the array. 
-
+![IMG_0040](https://user-images.githubusercontent.com/35702912/66470200-c27db600-eaa6-11e9-8744-ca572d6000e1.jpg)
 ```python
 def subsetSum2(A,N,cur_sum, i, target):
     if i == N:
@@ -214,6 +225,8 @@ def subsetSum2(A,N,cur_sum, i, target):
     no_take = subsetSum2(A,N,cur_sum, i+1, target)
     return take + no_take
 ```
+__Time Complexity__ :  $O(2 ** (Target/MinElement))$
+__Space Complexity__:  $O(Target/Min Element)$
 
 
 
