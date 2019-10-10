@@ -50,7 +50,8 @@ def pow(n, k):
 
 Why not f(n, k/2) * f(n, k/2+1) in the else condition? 
 To allow reuse of answers. 
-![IMG_0034](https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg)
+
+<img src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" data-canonical-src="https://user-images.githubusercontent.com/35702912/66316190-d30e1f00-e934-11e9-8089-85c6dc69baa7.jpg" width="400" />
 
 _Time Complexity_ (assuming all multiplications are O(1))? $O(\log_2 k)$
 
