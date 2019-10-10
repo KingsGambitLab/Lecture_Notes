@@ -1,4 +1,4 @@
-﻿Recursion
+Recursion
 ----------
 Recursion - process of function calling itself
  directly or indirectly. 
@@ -41,11 +41,11 @@ _Optimised solution:_
 def pow(n, k):
     if k == 0: return 1
     
-	nk = pow(n, k//2)
-	if k % 2 == 0:
-		return nk * nk
-	else:
-		return nk * nk * n
+    nk = pow(n, k//2)
+    if k % 2 == 0:
+        return nk * nk
+    else:
+        return nk * nk * n
 ```
 
 Why not f(n, k/2) * f(n, k/2+1) in the else condition? 
@@ -103,7 +103,7 @@ Going right = 1
 Basically, for each element, choose = 1, skip = 0
 
 So, generate numbers from 0 to $2^n-1$ and look at the bits of the numbers. Each subset is formed using each number. 
-```python
+```
 For A = [1 2 3]
 
 000        []
@@ -175,9 +175,9 @@ The subsetSum problem can be divided into two subproblems.
 def subsetSum(A,N,cur_sum, i, target):
     if i == N:
         if cur_sum == target:
-	        return 1
-	    else :
-		    return 0
+            return 1
+        else :
+            return 0
     take = subsetSum(A,N,cur_sum + A[i], i+1, target)
     no_take = subsetSum(A,N,cur_sum, i+1, target)
     return take + no_take
@@ -203,11 +203,11 @@ The subsetSum2 problem can be divided into two subproblems.
 def subsetSum2(A,N,cur_sum, i, target):
     if i == N:
         if cur_sum == target:
-	        return 1
-	    else :
-		    return 0
-	elif cur_sum > target:
-		return 0;
+            return 1
+        else :
+            return 0
+    elif cur_sum > target:
+        return 0;
     take = subsetSum2(A,N,cur_sum + A[i], i, target)
     no_take = subsetSum2(A,N,cur_sum, i+1, target)
     return take + no_take
