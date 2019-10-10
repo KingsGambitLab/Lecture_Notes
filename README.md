@@ -15,3 +15,12 @@ Guidelines:
 - Soft resize images to appropriate size (use html img tag with inline style)
 - Use spaces instead of tabs (important, to keep indentation in code blocks consistent)
 - Clearly mark the begin and end of each topic / question by using HR. markdown syntax: `-- --` on a new line
+- Use _Italics_ minimally (hard to detect). Use **bold** and headings instead.
+- Don't use H1
+- Use the following syntax for H2 instead of the usual `# heading 2`
+```md
+Heading 2
+---------
+
+content
+```
