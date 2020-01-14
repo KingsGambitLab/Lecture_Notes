@@ -130,7 +130,7 @@ This is too much. Right? What else can we do?
 
 We have a technique named **"Path compression"**, which burns this time to $O(log^*N)$. $log^*N$ is iterated logarithm-number of time you have to apply $log$ to $N$ before the result is less than or equal to 1.
 
-The idea of the Path compression is: **It re-connects every vertex to the root vertex directly rather than by a path**.
+The idea of the Path compression is: **It re-connects every vertex to the root vertex directly, rather than by a path**.
 
 If we apply $\text{Find}(d)$ operation with the path compression, then the following thing will happen.
 ![enter image description here](https://lh3.googleusercontent.com/ltQXkpZAjEO543ibrVodpMMZp2IHXVJ7Rjxevm2ztJQAC67UnvBeMmwEoIB9qZ0_2PgpSs98nWV9)
