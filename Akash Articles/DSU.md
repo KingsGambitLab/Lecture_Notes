@@ -151,7 +151,7 @@ So every time we run this function, it will re-connect every vertex on the path 
 ---
 ### Quiz Time
 
-Can you write the iterative version of the above $FIND(X)$ function with path compression?
+Can you write the iterative version of the above $\text{FIND}(X)$ function with path compression?
 
 Answer:
 ```
@@ -204,7 +204,7 @@ int Find(x)
 
 $Union(X,Y)$ operation first of all finds root element of both the disjoint sets containing X and Y respectively. Then it connects the root element of one of the disjoint set to the another.
 
-Well, how do we decide which root will connet to which? If we do it randomly then it may increase the tree height up to O(N), which means that the next $Find(x)$ operation will take O(N) time. Can we do better?
+Well, how do we decide which root will connet to which? If we do it randomly then it may increase the tree height up to $O(N)$, which means that the next $Find(x)$ operation will take $O(N)$ time. Can we do better?
 
 Yes, we have two standard techniques: **By size and By rank**.
 
