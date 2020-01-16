@@ -224,7 +224,7 @@ int Find(x)
 
 **Note:** 
 - $log^*(N)$ is the **iterated logarithm**, which is essentially the number of times we have to apply $log$ to $N$ before it becomes less than or equal to 1.
-- $\mathcal{O}(\log^*(N))$ is almost constant time becuase $\log^*(N) <=5$ for even such a big number like $2^{65536}$.
+- $\mathcal{O}(\log^*(N))$ is almost constant time becuase $\log^*(N) \leqslant 5$ for even such a big number like $2^{65536}$.
 
 ## Operation Union
 
