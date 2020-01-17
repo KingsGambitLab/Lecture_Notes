@@ -1,37 +1,81 @@
 ## Prim's Algorithm
 
-Like Kruskal's algorithm, Prim's algorithm is an another algorithm to find the minimum spanning tree for the given undirected weighted graph.
+Like Kruskal's algorithm, Prim's algorithm is another algorithm to find the minimum spanning tree for the given undirected weighted graph.
 
-Prim's algorithm is also a greedy algorithm, which is quite similar to Dijkstra's algorithm. In Dijkstra's algorithm, we find the minimum distance vertex at each step, however in Prim's algorithm we find minimum weighted edge.
+Prim's algorithm is also a greedy algorithm, which is quite similar to Dijkstra's algorithm. If you are familar with Dijkstra's algorithm then you know that, we need to find a minimum distance vertex at each step, however in Prim's algorithm we need to find a minimum weight edge. Let's see the actual algorithm.
 
-At each step of the algorithm we add the least cost edge to the tree.
+**Notes:** 
+- Here the term **tree** stands for an intermediate tree in the formation of the whole MST.
+- **Explored edges** means the edges which are already found in the run of the algorithm.
+- Here, we are assuming that the given undireted graph is connected.
 
-**Algorithm**
+## Algorithm
 
  1. Select an arbitrary vertex say $V$ from the graph and start the algorithm from that vertex.
  2. Add vertex $V$ in the tree.
  3. Explore all the edges connected to vertex $V$.
- 4. Find the minimum weighted edge from all the explored edges, which connects the tree to a vertex $U$ which is not yet added in the tree.
- 5. Set $V$ to $U$ and continue step 3 until all $|V|$ vertices are in the tree.
-
-**Note:** Here **tree** is an intermediate tree in the formation of the whole MST.
+ 4. Find the minimum weight edge from all the explored edges, which connects the tree to a vertex $U$ which is not yet added in the tree.
+ 5. Set $V$ to $U$ and continue from step 2 until all $|V|$ vertices are in the tree.
 
 **Visualization**
+![enter image description here](https://lh3.googleusercontent.com/6K6LDcKyb37O1_bvWCTDqwArEKwUhWUIeMiHcYuwBBKiT96227ndkcrtVUXGIZh99b4797Ag8Tz8)
 
+![enter image description here](https://lh3.googleusercontent.com/ZzoZu85ceeGJv_rITxLeNv3Aj_DM7ijXyY_aFPomRH5uuqCKAGGerfa4Y92AGQBn-ZowDlFe2jzx)
+![enter image description here](https://lh3.googleusercontent.com/Xcynud0p9l6UuWZG4IYszTFg9oyxlL-SCikCcbVx5AQ1K07cFYo6OHVHUh6ugxLKU13W2RIBg-66)
 
-We will discuss different approaches:
+![enter image description here](https://lh3.googleusercontent.com/h57vXQgMzcvQKdGDioi91GDnvl804VPWqs_QhY_tZVxhKvV9iLc183f5-5ynJO_vObCnd_8Yp-JB)
+![enter image description here](https://lh3.googleusercontent.com/kSpm3PWqqX8d7ZDwEJhWYKooHiaYIP_BTYPDKOX1Em2n15XJKcv9dxfbHAiFFt3ER0DSEK4jklpc)
 
+![enter image description here](https://lh3.googleusercontent.com/QtqN-LZRmrTNIrLEy0qUq0aT5tCa5jNv4RmOi5lnqQnQJ9f9Won5GUVk41gLz5b8ZeMtoQgV2Xh0)
+
+![enter image description here](https://lh3.googleusercontent.com/k_OkqjacpH3p3NTfLVNs06D_RpPfui8PaPtGcHDTvUAoldoYntpDBaC4QovZu3S63U1pknEyFhoa)
+
+![enter image description here](https://lh3.googleusercontent.com/0Npt2c9MTgDm4dkZTfO4lewZgZvfnbgixOK3laNX4JV0d-StPcpy-DXbmS3jSjDcmIWvFvvLJ0DQ)
+
+![enter image description here](https://lh3.googleusercontent.com/5y89gCgIMo2d2BVlw73LsaW7tRVkJcdxKHGbCZEK2nNDBiefX1PFA0shkCsFSPvxVRmKh6Gc1oy5)
+
+![enter image description here](https://lh3.googleusercontent.com/7-ap56y_klM0c-HUVSEhqIuV4g5lFYwQe1x9C1ucxHfsSB03BfyQbtb9AEjlT4QUQFoETKoEndY0)
+
+![enter image description here](https://lh3.googleusercontent.com/zUfsEoA-rcEYQQCNGX6jdPOHYGFQ3za_qMHNJQmZEj6cMuINA66ApJ8UJ45giIRP2EdzB0F7NnF8)
+
+![enter image description here](https://lh3.googleusercontent.com/-FhJklDlIaXRFsG3FCr0Pm8uvDQPsfH_IklonW6UpoIfpWwZ0LKFCW1J2JUZGagbNUFfd4DDDn9l)
+
+![enter image description here](https://lh3.googleusercontent.com/b2AgnVPdxBK1xa5iMQPkbLcIbn_IBFPEHmCpjGAIIfQgjur5zYKHpLfGKwY_YC3R_NEcFfvAXV5F)
+
+We will discuss two different approaches:
  1. Adjacency List representation of graph
  2. Adjacency Matrix representation of graph
 
-Generally, we use Adjacency Matrix representation in case of Dense graph because it uses lesser space than the list representation, whereas we use Adjacency List representation in case of sparse graph.
+Generally, we use Adjacency Matrix representation in case of Dense graph because it uses lesser space than the list representation, whereas we use Adjacency List representation in the case of sparse graph.
 
+**Note:** **Minimum weight** represents the weight of a minimum weight edge observed so far in the algorithm, which is connected to a particular vertex.
 
-### Sparse Graphs - Adjacency list representation
+## Sparse Graphs - Adjacency list representation
 
-Here we need to use some data structure which finds us the minimum weighted edge from the explored edges. Do you know any of them?
+Here we are representing the graph using Adjacency list representation.
 
-We can use priority queue, red-black trees, fibonacci heaps, binomial heap, etc. These are the data structures which can do this operation efficiently.
+**Implementation Algorithm**
+
+ 1. Initialize a boolean array which keeps track of, whether a vertex is added in the tree.
+ 2. Initialize an array of integers say $\text{Minweight[]}$, where each entry of it shows the minimum weight, by $\infty$.
+ 3. Start from any vertex say $A$. Mark the weight of the minimum weight edge to reach it as $0$.
+ 4. Explore all of the edges connected with $A$ and update the minimum weights to reach the adjacent vertices, if the below condition is satisfied,
+For an edge $A\to B$,
+$\text{Minweight}[B] < \text{EdgeWeight}(A,B)$
+	Note that we are only looking for those adjacent vertices which are not already in the tree.
+ 5. Find the minimum weight edge from all the explored edges and repeat from step $4$. Say that edge is $a - b$, then take $V$ as $b$ and repeat from step $4$.
+ 6. If all the $|V|$ vertices are added in the tree, then stop the algorithm.
+
+Can you tell, how we will do the step 5, which is to find the minimum weight edge from all the exlpored edges?
+
+Here, we need to use some data structure which finds out the minimum weight edge from all the explored edges efficiently.
+
+Do you know any of them?
+
+We can use anyone of priority queue, fibonacci heap, binomial heap, balanced binary tree, etc.
+
+**Note:** Below in the code, the parent array is used to retrieve the formed MST and **set** (STL container) is a kind of balanced binary search tree.
+
 
 ```c++
 #include <bits/stdc++.h>
@@ -58,7 +102,8 @@ int main()
 	// To track if the vertex is added in MST
 	vector<bool> inMST(no_vertices+1);
 	
-	vector<int> minWeight(no_vertices+1, MAX_Weight);
+	vector<int> minWeight(no_vertices+1, MAX_Weight),
+				parent(no_vertices+1);
 	
 	// Minimum finding(logN) DS
 	set<pair<int,int>> Explored_edges;
@@ -71,16 +116,11 @@ int main()
 	int VertinMST = 0, MSTcost = 0;
 	
 	minWeight[1] = 0;
+	parent[1] = -1;
 	
 	while(VertinMST < no_vertices)
-	{
-		if(Explored_edges.empty())
-		{
-			cout << "There is no MST" << endl;
-			break;
-		}
-		
-		// vertex connected by Minimum weighted edge
+	{		
+		// Vertex connected by Minimum weight edge
 		int vertex = Explored_edges.begin()->second;
 		
 		MSTcost += minWeight[vertex];
@@ -96,12 +136,13 @@ int main()
 			// If we reach by lesser weighted edge then update
 			if(!inMST[i.first] && minWeight[i.first] > i.second)
 			{
-				// Previous more weighted edge
+				// Previous larger weighted edge
 				Explored_edges.erase({minWeight[i.first],i.first});
 				
 				minWeight[i.first] = i.second;
+				parent[i.first] = vertex;
 				
-				// New min. weighted edge
+				// New smaller weighted edge
 				Explored_edges.insert({minWeight[i.first],i.first});
 			}
 		}
@@ -110,21 +151,31 @@ int main()
 	
 	cout << MSTcost << endl;
 	
+	cout << "Edges in MST:" << endl;
+	for(int i = 1; i <= no_vertices; i++)
+	{
+		if(parent[i] != -1)
+		cout << parent[i] << " " << i << endl;
+	}
+	
 	return 0;
 }
 ```
 
 **Time Complexity**
 
- 1. We need $\mathcal{O}(log|V|)$ time to find minimum weighted edge and we are doing this step $\mathcal{O}(|E|)$ times.
+ 1. We need $\mathcal{O}(log|V|)$ time to find the minimum weight edge.
+ 2. We are doing the above step $\mathcal{O}(|E|+|V|)$ times, which is similar to BFS.
 
-	Overall time complexity: $\mathcal{O}(|E|log|V|)$
+	Overall time complexity: $\mathcal{O}((|E|+|V|)log|V|)$
 
-### Dense Graphs - Adjacency matrix representation
+## Dense Graphs - Adjacency matrix representation
 
-In adjacency matrix representation, we have to traverse all $|V|$ entries to find and update the minimum weights.
+Here, to loop over the adjacent vertices, we have to loop over all |V| entries of the adjacency matrix.
 
-The implementation is much simpler then the previous one.
+So, basically to update minimum weights we have to spend $O(|V|)$ time. And also to find the minimum weight edge we have to spend $O(|V|)$ time.
+
+The implementation is much simpler than the previous one.
 
 ```c++
 #include <bits/stdc++.h>
@@ -153,8 +204,11 @@ int main()
 	
 	int VertinMST = 0, MSTcost = 0;
 	
-	vector<int> minWeight(no_vertices + 1, MAX_Weight);
+	vector<int> minWeight(no_vertices + 1, MAX_Weight),
+				parent(no_vertices + 1);
+				
 	minWeight[1] = 0;
+	parent[1] = -1;
 	
 	for(int i=1; i<=no_vertices; i++)
 	{
@@ -174,23 +228,34 @@ int main()
 		// Update the min weights
 		for(int j=1;j<=no_vertices;j++)
 			if(!inMST[j] && graph[minvertex][j] < minWeight[j])
+			{
 				minWeight[j] = graph[minvertex][j];
+				parent[j] = minvertex;
+			}
 		
 	}
 	
 	cout << MSTcost << endl;
 	
+	cout << "Edges in MST:" << endl;
+	for(int i = 1; i <= no_vertices; i++)
+	{
+		if(parent[i] != -1)
+		cout << parent[i] << " " << i << endl;
+	}	
+	
 	return 0;
 }
-```
-**Time Complexity**
 
- 1. It takes $\mathcal{O}(|V|)$ time to find the minimum weighted edge connected vertex.
- 2. $\mathcal{O}(|V|)$ time to update the minimum weights.
+```
+### Time Complexity
+
+ 1. It takes $\mathcal{O}(|V|)$ time to find the minimum weight edge and also to update the minimum weights.
+ 2. The outer loop runs $|V|$ times.
 
 	Overall time complexity: $\mathcal{O}(|V|^2)$
 
-**Other algorithms to find MST**
+### Other algorithms to find MST
 
  1. Kruskal's Algorithm
  2. Boruvka's Algorithm
