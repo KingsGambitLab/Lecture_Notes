@@ -48,8 +48,10 @@ One thing to notice is that, once the shortest distance for a vertex is found, w
  4. In the recursive function, suppose you are starting from a vertex $v$, then move backward over the incoming edges to the vertex $v$.
 	![enter image description here](https://lh3.googleusercontent.com/onE03fJDK7zzaXlGFcqQcx240bvuxKcIEoA3RbIJZ690tShQfJW0CGbxnCamgmUeVKHoIvNuouQi)
 	
-	Say $u_1, u_2, \ldots , u_n$ are the vertices we reached by moving backward over the edges.
+	In the image above $x$,$y$,$z$ are these vertices, we can reached by moving backward over the incoming edges to the vertex $v$. 
+	
  5. Now, we will do recursive call over all these vertices and find out the shortest distance to all of them first and update $distance[v]$ as below:
+	Say $u_1, u_2, \ldots , u_n$ are the vertices we reached by moving backward over the edges.
 $distance[v] = min(distance[v], ShortestDistance(u_i) + EdgeWeight(u_i,v) )$  $\forall i<=n$. 
 
 	**Note:** Stop the recursion at the source vertex, which is a base case.
