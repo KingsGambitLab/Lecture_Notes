@@ -177,11 +177,11 @@ int main()
 
 How can we do bottom-up dynamic programming to solve the SSSP problem?
 
-Where to start the bottom-up dp? Can we start it at any random vertex? No, We cannot. Right? Now the thing is that, we have to order the vertices in some order, such that before reaching to a particular vertex(say $v$), we must have found the shortest distances to all the vertices which are putting an incoming edge over $v$.
+Where to start the bottom-up dp? Can we start it at any random vertex? No, We cannot. Right? Now the thing is that, we have to order the vertices in some order, such that before reaching to a particular vertex(say $v$), we must have found the shortest distances to all the vertices, which are putting an incoming edge over $v$.
 
 Are you familiar with this kind of ordering of vertices? It is **"Topological ordering"**. Topological ordering ensures that we will process vertices in the required manner.
 
-The key here is that, we will order the vertices using topological sort first and then process them one by one in the order. Let's see the algorithm.
+Let's see the algorithm.
 
 ### Algorithm
 
