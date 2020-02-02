@@ -96,8 +96,8 @@ void Topological_sort(int no_vertices, vector<vector<int> > &graph)
 	
 	vector<int> indegrees(no_vertices + 1);
 	
-	for(int i = 1; i <= graph.size(); i++)
-		for(int j = 0; j < graph[j].size(); j++)
+	for(int i = 1; i < graph.size(); i++)
+		for(int j = 0; j < graph[i].size(); j++)
 			indegrees[graph[i][j]]++;
 	
 	
