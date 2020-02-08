@@ -92,7 +92,7 @@ More formally, $[abc]$ is basically either $a$ or $b$ or $c$.
 Predict the output of the following:
 
 1. **RegEx code:** ```[ABC][12]```
-**Text:** A1 grade is the best, but I scored A2.
+   **Text:** A1 grade is the best, but I scored A2.
 
 Answer:
 
@@ -100,7 +100,7 @@ Answer:
 
 
 2. **RegEx code:** ```[0123456789][12345]:[abcdef][67890]:[0123456789][67890]:[1234589][abcdef]```
-**Text:** Let's match 14:f6:89:3c mac address type of pattern. Other patterns are 51:a6:90:c5, 44:t6:u9:3d, 72:c8:39:8e.
+   **Text:** Let's match 14:f6:89:3c mac address type of pattern. Other patterns are 51:a6:90:c5, 44:t6:u9:3d, 72:c8:39:8e.
 
 Answer:
 
@@ -112,7 +112,7 @@ Now, if we put **^**, then it will show a match for characters other than the on
 
 Predict the output for the following:
 
- **RegEx code:** ```[^13579]A[^abc]z3[590*-]```
+**RegEx code:** ```[^13579]A[^abc]z3[590*-]```
 **Text:** 1Abz33 will match or 2Atz30 and 8Adz3*.
 
 Answer:
@@ -129,7 +129,7 @@ Ranges makes our work easier. Consecutive characters can simply be replaced by p
 
 Predict the output of the following regex:
 
- **RegEx code:** ```[a-d][^l-o][12][^5-7][l-p]```
+**RegEx code:** ```[a-d][^l-o][12][^5-7][l-p]```
 **Text:** co13i, ae14p, eo30p, ce33l, dd14l.
 
 Answer:
