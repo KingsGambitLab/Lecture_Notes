@@ -273,7 +273,7 @@ Predict the output of the following regex:
 
 **Note:**  Now you may be thinking, what if we want to match characters like ***, ?, +, {, },** etc in the text. We will look at it shortly. Keep reading!
 
-## Word Boundary Matchers
+## Boundary Matchers
 
 Now, we will learn how to match pattern at specific positions, like before, after or between some characters. For this purpose we use special characters like `^`,`$`,`\b & \B`,`\A`,`\z & \Z`, which are known as anchors.
 
@@ -319,7 +319,7 @@ Example using both `^` and `$`:
 
 
 
-**Note:** **`\A` and `\z & \Z` are another anchors which are used to match at very start of input text and at very end of input text respectively. But it is not supported in Javascript.
+**Note:** `\A` and `\z & \Z` are another anchors which are used to match at very start of input text and at very end of input text respectively. But it is not supported in Javascript.
 
 Predict the output of the following regex:
 
@@ -358,7 +358,7 @@ Similarly, you can use other quantifiers.
 	var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
 
 	//                ^       ^       ^
-	//group-no:		  1       2       3
+	//group-no:	  1       2       3
 
 	var result = pattern.exec(str);
 
@@ -388,7 +388,7 @@ Similarly, you can use other quantifiers.
 	var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
 
 	//                ^       ^       ^
-	//group-no:		  1       2       3
+	//group-no:	  1       2       3
 
 	// Data replacement
 	var ans=str.replace(pattern, '$3-$2-$1');
