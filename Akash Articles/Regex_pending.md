@@ -1,3 +1,4 @@
+
 ## Regular Expression (RegEx)
 
 While filling online forms, haven't you come across errors like "Please enter valid email address" or "Please enter valid phone number".
@@ -5,13 +6,12 @@ While filling online forms, haven't you come across errors like "Please enter va
 Annoying as they may be, there's a lot of black magic that the computer does before it determines that, the details you've entered are incorrect.
 
 Can you think out, what is that black magic? If you are familar with algorithms, then you will say, we can write an algorithm for the same. 
-Yes, we can write an algorithm to verify different things. 
 
-But we have a standard tool which is particularly designed for the similar kind of purposes. 
+Yes, we can write an algorithm to verify different things. But we have a standard tool which is particularly designed for the similar kind of purposes. 
 
 It is **Regular Expression**. We call it **RegEx** for short. RegEx makes our work a lot easier. Let's see some basic examples where RegEx becomes handy.
 
-Suppose, you are in search of an averge price of a particular product on amazon. The following regular expression will find you any price($12, $75.50) on the webpage: `\$([0-9]+)\.([0-9]+)`.
+Suppose, you are in search of an averge price of a particular product on amazon. The following regular expression will find you any price(\$12, \$75.50) on the webpage: `\$([0-9]+)\.([0-9]+)`.
 
 Quite interesting!
 
@@ -42,7 +42,7 @@ Simple matching of a specific word can be done as the following:
 
 ![enter image description here](https://lh3.googleusercontent.com/YGfz9u58rRKD0ABrSKDv7ZJOEMaIMGdFWgJWGGNzCFNakCtfAZVk1UEm7mBS4lIX1LFXoV420cmY=s1600)
 
-As you can see it matches "Reg" in the text. Similarly, what will be the match for pattern **"Ex"** in the same text above?
+As you can see it matches "Reg" in the text. Similarly, what will be the match for "Ex" in the same text above?
 
 ![enter image description here](https://lh3.googleusercontent.com/LkJXO79wn08dvgX5Q2JXHtyN7MW38AeNdV7fjG6lk7MNsiamx9iOekEGQg-WS9OLQMWxBuspjSkh=s1600)
 
@@ -97,9 +97,9 @@ What if you want to match both "soon" and "moon" or basically words ending with 
 
 ![enter image description here](https://lh3.googleusercontent.com/bsRHqYuPZIQ7Yra4-zyF1BX2pIYDukCEtTfCK3rjaCTRmTAuo_fuHTVK5sJjbTdbXjGTVq1z5eYc=s1600)
 
-What did you observe? You can see that adding $[sm]$ matches both $soon$ and $moon$. Here $[sm]$ is called character class, which is basically a list of characters we want to match.
+What did you observe? You can see that adding `[sm]` matches both $soon$ and $moon$. Here `[sm]` is called character class, which is basically a list of characters we want to match.
 
-More formally, $[abc]$ is basically either $a$ or $b$ or $c$.
+More formally, `[abc]` is basically either `a` or `b` or `c`.
 
 Predict the output of the following:
 
@@ -118,7 +118,7 @@ Answer:
 
 ![enter image description here](https://lh3.googleusercontent.com/d2ynsBn5p8gIzvQeKewe8VrPiEu0EyOoNiEBkj_Co8fq_12FKhWK81V1Rcc2YCs3or9d4sCbuGtA=s1600)
 
-Now, if we put **^**, then it will show a match for characters other than the ones in the bracket.
+Now, if we put `^`, then it will show a match for characters other than the ones in the bracket.
 
 ![soon moon noon woon](https://lh3.googleusercontent.com/rj-zgBEZ7Fdv6rckQgHC90L_j7y1X7jj8veTZQoOKGQ2RSiEHPxPeSZUZoJE9yLW-o2dvXj6OI1j=s1600)
 
@@ -132,7 +132,7 @@ Answer:
 ![enter image description here](https://lh3.googleusercontent.com/BXaE8cxW7PcMJcfoUTlY-xBm9qNuhB5isy-PDLS5hIqQGIdRWiUf4viVxHF5yn5DJ0wHtoqHYKmP=s1600)
 
 
-Writing every characters(like $[0123456789]$ or [abcd]) is some what slow and also errorneous, what is the short-cut?
+Writing every characters(like `[0123456789]` or `[abcd]`) is some what slow and also errorneous, what is the short-cut?
 
 ## Ranges
 Ranges makes our work easier. Consecutive characters can simply be replaced by putting a dash between the first and last character.
@@ -160,25 +160,25 @@ Answer:
 
 ## Predefined Character Classes
 
- 1. **\w & \W**: '**\w**' is just a short form of a character class [A-Za-Z0-9_].
+ 1. **`\w` & `\W`**: `\w` is just a short form of a character class `[A-Za-Z0-9_]`.
 
 	![enter image description here](https://lh3.googleusercontent.com/UzEtYLNxnrtpDgOIW1N9SeyJ5Nyeh51hHIb516CwPOJutVSkWQZpcDfo09lSXmGzDMxDgtoikJAU=s1600)
-	\W is equivalent to ``[^\w]``.
+	`\W` is equivalent to ``[^\w]``.
 ![enter image description here](https://lh3.googleusercontent.com/cKEXAPheBxESGkBoe8zOONJP3REvaTUhYs4FPkPizMU4t-v2_enG-9Jk8tgF-HX6Wxrn0jQATBes=s1600)
 
 	
- 2. **\d & \D**: '**\d**' matches any digit character. It is equivalent to character class [0-9].
+ 2. **`\d` & `\D`**: `\d` matches any digit character. It is equivalent to character class `[0-9]`.
 
 	![enter image description here](https://lh3.googleusercontent.com/Q1WTXPIBFR0fCJ7QT5jdU_XummS39Jqzi96l1g_ijg-LA4hoSLf05pscFT32lW-39yEPC5uDP-V_=s1600)
-	\D is equivalent to ``[^\d]``.
+	`\D` is equivalent to ``[^\d]``.
 ![enter image description here](https://lh3.googleusercontent.com/JWIIzBQOIqi7lPIkrveW6h_gL1C5sWd_0cNGCswkBxRGoNKDB9ZKN4Zwd21BdEmfuluuzu-THYpc=s1600)
-3. **\s & \S**: '**\s**' matches white space characters. Tab('**\t**'), newline('**\n**') & space(' ') are whitespace characters.
+3. **`\s` & `\S`**: `\s` matches white space characters. Tab(`\t`), newline(`\n`) & space(` `) are whitespace characters.
 	![enter image description here](https://lh3.googleusercontent.com/LbokzFHfw58rfmDUlcVoktdYHZtbWi76ddM-6-qyTiNVnk4s0Ea9KfC1KHRJkjTvDYRnbKXprkPr=s1600)
 
-	Similarly, \S is equivalent to ``[^\s]``.
+	Similarly, `\S` is equivalent to ``[^\s]``.
 ![enter image description here](https://lh3.googleusercontent.com/Vp2QdnqK-WOhuZaCZW82IBVNCPmVC--O2te2XzXKqCKwZJe4FKoJVHlzevhBgNfUSzF-34FcZFof=s1600)
 	
- 4. **dot(.)**: Dot matches any character except **\n**(line break or new line character) and **\r**(carriage-return character). It is known as **wildcard matching**.
+ 4. **dot(`.`)**: Dot matches any character except `\n`(line break or new line character) and `\r`(carriage-return character). It is known as **wildcard matching**.
 
 	![enter image description here](https://lh3.googleusercontent.com/jwBp2XH1lL9ZRu_wASyTYsD03p81_3DIRjfHWtH5cA3jpSDuGfmE3P5A0RIhSfbrusmoV8w1D9k1=s1600)
 
@@ -190,8 +190,9 @@ Predict the output of the following regex:
 	**Text:** Binary to decimal data: 001- 1, 010- 2, 011- 3, a01- 4, 100- 4.
 Answer: 
 ![enter image description here](https://lh3.googleusercontent.com/YzmmRMcSqjhJPHthh_MwLnGldVl4nYR86Bb83viXeT2SM0koPmFjFKOathYXxxLyLKSz96Gkigcl=s1600)
-2. **RegEx code:** ``[01][01][0-1]\W\s\d``
-	**Text:** Binary to decimal data:
+2. **RegEx code:**
+**Text:**
+
 
 ## Alternation (OR operator)
 
@@ -219,12 +220,16 @@ Can you observe anything from it?
 **OR operator** tries to match starting from the first word(in the expression), if it is a match, then it will not try to match next word(in the expression) at the same place in text.
 
 Predict the output of the following regex:
-1. 
-2. 
+1. **RegEx code:**
+**Text:**
+
+2. **RegEx code:**
+**Text:**
+
 
 ## Quantifiers (Repetition)
 
-We have seen that to match 3 digit patterns we can use ``[0-9][0-9][0-9]``. What if we have n digit patterns? We have to write [0-9] n times, but that is really waste of time. Here is when quantifiers comes for help.
+We have seen that to match 3 digit patterns we can use ``[0-9][0-9][0-9]``. What if we have n digit patterns? We have to write `[0-9]` n times, but that is really waste of time. Here is when quantifiers comes for help.
 
  1. **Limiting repetitions(``{min, max}``):** To match n digit pattern we can simply write ``[0-9]{n}``. Instead of ``{n}`` by providing minimum and maximum values as ``[0-9]{min, max}``, we can match a pattern repeating min to max times.
 
@@ -246,7 +251,9 @@ Let's
 ![enter image description here](https://lh3.googleusercontent.com/YBbsvb14Aoje2CB32deP6kszaZ0OcUWThaK71y5RZ7q6eqQ8H4EkL8XzZOB9IoSKB_Tav37lE__W=s1600)
 
 **Nature of Quantifiers:**
-HTML tag is represented as <tag_name>some text</tag_name>. So can you figure out a pattern that will match both <tag_name> and </tag_name>?
+HTML tag is represented as <tag_name>some text</tag_name>. For example, <title>Regular expression</title>
+
+So can you figure out an expression that will match both <tag_name> & </tag_name>?
 
 Most of the people will say, it is `<.*>`. But it gives different result.
 ![enter image description here](https://lh3.googleusercontent.com/dYECtAiwn0dWJwY0K8gzb6U_vrzoihid1bgJxEvHA3G64Wm49dM5BVl5V41AHb3D1MxQ_t1MNXhh=s1600)
@@ -257,8 +264,12 @@ To make it lazy, we use `?` quantifier. That stops the regex engine going furthe
 
 
 Predict the output of the following regex:
-1. 
-2. 
+1. **RegEx code:**
+**Text:**
+
+2. **RegEx code:**
+**Text:**
+
 
 **Note:**  Now you may be thinking, what if we want to match characters like ***, ?, +, {, },** etc in the text. We will look at it shortly. Keep reading!
 
@@ -312,8 +323,12 @@ Example using both `^` and `$`:
 
 Predict the output of the following regex:
 
-1.
-2.
+1. **RegEx code:**
+**Text:**
+
+2. **RegEx code:**
+**Text:**
+
 
 ## Groups & Capturing
 
@@ -330,7 +345,7 @@ Suppose we want to match both the sentences, then grouping is the inevitable thi
 ![enter image description here](https://lh3.googleusercontent.com/cSn7JesNbcMaaXb_tFi1ymMlKtZxe7G09jROJtWuu7kPvUmAGOU_CDiVp9k0NQ8FuCistLgW4vUg=s1600)
 Similarly, you can use other quantifiers.
 
-3. To extract and replace substrings using groups. So we call groups **Capturing groups** becuase we are capturing data(substrings) using groups.
+3. To extract and replace substrings using groups. So we call groups **Capturing groups**, becuase we are capturing data(substrings) using groups.
 
 	In this part we will see how to extract and replace data using groups in Javascript.
 
@@ -365,6 +380,7 @@ Similarly, you can use other quantifiers.
 	console.log(result[3]);	// Third group
 	```
 	`Replace` is another function which is used to replace and rearrange the data using groups.
+	
 	```js
 	var str = "2020-01-20";
 
@@ -382,8 +398,12 @@ Similarly, you can use other quantifiers.
 	```
 
 	Predict the output of the following regex:
-	1. 
-	2. 
+	1. **RegEx code:**
+**Text:**
+
+	2. **RegEx code:**
+**Text:**
+
 
 ## Characters with special meaning
 
@@ -395,7 +415,7 @@ Below is the table for these kind of characters and their escaped version, along
 |:---------:|:---------------------------:|:---------------:|
 |     \     |       escape character      |        \\\       |
 |     .     |  predefined character class |        \\.       |
-|     \|     |         OR operator         |        \\\|       |
+|     \|     |         OR operator         |        \\\		 |       
 |    *      |        as quantifier        |        \\*       |
 |     +     |        as quantifier        |        \\+       |
 |     ?     |        as quantifier        |        \\?       |
@@ -408,7 +428,7 @@ Below is the table for these kind of characters and their escaped version, along
 |    (      |      in group notation      |        \\(       |
 |    )      |      in group notation      |        \\)       |
 
-Sometimes, it is also preferred to use escaped forward slash(/).
+Sometimes, it is also preferred to use escaped forward slash(`/`).
 
 
 ## Backreferencing
@@ -417,7 +437,7 @@ Backreferencing is used to match same text again. Backreferences match the same 
 
 ![enter image description here](https://lh3.googleusercontent.com/VrwREOtqL_b2IPbzM2qJQVAiP9Q8XWoAny41UodrLlEzWBxUbOJZ3WTvR7T0b-9zHn7iOqN8op3l=s1600)
 
-The first captured group is (\w+), now we can use this group again by using a backreference (\1), at the closing tag, which matches the same text as in captured group \w+. 
+The first captured group is (`\w+`), now we can use this group again by using a backreference (`\1`), at the closing tag, which matches the same text as in captured group `\w+`. 
 
 You can use backreferencing for any captured group as \group_no. 
 
@@ -426,8 +446,12 @@ Let's have one more example:
 ![enter image description here](https://lh3.googleusercontent.com/Wx30vdBz2zif4zqMt1P6rJIh9b3NBOWz0XMzGZR50gU5n8p4sxhtCRWYl1j5hWYfJpI6jC5VEDEX=s1600)
 
 Predict the output of the following regex:
-1. 
-2. 
+1. **RegEx code:**
+**Text:**
+
+2. **RegEx code:**
+**Text:**
+
 
 
 
