@@ -46,183 +46,183 @@
 	<body>
 		
 
-			<h2 id="characterclasses">Character classes:</h2>
+		<h2 id="characterclasses">Character classes:</h2>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtj8" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtj8" class="embed"></iframe>
+		</div>
 
-			<p>What if you want to match both "soon" and "moon" or basically words ending with "oon"?</p>
+		<p>What if you want to match both "soon" and "moon" or basically words ending with "oon"?</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtjb" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtjb" class="embed"></iframe>
+		</div>
 
-			<p>What did you observe? You can see that, adding <code>[sm]</code> matches both $soon$ and $moon$. Here <code>[sm]</code> is called character class, which is basically a list of characters we want to match.</p>
+		<p>What did you observe? You can see that, adding <code>[sm]</code> matches both $soon$ and $moon$. Here <code>[sm]</code> is called character class, which is basically a list of characters we want to match.</p>
 
-			<p>More formally, <code>[abc]</code> is basically 'either a or b or c'.</p>
+		<p>More formally, <code>[abc]</code> is basically 'either a or b or c'.</p>
 
-			<p>Predict the output of the following:</p>
+		<p>Predict the output of the following:</p>
 
-			<ol>
-			<li><p><strong>RegEx:</strong> <code>[ABC][12]</code> <br>
-			<strong>Text</strong>: A1 grade is the best, but I scored A2.</p>
+		<ol>
+		<li><p><strong>RegEx:</strong> <code>[ABC][12]</code> <br>
+		<strong>Text</strong>: A1 grade is the best, but I scored A2.</p>
 
-			<p>Answer:</p>
+		<p>Answer:</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtk3" class="embed"></iframe>
-			</div></li>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtk3" class="embed"></iframe>
+		</div></li>
 
-			<li><p><strong>RegEx:</strong> <code>[0123456789][12345]:[abcdef][67890]:[0123456789][67890]:[1234589][abcdef]</code><br>
-			<strong>Text</strong>: Let's match 14:f6:89:3c mac address type of pattern. Other patterns are 51:a6:90:c5, 44:t6:u9:3d, 72:c8:39:8e.</p>
+		<li><p><strong>RegEx:</strong> <code>[0123456789][12345]:[abcdef][67890]:[0123456789][67890]:[1234589][abcdef]</code><br>
+		<strong>Text</strong>: Let's match 14:f6:89:3c mac address type of pattern. Other patterns are 51:a6:90:c5, 44:t6:u9:3d, 72:c8:39:8e.</p>
 
-			<p>Answer:</p>
+		<p>Answer:</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtkf" class="embed"></iframe>
-			</div></li>
-			</ol>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtkf" class="embed"></iframe>
+		</div></li>
+		</ol>
 
-			<h3 id="negation">Negation</h3>
+		<h3 id="negation">Negation</h3>
 
-			<p>Now, if we put <code>^</code>, then it will show a match for characters other than the ones in the bracket.</p>
+		<p>Now, if we put <code>^</code>, then it will show a match for characters other than the ones in the bracket.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtl1" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtl1" class="embed"></iframe>
+		</div>
 
-			<p>Predict the output for the following:</p>
+		<p>Predict the output for the following:</p>
 
-			<p><strong>RegEx:</strong> <code>[^13579]A[^abc]z3[590*-]</code>
-			<br> <strong>Text</strong>: 1Abz33 will match or 2Atz30 and 8Adz3*.</p>
+		<p><strong>RegEx:</strong> <code>[^13579]A[^abc]z3[590*-]</code>
+		<br> <strong>Text</strong>: 1Abz33 will match or 2Atz30 and 8Adz3*.</p>
 
-			<p>Answer:</p>
+		<p>Answer:</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtl7" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtl7" class="embed"></iframe>
+		</div>
 
-			<p>Writing every character (like <code>[0123456789]</code> or <code>[abcd]</code>) is somewhat slow and also erroneous, what is the short-cut?</p>
+		<p>Writing every character (like <code>[0123456789]</code> or <code>[abcd]</code>) is somewhat slow and also erroneous, what is the short-cut?</p>
 
-			<h2 id="ranges">Ranges</h2>
+		<h2 id="ranges">Ranges</h2>
 
-			<p>Ranges make our work easier. Consecutive characters can be included in a character class using the dash operator, for example, numbers from 0 to 9 can be simply written as 0-9. Similarly, <code>abcdef</code> can be replaced by <code>a-f</code>.</p>
+		<p>Ranges make our work easier. Consecutive characters can be included in a character class using the dash operator, for example, numbers from 0 to 9 can be simply written as 0-9. Similarly, <code>abcdef</code> can be replaced by <code>a-f</code>.</p>
 
-			<p>Examples: <code>456</code> --> <code>4-6</code>, <code>abc3456</code> --> <code>a-c3-6</code>, <code>c367980</code> --> <code>c36-90</code>.</p>
+		<p>Examples: <code>456</code> --> <code>4-6</code>, <code>abc3456</code> --> <code>a-c3-6</code>, <code>c367980</code> --> <code>c36-90</code>.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtld" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtld" class="embed"></iframe>
+		</div>
 
-			<p>Predict the output of the following regex:</p>
+		<p>Predict the output of the following regex:</p>
 
-			<ol>
-			<li><p><strong>RegEx:</strong> <code>[a-d][^l-o][12][^5-7][l-p]</code>
-			<br> <strong>Text</strong>: co13i, ae14p, eo30p, ce33l, dd14l.</p>
+		<ol>
+		<li><p><strong>RegEx:</strong> <code>[a-d][^l-o][12][^5-7][l-p]</code>
+		<br> <strong>Text</strong>: co13i, ae14p, eo30p, ce33l, dd14l.</p>
 
-			<p>Answer:
-			    <div class="container"></p>
+		<p>Answer:
+		    <div class="container"></p>
 
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtlj" class="embed"></iframe>
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtlj" class="embed"></iframe>
 
-			<p></div></p></li>
-			</ol>
+		<p></div></p></li>
+		</ol>
 
-			<p><strong>Note:</strong> If you write the range in reverse order (ex. 9-0), then it is an error.</p>
+		<p><strong>Note:</strong> If you write the range in reverse order (ex. 9-0), then it is an error.</p>
 
-			<ol>
-			<li><strong>RegEx:</strong> <code>[a-zB-D934][A-Zab0-9]</code><br>
-			<strong>Text:</strong> t9, da, A9, zZ, 99, 3D, aCvcC9.
-			Answer: 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtlm" class="embed"></iframe>
-			</div></li>
-			</ol>
+		<ol>
+		<li><strong>RegEx:</strong> <code>[a-zB-D934][A-Zab0-9]</code><br>
+		<strong>Text:</strong> t9, da, A9, zZ, 99, 3D, aCvcC9.
+		Answer: 
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtlm" class="embed"></iframe>
+		</div></li>
+		</ol>
 
-			<h2 id="predefinedcharacterclasses">Predefined Character Classes</h2>
+		<h2 id="predefinedcharacterclasses">Predefined Character Classes</h2>
 
-			<ol>
-			<li><p><strong><code>\w</code> &amp; <code>\W</code></strong>: <code>\w</code> is just a short form of a character class <code>[A-Za-Z0-9_]</code>. <code>\w</code> is called word character class.</p>
+		<ol>
+		<li><p><strong><code>\w</code> &amp; <code>\W</code></strong>: <code>\w</code> is just a short form of a character class <code>[A-Za-Z0-9_]</code>. <code>\w</code> is called word character class.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtls" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtls" class="embed"></iframe>
+		</div>
 
-			<p><code>\W</code> is equivalent to <code>[^\w]</code>. <code>\W</code> matches everything other than word characters.</p>
+		<p><code>\W</code> is equivalent to <code>[^\w]</code>. <code>\W</code> matches everything other than word characters.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtm2" class="embed"></iframe>
-			</div></li>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtm2" class="embed"></iframe>
+		</div></li>
 
-			<li><p><strong><code>\d</code> &amp; <code>\D</code></strong>: <code>\d</code> matches any digit character. It is equivalent to character class <code>[0-9]</code>.</p>
+		<li><p><strong><code>\d</code> &amp; <code>\D</code></strong>: <code>\d</code> matches any digit character. It is equivalent to character class <code>[0-9]</code>.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtm5" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtm5" class="embed"></iframe>
+		</div>
 
-			<p><code>\D</code> is equivalent to <code>[^\d]</code>. <code>\D</code> matches everything other than digits.</p>
+		<p><code>\D</code> is equivalent to <code>[^\d]</code>. <code>\D</code> matches everything other than digits.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmk" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmk" class="embed"></iframe>
+		</div>
 
-			<ol>
-			<li><strong><code>\s</code> &amp; <code>\S</code></strong>: <code>\s</code> matches whitespace characters. Tab(<code>\t</code>), newline(<code>\n</code>) &amp; space(<code></code>) are whitespace characters. These characters are called non-printable characters.</li></ol>
+		<ol>
+		<li><strong><code>\s</code> &amp; <code>\S</code></strong>: <code>\s</code> matches whitespace characters. Tab(<code>\t</code>), newline(<code>\n</code>) &amp; space(<code></code>) are whitespace characters. These characters are called non-printable characters.</li></ol>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmn" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmn" class="embed"></iframe>
+		</div>
 
-			<p>Similarly, <code>\S</code> is equivalent to <code>[^\s]</code>. <code>\S</code> matches everything other than whitespace characters.</p>
+		<p>Similarly, <code>\S</code> is equivalent to <code>[^\s]</code>. <code>\S</code> matches everything other than whitespace characters.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmq" class="embed"></iframe>
-			</div></li>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmq" class="embed"></iframe>
+		</div></li>
 
-			<li><p><strong>dot(<code>.</code>)</strong>: Dot matches any character except <code>\n</code>(line-break or new-line character) and <code>\r</code>(carriage-return character). Dot(<code>.</code>) is known as a <strong>wildcard</strong>.</p>
+		<li><p><strong>dot(<code>.</code>)</strong>: Dot matches any character except <code>\n</code>(line-break or new-line character) and <code>\r</code>(carriage-return character). Dot(<code>.</code>) is known as a <strong>wildcard</strong>.</p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmt" class="embed"></iframe>
-			</div></li>
-			</ol>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmt" class="embed"></iframe>
+		</div></li>
+		</ol>
 
-			<p><strong>Note:</strong> <code>\r</code> is known as a windows style new-line character.</p>
+		<p><strong>Note:</strong> <code>\r</code> is known as a windows style new-line character.</p>
 
-			<p>Predict the output of the following regex:</p>
+		<p>Predict the output of the following regex:</p>
 
-			<ol>
-			<li><p><strong>RegEx:</strong> <code>[01][01][0-1]\W\s\d</code>
-			<br> <strong>Text</strong>: Binary to decimal data: 001- 1, 010- 2, 011- 3, a01- 4, 100- 4.</p>
+		<ol>
+		<li><p><strong>RegEx:</strong> <code>[01][01][0-1]\W\s\d</code>
+		<br> <strong>Text</strong>: Binary to decimal data: 001- 1, 010- 2, 011- 3, a01- 4, 100- 4.</p>
 
-			<p>Answer: </p>
+		<p>Answer: </p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn0" class="embed"></iframe>
-			</div></li>
-			</ol>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn0" class="embed"></iframe>
+		</div></li>
+		</ol>
 
-			<h3 id="problems">Problems</h3>
+		<h3 id="problems">Problems</h3>
 
-			<ol>
-			<li><p>Write a regex to match 28th February of any year. Date is in dd-mm-yyyy format.</p>
+		<ol>
+		<li><p>Write a regex to match 28th February of any year. Date is in dd-mm-yyyy format.</p>
 
-			<p>Answer: <code>28-02-\d\d\d\d</code></p>
+		<p>Answer: <code>28-02-\d\d\d\d</code></p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn3" class="embed"></iframe>
-			</div></li>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn3" class="embed"></iframe>
+		</div></li>
 
-			<li><p>Write a regex to match dates that are not in March. Consider that, the dates are valid and no proper format is given, i.e. it can be in dd.mm.yyyy, dd\mm\yyyy, dd/mm/yyyy format.</p>
+		<li><p>Write a regex to match dates that are not in March. Consider that, the dates are valid and no proper format is given, i.e. it can be in dd.mm.yyyy, dd\mm\yyyy, dd/mm/yyyy format.</p>
 
-			<p>Answer: <code>\d\d\W[10][^3]\W\d\d\d\d</code></p>
+		<p>Answer: <code>\d\d\W[10][^3]\W\d\d\d\d</code></p>
 
-			<div class="container">
-			<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn9" class="embed"></iframe>
-			</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn9" class="embed"></iframe>
+		</div>
 
-			<p>Note that, the above regex will also match dd-mm.yyyy or dd/mm\yyyy kind of wrong format, this problem can be solved by using backreferencing, which is a regex concept.</p></li>
-			</ol>
+		<p>Note that, the above regex will also match dd-mm.yyyy or dd/mm\yyyy kind of wrong format, this problem can be solved by using backreferencing, which is a regex concept.</p></li>
+		</ol>
 
 
 
