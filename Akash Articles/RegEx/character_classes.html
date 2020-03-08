@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -46,7 +47,7 @@
 	<body>
 		
 
-		<h2 id="characterclasses">Character classes:</h2>
+		<h2 id="characterclasses">Character classes</h2>
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtj8" class="embed"></iframe>
@@ -58,7 +59,7 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtjb" class="embed"></iframe>
 		</div>
 
-		<p>What did you observe? You can see that, adding <code>[sm]</code> matches both $soon$ and $moon$. Here <code>[sm]</code> is called character class, which is basically a list of characters we want to match.</p>
+		<p>What did you observe? You can see that, adding <code>[sm]</code> matches both "soon" and "moon". Here <code>[sm]</code> is called character class, which is basically a list of characters we want to match.</p>
 
 		<p>More formally, <code>[abc]</code> is basically 'either a or b or c'.</p>
 
@@ -122,17 +123,12 @@
 		<li><p><strong>RegEx:</strong> <code>[a-d][^l-o][12][^5-7][l-p]</code>
 		<br> <strong>Text</strong>: co13i, ae14p, eo30p, ce33l, dd14l.</p>
 
-		<p>Answer:
-		    <div class="container"></p>
-
+		<p>Answer:</p>
+		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtlj" class="embed"></iframe>
 
-		<p></div></p></li>
-		</ol>
-
-		<p><strong>Note:</strong> If you write the range in reverse order (ex. 9-0), then it is an error.</p>
-
-		<ol>
+		</div>
+		<p><strong>Note:</strong> If you write the range in reverse order (ex. 9-0), then it is an error.</p></li>
 		<li><strong>RegEx:</strong> <code>[a-zB-D934][A-Zab0-9]</code><br>
 		<strong>Text:</strong> t9, da, A9, zZ, 99, 3D, aCvcC9.
 		Answer: 
@@ -142,6 +138,8 @@
 		</ol>
 
 		<h2 id="predefinedcharacterclasses">Predefined Character Classes</h2>
+
+		<p>Some character classes are used so frequently that there are shorthand notations defined for them. Let's see one by one.</p>
 
 		<ol>
 		<li><p><strong><code>\w</code> &amp; <code>\W</code></strong>: <code>\w</code> is just a short form of a character class <code>[A-Za-Z0-9_]</code>. <code>\w</code> is called word character class.</p>
@@ -168,8 +166,7 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmk" class="embed"></iframe>
 		</div>
 
-		<ol>
-		<li><strong><code>\s</code> &amp; <code>\S</code></strong>: <code>\s</code> matches whitespace characters. Tab(<code>\t</code>), newline(<code>\n</code>) &amp; space(<code></code>) are whitespace characters. These characters are called non-printable characters.</li></ol>
+		<li><strong><code>\s</code> &amp; <code>\S</code></strong>: <code>\s</code> matches whitespace characters. Tab(<code>\t</code>), newline(<code>\n</code>) &amp; space(<code></code>) are whitespace characters. These characters are called non-printable characters.</li>
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtmn" class="embed"></iframe>
