@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -32,6 +33,22 @@
 			pre, code {
 				padding: 1em;
 			}
+
+
+			table {
+				border:1px solid black;
+			  border-collapse: collapse;
+			  min-width:60%;
+			}
+
+			th, td{	
+				border:1px solid black;
+				border-collapse: collapse;
+				text-align: center;
+			}
+
+			tr:nth-child(even) {background-color: #f2f2f2;}
+
 		</style>
 		<script>
 			document.addEventListener('readystatechange', event => {
@@ -75,12 +92,24 @@
 
 		<p>We can divide the range 0-255 into three ranges: 0-199, 200-249 &amp; 250-255. Now, creating an expression, for each of them independently, is easy.</p>
 
-		<pre><code>|   Range| RegEx |
-		|   :--:    |   :--:    |
-		| 0-199 | `[01][0-9][0-9]` |
-		| 200-249| `2[0-4][0-9]`|
-		| 250-255| `25[0-5]`|
-		</code></pre>
+		<table>
+		    <tr>
+		        <td>Range</td>
+		        <td>RegEx</td>
+		    </tr>
+		    <tr>
+		        <td>0-199</td>
+		        <td>[01][0-9][0-9]</td>
+		    </tr>	
+		    <tr>
+		        <td>200-249</td>
+		        <td>2[0-4][0-9]</td>
+		    </tr>
+		    <tr>
+		        <td>250-255</td>
+		        <td>25[0-5]</td>
+		    </tr>
+		</table>
 
 		<p>Now, by using OR operator, we can match the whole 0-255 range.</p>
 
@@ -98,7 +127,7 @@
 
 		<h2 id="validateanipaddress">Validate an IP address</h2>
 
-		<p>IP address consists of digits from 0-255 and 3 points(<code>.</code>). Valid IP address format is (0-255).(0-255).(0-255).(0-255).</p>
+		<p>IP address consists of digits from 0-255 and 3 points(<code>.</code>). Valid IP address format is <br> (0-255).(0-255).(0-255).(0-255).</p>
 
 		<p>For example, 10.10.11.4, 255.255.255.255, 234.9.64.43, 1.2.3.4 are Valid IP addresses.</p>
 
