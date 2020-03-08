@@ -1,0 +1,199 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
+
+		<h2 id="characterswithspecialmeaning">Characters with special meaning</h2>
+
+		<p>We have seen that, we are using <code>*</code>, <code>+</code>, <code>.</code>, <code>$</code>, etc for different purposes. Now, if we want to match them themselves, we have to escape them using escape character(backslash-\) .</p>
+
+		<p>Below is the table for these kind of characters and their escaped version, along with their usages.</p>
+
+		<table>
+		    <tr>
+		        <td>Character</td>
+		        <td>Usage</td>
+		        <td>Escaped version</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>\</td>
+		        <td>escape character</td>
+		        <td>\\</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>.</td>
+		        <td>predefined character class</td>
+		        <td>\.</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>|</td>
+		        <td>OR operator</td>
+		        <td>\\</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>*</td>
+		        <td>as quantifier</td>
+		        <td>\*</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>+</td>
+		        <td>as quantifier</td>
+		        <td>\+</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>?</td>
+		        <td>as quantifier</td>
+		        <td>\?</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>^</td>
+		        <td>boundary matcher</td>
+		        <td>\^</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>$</td>
+		        <td>boundary matcher</td>
+		        <td>\$</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>{</td>
+		        <td>in quantifier notation</td>
+		        <td>\{</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>}</td>
+		        <td>in quantifier notation</td>
+		        <td>\}</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>[</td>
+		        <td>in character class notation</td>
+		        <td>\[</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>]</td>
+		        <td>in character class notation</td>
+		        <td>\]</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>(</td>
+		        <td>in group notation</td>
+		        <td>\(</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>)</td>
+		        <td>in group notation</td>
+		        <td>\)</td>
+		        <td></td>
+		    </tr>
+		    <tr>
+		        <td>-</td>
+		        <td>range operator</td>
+		        <td>NA</td>
+		        <td></td>
+		    </tr>
+		</table>
+
+		<p>Sometimes, it is also preferred to use escaped forward slash(<code>/</code>).</p>
+
+		<h2 id="bonusproblems">Bonus Problems</h2>
+
+		<ol>
+		<li><p>Predict the output of the following regex:</p>
+
+		<p><strong>RegEx:</strong> <code>\b(0|(1(01*0)*1))*\b</code> <br>
+		<strong>Text:</strong> This RegEx denotes the set of binary numbers divisible by 3:
+		0,11,1010, 1100, 1111, 1001</p>
+
+		<p>Answer: </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtqu" class="embed"></iframe>
+		</div></li>
+
+		<li><p>Find a regular expression to match whole lines in the text containing either Apple, Orange, Grape as a word.</p>
+
+		<p>Hint: Use <code>^</code> and <code>$</code> to match whole lines.</p>
+
+		<p>Answer: <code>^.*\b(apple|orange|grape)\b.*$</code></p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtra" class="embed"></iframe>
+		</div></li>
+
+		<li><p>Find an expression which matches <code>cat.</code>, <code>896.</code>, <code>?=++</code> but not <code>abc1</code>.</p>
+
+		<p>Answer: <code>...\W</code></p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu8e" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
