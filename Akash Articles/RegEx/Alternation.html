@@ -1,0 +1,114 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
+		<h2 id="alternationoroperator">Alternation (OR operator)</h2>
+
+		<p><strong>Character class</strong> can be used to match a single character out of several possible characters. Alternation is more generic than character class. It can also be used to match an expression out of several possible expressions.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtoa" class="embed"></iframe>
+		</div>
+
+		<p>In the above example, <code>cat|dog|lion</code> basically means 'either cat or dog or lion'. Here, we have used specific expression(cat, dog &amp; lion), but we can use any regular expression. For example,</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtod" class="embed"></iframe>
+		</div>
+
+		<h3 id="problem">Problem</h3>
+
+		<ul>
+		<li>Find a regex to match boot or bot.
+		Answer: There more than one possible answers: <code>boot|bot</code>, <code>b(o|oo)t</code>. Last expression is using a group.</li>
+		</ul>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtog" class="embed"></iframe>
+		</div>
+
+		<h3 id="problemwithoroperator">Problem with OR operator:</h3>
+
+		<p>Suppose, you want to match two words <strong>Set</strong> and <strong>SetValue</strong>. What will be the regular expression?</p>
+
+		<p>From whatever we have learned so far, you will say, <code>Set|SetValue</code> will be the answer. But it is not correct.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtoj" class="embed"></iframe>
+		</div>
+
+		<p>If you try <code>SetValue|Set</code>, then it is working. </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtom" class="embed"></iframe>
+		</div>
+
+		<p>Can you observe anything from it?</p>
+
+		<p><strong>OR operator</strong> tries to match a substring starting from the first word(or expression)-in the regex. If it is a match, then it will not try to match the next word(or expression) at the same place in text.</p>
+
+		<h3 id="problem-1">Problem</h3>
+
+		<p>Find out an regex which matches each and every word in the following set: <code>{bat, cat, hat, mat, nat, oat, pat, Pat, ot}</code>. The regex should be as small as possible.</p>
+
+		<p><strong>Hint:</strong> Use character-class, ranges and or-operator together.</p>
+
+		<p>Answer: <code>[b-chm-pP]at|ot</code></p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtos" class="embed"></iframe>
+		</div>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
