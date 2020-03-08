@@ -32,6 +32,21 @@
 			pre, code {
 				padding: 1em;
 			}
+
+			table {
+				border:1px solid black;
+			  border-collapse: collapse;
+			  min-width:60%;
+			}
+
+			th, td{	
+				border:1px solid black;
+				border-collapse: collapse;
+				text-align: center;
+			}
+
+			tr:nth-child(even) {background-color: #f2f2f2;}
+
 		</style>
 		<script>
 			document.addEventListener('readystatechange', event => {
@@ -57,97 +72,97 @@
 		        <td>Character</td>
 		        <td>Usage</td>
 		        <td>Escaped version</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>\</td>
 		        <td>escape character</td>
 		        <td>\\</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>.</td>
 		        <td>predefined character class</td>
 		        <td>\.</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>|</td>
 		        <td>OR operator</td>
 		        <td>\\</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>*</td>
 		        <td>as quantifier</td>
 		        <td>\*</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>+</td>
 		        <td>as quantifier</td>
 		        <td>\+</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>?</td>
 		        <td>as quantifier</td>
 		        <td>\?</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>^</td>
 		        <td>boundary matcher</td>
 		        <td>\^</td>
-		        <td></td>
+		        
 		    </tr>
 		    <tr>
 		        <td>$</td>
 		        <td>boundary matcher</td>
 		        <td>\$</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>{</td>
 		        <td>in quantifier notation</td>
 		        <td>\{</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>}</td>
 		        <td>in quantifier notation</td>
 		        <td>\}</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>[</td>
 		        <td>in character class notation</td>
 		        <td>\[</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>]</td>
 		        <td>in character class notation</td>
 		        <td>\]</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>(</td>
 		        <td>in group notation</td>
 		        <td>\(</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>)</td>
 		        <td>in group notation</td>
 		        <td>\)</td>
-		        <td></td>
+		         
 		    </tr>
 		    <tr>
 		        <td>-</td>
 		        <td>range operator</td>
 		        <td>NA</td>
-		        <td></td>
+		         
 		    </tr>
 		</table>
 
@@ -159,8 +174,8 @@
 		<li><p>Predict the output of the following regex:</p>
 
 		<p><strong>RegEx:</strong> <code>\b(0|(1(01*0)*1))*\b</code> <br>
-		<strong>Text:</strong> This RegEx denotes the set of binary numbers divisible by 3:
-		0,11,1010, 1100, 1111, 1001</p>
+		<strong>Text:</strong> <code>This RegEx denotes the set of binary numbers divisible by 3:
+		0,11,1010, 1100, 1111, 1001</code></p>
 
 		<p>Answer: </p>
 
