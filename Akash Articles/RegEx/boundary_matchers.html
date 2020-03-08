@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -60,51 +61,45 @@
 		<li><p>There is a slight change in javascript code, we were using up till now. Instead of <code>/____/g</code>, we will now use <code>/____/gm</code>. Modifier 'm' is used to perform multiline search. Notice it in next images!</p></li>
 
 		<li><p>Word character can be represented by, <code>[A-Za-z0-9_]</code>.</p></li>
-
+		</ul>
+		
+		<ol>
 		<li><p><strong>Anchor <code>^</code></strong>: It is used to match patterns at the very start of a line.
 		For example,</p>
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtsb" class="embed"></iframe>
 		</div></li>
-		</ul>
 
 		<p>It will show a match, only if the pattern is occuring at the start of the line.</p>
 
-		<ul>
+
 		<li><p><strong>Anchor <code>$</code></strong>: Similarly, <code>$</code> is used to match patterns at the very end of a line.</p>
 
-		<p><div class="container"></p></li>
-		</ul>
-
+		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtsb" class="embed"></iframe>
-
-		<p></div></p>
+		</div>
 
 		<p>It will show a match, only if the pattern is occuring at the end of a line.</p>
 
-		<p>Example, both <code>^</code> and <code>$</code>,
-		    <div class="container"></p>
-
+		<p>Example, both <code>^</code> and <code>$</code>,</p>
+		    
+		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtsb" class="embed"></iframe>
+		</div>
 
-		<p></div></p>
-
-		<ul>
+		
 		<li><p><strong>Anchors <code>\b</code> &amp; <code>\B</code></strong>: <code>\b</code> is called <strong>word boundary character</strong>. </p>
 
 		<p>Below is a list of positions, which qualifies as a <strong>boundary</strong> for <code>\b</code>:
 		If Regex-pattern is ending(or starting) with,</p>
-
 		<ul>
-		<li>A word character, then boundary is itself(word character). Let's call it a word boundary.</li>
+		<li>A word character, then boundary is itself(word character). Let's call it a <strong>word boundary</strong>.</li>
 
-		<li>A non-word character, then boundary is the next word-character. Let's call it a non-word boundary.</li></ul>
-
-		<p>So, in short <code>\b</code> is only looking for word-character at boundaries, so it is called <strong>word boundary character</strong>.</p>
+		<li>A non-word character, then boundary is the next word-character. Let's call it a <strong>non-word boundary</strong>.</li></ul>
+		<p>So, in short <code>\b</code> is only looking for word-character at boundaries, so it is called "word boundary character"</strong>.</p>
 
 		<p>Let's first observe some examples to understand it's working:</p></li>
-		</ul>
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu99" class="embed"></iframe>
@@ -114,16 +109,13 @@
 
 		<p>Now, let's look at one more example.</p>
 
-		<pre><code>&amp;lt;div class="container"&amp;gt;
-		</code></pre>
-
+		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu9c" class="embed"></iframe>
-
-		<p></div></p>
+		</div>
 
 		<p>Here <code>\+</code> will show a match for <code>+</code>, check it out in appendix.</p>
 
-		<p>What did you observe? 
+		<p>What did you observe? <br>
 		    <strong>First observation:</strong> Our pattern is starting with a non-word character and ending with a word character. So, the match occurs only if there is a substring having a non-word boundary at starting and word boundary at the ending.</p>
 
 		<p><strong>Second observation:</strong>    Non-word character after a word-boundary does not affect the result.    </p>
@@ -144,6 +136,7 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu9u" class="embed"></iframe>
 		</div>
 
+		</ol>
 		<p><strong>Note:</strong> <code>\A</code> and <code>\z &amp; \Z</code> are another anchors, which are used to match at the very start of input text and at very end of input text respectively. But it is not supported in Javascript.</p>
 
 		<p>Predict the output of the following regex:</p>
@@ -156,24 +149,23 @@
 		gadfaJ%33
 		Abjapda454&1 spc
 		bjaphgu12$
-		</code>
-		Answer: </li>
-		</ol>
+		</code><br>
+		Answer:
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vua4" class="embed"></iframe>
 		</div>
+		</li>
 
-		<ol>
 		<li><strong>RegEx:</strong> <code>\b\w+:\B</code> <br>
-		<strong>Text:</strong> <code>1232: , +1232:, abc:, abc:a, abc89, (+abc::)</code>
-		Answer: </li>
-		</ol>
+		<strong>Text:</strong> <code>1232: , +1232:, abc:, abc:a, abc89, (+abc::)</code><br>
+		Answer: 
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vua7" class="embed"></iframe>
 		</div>
-
+		</li>
+		</ol>
 
 		<script type="text/javascript">
 			document.addEventListener('DOMContentLoaded', (event) => {
