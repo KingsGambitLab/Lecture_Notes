@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -48,7 +49,7 @@
 
 
 
-				<h2 id="quantifiersrepetition">Quantifiers (Repetition)</h2>
+		<h2 id="quantifiersrepetition">Quantifiers (Repetition)</h2>
 
 		<p>To match 3 digit patterns, we can use <code>[0-9][0-9][0-9]</code>. What if we have n digit patterns? We have to write <code>[0-9]</code> n times, but that is a waste of time. Here is when quantifiers come for help.</p>
 
@@ -59,12 +60,11 @@
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtp2" class="embed"></iframe>
-		</div></li>
-		</ol>
+		</div>
 
 		<p><strong>Note:</strong> If you don't write the upper bound(<code>{min,}</code>), then it basically means, there is no limit for maximum repetitions.</p>
+		</li>
 
-		<ol>
 		<li><p><strong><code>+</code> quantifier:</strong> It is equivalent to <code>{1,}</code>-at least one occurrence.</p>
 
 		<div class="container">
@@ -77,8 +77,7 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtpb" class="embed"></iframe>
 		</div>
 
-		<ol>
-		<li><strong><code>?</code> quantifier:</strong> It is equivalent to <code>{0,1}</code>, either zero or one occurrence. <code>?</code> is very useful for optional occurrences in patterns.</li></ol>
+		<li><strong><code>?</code> quantifier:</strong> It is equivalent to <code>{0,1}</code>, either zero or one occurrence. <code>?</code> is very useful for optional occurrences in patterns.</li>
 
 		<p>Let's see an example to match negative and positive numbers.</p>
 
@@ -100,7 +99,7 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtpk" class="embed"></iframe>
 		</div></li>
 
-		<li><p>Predict the output of the following regex:
+		<li><p>Predict the output of the following regex:<br>
 		<strong>RegEx</strong>: <code>[abc]{2,}</code> <br>
 		<strong>Text</strong>: 
 		<code>aaa
@@ -118,9 +117,9 @@
 
 		<h3 id="natureofquantifiers">Nature of Quantifiers</h3>
 
-		<p>HTML tag is represented as <tag_name>some text</tag_name>. For example, <code>&lt;title&gt;Regular expression&lt;/title&gt;</code></p>
+		<p>HTML tag is represented as <code>&lt;tag_name>some text&lt;/tag_name></code>. For example, <code>&lt;title&gt;Regular expression&lt;/title&gt;</code></p>
 
-		<p>So, can you figure out an expression that will match both <tag_name> &amp; </tag_name>?</p>
+		<p>So, can you figure out an expression that will match both <code>&lt;tag_name></code> &amp; <code>&lt;/tag_name></code>?</p>
 
 		<p>Most of the people will say, it is <code>&lt;.*&gt;</code>. But it gives different result.</p>
 
@@ -132,7 +131,7 @@
 
 		<p>To solve this issue, we use <code>?</code> quantifier and it is called <strong>lazy matching</strong>. We will discuss it next.</p>
 
-		<p>Predict the output of the following regex: 
+		<p>Predict the output of the following regex: <br>
 		<strong>RegEx</strong>: <code>(var|let)\s[a-zA-Z0-9_]\w* =\s"?\w+"?;</code> <br>
 		    <strong>Text</strong>: 
 		    <code>var carname = "volvo";
