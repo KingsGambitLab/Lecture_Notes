@@ -1,0 +1,69 @@
+## Backreferencing
+
+Backreferencing is used to match same text again. Backreferences match the same text as previously matched by a capturing group. Let's look at an example:
+
+<div class="container">
+<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuap" class="embed"></iframe>
+</div>
+
+**Note:** `\/` is escaped `/`character, check it out in the appendix.
+
+The first captured group is (`\w+`), now we can use this group again by using a backreference (`\1`) at the closing tag, which matches the same text as in captured group `\w+`.
+
+You can backreference any captured group by using `\group_no`.
+
+Let's have two more examples:
+
+<div class="container">
+<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuas" class="embed"></iframe>
+</div>
+
+<div class="container">
+<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vube" class="embed"></iframe>
+</div>
+
+
+### Backreferencing and character class
+
+Backreferencing can not be used in character class. Let's see an example:
+
+<div class="container">
+<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu7p" class="embed"></iframe>
+</div>
+
+### Backreferencing and quantifiers
+
+When we are using a backreference for an expression with quantifiers, then we have to be careful. Let's observe it:
+
+<div class="container">
+<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu85" class="embed"></iframe>
+</div>
+
+Note that `(\d)+` and `(\d+)` both are different. So, what will happen for `(\d)+ -- \1` expression and same text above?
+
+<div class="container">
+<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu85" class="embed"></iframe>
+</div>
+
+Can you observe something?
+
+For `(\d)+ -- \1` expression and `123 -- 3` string, first time 1 was stored in \1, then 2 was stored in \1 and at last 3 was stored. So, it will show a match if and only if the last character before ` --` is exactly same as the character after `-- `.
+
+**Problems:**
+
+1. Match any palindrome string of length 6, having only lowercase letters.
+	Answer: `([a-z])([a-z])([a-z])\3\2\1`
+
+	<div class="container">
+	<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubk" class="embed"></iframe>
+	</div>
+
+2. **RegEx**: `(\w+)oo\1le` <br>
+**Text:** `google, doodle jump, ggooggle, ssoosle`
+
+	Answer: 
+	<div class="container">
+	<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubk" class="embed"></iframe>
+	</div>
+
+**Note:** For group numbers more than 9, there is a syntax difference.
