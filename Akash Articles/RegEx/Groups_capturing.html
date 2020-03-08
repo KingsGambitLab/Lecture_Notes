@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -50,7 +51,7 @@
 
 		<h2 id="groupscapturing">Groups &amp; Capturing</h2>
 
-		<p>Grouping is the most useful feature of regex. Grouping can be done by placing regular expression inside round brackets. </p>
+		<p>Grouping is the most useful feature of regex. Grouping can be done by placing regular expression inside round brackets. In this article, we will see how to extract and replace data using groups. </p>
 
 		<p>It unifies the regular expressions inside it as a single unit. Let's look at its usages one by one:</p>
 
@@ -71,15 +72,11 @@
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuag" class="embed"></iframe>
-		</div></li>
-		</ol>
+		</div>
 
 		<p>Similarly, you can use other quantifiers.</p>
 
-		<ol>
 		<li><p>To extract and replace substrings using groups. So, we call groups <strong>Capturing groups</strong>, becuase we are capturing data(substrings) using groups.</p>
-
-		<p>In this part, we will see how to extract and replace data using groups in Javascript.</p>
 
 		<p><strong>Data Extraction</strong></p>
 
@@ -87,52 +84,58 @@
 
 		<pre><code class="js language-js">var str = "2020-01-20";
 
-		// Pattern string
-		var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
+// Pattern string
+var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
 
-		//                ^       ^       ^
-		//group-no:   1       2       3
+   //            ^       ^       ^
+   //group-no:   1       2       3
 
-		var result = pattern.exec(str);
+var result = pattern.exec(str);
 
-		// printing
-		console.log(result);
-		/* Output will be:
-		[
-		  '2020-01-20', //-------pattern
-		  '2020', //-----First group
-		  '01', //-------Second group
-		  '20', //-------Third group
-		  index: 0,
-		  input: '2020-01-20',
-		  groups: undefined
-		]
-		*/
-		// Data extraction
-		console.log(result[1]); // First group
-		console.log(result[2]); // Second group
-		console.log(result[3]); // Third group
+// printing
+console.log(result);
+
+// Data extraction
+console.log(result[1]); // First group
+console.log(result[2]); // Second group
+console.log(result[3]); // Third group
+		</code></pre>
+
+		The output will be:
+		<pre><code class="js language-js">[
+  '2020-01-20',
+  '2020',
+  '01',
+  '20',
+  index: 0,
+  input: '2020-01-20',
+  groups: undefined
+]
+2020
+01
+20
+
 		</code></pre>
 
 		<p>In the output array, the first data is a match string followed by the matched groups in the order.</p>
 
-		<p><strong>Data Replacement:</strong></p>
+		<p><strong>Data Replacement</strong></p>
 
 		<p><code>Replace</code> is another function, which can be used to replace and rearrange the data using regex. Observe the code below.</p>
 
 		<pre><code class="js language-js">var str = "2020-01-20";
 
-		// Pattern string
-		var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
+// Pattern string
+var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
 
-		//                ^       ^       ^
-		//group-no:   1       2       3
+   //            ^       ^       ^
+   //group-no:   1       2       3
 
-		// Data replacement using $group_no
-		var ans=str.replace(pattern, '$3-$2-$1');
+// Data replacement using $group_no
+var ans=str.replace(pattern, '$3-$2-$1');
 
-		console.log(ans);
-		// Output will be: 20-01-2020
+console.log(ans);
+// Output will be: 20-01-2020
 		</code></pre>
 
 		<p>As you can see, we have used <code>$group_no</code> to indicate the capturing group.</p></li>
