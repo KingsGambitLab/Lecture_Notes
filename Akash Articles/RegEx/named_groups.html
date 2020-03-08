@@ -63,9 +63,6 @@
 // Pattern string
 var pattern = /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/g;
 
-//                ^       ^       ^
-//group-no:   1       2       3
-
 // Data replacement using $&lt;group_name&gt;
 var ans=str.replace(pattern, '$&lt;day&gt;-$&lt;month&gt;-$&lt;year&gt;');
 
