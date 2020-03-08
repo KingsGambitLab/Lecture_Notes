@@ -1,0 +1,159 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
+
+
+
+				<h2 id="quantifiersrepetition">Quantifiers (Repetition)</h2>
+
+		<p>To match 3 digit patterns, we can use <code>[0-9][0-9][0-9]</code>. What if we have n digit patterns? We have to write <code>[0-9]</code> n times, but that is a waste of time. Here is when quantifiers come for help.</p>
+
+		<ol>
+		<li><p><strong>Limiting repetitions(<code>{min, max}</code>):</strong> To match n digit patterns, we can simply write <code>[0-9]{n}</code>. Instead of n, by providing minimum and maximum values as-<code>[0-9]{min, max}</code>, we can match a pattern repeating min to max times.</p>
+
+		<p>Let's see an example to match all numbers between 1 to 999.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtp2" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+		<p><strong>Note:</strong> If you don't write the upper bound(<code>{min,}</code>), then it basically means, there is no limit for maximum repetitions.</p>
+
+		<ol>
+		<li><p><strong><code>+</code> quantifier:</strong> It is equivalent to <code>{1,}</code>-at least one occurrence.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtp5" class="embed"></iframe>
+		</div></li>
+
+		<li><p><strong><code>*</code>quantifier:</strong> It is equivalent to <code>{0,}</code>-zero or more occurrences.    </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtpb" class="embed"></iframe>
+		</div>
+
+		<ol>
+		<li><strong><code>?</code> quantifier:</strong> It is equivalent to <code>{0,1}</code>, either zero or one occurrence. <code>?</code> is very useful for optional occurrences in patterns.</li></ol>
+
+		<p>Let's see an example to match negative and positive numbers.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtph" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+		<p><strong>Now, you may be thinking, what if we want to match characters like <code>*, ?, +, {, }</code> in the text, they are special characters. Check it out in the appendix.</strong></p>
+
+		<h3 id="problems">Problems</h3>
+
+		<ol>
+		<li><p>Find out a regex to match positive integers or floating point numbers with exactly two characters after the decimal point.</p>
+
+		<p>Answer: <code>\d+(\.\d\d)?</code></p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtpk" class="embed"></iframe>
+		</div></li>
+
+		<li><p>Predict the output of the following regex:
+		<strong>RegEx</strong>: <code>[abc]{2,}</code> <br>
+		<strong>Text</strong>: 
+		<code>aaa
+		abc
+		abbccc
+		avbcc
+		</code></p>
+
+		<p>Answer: </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtpt" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+		<h3 id="natureofquantifiers">Nature of Quantifiers</h3>
+
+		<p>HTML tag is represented as <tag_name>some text</tag_name>. For example, <code>&lt;title&gt;Regular expression&lt;/title&gt;</code></p>
+
+		<p>So, can you figure out an expression that will match both <tag_name> &amp; </tag_name>?</p>
+
+		<p>Most of the people will say, it is <code>&lt;.*&gt;</code>. But it gives different result.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtq0" class="embed"></iframe>
+		</div>
+
+		<p>So, rather than matching up till first <code>&gt;</code>, it matches the whole tag. So, quantifiers are greedy by default. It is called <strong>Greediness!</strong>.</p>
+
+		<p>To solve this issue, we use <code>?</code> quantifier and it is called <strong>lazy matching</strong>. We will discuss it next.</p>
+
+		<p>Predict the output of the following regex: 
+		<strong>RegEx</strong>: <code>(var|let)\s[a-zA-Z0-9_]\w* =\s"?\w+"?;</code> <br>
+		    <strong>Text</strong>: 
+		    <code>var carname = "volvo";
+		console.log(carname);
+		let age = 8;
+		var date = "23-03-2020";</code></p>
+
+		<p>Answer: </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtq3" class="embed"></iframe>
+		</div>
+
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
