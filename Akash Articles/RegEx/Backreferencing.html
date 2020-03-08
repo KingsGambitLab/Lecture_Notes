@@ -1,69 +1,131 @@
-## Backreferencing
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
 
-Backreferencing is used to match same text again. Backreferences match the same text as previously matched by a capturing group. Let's look at an example:
-
-<div class="container">
-<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuap" class="embed"></iframe>
-</div>
-
-**Note:** `\/` is escaped `/`character, check it out in the appendix.
-
-The first captured group is (`\w+`), now we can use this group again by using a backreference (`\1`) at the closing tag, which matches the same text as in captured group `\w+`.
-
-You can backreference any captured group by using `\group_no`.
-
-Let's have two more examples:
-
-<div class="container">
-<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuas" class="embed"></iframe>
-</div>
-
-<div class="container">
-<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vube" class="embed"></iframe>
-</div>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
 
 
-### Backreferencing and character class
+		<h2 id="backreferencing">Backreferencing</h2>
 
-Backreferencing can not be used in character class. Let's see an example:
+		<p>Backreferencing is used to match same text again. Backreferences match the same text as previously matched by a capturing group. Let's look at an example:</p>
 
-<div class="container">
-<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu7p" class="embed"></iframe>
-</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuap" class="embed"></iframe>
+		</div>
 
-### Backreferencing and quantifiers
+		<p><strong>Note:</strong> <code>\/</code> is escaped <code>/</code>character, check it out in the appendix.</p>
 
-When we are using a backreference for an expression with quantifiers, then we have to be careful. Let's observe it:
+		<p>The first captured group is (<code>\w+</code>), now we can use this group again by using a backreference (<code>\1</code>) at the closing tag, which matches the same text as in captured group <code>\w+</code>.</p>
 
-<div class="container">
-<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu85" class="embed"></iframe>
-</div>
+		<p>You can backreference any captured group by using <code>\group_no</code>.</p>
 
-Note that `(\d)+` and `(\d+)` both are different. So, what will happen for `(\d)+ -- \1` expression and same text above?
+		<p>Let's have two more examples:</p>
 
-<div class="container">
-<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu85" class="embed"></iframe>
-</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuas" class="embed"></iframe>
+		</div>
 
-Can you observe something?
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vube" class="embed"></iframe>
+		</div>
 
-For `(\d)+ -- \1` expression and `123 -- 3` string, first time 1 was stored in \1, then 2 was stored in \1 and at last 3 was stored. So, it will show a match if and only if the last character before ` --` is exactly same as the character after `-- `.
+		<h3 id="backreferencingandcharacterclass">Backreferencing and character class</h3>
 
-**Problems:**
+		<p>Backreferencing can not be used in character class. Let's see an example:</p>
 
-1. Match any palindrome string of length 6, having only lowercase letters.
-	Answer: `([a-z])([a-z])([a-z])\3\2\1`
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu7p" class="embed"></iframe>
+		</div>
 
-	<div class="container">
-	<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubk" class="embed"></iframe>
-	</div>
+		<h3 id="backreferencingandquantifiers">Backreferencing and quantifiers</h3>
 
-2. **RegEx**: `(\w+)oo\1le` <br>
-**Text:** `google, doodle jump, ggooggle, ssoosle`
+		<p>When we are using a backreference for an expression with quantifiers, then we have to be careful. Let's observe it:</p>
 
-	Answer: 
-	<div class="container">
-	<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubk" class="embed"></iframe>
-	</div>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu85" class="embed"></iframe>
+		</div>
 
-**Note:** For group numbers more than 9, there is a syntax difference.
+		<p>Note that <code>(\d)+</code> and <code>(\d+)</code> both are different. So, what will happen for <code>(\d)+ -- \1</code> expression and same text above?</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu85" class="embed"></iframe>
+		</div>
+
+		<p>Can you observe something?</p>
+
+		<p>For <code>(\d)+ -- \1</code> expression and <code>123 -- 3</code> string, first time 1 was stored in \1, then 2 was stored in \1 and at last 3 was stored. So, it will show a match if and only if the last character before <code>--</code> is exactly same as the character after <code>--</code>.</p>
+
+		<p><strong>Problems:</strong></p>
+
+		<ol>
+		<li><p>Match any palindrome string of length 6, having only lowercase letters.
+		Answer: <code>([a-z])([a-z])([a-z])\3\2\1</code></p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubk" class="embed"></iframe>
+		</div></li>
+
+		<li><p><strong>RegEx</strong>: <code>(\w+)oo\1le</code> <br>
+		<strong>Text:</strong> <code>google, doodle jump, ggooggle, ssoosle</code></p>
+
+		<p>Answer: </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubk" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+		<p><strong>Note:</strong> For group numbers more than 9, there is a syntax difference.</p>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
