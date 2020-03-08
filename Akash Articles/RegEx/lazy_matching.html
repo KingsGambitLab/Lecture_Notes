@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -32,6 +33,22 @@
 			pre, code {
 				padding: 1em;
 			}
+
+
+			table {
+				border:1px solid black;
+			  border-collapse: collapse;
+			  min-width:60%;
+			}
+
+			th, td{	
+				border:1px solid black;
+				border-collapse: collapse;
+				text-align: center;
+			}
+
+			tr:nth-child(even) {background-color: #f2f2f2;}
+
 		</style>
 		<script>
 			document.addEventListener('readystatechange', event => {
@@ -56,11 +73,39 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtqc" class="embed"></iframe>
 		</div>
 
-		<p>To make it lazy, we use <code>?</code> quantifier, which turns the regex engine to match as less characters as possible which satisfies the regex.</p>
+		<p>To make it lazy, we use <code>?</code> quantifier, which turns the regex engine to match as less characters as possible which satisfies the expression.</p>
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtqf" class="embed"></iframe>
 		</div>
+
+		<p>Below is a table showing lazy version of all quantifiers:</p>
+		<table>
+		    <tr>
+		        <td>Quantifier</td>
+		        <td>Lazy version</td>
+		    </tr>
+		    <tr>
+		        <td>{n,m}</td>
+		        <td>{n,m}?</td>
+		    </tr>
+		    <tr>
+		        <td>{n,}</td>
+		        <td>{n,}?</td>
+		    </tr>
+		    <tr>
+		        <td>+</td>
+		        <td>+?</td>
+		    </tr>
+		    <tr>
+		        <td>*</td>
+		        <td>*?</td>
+		    </tr>
+		    <tr>
+		        <td>?</td>
+		        <td>??</td>
+		    </tr>
+		</table>
 
 		<p>So, now we can match html tags as below:</p>
 
@@ -68,14 +113,10 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtqr" class="embed"></iframe>
 		</div>
 
-		<p>Let's have one more example,</p>
-
-		<div class="container">
-		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vthc" class="embed"></iframe>
-		</div>
-
 		<p><strong>Problem</strong></p>
 
+		<ol>
+		<li>
 		<p>Find an expression to match <code>href="url"</code> in html file. Note that url can be anything, like <code>https://xyz.com</code>, <code>http://abc.io/app</code>, <code>https://cde.org</code>.</p>
 
 		<p>Answer: <code>href=".*?"</code></p>
@@ -83,7 +124,14 @@
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu96" class="embed"></iframe>
 		</div>
-
+		</li>
+		<li>
+		What will be the match for expression <code>\w+? \w+?</code> in <code>abc cde, 123 456</code>.
+		<br>Answer: <code>123 4</code> and <code>abc d</code>
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuek" class="embed"></iframe>
+		</div>
+		</li>
 		<p>We will see how to extract things(like, urls) from the text using regex, in the "group and capturing" concept.</p>
 
 
