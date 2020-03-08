@@ -1,0 +1,187 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
+
+
+
+		<h2 id="groupscapturing">Groups &amp; Capturing</h2>
+
+		<p>Grouping is the most useful feature of regex. Grouping can be done by placing regular expression inside round brackets. </p>
+
+		<p>It unifies the regular expressions inside it as a single unit. Let's look at its usages one by one:</p>
+
+		<ol>
+		<li><p>It makes the regular expression more readable and sometimes it is an inevitable thing.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuaa" class="embed"></iframe>
+		</div>
+
+		<p>Suppose, we want to match both the sentences in the above text, then grouping is the inevitable thing.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuad" class="embed"></iframe>
+		</div></li>
+
+		<li><p>To apply quantifiers to one or more expressions.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuag" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+		<p>Similarly, you can use other quantifiers.</p>
+
+		<ol>
+		<li><p>To extract and replace substrings using groups. So, we call groups <strong>Capturing groups</strong>, becuase we are capturing data(substrings) using groups.</p>
+
+		<p>In this part, we will see how to extract and replace data using groups in Javascript.</p>
+
+		<p><strong>Data Extraction</strong></p>
+
+		<p>Observe the code below.</p>
+
+		<pre><code class="js language-js">var str = "2020-01-20";
+
+		// Pattern string
+		var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
+
+		//                ^       ^       ^
+		//group-no:   1       2       3
+
+		var result = pattern.exec(str);
+
+		// printing
+		console.log(result);
+		/* Output will be:
+		[
+		  '2020-01-20', //-------pattern
+		  '2020', //-----First group
+		  '01', //-------Second group
+		  '20', //-------Third group
+		  index: 0,
+		  input: '2020-01-20',
+		  groups: undefined
+		]
+		*/
+		// Data extraction
+		console.log(result[1]); // First group
+		console.log(result[2]); // Second group
+		console.log(result[3]); // Third group
+		</code></pre>
+
+		<p>In the output array, the first data is a match string followed by the matched groups in the order.</p>
+
+		<p><strong>Data Replacement:</strong></p>
+
+		<p><code>Replace</code> is another function, which can be used to replace and rearrange the data using regex. Observe the code below.</p>
+
+		<pre><code class="js language-js">var str = "2020-01-20";
+
+		// Pattern string
+		var pattern = /(\d{4})-(\d{2})-(\d{2})/g;
+
+		//                ^       ^       ^
+		//group-no:   1       2       3
+
+		// Data replacement using $group_no
+		var ans=str.replace(pattern, '$3-$2-$1');
+
+		console.log(ans);
+		// Output will be: 20-01-2020
+		</code></pre>
+
+		<p>As you can see, we have used <code>$group_no</code> to indicate the capturing group.</p></li>
+		</ol>
+
+		<h2 id="problems">Problems</h2>
+
+		<p>Predict the output of the following regex:</p>
+
+		<ol>
+		<li><p><strong>RegEx</strong>: <code>([abc]){2,}(one|two)</code> <br>
+		<strong>Text</strong>: 
+		<code>aone
+		cqtwo
+		abone
+		actwo
+		abcbtwoone
+		abbcccone
+		</code></p>
+
+		<p>Answer: </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuaj" class="embed"></iframe>
+		</div></li>
+
+		<li><p><strong>RegEx</strong>: <code>([\dab]+(r|c)){2}</code> <br>
+		<strong>Text</strong>: 
+		<code>1r2c
+		ar4ccc
+		12abr12abc
+		acac, accaca, acaaca
+		aaar1234234c, aaa1234234c
+		194brar, 134bcbb-c </code></p>
+
+		<p>Answer: </p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuam" class="embed"></iframe>
+		</div></li>
+		</ol>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
