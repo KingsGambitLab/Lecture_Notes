@@ -1,3 +1,4 @@
+
 <html>
 	<head>
 		<style type="text/css">
@@ -57,19 +58,19 @@
 
 		<p>Below is a code, we have already looked in <strong>capturing groups</strong> part. You can see, the code is more readable now.</p>
 
-		<pre><code class="js language-js">    var str = "2020-01-20";
+		<pre><code class="js language-js">var str = "2020-01-20";
+			
+// Pattern string
+var pattern = /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/g;
 
-		    // Pattern string
-		    var pattern = /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/g;
+//                ^       ^       ^
+//group-no:   1       2       3
 
-		    //                ^       ^       ^
-		    //group-no:   1       2       3
+// Data replacement using $&lt;group_name&gt;
+var ans=str.replace(pattern, '$&lt;day&gt;-$&lt;month&gt;-$&lt;year&gt;');
 
-		    // Data replacement using $&lt;group_name&gt;
-		    var ans=str.replace(pattern, '$&lt;day&gt;-$&lt;month&gt;-$&lt;year&gt;');
-
-		    console.log(ans);
-		    // Output will be: 20-01-2020
+console.log(ans);
+// Output will be: 20-01-2020
 		</code></pre>
 
 		<p>Backreference syntax for numbered groups works for named capture groups as well. <code>\k&lt;name&gt;</code> matches the string that was previously matched by the named capture group <code>name</code>, which is a standard way to backreference named group.</p>
