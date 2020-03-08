@@ -1,0 +1,129 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
+
+
+		<h2 id="practicalapplicationsofregex">Practical Applications of RegEx</h2>
+
+		<ol>
+		<li>Syntax highlighting systems</li>
+
+		<li>Data scraping and wrangling</li>
+
+		<li>In find and replace facility of text editors</li>
+		</ol>
+
+		<p>Let's look at some classical examples of RegEx.</p>
+
+		<h2 id="numberranges">Number Ranges</h2>
+
+		<p>Can you find a regex matching all integers from 0 to 255?</p>
+
+		<p>First, Let's look at how can we match all integers from 0 to 59:</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vubt" class="embed"></iframe>
+		</div>
+
+		<p>As you can see, we have used <code>?</code> quantifier to make the first digit(0-5) optional. Now, can you solve it for 0-255?</p>
+
+		<p>Hint : Use OR operator.</p>
+
+		<p>We can divide the range 0-255 into three ranges: 0-199, 200-249 &amp; 250-255. Now, creating an expression, for each of them independently, is easy.</p>
+
+		<pre><code>|   Range| RegEx |
+		|   :--:    |   :--:    |
+		| 0-199 | `[01][0-9][0-9]` |
+		| 200-249| `2[0-4][0-9]`|
+		| 250-255| `25[0-5]`|
+		</code></pre>
+
+		<p>Now, by using OR operator, we can match the whole 0-255 range.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuc0" class="embed"></iframe>
+		</div>
+
+		<p>As you can see, the above regex is not going to match 0, but 000. So, how can you modify the regex which matches 0 as well, rather than matching 001 only?</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuc3" class="embed"></iframe>
+		</div>
+
+		<p>We have just used <code>?</code> quantifier.</p>
+
+		<h2 id="validateanipaddress">Validate an IP address</h2>
+
+		<p>IP address consists of digits from 0-255 and 3 points(<code>.</code>). Valid IP address format is (0-255).(0-255).(0-255).(0-255).</p>
+
+		<p>For example, 10.10.11.4, 255.255.255.255, 234.9.64.43, 1.2.3.4 are Valid IP addresses.</p>
+
+		<p>Can you find a regex to match an IP-address?</p>
+
+		<p>We have already seen, how to match number ranges and to match a point, we use escaped-dot(<code>\.</code>). But in IP address, we don't allow leading zeroes in numbers like 001. </p>
+
+		<p>So, We have to divide the range in four sub-ranges: 0-99, 100-199, 200-249, 250-255. And finally we use OR-operator.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vuc9" class="embed"></iframe>
+		</div>
+
+		<p>So, Regex to match IP Address is as below:
+		    <img src="https://lh3.googleusercontent.com/n2CaC-8Q8NH-H5RkDrCM4AQQkV2PamIAlA3dwljdRsW33WWoj18qJEIN5iyzjLzfifHj-dh-IW-u=s1600" alt="enter image description here" /></p>
+
+		<p><strong>Note:</strong> The whole expression is contiguous, for the shake of easy understanding it is shown the way it is.</p>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
