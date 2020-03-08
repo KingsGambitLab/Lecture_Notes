@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<style type="text/css">
+			.container {
+				position: static;
+				width: 800px;
+				height: 350px;
+				overflow: hidden;
+			}
+			.embed {
+				height: 100%;
+				width: 100%;
+				min-width: 1000px;
+				margin-left: -360px;
+				margin-top: -57px;
+				overflow: hidden;
+			}
+			body {
+				width: 800px;
+				margin: auto;
+				padding: 1em;
+				font-family: "Open Sans", sans-serif;
+				line-height: 150%;
+				letter-spacing: 0.1pt;
+			}
+			img {
+				width: 90%;
+				text-align: center;
+				margin: auto;
+				box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			}
+			pre, code {
+				padding: 1em;
+			}
+		</style>
+		<script>
+			document.addEventListener('readystatechange', event => {
+				if (event.target.readyState === "complete")
+					document.activeElement.blur();
+			});
+		</script>
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/default.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+	</head>
+	<body>
+		
+
+
+		<h2 id="namedgroups">Named Groups</h2>
+
+		<p>Regular expressions with lots of groups and backreferencing can be difficult to maintain, as adding or removing a capturing group in the middle of the regex turns to change the numbers of all the groups that follow the added or removed group.</p>
+
+		<p>In regex, we have facility of named groups, which solves the above issue. Let's look at it.</p>
+
+		<p>We can name a group by putting <code>?&lt;name&gt;</code> just after opening the paranthesis representing a group. For example, <code>(?&lt;year&gt;\d{4})</code> is a named group.</p>
+
+		<p>Below is a code, we have already looked in <strong>capturing groups</strong> part. You can see, the code is more readable now.</p>
+
+		<pre><code class="js language-js">    var str = "2020-01-20";
+
+		    // Pattern string
+		    var pattern = /(?&lt;year&gt;\d{4})-(?&lt;month&gt;\d{2})-(?&lt;day&gt;\d{2})/g;
+
+		    //                ^       ^       ^
+		    //group-no:   1       2       3
+
+		    // Data replacement using $&lt;group_name&gt;
+		    var ans=str.replace(pattern, '$&lt;day&gt;-$&lt;month&gt;-$&lt;year&gt;');
+
+		    console.log(ans);
+		    // Output will be: 20-01-2020
+		</code></pre>
+
+		<p>Backreference syntax for numbered groups works for named capture groups as well. <code>\k&lt;name&gt;</code> matches the string that was previously matched by the named capture group <code>name</code>, which is a standard way to backreference named group.</p>
+
+		<div class="container">
+		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vu8k" class="embed"></iframe>
+		</div>
+
+
+		<script type="text/javascript">
+			document.addEventListener('DOMContentLoaded', (event) => {
+				document.querySelectorAll('pre code').forEach((block) => {
+					hljs.highlightBlock(block);
+				});
+			});
+		</script>
+	</body>
+</html>
