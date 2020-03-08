@@ -66,7 +66,7 @@
 
 		<ol>
 		<li><p><strong>RegEx:</strong> <code>[ABC][12]</code> <br>
-		<strong>Text</strong>: A1 grade is the best, but I scored A2.</p>
+		<strong>Text</strong>: <code>A1 grade is the best, but I scored A2.</code></p>
 
 		<p>Answer:</p>
 
@@ -74,8 +74,9 @@
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtk3" class="embed"></iframe>
 		</div></li>
 
-		<li><p><strong>RegEx:</strong> <code>[0123456789][12345]:[abcdef][67890]:[0123456789][67890]:[1234589][abcdef]</code><br>
-		<strong>Text</strong>: Let's match 14:f6:89:3c mac address type of pattern. Other patterns are 51:a6:90:c5, 44:t6:u9:3d, 72:c8:39:8e.</p>
+		<li><p><strong>RegEx:</strong> <code>[0123456789][12345]:[abcdef][67890]:[1234589][abcdef]</code><br>
+		<strong>Text</strong>: <code>Let's match 14:f6:3c mac address type of pattern.
+		Other patterns are 51:a6:c5, 44:t6:3d, 72:c8:8e.</code></p>
 
 		<p>Answer:</p>
 
@@ -95,7 +96,7 @@
 		<p>Predict the output for the following:</p>
 
 		<p><strong>RegEx:</strong> <code>[^13579]A[^abc]z3[590*-]</code>
-		<br> <strong>Text</strong>: 1Abz33 will match or 2Atz30 and 8Adz3*.</p>
+		<br> <strong>Text</strong>: <code>1Abz33 will match or 2Atz30 and 8Adz3*.</code></p>
 
 		<p>Answer:</p>
 
@@ -189,22 +190,20 @@
 
 		<p><strong>Note:</strong> <code>\r</code> is known as a windows style new-line character.</p>
 
-		<p>Predict the output of the following regex:</p>
+		<h3 id="problems">Problems</h3>
 
 		<ol>
-		<li><p><strong>RegEx:</strong> <code>[01][01][0-1]\W\s\d</code>
-		<br> <strong>Text</strong>: Binary to decimal data: 001- 1, 010- 2, 011- 3, a01- 4, 100- 4.</p>
+		<li><p>Predict the output of the following regex:
+		<strong>RegEx:</strong> <code>[01][01][0-1]\W\s\d</code>
+		<br> <strong>Text</strong>: <code>Binary to decimal data: 001- 1, 010- 2, 011- 3, a01- 4, 100- 4.</code></p>
 
 		<p>Answer: </p>
 
 		<div class="container">
 		<iframe scrolling="no" style="position: absolute; top: -9999em; visibility: hidden;" onload="this.style.position='static'; this.style.visibility='visible';" src="https://regexr.com/4vtn0" class="embed"></iframe>
 		</div></li>
-		</ol>
 
-		<h3 id="problems">Problems</h3>
 
-		<ol>
 		<li><p>Write a regex to match 28th February of any year. Date is in dd-mm-yyyy format.</p>
 
 		<p>Answer: <code>28-02-\d\d\d\d</code></p>
@@ -223,7 +222,6 @@
 
 		<p>Note that, the above regex will also match dd-mm.yyyy or dd/mm\yyyy kind of wrong format, this problem can be solved by using backreferencing, which is a regex concept.</p></li>
 		</ol>
-
 
 
 
