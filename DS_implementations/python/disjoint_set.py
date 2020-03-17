@@ -38,6 +38,7 @@ class DisjointSet(Generic[T]):
         Amortized Time Complexity per query: ~O(1)
         """
         x, y = self.find_root(x), self.find_root(y)
+        if x == y: return  # if both x and y are already in the same component, do thing
         if self.size_of(x) < self.size_of(y):
             x, y = y, x  # swap so that y is always the larger component
         self._parents[y] = x
