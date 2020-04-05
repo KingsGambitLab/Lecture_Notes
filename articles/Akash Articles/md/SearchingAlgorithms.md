@@ -65,14 +65,14 @@ int main()
 ### Quiz Time
 Can you figure out the time complexity in terms of the index($i$) of the element?
 **Answer:** $log(i)$
-**Explanation:** In order to find an index of form $2^k$, such that $list[2^k] > key$, we are running the while loop $\lceil\log{i}\rceil$ times, that is $\Omicron(\log(i))$ time complexity.
+**Explanation:** In order to find an index of form $2^k$, such that $list[2^k] > key$, we are running the while loop $\lceil\log{i}\rceil$ times, that is $\mathcal{O}(\log(i))$ time complexity.
 
-After that, binary search on the range $2^{\log(i)-1}$ to $2^{\log(i)}$, that is interval of size $2^{\log(i)-1}$, takes $\log{(2^{\log(i)-1})}$ comparisons, which leads to $\Omicron(\log(i))$ complexity.
+After that, binary search on the range $2^{\log(i)-1}$ to $2^{\log(i)}$, that is interval of size $2^{\log(i)-1}$, takes $\log{(2^{\log(i)-1})}$ comparisons, which leads to $\mathcal{O}(\log(i))$ complexity.
 
-So the overall time complexity is $\Omicron(\log(i))$.
+So the overall time complexity is $\mathcal{O}(\log(i))$.
 
 Can you figure out the best time complexity?
-**Answer:** $\Omicron(1)$
+**Answer:** $\mathcal{O}(1)$
 **Explanation:** When the element we are searching is at the first index.
 
 ### When to use exponential search?
@@ -160,6 +160,6 @@ $mid = low + ((\log(key) - \log(arr[low])) * (high - low) / (\log(arr[high]) - \
 
 **Time Complexity**
 
-If the data follows some distributions, then it works in $\Omicron{(\log({\log{n}}))}$, which is quite good. 
+If the data follows some distributions, then it works in $\mathcal{O}{(\log({\log{n}}))}$, which is quite good. 
 
-But in worst case it might take $\Omicron{(n)}$.
+But in worst case it might take $\mathcal{O}{(n)}$.
