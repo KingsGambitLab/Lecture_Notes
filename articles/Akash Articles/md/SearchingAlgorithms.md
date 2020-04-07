@@ -64,7 +64,7 @@ int main()
 
 ### Quiz Time
 Can you figure out the time complexity in terms of the index($i$) of the element?
-**Answer:** $log(i)$
+**Answer:** $\mathcal{O}(log(i))$
 **Explanation:** In order to find an index of form $2^k$, such that $list[2^k] > key$, we are running the while loop $\lceil\log{i}\rceil$ times, that is $\mathcal{O}(\log(i))$ time complexity.
 
 After that, binary search on the range $2^{\log(i)-1}$ to $2^{\log(i)}$, that is interval of size $2^{\log(i)-1}$, takes $\log{(2^{\log(i)-1})}$ comparisons, which leads to $\mathcal{O}(\log(i))$ complexity.
@@ -76,7 +76,7 @@ Can you figure out the best time complexity?
 **Explanation:** When the element we are searching is at the first index.
 
 ### When to use exponential search?
-Worst case time-complexity of exponential search is $\log(n)$. 
+Worst case time-complexity of exponential search is $\mathcal{O}(\log(n))$. 
 
 We can see that, when the element is near to the front of the list, exponential search performs better than binary search for the case of very large list.
 
@@ -87,23 +87,29 @@ We can see that, when the element is near to the front of the list, exponential 
 
 Interpolation is a well known concept in mathematics, which is used in many fields of engineering and science for estimations. Here also we are going to use it to determine an approximate index for a key.
 
-Suppose, we have a very long sorted list and we are searching for a key-$X$. Let say, we have a mechanism that takes us directly to an index near to $X$, rather than to the middle index of the range(in case of binary search), to determine which side to go next for searching.
+Suppose, we have a very long sorted list and we are searching for a key-$X$. Let say, we have a mechanism that takes us directly to an index near to $X$, to determine which side to go next for searching, rather than to the middle index of the range in case of binary search.
 
 **For example**, we are looking for a key which is near to the end of a long list. So, this mechanism will indicate that we should start searching close to the end of the list. This may lead to less amount of comparisons than ordinary binary search.
 
 In binary search, we use simple formula $(l+r)/2$ to find the mid index. But now, we are going to use different formula. So the question is, how to determine such a formula which finds an index near to the key($X$)?
 
-In order to find such a formula, we need to have some characteristics of data, other than it is sorted. Like, the given data follows linear distribution or exponential distribution or normal distribution or some other distributions.
+In order to find such a formula, we need to have some characteristics of data, other than it is sorted. Like, the given data follows linear distribution, exponential distribution, normal distribution or some other distributions.
 
 **Interpolation search works very well when the data follows some kind of distribution.**
 
-For linear distribution case, the formula is as below, which is called **interpolation formula**.
+For linear distribution case, the formula is as below. the right most term is called **interpolation formula**.
 
 $mid = low + ((key - arr[low]) * (high - low) / (arr[high] - arr[low]))$
 
 Where $low$ and $high$ are lowerbound and upperbound of the search range, respectively.
 
-**Note:** Other than the mid index formula the algorithm is similar to binary search, with some very intuitive conditions.
+For example, given array [2,4,6,8,10,12] follows linear distribution. If you use above formula, then it will directly tell the position of any element in the array in one go. Try it!
+
+Similarly, for exponential distribution case, the formula is as below:
+
+$mid = low + ((\log(key) - \log(arr[low])) * (high - low) / (\log(arr[high]) - \log(arr[low])))$
+
+Other than the mid index formula the algorithm is similar to binary search, with some very intuitive conditions.
 
 ```
 // After determining mid from the above formula
@@ -159,10 +165,6 @@ int main()
 	return 0;
 }
 ```
-
-Similarly, for exponential distribution case, the formula is as below:
-
-$mid = low + ((\log(key) - \log(arr[low])) * (high - low) / (\log(arr[high]) - \log(arr[low])))$
 
 **Time Complexity**
 
