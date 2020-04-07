@@ -6,9 +6,9 @@ Tim sort is the algorithm behind Java and Python's inbuilt `sort()` function. It
 
 As we know, asymptotic notation hides some information in it, which is the constant factor associated with it. Constant factor depends upon the type of hardware and the amount of resources used by the algorithm for the provided input data. It is necessary to consider constant factor to evaluate the real time complexity.
 
-**For example**, Insertion sort outperforms Merge sort for a small list of elements, even if asymptotically Insertion sort and Merge sort works with complexity $\Omicron(N^2)$ and $\Omicron(N\log{N})$ respectively. Why?
+**For example**, Insertion sort outperforms Merge sort for a small list of elements, even if asymptotically Insertion sort and Merge sort works with complexity $\mathcal{O}(N^2)$ and $\mathcal{O}(N\log{N})$ respectively. Why?
 
-Merge sort uses recursive calls and $\Omicron(N)$ extra space. Due to this memory overhead and overhead of recursive calls, the constant factor for merge sort turned out to be higher than insertion sort for a small list of elements. Therefore, $C_{is}(N^2) < C_{ms}(N\log{N})$, for small N.
+Merge sort uses recursive calls and $\mathcal{O}(N)$ extra space. Due to this memory overhead and overhead of recursive calls, the constant factor for merge sort turned out to be higher than insertion sort for a small list of elements. Therefore, $C_{is}(N^2) < C_{ms}(N\log{N})$, for small N.
 
 **Notes:**
 
@@ -17,7 +17,7 @@ Merge sort uses recursive calls and $\Omicron(N)$ extra space. Due to this memor
  - For the shake of simplicity, overhead is considered in constant factors $C_{is}$ and $C_{ms}$.
  - N is the size of the input data.
 
-As we know Quick sort, Merge sort and Heap sort has the time complexity of $\Omicron(N\log{N})$. Tim sort also has the same time complexity, but it is designed such that the associated constant factor is as low as possible.
+As we know Quick sort, Merge sort and Heap sort has the time complexity of $\mathcal{O}(N\log{N})$. Tim sort also has the same time complexity, but it is designed such that the associated constant factor is as low as possible.
 
 Tim sort is an **adaptive algorithm**, which means that it changes its behavior based on the patterns observed in the input data. That is why it is an **intelligent algorithm** and more optimal than other sorting algorithms.
 
@@ -834,10 +834,10 @@ int main()
 
 ## Time Complexity
 
-**Best case complexity** is $\Omicron(N)$, which is observed when the whole data is already sorted.
-In the **worst case**, Timsort takes $\Omicron(NlogN)$.
-Average complexity is $\Omicron(NlogN)$.
+**Best case complexity** is $\mathcal{O}(N)$, which is observed when the whole data is already sorted.
+In the **worst case**, Timsort takes $\mathcal{O}(NlogN)$.
+Average complexity is $\mathcal{O}(NlogN)$.
 
-Space complexity is $O(N)$.
+Space complexity is $\mathcal{O}(N)$.
 
 **Note:** Comparison is an expensive operation. Here, expensive is in terms of the computer resources used by the operation.
