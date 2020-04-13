@@ -1,10 +1,10 @@
 ## Run
  
- _Run_ is an ordered(sorted) sub-array. It can be non-decreasing or decreasing. The input array is to be split into _Runs_.
+ Run is an ordered(sorted) sub-array. It can be non-decreasing or decreasing. The input array is to be split into Runs.
 
 ![enter image description here](https://lh3.googleusercontent.com/CNvldwkU56Hva_WMGiFUTV4FTU7VeOBM-NFfRgPWqfBt6o9UkGETs7qflxoe-FCop2zlxD5KM3rr)
 
-Below is a structure for _Run_.
+Below is a structure for Run.
 ```cpp
     struct run {
         // Starting address of a run
