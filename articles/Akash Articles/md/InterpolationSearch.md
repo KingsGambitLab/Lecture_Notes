@@ -16,9 +16,9 @@ Now, by the equation to find a slope, below formula can be used to find $x$,
 
 $\Large{\frac{y-y_1}{x-x_1} = \frac{y_2-y_1}{x_2-x_1}}$
 
-$\therefore \Large{{x-x_1} =\frac{(y-y_1)\times (x_2-x_1)}{y_2-y_1}}$
+$\Large{{x-x_1} =\frac{(y-y_1)\times (x_2-x_1)}{y_2-y_1}}$
 
-$\therefore \Large{{x} =x_1 + \frac{(y-y_1)\times (x_2-x_1)}{y_2-y_1}}$
+$\Large{{x} =x_1 + \frac{(y-y_1)\times (x_2-x_1)}{y_2-y_1}}$
 
 In order to find a formula for arrays, we need to have some characteristics of data, other than it is sorted. Like, the given data follows linear distribution or exponential distribution or uniform distribution over some range.
 
