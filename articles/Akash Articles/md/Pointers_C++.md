@@ -10,7 +10,7 @@ let's see how it looks like in computer memory.
 
 The smallest unit of data is 1 bit, but the smallest addressable unit of memory is 1 byte(8 bits).
 
-![enter image description here](https://lh3.googleusercontent.com/2g8R_2nzzE5GM2U1terCBjghLFbl24LRu5EutKpwweVKad0buuonVuNgCKkAJ2163rig1f_07Gf1)
+![enter image description here](https://lh3.googleusercontent.com/2g8R_2nzzE5GM2U1terCBjghLFbl24LRu5EutKpwweVKad0buuonVuNgCKkAJ2163rig1f_07Gf1=s1000)
 
 Let say we are instantiating an integer, `int a = 3;`. We know that the size of an integer is 4 bytes. So, a computer will find some free 4 bytes and store its value.
 
@@ -63,7 +63,7 @@ Passing via usual way(by value) will create a copy of the large variable.
 ![enter image description here](https://lh3.googleusercontent.com/WHxLPqxcNE7DgD9Uw6U8D9wqXQHc4yJYViY0n7Zx6gYjh8uyxWpBoq30ZsdtrYDdi_hmQe8XWGFw=s1500)
 
 But now we will pass the address of a variable and use the mechanism to avoid a copy of the large variable.
-![enter image description here](https://lh3.googleusercontent.com/pVTSutVudnGliLXtxRiehzA4yw58_ViQsSL-mmLCWgo1hueCdWZg0--q_NszXLYSj2GrOvWZ3O4j=s1000)
+![enter image description here](https://lh3.googleusercontent.com/pVTSutVudnGliLXtxRiehzA4yw58_ViQsSL-mmLCWgo1hueCdWZg0--q_NszXLYSj2GrOvWZ3O4j=s1100)
 
 So basically, we are passing values indirectly using just the address of a variable.
 
