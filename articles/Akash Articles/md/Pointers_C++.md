@@ -941,7 +941,7 @@ Ex. `int *ptr = new int;`
 Ex. `int *ptr_arr = new int[10];`
 Note that length can be any value you provide at run time or compile time.
 
-The way `new` operator works is that it first checks whether a computer has free memory of the amount requested by a programmer. 
+The way `new` operator works is that it first checks whether a computer has free memory of the amount requested by a programmer.
 
 If yes, then it will return the address of that available memory. In case that much memory is not available, it will result in `bad_alloc` exception followed by termination of the program.
 
@@ -1010,6 +1010,8 @@ A memory leak happens when your program loses the address of dynamically allocat
     ```
 
 **Solution:** Delete(deallocate memory) before anything goes wrong.
+
+
 
 ### Dangling pointer
 
