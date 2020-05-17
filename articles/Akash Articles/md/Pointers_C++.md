@@ -965,9 +965,9 @@ Therefore, to deallocate memory we have to maintain the address of the allocated
 
 ### Memory leak
 
-Memory leak occurs when new memory is allocated dynamically and never deallocated. Let's first see when memory leaks occurs.
+Memory leak occurs when new memory is allocated dynamically and never deallocated. Let's see some scenarios when we will not be able to deallocate!
 
-1. Memory leaks can result from a pointer going out of scope.
+1. Memory leaks can result from a pointer going out of scope. Because we have lost the address of newly allocated memory.
     ```cpp
     #include <iostream>
     using namespace std;
@@ -980,7 +980,7 @@ Memory leak occurs when new memory is allocated dynamically and never deallocate
     int main()
     {
         f();
-        // memory remains allocated
+        // now we will not be able to deallocate
         return 0;
     }
     ```
@@ -1013,11 +1013,12 @@ Memory leak occurs when new memory is allocated dynamically and never deallocate
     }
     ```
 
-Now, can you think out what kind of problems it can create?
 
-Memory of a computer is responsible for proper functioning of the system. All applications running on a computer have some amount of memory requirements. If it can not be satisfied, then system will stop its working(will hang).
+Now, can you figure out what kind of problems it can create?
 
-Now, due to memory leaks, there will be useless allocated memory and as this kind of memory grows in size, it will affect the performance of the computer(due to less amount of available memory). And in the worst case situation, system will stop working correctly.
+A memory of a computer is responsible for the proper functioning of the system. All applications running on a computer have some amount of memory requirements. If it can not be satisfied, then the system will stop working(will hang).
+
+Now, due to memory leaks, there will be useless allocated memory. As this kind of memory grows in size, it will affect the performance of the computer(due to less amount of available memory). And in the worst-case situation, the system will stop working correctly.
 
 Therefore, memory leak is a programming issue and we must take care of it.
 
@@ -1062,9 +1063,9 @@ int main()
 }
 ```
 
-**Best Practice to avoid this scenario**:
+**A way to avoid this scenario**:
 
-To deal with this problem, good way is to set pointer to `nullptr`, immediately after deallocating a pointer. Later on, you can check whether pointer is `nullptr` or not. If it is not a nullptr, then you can dereference or deallocate it.
+To deal with this problem, a good way is to set the pointer to `nullptr` immediately after deallocating a pointer. Now, you can check whether the pointer is alredy deallocated by just checking whether it is a `nullptr`.
 
 ```cpp
 #include <iostream>
@@ -1075,19 +1076,30 @@ int main()
     int *ptr = new int;
     *ptr = 4;
     
-    if(ptr != nullptr) {
-	    delete ptr;
-	    // Make it NULL
-	    ptr = nullptr;
-    }
+	delete ptr;
+	// Make it NULL
+	ptr = nullptr;
    
     if(ptr) {
         cout << *ptr << endl;
         // Safe deallocation
 	    delete ptr;
-	}
+	}		
+    return 0;
+}
+```
 
-	ptr = new int;
+Note that dereferencing a null pointer will lead to abort call.
+
+Now, consider the situation below:
+
+```cpp
+#include<iostream>
+using namespace std;
+
+int main()
+{
+	int *ptr = new int;
 	*ptr = 3;
 	
 	int *ptr2 = ptr;
@@ -1095,16 +1107,18 @@ int main()
 	delete ptr;
 	ptr = nullptr;
 	
-	// Safe deallocation
-	if(!ptr2) {
+	// Results in undefined behavior
+	// ptr2 is not null!
+	if(ptr2) {
 		delete ptr2;
 	}
-	
-    return 0;
+
+	return 0;
 }
 ```
+Note that "assigning `nullptr`" technique will not work in this situation. Because a dangling pointer `ptr2` still contains address of `ptr`, which is not null. Therefore, it results in undefined behavior.
 
-Note that dereferencing a null pointer will lead to abort call.
+So now what is the solution? In C++, a popular technique to avoid dangling pointers is to use "smart pointers". But we are not going to discuss it here, as this is an introductory article.
 
 ## Other usages of pointer
 
