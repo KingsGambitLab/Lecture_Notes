@@ -945,25 +945,27 @@ The way `new` operator works is that it first checks whether a computer has free
 
 If yes, then it will return the address of that available memory. In case that much memory is not available, it will result in `bad_alloc` exception followed by termination of the program.
 
-**One of the advantages of using dynamic memory allocation is that it uses a much larger pool of memory managed by the operating system called the "heap" to allocate memory, which allows us to allocate a larger amount of memory than usual.** 
+**One of the advantages of using dynamic memory allocation is that it uses a much larger pool of memory managed by the operating system called the "heap" to allocate memory, which allows us to allocate a larger amount of memory than usual.**
 
 Therefore, allocate memory dynamically when a large amount of memory is required.
 
-Dynamically allocated memory remains allocated until we deallocate it explicitly using `delete` operator. 
+Dynamically allocated memory remains allocated until we deallocate it explicitly using `delete` operator.
 
 Syntax for `delete` operator is as below:
 1. Single variable: `delete name`
 Ex. `delete ptr`
 2. Array of variables: `delete[] name`
-Ex. `delete[] ptr_arr`    
+Ex. `delete[] ptr_arr`
 
-Now, if we forget to deallocate the memory explicitly, then it gives rise to some problems because this memory can not be used by another program until it is deallocated.
+Note that `ptr` and `ptr_arr` are addresses of newly allocated memory.
+
+**Now, if we forget to deallocate the memory explicitly, then it gives rise to some problems because this memory can not be used by another program until it is deallocated.**
 
 Therefore, to deallocate memory we have to maintain the address of the allocated memory, if we somehow lose it, then we will not be able to deallocate it anymore and **memory leak** will occur.
 
 ### Memory leak
 
-A memory leak happens when your program loses the address of dynamically allocated memory.
+Memory leak occurs when new memory is allocated dynamically and never deallocated. Let's first see when memory leaks occurs.
 
 1. Memory leaks can result from a pointer going out of scope.
     ```cpp
@@ -978,6 +980,7 @@ A memory leak happens when your program loses the address of dynamically allocat
     int main()
     {
         f();
+        // memory remains allocated
         return 0;
     }
     ```
@@ -992,6 +995,7 @@ A memory leak happens when your program loses the address of dynamically allocat
         int a = 1;
         int *ptr = new int;
         ptr = &a; // memory leak!
+        // We have lost the address
         return 0;
     }
 
@@ -1009,13 +1013,23 @@ A memory leak happens when your program loses the address of dynamically allocat
     }
     ```
 
-**Solution:** Delete(deallocate memory) before anything goes wrong.
+Now, can you think out what kind of problems it can create?
 
+Memory of a computer is responsible for proper functioning of the system. All applications running on a computer have some amount of memory requirements. If it can not be satisfied, then system will stop its working(will hang).
 
+Now, due to memory leaks, there will be useless allocated memory and as this kind of memory grows in size, it will affect the performance of the computer(due to less amount of available memory). And in the worst case situation, system will stop working correctly.
+
+Therefore, memory leak is a programming issue and we must take care of it.
+
+**Only Solution:** Deallocate before anything goes wrong.
 
 ### Dangling pointer
 
-A pointer that is pointing to a deallocated memory is called a **dangling pointer**. Dereferencing or again deallocating a dangling pointer will lead to undefined behavior(run-time error).
+A pointer that is pointing to a deallocated memory is called a **dangling pointer**. 
+
+**Problems due to dangling pointer:**
+1. Dereferencing a dangling pointer will give undefined result. Note that it will not give any compiler or run time error, but some random result.
+2. Double deallocation will result in abort(core dumped) call.
 
 ```cpp
 #include <iostream>
@@ -1030,13 +1044,67 @@ int main()
     
     // Now ptr is a dangling pointer
     // Both things below: Dereferencing & 
-    // redeleting will lead to undefined behavior
+    // redeleting will lead to bad behavior
     cout << *ptr << endl;
     delete ptr;
+
+	ptr = new int;
+	*ptr = 3;
+	
+	int *ptr2 = ptr;
+	
+	delete ptr;
+
+	// ptr2 is now dangling pointer
+	// because it is pointing to deallocated memory
     
     return 0;
 }
 ```
+
+**Best Practice to avoid this scenario**:
+
+To deal with this problem, good way is to set pointer to `nullptr`, immediately after deallocating a pointer. Later on, you can check whether pointer is `nullptr` or not. If it is not a nullptr, then you can dereference or deallocate it.
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int main()
+{
+    int *ptr = new int;
+    *ptr = 4;
+    
+    if(ptr != nullptr) {
+	    delete ptr;
+	    // Make it NULL
+	    ptr = nullptr;
+    }
+   
+    if(ptr) {
+        cout << *ptr << endl;
+        // Safe deallocation
+	    delete ptr;
+	}
+
+	ptr = new int;
+	*ptr = 3;
+	
+	int *ptr2 = ptr;
+	
+	delete ptr;
+	ptr = nullptr;
+	
+	// Safe deallocation
+	if(!ptr2) {
+		delete ptr2;
+	}
+	
+    return 0;
+}
+```
+
+Note that dereferencing a null pointer will lead to abort call.
 
 ## Other usages of pointer
 
