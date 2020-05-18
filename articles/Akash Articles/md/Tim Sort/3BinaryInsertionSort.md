@@ -6,16 +6,16 @@ After finding the correct index, we right-shift elements and insert the element 
 
 For an array `[1 4 5 9 10 7 14]`, let's start binary insertion sort from element 7,
 
-![enter image description here](https://lh3.googleusercontent.com/gYDe1Dsz1eezOcERB8Y5f1rRBEaEkIIRBiOOtKyAt5h70VYxCiBDPNS69DQv8UmLKpJeUqzzXzkn)
-![enter image description here](https://lh3.googleusercontent.com/Rrs9w_oXDgYnuaG4R7hX7qre5p2GhgcydJr_bd_eDRoFaryac2yszu5OUAKvs3wvFMMbcWX2coFJ)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/01.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/02.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/t2mXAlL2PSJSh3n-lnzAkuRy1qK9fRFq0Q7JCu5A4pl1OOspOkDYbrclAiqEwpvn3gp50pgD8DYQ)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/03.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/FxEgcwtRKHaeVrjQr68BZH_ZsEvBBzstFfgfWnos3N5NuMm5Hiy1lnFuZlDL6x499m6WNEJiRJZ8)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/04.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/tOY16Ca5Te94D2LdU9N85d9LSodAwQDT35NaiM3Mw7NWib0pkGe6oZvVOiKorsL54apXh_owwBB6)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/05.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/Iks1metkG937y-OAataP7HVsn-dW8nqi3ZVcySdFyjTl6BM3fRxeJpinel2unbfa5CwLvnP4tS9S)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/06.jpg)
 
 Similarly, for $14$, but it is already at its right position.
 
@@ -70,7 +70,7 @@ Merging lists of similar sizes tend to perform better than the other case, due t
 
 Now, let's discuss some criteria we use to merge runs efficiently.
 
-![enter image description here](https://lh3.googleusercontent.com/oNnCn_wv0fTCSN-myagncWWjagqzEoVfnGOz0n2srsmWu8HZKWr88tPIVH-Cr9_LJQZ8cxH4jPfb)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/07.jpg)
 
 **Note:** $|X|$ is a size of a run X.
 
@@ -84,13 +84,13 @@ Whenever we push a new run into the stack, we check for these criteria and merge
 
 Below is a stack of runs, for the shake of simplicity only length of runs are shown. 
 
-![enter image description here](https://lh3.googleusercontent.com/JlBHBgdvLdISBatKmFg1Iq5G8MWQakZ930D3Am7uBFeosJTuYUpgAAL3JDxVRyev1t6mQaaomGL1)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/08.jpg)
 
 Merge until none of these criteria satisfy. Criteria 1 is satisfying so merge,
 
-![enter image description here](https://lh3.googleusercontent.com/7b9_Ogdf_Pg-gLDoedoMelqCapTcyVCIyZR_oi1JCn_NFIr00CQA8NuG2fToH5r0fnSXY4WZxETv)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/09.jpg)
 Again, criteria 1 is satisfying so again merge,
-![enter image description here](https://lh3.googleusercontent.com/IEoTH8KmnZbxYBW1EldpAjXKmBUnDozgLnj977d9E_Vw0y-URZMLjE1Y6iq0DDD70BWRLIvxbhTt)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/010.jpg)
 
 No criteria are satisfying now, so stop.
 
