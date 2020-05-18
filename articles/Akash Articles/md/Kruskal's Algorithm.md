@@ -1,9 +1,8 @@
-
 ## Kruskal's Algorithm
 
 Suppose, You are running a company with several offices in different cities. Now, you want to connect all the offices by phone lines. Different networking companies are asking for different amount of money to connect different pairs of offices.
 
-![enter image description here](https://lh3.googleusercontent.com/644Hn9oGhJPFAkZbyOyXtKx89cAlnim_O2dqWgc5W_YebIHwAHlWrsMpZPzgzbSwENFbsjuVYR0h)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/1.jpg)
 ***Comp** is an abbreviation of Company.
 
 Now, how will you figure out the way with minimum cost?
@@ -22,9 +21,9 @@ $Q.1$ What is the minimum possible number of edges that can connect all the vert
 
 Answer: $|V|-1$
 
-$Q.2$ Find one ST for the following graph.![enter image description here](https://lh3.googleusercontent.com/V4UYMyPf_paL45vwYaaZZ1EYzp2WwwqKmzS9NyqZT-WxtTvBrLzP4e7uI0iaarQOt-UkVJ19CHl5)
+$Q.2$ Find one ST for the following graph.![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/2.jpg)
 **Answer:** Dark lines represents the spanning tree which is not unique.
-![enter image description here](https://lh3.googleusercontent.com/9EVi1ivLU2S0G7P4h_bbanZbSqoTm4C2eK_18J2c1F7_PNz9JL_2nmVlyi9VHTyc84YrgjywpLjy)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/3.jpg)
 
 ### Minimum Spanning Tree (MST)
 Minimum Spanning Tree is the Spanning Tree with minimum cost. 
@@ -33,15 +32,15 @@ Here the cost has different meanings for different kinds of problem. For example
 
 ### Quiz Time
 Find the MST for the given graph.
-![enter image description here](https://lh3.googleusercontent.com/M-17sSWWCuciZYbp7X3FNOuT8EYObz4Ao0m6_dvrCmUcR5nre5Kdzau5KCLlSA92OE0G3l6xYd6w)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/4.jpg)
 
 **Answer:** 
-![enter image description here](https://lh3.googleusercontent.com/IjdTe4v1wNe1CPqweKQdktcnNI7ZT2XRaj01VmhC16orCqGPSJjPTEumQf78NNRanYhOaNDJR0I5)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/5.jpg)
 
 
 **Note**: Here we are talking about an undirected graph because directed graph may or may not have ST. See the image below:
 
-![enter image description here](https://lh3.googleusercontent.com/RZCQAvafhR94_siwLkjLdhtbgmXA4YU3iAmIOBJhh8G3wB615ZIYU6a9xpkKZrqPgcjn0V8jh8-1)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/6.jpg)
 
 For a directed graph to have a ST, there must be a vertex (say "$root$") from which we can reach to every other vetex by directed paths.
 
@@ -79,13 +78,13 @@ Kruskal's Algorithm is a **greedy algorithm**, which chooses the least weighted 
 At the end of the algorithm there will be only one connected component, which includes each vertex of the graph.
 
 **Visualization**
-![enter image description here](https://lh3.googleusercontent.com/jKx_yhQnsvEIpn4UIZxgaoM0gtjkFmMqSszqO0A0VDL-UminMn8TCP61_7sXaGafwcwtKgjcdji2)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/7.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/xGlG4VqzhxnV-EochhwHC_wr5POGoK5z8BNNWhK_IA4vURTCIUAjaTctrBA4lsJFCakL5Kygcl6t)
-![enter image description here](https://lh3.googleusercontent.com/Uds7vSzkS8yehyExYhPnYTFK8QnbfUMa0Kqh6TaCUTG2BoK7ONyulbuVFajKC7cq7AB2rWS_Jt3R)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/8.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/9.jpg)
 
-![same Connected component thing](https://lh3.googleusercontent.com/c6O5HLwwkmAmaPAQBhZoKODGT2HrOwa1kfeXSPZUy7QxfmH8igeP-ZK9QI8v-DfhitJ6Rsoy9_2D)
-![enter image description here](https://lh3.googleusercontent.com/LposVdQeQcUXvQak0_v5yl4ob7DwWEInwPgmdI2_QTgSgHwRx8ViOUhJlRBijSE87N0Fr3GnQS7P)
+![same Connected component thing](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/10.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Kruskal's%20Algo/11.jpg)
 
 Are you wondering how we will do the step $2$ of the algorithm? Which is to find whether two vertices are already connected.
 
