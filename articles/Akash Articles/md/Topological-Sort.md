@@ -20,7 +20,7 @@ Topological Sort is the sorting of the vertices in such a way that, for any two 
 
 $a,b,c,d,e$ is the topologically ordering for the graph below.
 
-![enter image description here](https://lh3.googleusercontent.com/zOBG-tWmznt9QeFbW-SopxIpvyDSH7RgpmYKL9fIgth_TkRQ3sfuxXsDw7iWgmmyGdqip4cay_WS)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Topological%20Sort/1.jpg)
 
 ## Quiz Time
 
@@ -28,7 +28,7 @@ $Q.1$ Is it always possible to find out the topological sort?
 
 No. Whenever there is a cycle in a graph we can not find it. See the image below: 
 
-![enter image description here](https://lh3.googleusercontent.com/u-MLT9wrOoXBNQDqBqEi06jrnqudSGpBCi_oYG27-WI-zd8yEOs2PiBWyLVTimeYP42c5pk-N4AC)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Topological%20Sort/2.jpg)
 
 We can not find proper dependency between any two vertices, becuase each of them are interdependent.
 
@@ -37,7 +37,7 @@ So the condition for the topological sort is, the graph must be a DAG - Directed
 $Q.2$ Does topological sort give a unique ordering of the vertices?
 
 No, it is not unique in every case, because we can find many orderings which satisfies the condition of the topological sort.
-![enter image description here](https://lh3.googleusercontent.com/A-uLwWY3HLE8aKWi0AAWxCDgkEidHTxi5u_CVYhASvoFZgaXr9nzXVNObaIP1BEyAUEE5yLyY6BM)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Topological%20Sort/3.jpg)
 
 In the graph shown in the image above, $b,a,c,d,e$ and $a,b,c,d,e$ both are valid topological sorts.
 
@@ -57,13 +57,13 @@ We will use the indegree of vertices to find the topological ordering. How? Let'
 
 In the image below, the number in the square bracket represents indegree for a vertex near to it.
 
-![enter image description here](https://lh3.googleusercontent.com/YbZlobxN3dHtY7MkIXkZRI7u3Xsv6QTsngzoqn-hiNnMOuUs8tLweaxaR8snMkCTdgOjk7rh7W68)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Topological%20Sort/4.jpg)
 
 As we have seen the topological ordering for the above graph is $a,b,c,d,e$. Now, what is your observation?
 
 See that the vertices having indegree $0$ are appearing first in the ordering. But what next? What if we remove both the vertices and all the edges coming out from it?
 
-![enter image description here](https://lh3.googleusercontent.com/czUu-KCQJ7Y78v0z4-rI4uKiXwsHPT2cmYEISfEQU3n89sEK8uZleMB5Rx6VYnxDjREvO2A94g9b)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Topological%20Sort/5.jpg)
 
 See now, $c$ is the vertex having $0$ indegree, which is appearning next in the ordering. 
 
