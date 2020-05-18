@@ -16,14 +16,14 @@ After that, we do binary search over the index-range $2^{k-1}$ to $2^k$. It is e
 
 Let's have an example,
 
-![enter image description here](https://lh3.googleusercontent.com/5NjJTuBXtIAxPlwv9ZoFG9SLNRN56E_iC4zXIZ1pDu4ipFRkuAlG001c9STTgTfSOFtVTlIu11mM)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Exponential%20Search/1.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/hIiFWzFhtnV4RKNsIMPdcwxryes9DYMkX9HM6Kp4lE0nx8aJKy1U4DO6FEQauxukZnoKG54zAMpN)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Exponential%20Search/2.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/bGRaeI3f4bucSeNqT1JFEFsc8HK8nh8o8sikRhV6QcaOar4qAYV9ITN3pD5TV6CEQsavzO0K4wEh)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Exponential%20Search/3.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/UeoCFXPtEcQ6ucUCkn1FbOST2PI7DjiLXnDHlK-EoX5hXDj4Zj12mjVvvlYZt2UpEFYzCiZrg_vo)
-![enter image description here](https://lh3.googleusercontent.com/xVS0E4OEd_aLFb2HpcFbqqpgoQQIlq2kak07LDuCFiYO7nyzmJvBlmWs6EL4dISlR36BhqcVBwD_)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Exponential%20Search/4.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Exponential%20Search/5.jpg)
 
 Now, Let's see the implementation.
 
