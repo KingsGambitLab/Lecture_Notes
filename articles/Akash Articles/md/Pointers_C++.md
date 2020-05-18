@@ -10,11 +10,11 @@ let's see how it looks like in computer memory.
 
 The smallest unit of data is 1 bit, but the smallest addressable unit of memory is 1 byte(8 bits).
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/1.jpg=s1000)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/1.jpg)
 
 Let say we are instantiating an integer, `int a = 3;`. We know that the size of an integer is 4 bytes. So, a computer will find some free 4 bytes and store its value.
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/2.png=s1500)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/2.png)
 
 Note that, **The address of a variable means the address of its first byte.** So basically, when we read or write a variable, a computer only reads or writes some number of bytes according to the size of a variable(4 bytes in case of an integer).
 
