@@ -4,24 +4,24 @@ Now, let's discuss `mergeAt` procedure, which is used to merge two runs.
 
 Let $base_i$ and $len_i$ are base address and length of $run_i$, respectively.
 
-![enter image description here](https://lh3.googleusercontent.com/-k-_xBINQS8RL2TU4ZLKmht0qtGB-cVRD0THTWGRIf14dNUn2BdtBON29uwN1cmvVzU_eFjbFYyR)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/21.jpg)
 
 We perform two operations before merging two runs:
 
  1. Find index of the first element of $run_2$ into $run_1$. If the index turns out to be the last, then no merging is required.
 
-    ![enter image description here](https://lh3.googleusercontent.com/erUBBF7EjNlid-Z_o78Pp98jJ3lIr2KOKPDg-HNGQllB7cStXz5mGr0eu9VE_HyFfmB9BE48mO-F)
+    ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/22.jpg)
 
     Otherwise just increment the base address for $run_1$, because the elements before this index are already in place.
     
-    ![enter image description here](https://lh3.googleusercontent.com/r3inmg14-vASclUZDd2kNv6mbhYilCfXa4mZ4PQY40g_navG2k6xoABLpEufnuIZUFqJUD_RzxFg)
+    ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/23.jpg)
 
  2. Similarly, find index of the last element of $run_1$ in $run_2$. If the index turns out to be the first, then no merging is required.
 
-    ![enter image description here](https://lh3.googleusercontent.com/erUBBF7EjNlid-Z_o78Pp98jJ3lIr2KOKPDg-HNGQllB7cStXz5mGr0eu9VE_HyFfmB9BE48mO-F)
+    ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/24.jpg)
     
     Otherwise set $len_2$ to this index, because the elements after this index are already in place.
-    ![enter image description here](https://lh3.googleusercontent.com/mzSFF0qSzGFQbWLL1HQeKOwllLfJzdfDHPWKoJHddGbwR4wP_iaclklp7jQUomGAM0uNrJpb7xVa)
+    ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/25.jpg)
 
 After performing this operation you notice that all elements of $run_2$ are less than last element of $run_1$ and first element fo $run_1$ is greater than first element of $run_2$, i.e. $run_1[base_1] > run_2[base_2]$. These implies two things:
 
@@ -30,13 +30,13 @@ Conclusion 2. The first element of $run_2$ is the smallest element.
  
 We will see how useful these conclusions are! Just keep it in mind.
 
-![enter image description here](https://lh3.googleusercontent.com/-k-_xBINQS8RL2TU4ZLKmht0qtGB-cVRD0THTWGRIf14dNUn2BdtBON29uwN1cmvVzU_eFjbFYyR)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/26.jpg)
 
 Now, Let say we are merging two sorted arrays of size _$len_1$_ and _$len_2$_. In traditional merge procedure, we create a new array of size $len_1$+$len_2$. But in Tim sort's merge procedure, we just create a new temporary array of size $min(len1,len2)$ and we copy the smaller array into this temporary array.
 
 The main intention behind it is to decrease **merge space overhead**, because it reduces the number of required element movements.
 
-![enter image description here](https://lh3.googleusercontent.com/Ljf7l2doSHfEoRX7gP1pFSYTCqgNhSc7a1Me2toR4dKWvwfupFq_DYe_FIck5kUJfbxDk9QrnYH-)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/27.jpg)
 
 Notice that we can do merging in both directions: **left-to-right**, as in the traditional mergesort, or **right-to-left**.
 
