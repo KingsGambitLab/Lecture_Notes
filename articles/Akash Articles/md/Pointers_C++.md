@@ -1020,9 +1020,15 @@ A memory of a computer is responsible for the proper functioning of the system. 
 
 Now, due to memory leaks, there will be useless allocated memory. As this kind of memory grows in size, it will affect the performance of the computer(due to less amount of available memory). And in the worst-case situation, the system will stop working correctly.
 
-**Note that in modern systems, memory allocated during a run of a program automatically gets deallocated after the program execution ends.**
+**Note that in modern systems, operating systems deallocates memory allocated during a run of a program at the end of execution.** But while the program is running and you don't get enough memory, then program will break down.
 
-Therefore, memory leak is a programming issue and we must take care of it.
+There is also a concept of **automatic memory management**, which means that programmers don't have to take care about allocating or deallocating objects manually.
+
+Programming languages like python, C#, java, ruby, Go provides **automatic memory management** feature along with garbage collection. **Garbage** here stands for memory which is no longer in use by the program like in the case of **Memory leak**. **Garbage Collection** means that it automatically deallocates garbage memory. Therefore in these languages, we don't have to worry about this issue.
+
+**Rust** programming language also has manual memory management, but when a variable whose data is allocated manually goes out of scope, it will automatically deallocate that memory unless it is moved to be owned by another variable. Rust and C++ also has something known as **Smart pointers**, which also solves **dangling pointer problem**.
+
+Memory leak is a programming issue and we must take care of it.
 
 **Only Solution:** Deallocate before anything goes wrong.
 
@@ -1119,7 +1125,7 @@ int main()
 ```
 Note that "assign to `nullptr`" technique will not work in this situation. Because a dangling pointer `ptr2` still contains address of `ptr`, which is not null. Therefore, it results in undefined behavior.
 
-Now, what is the solution (other than taking care while programming)? In C++, a popular technique to avoid dangling pointers is to use "smart pointers". But we are not going to discuss it here, as this is an introductory article.
+Now, what is the solution (other than taking care while programming)? In C++, a popular technique to avoid dangling pointers is to use "**smart pointers**". But we are not going to discuss it here, as this is an introductory article.
 
 ## Other usages of pointer
 
