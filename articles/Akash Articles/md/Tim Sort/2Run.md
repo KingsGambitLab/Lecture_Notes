@@ -2,7 +2,7 @@
  
  Run is an ordered(sorted) sub-array. It can be non-decreasing or decreasing. The input array is to be split into Runs.
 
-![enter image description here](https://lh3.googleusercontent.com/CNvldwkU56Hva_WMGiFUTV4FTU7VeOBM-NFfRgPWqfBt6o9UkGETs7qflxoe-FCop2zlxD5KM3rr)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/1.jpg)
 
 Below is a structure for Run.
 ```cpp
@@ -60,19 +60,19 @@ In the case of a decreasing run, we reverse the list in the end.
 
 For a given array `13 9 5 4 10 14 16`, let's find runs.
 
-![enter image description here](https://lh3.googleusercontent.com/hCmQ1gKRonCEyIgHxzGI-_QtsDE3u9WXvc9Biix9xjEiWhlU4gTRMFECNjS_bUEg-JSEfqpUeRNV)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/2.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/0wSo1NmDagPDbBiUrAsRIkm_nADA4eiYH1YUqzYbDMT-ZbQdx-wXVqN1yxXDbz8RYnuJiNGKbVrx)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/3.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/y6NDKmBb9eDSbAAXgAS9zCr63FS2g58wecjQOnopyAhsQpwR5zzPxM0yaWkmxqT9GvvZZtUMLno4)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/4.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/MjmPJm7lyFE8G5GvSrPf7l6qfkRTzUh5pRDqJ3uylORLZ239KKGOPTu0Um5e8wjNoqZMpeSRkDVQ)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/5.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/V7nyWxDBPjKEqO1hCIMnwqU7ifu9Z2p4YHVHtDUrlaVPgvCATPPeG3WuSq7jOlqRCFempWm5mT8P)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/6.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/lbX6Cvu9F3uhUwiX17cS3A-QfLF3aNpbjSpIRWXFRrXrTO_tKIesOec6cxUYhkgY1XuPGTwmibop)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/7.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/ntfTHXnrjP0Fcm0OntLRK5XnvtpyioTiEkJoid4q2N5Fn1Mol6q-8wqT6pJuDhiDrMSOnGpTpUpl)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/8.jpg)
 
 Now, we have found a run `4 5 9 13`. Similarly, next run `10 14 16` is already ascending, so no need to reverse it.
 
