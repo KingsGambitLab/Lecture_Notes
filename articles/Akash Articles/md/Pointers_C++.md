@@ -961,11 +961,11 @@ Note that `ptr` and `ptr_arr` are addresses of newly allocated memory.
 
 **Now, if we forget to deallocate the memory explicitly, then it gives rise to some problems because this memory can not be used by another program until it is deallocated.**
 
-Therefore, to deallocate memory we have to maintain the address of the allocated memory, if we somehow lose it, then we will not be able to deallocate it anymore and **memory leak** will occur.
+To deallocate memory, we have to maintain the address of the new allocated memory(as seen in `delete`), if we somehow lose it, then we will not be able to deallocate it anymore and **memory leak** will occur.
 
 ### Memory leak
 
-Memory leak occurs when new memory is allocated dynamically and never deallocated. Let's see some scenarios when we will not be able to deallocate!
+Memory leak occurs when new memory is allocated dynamically and never deallocated. Let's see some scenarios when memory leak occurs.
 
 1. Memory leaks can result from a pointer going out of scope. Because we have lost the address of newly allocated memory.
     ```cpp
@@ -980,7 +980,9 @@ Memory leak occurs when new memory is allocated dynamically and never deallocate
     int main()
     {
         f();
-        // now we will not be able to deallocate
+        // Memory remains allocated
+        // because we haven't deallocated
+        // before we lost the address
         return 0;
     }
     ```
@@ -1012,13 +1014,13 @@ Memory leak occurs when new memory is allocated dynamically and never deallocate
         return 0;
     }
     ```
-
-
 Now, can you figure out what kind of problems it can create?
 
 A memory of a computer is responsible for the proper functioning of the system. All applications running on a computer have some amount of memory requirements. If it can not be satisfied, then the system will stop working(will hang).
 
 Now, due to memory leaks, there will be useless allocated memory. As this kind of memory grows in size, it will affect the performance of the computer(due to less amount of available memory). And in the worst-case situation, the system will stop working correctly.
+
+**Note that in modern systems, memory allocated during a run of a program automatically gets deallocated after the program execution ends.**
 
 Therefore, memory leak is a programming issue and we must take care of it.
 
@@ -1026,11 +1028,11 @@ Therefore, memory leak is a programming issue and we must take care of it.
 
 ### Dangling pointer
 
-A pointer that is pointing to a deallocated memory is called a **dangling pointer**. 
+A pointer that is pointing to a deallocated memory is called a **dangling pointer**.
 
 **Problems due to dangling pointer:**
 1. Dereferencing a dangling pointer will give undefined result. Note that it will not give any compiler or run time error, but some random result.
-2. Double deallocation will result in abort(core dumped) call.
+2. Deallocation of dangling pointer will result in abort call(core dumped).
 
 ```cpp
 #include <iostream>
@@ -1048,14 +1050,14 @@ int main()
     // redeleting will lead to bad behavior
     cout << *ptr << endl;
     delete ptr;
-
+	
 	ptr = new int;
 	*ptr = 3;
 	
 	int *ptr2 = ptr;
 	
 	delete ptr;
-
+	
 	// ptr2 is now dangling pointer
 	// because it is pointing to deallocated memory
     
@@ -1076,7 +1078,7 @@ int main()
     int *ptr = new int;
     *ptr = 4;
     
-	delete ptr;
+    delete ptr;
 	// Make it NULL
 	ptr = nullptr;
    
@@ -1084,7 +1086,7 @@ int main()
         cout << *ptr << endl;
         // Safe deallocation
 	    delete ptr;
-	}		
+	}	
     return 0;
 }
 ```
@@ -1109,16 +1111,15 @@ int main()
 	
 	// Results in undefined behavior
 	// ptr2 is not null!
-	if(ptr2) {
+	if(ptr2)
 		delete ptr2;
-	}
 
 	return 0;
 }
 ```
-Note that "assigning `nullptr`" technique will not work in this situation. Because a dangling pointer `ptr2` still contains address of `ptr`, which is not null. Therefore, it results in undefined behavior.
+Note that "assign to `nullptr`" technique will not work in this situation. Because a dangling pointer `ptr2` still contains address of `ptr`, which is not null. Therefore, it results in undefined behavior.
 
-So now what is the solution? In C++, a popular technique to avoid dangling pointers is to use "smart pointers". But we are not going to discuss it here, as this is an introductory article.
+Now, what is the solution (other than taking care while programming)? In C++, a popular technique to avoid dangling pointers is to use "smart pointers". But we are not going to discuss it here, as this is an introductory article.
 
 ## Other usages of pointer
 
