@@ -20,7 +20,7 @@ We will use the above property together with memoization to solve the problem. H
 
 Suppose that we are searching a shortest path between $u$(source) and $v$. Then we know that the shortest path between $u$ and $v$ must be passing through one of the vertices which are putting a directed edge on $v$ (incoming edges for $v$).
 
-![enter image description here](https://lh3.googleusercontent.com/zcgHZ2l-KORFTbFr5yjnu1BxscxqrsWqBF1tfpTDnE4aLPvWdrkQSiQXtuizV8y3SQHRH35XOgvW)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/1.jpg)
 
 So, first of all we will find a shortest path between source and $x$, $y$, $z$ one by one. Then we can see that the shortest path between $u$ to v will be either $\text{SP}(x) \to v$ or $\text{SP}(y) \to v$ or $\text{SP}(z) \to v$ depending on which one is minimum from $\text{SD}(x)+w1$, $\text{SD}(y)+w2$, $\text{SD}(z)+w3$, respectively.
 
@@ -46,7 +46,7 @@ One thing to notice is that, once the shortest distance for a vertex is found, w
  3. Loop through all the vertices, if the distance to a vertex is not found yet then start the recursion over that vertex.
 
  4. In the recursive function, suppose you are starting from a vertex $v$, then move backward over the incoming edges to the vertex $v$.
-	![enter image description here](https://lh3.googleusercontent.com/onE03fJDK7zzaXlGFcqQcx240bvuxKcIEoA3RbIJZ690tShQfJW0CGbxnCamgmUeVKHoIvNuouQi)
+	![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/2.jpg)
 	
 	In the image above $x$,$y$,$z$ are these vertices, we can reached by moving backward over the incoming edges to the vertex $v$. 
 	
@@ -56,33 +56,33 @@ $distance[v] = min(distance[v], ShortestDistance(u_i) + EdgeWeight(u_i,v) )$  $\
 
 	**Note:** Stop the recursion at the source vertex, which is a base case.
 
-![enter image description here](https://lh3.googleusercontent.com/3GbFgUwMFikEvKCqNL1n87hSozUolombL-yfTYogzAp0WSS4ng42m7v4YyfJbRf-POqtccxMVvPa)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/3.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/AKO9pxqivto0TY4UrbxRTDurlwPGXpdY7jnRaUbFc5wVyqn3r3aR1m2I_s2Jk-HK4OM8MaVpet_p)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/4.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/bEIMeeErMvscD0b88nqLmGkF9QKr33GtW4GAloUspaQcy35sM8-AI4YbLrQ3jy-G43IMe1jlO7it)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/5.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/lHwWgRt36q9jtYek91GFBoG5JUcke9KbPFABAb5p-ttVDv6ZlaUVu7pQOAXorB5YVseccpm_X5qv)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/6.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/rD1tS9C80Lef2s1VNikFWxtB0Z4zyluiCCPEbT22z4HEC70wlKK95ukeWtfVUgm_HfhuxQ9C2Q8Y)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/7.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/Hm8iD_nyjbnVTz8ZrxHfmddk44AbOYlXgyeEAW6puNaNZdek0N_yecGJWN6n2KUC2kz0sltctko1)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/8.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/knyYkHrc_zidlqaa-MuhlodxuDADgs02ID-mg3lczTuqVU8V0bb_SI2yEhCxT2IxWXL_AfmQBcoL)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/9.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/E0lKJfEkQ2Tj_cnxQiYiznbUcYcS43DLYsNIME3Mg0So6S9wusy50tRXJrtnEvY_31f3W4jgrqEJ)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/10.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/y-h0rDBFvMtb-ednsSpScqlYlzUDEhctpcTaDnLRJHgI2r4sfJI7fM8o7kUZg7EQsBrOfQRj3-aD)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/11.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/7c7GLD_-XW3lmhAvVUQLRjt6KiCv43rhKDxMncYkp3eGfY5xFNp9JhzJT6-FxdX7S79XPr2ZWhDr)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/12.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/CARyqEf3tKiaKGefYVjJ4LFbdfjM1QlufJszMU1OgE-MGfsRTdh-7VIQg8TDWvDZ5OwY9jZzdzVB)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/13.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/B8HNXOYfkfwKTXxRDBJ9swnWR4uqcHsB1BJbHsBKzMOcEr4I50wwlzvnzJlxYrR_nEs45GZesGX0)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/14.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/9AZFtU7GqxTguAxR1FQFm9pvV0q-biopPHWsYoYA03xci8e_9cZJmye1Pmr7Rpkr-6f0cqJLOnP5)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/15.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/hk5oggibZqf43non8o6i3eQqSxv7scCg3YnFAnwKBV7iFoo_MKXWFVODEbVOn5JP5J9m28ZHpAcS)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/16.jpg)
 	
 ```c++
 #include <bits/stdc++.h>
@@ -193,29 +193,29 @@ Let's see the algorithm.
  4. Loop over the vertices in the order generated by the topological sort and update the shortest distances to all the adjacent vertices of all of them, one by one in the order.
 
 **Visualization**
-![enter image description here](https://lh3.googleusercontent.com/8AWaULupuk47vWbCt03JqmMztnzlTQX6hI5trXsEto5WvTxet-g__JHbf-oapvnopySkMFXMlzzP)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/17.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/R1Lx2VpAo1HZhJGXndacjD58_JKm3Sf2Mzp8XiWxwUVfSoxfHdsGY_za-MSbOX1edhbO8b7qUU45)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/18.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/x2k7_th3-rd49fuYlQ21SYPlatfR2yJdtVAQjCS3Kci0BvPZ9QPGKHvSaVR90A2hHD-cZrdxw46c)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/19.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/rkzvSCcNWPL_YvH2Me8EQbK2UYof9SKm-xAcmBHkFe1PKuWJ93w_nMQMKZ91nWggccz9oDLoDMGD)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/20.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/BaIRyy92osZI9hhptyFCLpQ2BkjWtJ0GBy7c_Z0gjtXjlUv7fnumHiRmslwqODKBirFlml1xLwKo)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/21.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/6cOdgwGMmBqfdyqS1F46n6OP3bs7db9jZhE91dOukxYqNmdM_-mCC53qZ_cH8Evs5viatICjiTtD)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/22.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/374THC8sJO1ESUkpjh5KUzAD-e2CcmkrfCD9-lVdDO4xC8M1LOvOLpLr-oMQuHC1NEeFRB3fW7VB)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/23.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/v5HpkcVrmwDetuMXaoOqAr09Z8iCtrG28xOfqEbb6EL40CjZVANN38HQAi21XLJ6yCk2nwkV-YtP)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/24.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/WGQH8BF5a1X1FTIyV9Ik8TAhkGcUrsirM6MzZbrcRoBcH7rzPE0ictdnfxYTLnh_C8ZKHibwVfJ7)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/25.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/oXacIqRQl0TZ8hKUtXiT8N1TqkpWff67K0Vw_huIQseGavjVM8cKUp4n1vFlmhP_QWolar-yCPmu)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/26.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/PwWja4G0ZAncUnGJcCin2EyajAzJR4wNOC-5WhdLvN0ejwDB3Pq8XTencVr6HlU2hFfTQuZTPmCv)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/27.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/Drs6P4aLXaimWKNMi_0-rsoy_sN7QGLV7q-XxfPeCtHXS1XmcVCCTYgbgj37VAFU0edvF9PLUGP0)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/ShortestPath_DP/28.jpg)
 ```c++
 
 #include <bits/stdc++.h>
