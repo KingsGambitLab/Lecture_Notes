@@ -3,21 +3,21 @@
 Standard merging procedure for merging two sorted arrays array_1: [10] and array_2: [1,2,3,4,6,9,14] goes as below:
 
 CREATE GIF
-![enter image description here](https://lh3.googleusercontent.com/fGNXjeqWRQEtqN3ZjxR55HsZv61YSpxgT98dpXaCe2YMmBNaJz9O5jrMFRamL1GV3DkAuWhUVuOV)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/11.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/pDUhaOlftbV2L3ITwk18SVkVG5NXuGoMJ1XDC3q50IjgYAn-c-DJmP6l2nILbwe32ulWNnW0FkbC)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/12.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/MQw924q3lie_KKdFj1AaAWnMghDVP7TCcugsp71Uk4Z8VdvvJ-I5IaMknrBG7N0T-XCmZqAB4wtB)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/13.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/jUk_Vzny2Ro0bRttqEEsd8627CbHZ7jVkdjZzeLbpBCic5oNhCDhEy8naQA68xKmkO9ucDH7A933)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/14.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/RDQTt974n5uox1D9LtQhMpgyf9v3_aqc8fL4q9jwYmbJo1nrlGgUPUZNSf63DGPoJ2U54oTcEjp6)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/15.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/9Ma4pKJQPO866e8PdytQZnZ3ljcuO-A38mNT9QNU6qsn7ZvgCAiU4dLbyyfBkAiBa9WdRMef8o1Z)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/16.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/2ilz_WMDaNbLNdQ5xop1vwHjMkufbNt8KH93pAE6JIDIPUl9Ub0JH6YdZZJIK9e_jkJu3oKpLG6j)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/17.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/ZY8fNtYIR3ZbWESgVeUm20GuFpz-34X7YqHvSxKmmwtsFIwWmDfDuJiNSX1UpccRkz2ap3I7oN5v)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/18.jpg)
 
 As you can see we are consistently taking elements from array_2 until we reach $14$. But can we do better? Yes, use galloping.
 
@@ -48,7 +48,7 @@ Note that we can do galloping(exponential search) from any side of the array, ei
 
 The starting position for the search is called a "$hint$". Sometimes it is better to search from the left and sometimes from the right. For the given array below,
 
-![enter image description here](https://lh3.googleusercontent.com/jkr4R3v4liODaPlf3MzaGwXpTg83InKn6lOxX3XwdilDeDkZZO6RegRb8ZaFyHxRddkz7BdOPXFH)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/19.jpg)
 
 If we want to find position for $3$, then starting from index 0($hint = 0$) is efficient, but if we are looking for position of $13$ then starting from index $len-1$($hint = len-1$) is more efficient. **It is particularly efficient for big arrays.**
 
@@ -63,13 +63,13 @@ We have two types of galloping function `gallopRight` and `gallopLeft`, the main
 
 For example, for the array given below,
 
-![enter image description here](https://lh3.googleusercontent.com/FxAq82p754Q1Zkpdzca65jujMzeCx-9ho_rBWF2mUWJo5fu7-q8siSlVVgsJ4_Obln-B6i-AKJ5Y)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/110.jpg)
 
 If you find a position of 13 by using galloping, then `gallopLeft` will return 6, but `gallopRight` will return 9.
 
 In simple mode, it is trivial to maintain stability, but to maintain stability while merging in galloping mode, we sometimes use `gallopRight` and sometimes `gallopLeft`. Just to get the basic idea, see the below example, it will be more clear when we will the merge procedure.
 
-![enter image description here](https://lh3.googleusercontent.com/s-xqdPcSotlep3yl-xYqiFNzcEhbfBih0ZqLFS_uNXJN_pGoTGsXKcu9VJTRcYykYb4tqyLt_4XJ)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Tim_Sort/111.jpg)
 
 Now, if we are finding a position of run2[0] in run1, then we will use `gallopRight`, but if we are finding a position for run1[3] in run2, then we will use `gallopLeft`.
 
