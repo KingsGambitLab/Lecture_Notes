@@ -10,7 +10,7 @@ Interpolation is a well-known concept in mathematics, which is used in many fiel
 
 We are given that a line passes through two points $(x_1, y_1)$ & $(x_2, y_2)$. Now, we are given a value $y$ and we are asked to find $x$ such that $(x,y)$ is on the line.
 
-![enter image description here](https://lh3.googleusercontent.com/HNFj3j-h1ecIIYyRraHHbgJ38dq22Ble78iVozXnm65yNqirNkherzM3Q4cpuJrvCPYiR52o42Cy)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Interpolation%20Search/1.jpg)
 
 Now, by the equation to find a slope, below formula can be used to find $x$,
 
@@ -24,7 +24,7 @@ In order to find a formula for arrays, we need to have some characteristics of d
 
 Let say our array values follow a linear distribution, i.e. if we put indexes on $x$ axis and corresponding array values on $y$ axis, then it roughly creates a line. For example, given array `[0,2,4,6,8,10,12]` exactly follows linear distribution.
 
-![enter image description here](https://lh3.googleusercontent.com/v3WBwrLgD_0mvASDiC_cgFm4Hy5fcGpEnnG-6r8u314jYZCnuBNDu3TEet282pjeyKhXNwVS3Q5D)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Interpolation%20Search/2.jpg)
 
 If you condsider index as $x$ values and array values as $y$, then for three points $(high,arr[high])$, $(low,arr[low])$, $(x,key)$ the formula turns out to be as below:
 
@@ -59,8 +59,8 @@ In case if the data roughly(not exactly) creates a line, then also interpolation
 
 Let's have an example run for array `[0 1 2 4 9 11 14 15 16 19]` and key = 16,
 
-![enter image description here](https://lh3.googleusercontent.com/rAGPZU_fPAB4JrMNASXs7jMyQyzm2Vx-Agt1y73sAb9nTWvXZ5eOZx79RqjRPS5SR3PZLepyYFJe)
-![enter image description here](https://lh3.googleusercontent.com/uV69vAN0QECMBqMACs0ITnmW__pfwCP2H8eQ3zbNo_BPBksuKiRLUz-qlSudrUIaTbv0C_YeJ1iL)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Interpolation%20Search/3.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Interpolation%20Search/4.jpg)
 
 
 ```cpp
