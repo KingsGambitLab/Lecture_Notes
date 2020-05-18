@@ -18,29 +18,29 @@ Prim's algorithm is also a greedy algorithm, which is quite similar to Dijkstra'
  5. Set $V$ to $U$ and continue from step 2 until all $|V|$ vertices are in the tree.
 
 **Visualization**
-![enter image description here](https://lh3.googleusercontent.com/6K6LDcKyb37O1_bvWCTDqwArEKwUhWUIeMiHcYuwBBKiT96227ndkcrtVUXGIZh99b4797Ag8Tz8)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/1.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/ZzoZu85ceeGJv_rITxLeNv3Aj_DM7ijXyY_aFPomRH5uuqCKAGGerfa4Y92AGQBn-ZowDlFe2jzx)
-![enter image description here](https://lh3.googleusercontent.com/Xcynud0p9l6UuWZG4IYszTFg9oyxlL-SCikCcbVx5AQ1K07cFYo6OHVHUh6ugxLKU13W2RIBg-66)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/2.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/3.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/h57vXQgMzcvQKdGDioi91GDnvl804VPWqs_QhY_tZVxhKvV9iLc183f5-5ynJO_vObCnd_8Yp-JB)
-![enter image description here](https://lh3.googleusercontent.com/kSpm3PWqqX8d7ZDwEJhWYKooHiaYIP_BTYPDKOX1Em2n15XJKcv9dxfbHAiFFt3ER0DSEK4jklpc)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/4.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/5.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/QtqN-LZRmrTNIrLEy0qUq0aT5tCa5jNv4RmOi5lnqQnQJ9f9Won5GUVk41gLz5b8ZeMtoQgV2Xh0)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/6.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/k_OkqjacpH3p3NTfLVNs06D_RpPfui8PaPtGcHDTvUAoldoYntpDBaC4QovZu3S63U1pknEyFhoa)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/7.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/0Npt2c9MTgDm4dkZTfO4lewZgZvfnbgixOK3laNX4JV0d-StPcpy-DXbmS3jSjDcmIWvFvvLJ0DQ)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/8.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/5y89gCgIMo2d2BVlw73LsaW7tRVkJcdxKHGbCZEK2nNDBiefX1PFA0shkCsFSPvxVRmKh6Gc1oy5)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/9.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/7-ap56y_klM0c-HUVSEhqIuV4g5lFYwQe1x9C1ucxHfsSB03BfyQbtb9AEjlT4QUQFoETKoEndY0)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/10.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/zUfsEoA-rcEYQQCNGX6jdPOHYGFQ3za_qMHNJQmZEj6cMuINA66ApJ8UJ45giIRP2EdzB0F7NnF8)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/11.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/-FhJklDlIaXRFsG3FCr0Pm8uvDQPsfH_IklonW6UpoIfpWwZ0LKFCW1J2JUZGagbNUFfd4DDDn9l)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/12.jpg)
 
-![enter image description here](https://lh3.googleusercontent.com/b2AgnVPdxBK1xa5iMQPkbLcIbn_IBFPEHmCpjGAIIfQgjur5zYKHpLfGKwY_YC3R_NEcFfvAXV5F)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Prim's%20Algo/13.jpg)
 
 We will discuss two different approaches:
  1. Adjacency List representation of graph
