@@ -56,14 +56,14 @@ Now, suppose we have a mechanism that allows us to **manipulate the variable via
 
 Let's see an easy to understand the advantage. Suppose, we want to pass a large variable to a function.
 
-![enter image description here](https://lh3.googleusercontent.com/K9oyNSIl8fTmUsdf4AC5lIUFVobztgrxhADG6rXs7GS7zhusz-SdY7HrVZfsfeMAwl09Aj8h5JVt)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/3.jpg)
 
 Passing via usual way(by value) will create a copy of the large variable.
 
-![enter image description here](https://lh3.googleusercontent.com/WHxLPqxcNE7DgD9Uw6U8D9wqXQHc4yJYViY0n7Zx6gYjh8uyxWpBoq30ZsdtrYDdi_hmQe8XWGFw=s1500)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/4.png)
 
 But now we will pass the address of a variable and use the mechanism to avoid a copy of the large variable.
-![enter image description here](https://lh3.googleusercontent.com/pVTSutVudnGliLXtxRiehzA4yw58_ViQsSL-mmLCWgo1hueCdWZg0--q_NszXLYSj2GrOvWZ3O4j=s1100)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/5.png)
 
 So basically, we are passing values indirectly using just the address of a variable.
 
@@ -117,7 +117,7 @@ The best practice is to declare pointers in different lines.
 
 As we know, pointer variables store the address of another variable. Therefore, **the value must be an address of a predeclared variable of the same datatype as of pointer variable**.
 
-![enter image description here](https://lh3.googleusercontent.com/RrQ_aBMT55mVHTDmF6VPcZeMPfKe5tIry4EyRYiwiP_nLSfSwF9ajkupEjrB6SJ2zf41ry_zyAuG)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/6.png)
 
 ```cpp
 #include <iostream>
@@ -326,7 +326,7 @@ What did you observe?
 
 You can see that arrays are also using pointer, which points to the first element of the array.
 
-![enter image description here](https://lh3.googleusercontent.com/DJAY3eUjzVFKOl87L0sSBBJmt1T7DcSOgKVGhw823RAdX594C0fzft3HP78lA9UjWXMwTz3QMiBc)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/7.png)
 
 But a fixed array is not exactly a pointer, let's see:
 
@@ -361,7 +361,7 @@ Yes, add `sizeof(data type of array)` bytes to the address of the first element 
 
 In C++, we can use basic math operations(addition and subtraction) on pointer as well. But it is different. If you add(or subtract) integer $a$ to pointer containing some address, then it will add(or subtract) `a*sizeof(data type of the pointer)`(ex. `a*(4 byte)` for integer pointer) to its address.
 
-![enter image description here](https://lh3.googleusercontent.com/W3M3lLq_u1iTl2eaWhhD62e5D5LikeVl5IltdfDVXwHyL27dl0KpclcDFiTr0Z7iKRuhQZfTJyEn)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/8.png)
 
 As array elements are continuous(sequential) in memory, **pointer arithmetic is basically used when we access array elements using [] operator(ex. array[3]).** 
 
@@ -478,7 +478,7 @@ Now, let's check how well you have understood things so far.
 
 Pointer to Pointer is a pointer that holds the address of another pointer variable. It can be declared by putting two asterisks (`**`) instead of one.
 
-![enter image description here](https://lh3.googleusercontent.com/upJucegdzSIqe0uwQrPJdMYH6o9ymRDOg4t8Dyh-3c8JUp4vR-ULkVTIox1Q6HRg98X5NY88jycf=s1500)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/9.png)
 
 ```cpp
 #include <iostream>
@@ -534,7 +534,7 @@ Observe the below image and try to understand the shown pointer arithmetic.
 
 Note that, `a[x][y]` in pointer arithmetic sense is basically `*(*(a+x)+y)`. 
 
-![enter image description here](https://lh3.googleusercontent.com/34Kre8qChbnZsqlSltbsFMxWtSg6WiaLT2zCZpi8am3eqvv-4SUoiOMyHWwnh_-tW13DMeDlx-Vd=s1500)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Pointers/10.png)
 
 Here `sizeof(a[0])` or `sizeof(*a)` is 3 integers, i.e. 12 bytes and therefore in pointer arithmetic, if we add 1 to `a`, then it basically adds 12 bytes.
 
