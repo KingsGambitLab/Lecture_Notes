@@ -65,13 +65,13 @@ Therefore, now for the shake of ease we are going to represent the nodes of trie
 
 And therefore representation of trie containing string "act" will be as below.
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/6.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/6.jpg=s800)
 
 **Note:** Root node will be shown empty, as it only represents an empty string, so to speak.
 
 Now, observe the trie below, which contains two strings "act" and "ace".
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/7.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/7.jpg=s800)
 
 Note that the node representing character `c` in the above trie, in magnified sense would look as below:
 
@@ -85,7 +85,7 @@ Therefore, we are not creating any new node until we need one and **Trie is a ve
 
 Now, observe the trie below, which contains three strings `"act"`, `"ace"` and `"cat"`.
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg=s800)
 
 Let's see proper algorithm to insert a string in a trie.
 
@@ -116,13 +116,13 @@ Can you figure out, how can we check whether the given string is present in trie
 
 For example, if you are searching `"aco"` in the trie below, then how will you do?
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg=s800)
 
 **Can you see, why `isEndofString` is needed?**
 
 Observe the trie given below and try to search whether `"on"` is present or not.
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/10.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/10.jpg=s800)
 
 If you don't have `isEndofString` variable, then you will not be able to correctly check whether `on` is present or not. Because it is prefix of `once`.
 
@@ -151,7 +151,7 @@ bool search(trie_node* root, string s)
 
 How will you delete `"ace"` from the trie below?
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg=s800)
 
 Things to take care about while you are deleting a string from the trie,
 1. It should not affect any other string present in the trie.
@@ -280,7 +280,7 @@ It is easy implemention, but with single downside. Therefore, use as per the req
 
 How will you find the number of words(strings) present in the trie below?
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9.jpg=s800)
 
 Ultimately, It means to find the total number of nodes having `true` value of `isEndofString`. Which can be easily done using recursive traversal of all the nodes present in the trie.
 
@@ -340,7 +340,7 @@ How will you design autocompletion feature using Trie?
 
 For example, we have stored C++ keywords in a trie. Now, when you type `"n"` it should show all keywords starting from `"n"`. For simplicity only keywords starting from `"n"` are shown in the trie below,
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/12.jpg)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/12.jpg=s800)
 
 How will you print all keywords starting from `"n"`? OR how will you print all keywords having `"n"` as prefix?
 
@@ -425,4 +425,5 @@ struct trie_node
 
 Below image shows a typical trie structure for dictionary.
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/13.jpg)
+
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/13.jpg=s800)
