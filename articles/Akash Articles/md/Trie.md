@@ -65,7 +65,7 @@ Therefore, now for the shake of ease we are going to represent the nodes of trie
 
 And therefore representation of trie containing string "act" will be as below.
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/6.jpg=s800)
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/6(1).jpg)
 
 **Note:** Root node will be shown empty, as it only represents an empty string, so to speak.
 
