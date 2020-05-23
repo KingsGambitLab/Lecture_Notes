@@ -19,8 +19,10 @@ Trie is a very useful and special kind of data structure for string processing.
 Trie is a tree of nodes, where the specifications of a node can be given as below:
 
 Each node has, 
-1. An array of datatype `node` having the size of the alphabet(see the note below).
+1. An array of size of the alphabet(see the note below).
 2. A boolean variable.
+
+**Note:** For an easy understanding purpose, we are assuming that all strings contain lowercase alphabet letters, i.e. `alphabet_size` is $26$. **We can convert characters to a number by using `c-'a'`, `c` is a lowercase character.**
 
 **We will see usages of these two variables soon.**
 
@@ -40,8 +42,6 @@ struct trie_node
     }
 };
 ```
-
-**Note:** For an easy understanding purpose, we are assuming that all strings contain lowercase alphabet letters, i.e. `alphabet_size` is $26$. **We can convert characters to a number by using `c-'a'`, `c` is a lowercase character.**
 
 ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/3.png)
 
