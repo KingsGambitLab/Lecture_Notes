@@ -32,10 +32,11 @@ struct trie_node
     vector<trie_node*> links;
     bool isEndofString;
 
-    trie_node(bool end = false)
+    // Constructor
+    trie_node()
     {
         links.assign(alphabet_size, nullptr);
-        isEndofString = end;
+        isEndofString = false;
     }
 };
 ```
