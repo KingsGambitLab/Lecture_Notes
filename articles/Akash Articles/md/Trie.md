@@ -1,7 +1,23 @@
+<html>
+<head>
+<script type="text/javascript"
+   src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js">
+</script>
+</head>
+
+<body onload = "start()">
 
 Do you know how the "auto-completion feature" provided by different software like IDEs, Search Engines, command-line interpreters, text editors, etc works?
 
 ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/1.png)
+
+Below is an input box, which has an autocomplete feature for "country names". Try it out!
+
+<input type="text" id = "trie" placeholder="Enter country name" onkeyup="suggest()" onfocusout="done()">
+
+<ul id="suggest" style="list-style-type:none">
+
+</ul>
 
 The basic data structure behind all these scenes is **Trie**.
 
@@ -14,17 +30,30 @@ String processing is widely used across real-world applications, for example dat
 
 Trie is a very useful and special kind of data structure for string processing.
 
+Below is a very simple representation of trie consisting of `"cat"`, `"bat"`, `"dog"` strings.
+
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/lastadd.jpg)
+
+Now, suppose we are given a string-array and we are told that check whether `"cat"` string is present in the array. Then we can check it via brute force-compare with each and every string present in the string-array, which would take $O(N*length("cat"))$ in the worst-case situation, where $N$ is the number of string in the array.
+
+Now, if you create a trie from all the strings present in the array, then you can simply check it in $O(length("cat"))$ time by traversing through trie(confused? we will see it soon), which is very efficient and therefore trie is an efficient information re<b><i>trie</i></b>val data structure.
+
 ## Introduction
 
 Trie is a tree of nodes, where the specifications of a node can be given as below:
 
 Each node has, 
-1. An array of size of the alphabet(see the note below).
+1. An array of size of the alphabet(see the note below) to store links to other nodes.
 2. A boolean variable.
 
-**Note:** For an easy understanding purpose, we are assuming that all strings contain lowercase alphabet letters, i.e. `alphabet_size` is $26$. **We can convert characters to a number by using `c-'a'`, `c` is a lowercase character.**
+**Notes** 
 
-**We will see usages of these two variables soon.**
+1. For an easy understanding purpose, we are assuming that all strings contain only lowercase alphabet letters, i.e. `alphabet_size` is $26$.
+2. We will discuss the traditional implementation here, although we can use some data structures like hash table in each node.
+
+![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/3.png)
+
+**We will see "why do we need these two variables?" soon.**
 
 ```cpp
 struct trie_node 
@@ -43,9 +72,7 @@ struct trie_node
 };
 ```
 
-![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/3.png)
-
-Now, we have seen how a trie node looks like. Let's see how we are going to store strings in a trie using this kind of node.
+Now, we have seen how a trie node looks like. Let's see **how we are going to store strings in a trie using this kind of node.**
 
 ## How to insert a string in a trie?
 
@@ -55,11 +82,8 @@ Look at the image below, which represents a string "act" stored in a trie. Obser
 
 **Note: Empty places in the array have null values(`nullptr` in c++).**
 
-What did you observe?
-
-Observations:
-1. **Other than the root node, each node in trie represents a single character.**
-2. **We set isEndofString to true in the node at which the string ends.**
+1. **Other than the root node, each node in trie represents a single character.** In the above image, $2^{nd}$, $3^{rd}$, $4^{th}$ node represents `'a'`, `'c'`, and `'t'` respectively.
+2. **The node at which the string ends, we set isEndofString to true.** See last node in the image above.
 
 Therefore, now for the shake of ease we are going to represent the nodes of trie as below.
 
@@ -85,7 +109,7 @@ A common prefix of `"ace"` and `"act"` is `"ac"` and therefore we are having the
 
 Therefore, we are not creating any new node until we need one and **Trie is a very efficient data storage, when we have a large list of strings sharing common prefixes.** It is also known as **prefix tree**.
 
-Now, observe the trie below, which contains three strings `"act"`, `"ace"` and `"cat"`.
+Now, look the trie below, which contains three strings `"act"`, `"ace"` and `"cat"`.
 
 ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9(1).jpg)
 
@@ -426,7 +450,7 @@ Hashtable can be used to implement a dictionary. After precomputation of hash fo
 
 But as the dictionary is very large there will be collisions between two or more words. Still, you can design a hash table to have efficient look-ups.
 
-But space usages is very high, as we simply store each word. But what if we design it using a trie?
+But hashtable has a very high space usages, as we simply store each word and attatched data. But what if we design it using a trie?
 
 As in a dictionary we have many common-prefix words, trie will save a substantial amount of memory consumption. Trie supports look-up in $O(\text{word length})$, which is higher than a very efficient hash table.
 
@@ -435,7 +459,7 @@ Other advantages of the trie are as below:
 2. It also supports ordered traversal of words with given prefix
 3. No need for complex hash functions
 
-So, if you want some of the above features then using trie is good for you. Also, we don't have to deal with collisions.
+So, if you want some of the above features, then using a trie is good. Also, we don't have to deal with collisions.
 
 Note that in the dictionary along with a word, we have explanations or meanings of that word. That can be handled by separately maintaining an array that stores all those extra stuff. Then store one integer in the `TrieNode` structure to store the index of the corresponding data in the array.
 
@@ -454,3 +478,151 @@ struct trie_node
 The below image shows a typical trie structure for the dictionary.
 
 ![enter image description here](https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/13.jpg)
+
+<script>
+function TrieNode(key) {
+  this.key = key;  
+  this.parent = null;  
+  this.children = {};  
+  this.end = false;
+}
+
+TrieNode.prototype.getWord = function() {
+  var output = [];
+  var node = this;
+  
+  while (node !== null) {
+    output.unshift(node.key);
+    node = node.parent;
+  }
+  
+  return output.join('');
+};
+
+
+function Trie() {
+  this.root = new TrieNode(null);
+}
+
+Trie.prototype.insert = function(word) {
+  var node = this.root;
+  
+  for(var i = 0; i < word.length; i++) {
+    if (!node.children[word[i]]) {
+      node.children[word[i]] = new TrieNode(word[i]);
+      
+      node.children[word[i]].parent = node;
+    }
+    
+    node = node.children[word[i]];
+    
+    if (i == word.length-1) {
+      node.end = true;
+    }
+  }
+};
+
+Trie.prototype.contains = function(word) {
+  var node = this.root;
+  
+  for(var i = 0; i < word.length; i++) {
+    if (node.children[word[i]] || node.children[word[i]]) {
+      node = node.children[word[i]];
+    } else {
+      return false;
+    }
+  }
+  
+  return node.end;
+};
+
+Trie.prototype.find = function(prefix) {
+  var node = this.root;
+  var output = [];
+  
+  for(var i = 0; i < prefix.length; i++) {
+    if (node.children[prefix[i].toLowerCase()]) {
+      node = node.children[prefix[i].toLowerCase()];
+	} else if(node.children[prefix[i].toUpperCase()]) {
+		node = node.children[prefix[i].toUpperCase()];
+	} else {
+      return output;
+    }
+  }
+  
+  findAllWords(node, output);
+  
+  return output;
+};
+
+function findAllWords(node, arr) {
+  if (node.end) {
+    arr.unshift(node.getWord());
+  }
+  
+  for (var child in node.children) {
+    findAllWords(node.children[child], arr);
+  }
+}
+
+var trie = new Trie();
+
+function start() {
+	countries = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"];
+
+	for(let i=0;i<countries.length;i++) {
+		trie.insert(countries[i]);
+	}
+}
+
+
+function suggest() {
+
+	var myNode = document.getElementById("suggest");
+  	myNode.innerHTML = '';
+
+	var s = document.getElementById("trie").value;
+
+	if(s.length == 0) return;
+
+	var ans = trie.find(s);
+
+	if(ans.length == 0) return;
+	var sstring = "";
+	for(let i=0;i<ans.length;i++){
+		let j = 0;
+		sstring += "<li>";
+		sstring += "<b>";
+		while(j < s.length) {
+			if (j == 0) {
+				let c = ans[i][j].toUpperCase();
+				sstring += c;
+			}
+			else {
+				let c = ans[i][j].toLowerCase();
+				sstring += c;
+			}
+			j++;
+		}
+		sstring += "</b>";
+		while(j < ans[i].length)
+			sstring += ans[i][j++].toLowerCase();
+		sstring += "</li>";
+	}
+	document.getElementById("suggest").innerHTML = sstring;
+}
+
+function done() {
+
+	document.getElementById("trie").value = "";
+	document.getElementById("suggest").innerHTML = "";
+}
+
+</script>
+
+
+
+</body>
+
+
+</html>
