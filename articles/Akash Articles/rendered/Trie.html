@@ -1,0 +1,526 @@
+<html>
+
+<head>
+	<title> Trie </title>
+	<script type="text/x-mathjax-config">
+        MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+    </script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/xcode.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+	<script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+    </script>
+
+</head>
+
+<body onload = "start()">
+
+<p>Do you know how the &quot;auto-completion feature&quot; provided by different software like IDEs, Search Engines, command-line interpreters, text editors, etc works?</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/1.png" alt="enter image description here"></p>
+<p>Below is an input box, which has an autocomplete feature for &quot;country names&quot;. Try it out!</p>
+<input type="text" id = "trie" placeholder="Enter country name" onkeyup="suggest()" onfocusout="done()">
+
+<ul id="suggest" style="list-style-type:none">
+
+</ul>
+
+<p>The basic data structure behind all these scenes is <strong>Trie</strong>.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/2.png" alt="enter image description here"></p>
+<p>Spell checkers can also be designed using <strong>Trie</strong>.</p>
+<h1 id="trie">Trie</h1>
+<p>String processing is widely used across real-world applications, for example data analytics, search engines, bioinformatics, plagiarism detection, etc. </p>
+<p>Trie is a very useful and special kind of data structure for string processing.</p>
+<p>Below is a very simple representation of trie consisting of <code>&quot;cat&quot;</code>, <code>&quot;bat&quot;</code>, <code>&quot;dog&quot;</code> strings.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/lastadd.jpg" alt="enter image description here"></p>
+<p>Now, suppose we are given a string-array and we are told that check whether <code>&quot;cat&quot;</code> string is present in the array. Then we can check it via brute force-compare with each and every string present in the string-array, which would take $O(N*length(&quot;cat&quot;))$ in the worst-case situation, where $N$ is the number of string in the array.</p>
+<p>Now, if you create a trie from all the strings present in the array, then you can simply check it in $O(length(&quot;cat&quot;))$ time by traversing through trie(confused? we will see it soon), which is very efficient and therefore trie is an efficient information re<b><i>trie</i></b>val data structure.</p>
+<h2 id="introduction">Introduction</h2>
+<p>Trie is a tree of nodes, where the specifications of a node can be given as below:</p>
+<p>Each node has, </p>
+<ol>
+<li>An array of size of the alphabet(see the note below) to store links to other nodes.</li>
+<li>A boolean variable.</li>
+</ol>
+<p><strong>Notes</strong> </p>
+<ol>
+<li>For an easy understanding purpose, we are assuming that all strings contain only lowercase alphabet letters, i.e. <code>alphabet_size</code> is $26$.</li>
+<li>We will discuss the traditional implementation here, although we can use some data structures like hash table in each node.</li>
+</ol>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/3.png" alt="enter image description here"></p>
+<p><strong>We will see &quot;why do we need these two variables?&quot; soon.</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">struct</span> trie_node 
+{
+    <span class="hljs-comment">// Array of pointers of type </span>
+    <span class="hljs-comment">// trie_node</span>
+    <span class="hljs-built_in">vector</span>&lt;trie_node*&gt; links;
+    <span class="hljs-keyword">bool</span> isEndofString;
+
+    <span class="hljs-comment">// Constructor</span>
+    trie_node()
+    {
+        links.assign(alphabet_size, <span class="hljs-literal">nullptr</span>);
+        isEndofString = <span class="hljs-literal">false</span>;
+    }
+};
+</code></pre>
+<p>Now, we have seen how a trie node looks like. Let&#39;s see <strong>how we are going to store strings in a trie using this kind of node.</strong></p>
+<h2 id="how-to-insert-a-string-in-a-trie-">How to insert a string in a trie?</h2>
+<p>Look at the image below, which represents a string &quot;act&quot; stored in a trie. Observe something!</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/4.png" alt="enter image description here"></p>
+<p><strong>Note: Empty places in the array have null values(<code>nullptr</code> in c++).</strong></p>
+<ol>
+<li><strong>Other than the root node, each node in trie represents a single character.</strong> In the above image, $2^{nd}$, $3^{rd}$, $4^{th}$ node represents <code>&#39;a&#39;</code>, <code>&#39;c&#39;</code>, and <code>&#39;t&#39;</code> respectively.</li>
+<li><strong>The node at which the string ends, we set isEndofString to true.</strong> See last node in the image above.</li>
+</ol>
+<p>Therefore, now for the shake of ease we are going to represent the nodes of trie as below.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/5.png" alt="enter image description here"></p>
+<p>And therefore representation of trie containing string &quot;act&quot; will be as below.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/6(1" alt="enter image description here">.jpg)</p>
+<p><strong>Note:</strong> Root node will be shown empty, as it only represents an empty string, so to speak.</p>
+<p>Now, observe the trie below, which contains two strings &quot;act&quot; and &quot;ace&quot;.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/7(1" alt="enter image description here">.jpg)</p>
+<p>Note that the node representing character <code>c</code> in the above trie, in a magnified sense would look as below:</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/8.png" alt="enter image description here"></p>
+<p>What did you observe?</p>
+<p>A common prefix of <code>&quot;ace&quot;</code> and <code>&quot;act&quot;</code> is <code>&quot;ac&quot;</code> and therefore we are having the same nodes until we traverse <code>&quot;ac&quot;</code> and then we create a new node for character <code>e</code>.</p>
+<p>Therefore, we are not creating any new node until we need one and <strong>Trie is a very efficient data storage, when we have a large list of strings sharing common prefixes.</strong> It is also known as <strong>prefix tree</strong>.</p>
+<p>Now, look the trie below, which contains three strings <code>&quot;act&quot;</code>, <code>&quot;ace&quot;</code> and <code>&quot;cat&quot;</code>.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9(1" alt="enter image description here">.jpg)</p>
+<p>Let&#39;s see a proper algorithm to insert a string in a trie.</p>
+<ol>
+<li>Starting from the root, if there is already a node representing the corresponding character of a string, then simply traverse.</li>
+<li>Otherwise, create a new node representing the corresponding character.</li>
+<li>At the end of the string, set <code>isEndofString</code> to true in the last ending node.</li>
+</ol>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(trie_node* root, <span class="hljs-built_in">string</span> s)</span>
+</span>{
+    trie_node* temp = root;
+    <span class="hljs-keyword">int</span> n = s.size();
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++){
+        <span class="hljs-keyword">if</span>(temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>] == <span class="hljs-literal">nullptr</span>)
+            temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>] = <span class="hljs-keyword">new</span> trie_node();
+        <span class="hljs-comment">// Traverse using link</span>
+        temp = temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>];
+    }
+    temp-&gt;isEndofString = <span class="hljs-literal">true</span>;
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> $O(N)$, where $N$ is the length of the string we are inserting.</p>
+<h2 id="searching-in-trie">Searching in Trie</h2>
+<p>Can you figure out, how can we check whether the given string is present in trie or not, from whatever we have discussed so far?</p>
+<p>For example, if you are searching <code>&quot;aco&quot;</code> in the trie below, then how will you do?</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9(1" alt="enter image description here">.jpg)</p>
+<p><strong>Can you see, why <code>isEndofString</code> is needed?</strong></p>
+<p>Observe the trie given below and try to search whether <code>&quot;on&quot;</code> is present or not.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/10(1" alt="enter image description here">.jpg)</p>
+<p>If you don&#39;t have <code>isEndofString</code> variable, then you will not be able to correctly check whether <code>on</code> is present or not. Because it is the prefix of <code>once</code>.</p>
+<p><strong>Algorithm</strong>:</p>
+<ol>
+<li>Starting from the root, try to traverse the corresponding character of the string. If a link is present, then go ahead.</li>
+<li>Otherwise, simply given string is not present in the trie.</li>
+<li>If you are successfully able to traverse all corresponding characters of the string, then check whether the query string is present or not via <code>isEndofString</code> variable of the last node.</li>
+</ol>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">search</span><span class="hljs-params">(trie_node* root, <span class="hljs-built_in">string</span> s)</span>
+</span>{
+    trie_node* temp = root;
+    <span class="hljs-keyword">int</span> n = s.size();
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++){
+        <span class="hljs-comment">// There is not further link</span>
+        <span class="hljs-keyword">if</span>(temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>] == <span class="hljs-literal">nullptr</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        temp = temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>];
+    }
+    <span class="hljs-keyword">return</span> temp-&gt;isEndofString;
+}
+</code></pre>
+<p>Can you find recursive version of the above function?</p>
+<p><strong>Recursive version:</strong></p>
+<pre><code class="lang-cpp"><span class="hljs-comment">// @param: root -&gt; root of the trie</span>
+<span class="hljs-comment">// @param: s -&gt; the string we are deleting</span>
+<span class="hljs-comment">// @param: i -&gt; index of s currently reached via recursive traversal</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">Rec_search</span><span class="hljs-params">(trie_node* root, <span class="hljs-built_in">string</span>&amp; s, <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>)</span>
+</span>{
+    <span class="hljs-comment">// No link present</span>
+    <span class="hljs-comment">// so string is not present</span>
+    <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">if</span>(i == s.size()) {
+        <span class="hljs-comment">// present</span>
+        <span class="hljs-keyword">if</span>(root-&gt;isEndofString)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        <span class="hljs-keyword">else</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+    <span class="hljs-comment">// Recusively traverse using links</span>
+    <span class="hljs-keyword">return</span> Rec_search(root-&gt;link[s[i]-<span class="hljs-string">'a'</span>], s, i+<span class="hljs-number">1</span>);
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> $O(N)$, where $N$ is the length of the string we are searching for.</p>
+<h2 id="delete">Delete</h2>
+<p>How will you delete <code>&quot;ace&quot;</code> from the trie below?</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9(1" alt="enter image description here">.jpg)</p>
+<p>Things to take care about while you are deleting a string from the trie,</p>
+<ol>
+<li>It should not affect any other string present in the trie.</li>
+<li>Therefore, we are only going to delete <strong>the nodes which are present only due to the presence of the given string</strong>. And no other string is passing through them.</li>
+</ol>
+<p>We are going to use a recursive procedure. If the string is not present, then we will return <code>false</code> and <code>true</code> otherwise. <strong>Recursive procedure for delete is a modified version of the recursive search procedure</strong> and therefore  make sure you understand that.</p>
+<p>Can you figure it out on your own?</p>
+<p><strong>Procedure:</strong></p>
+<ol>
+<li>We are traversing the trie recursively, the same way as in <code>Rec_search()</code> procedure.</li>
+<li>While traversing, if we find that no link is present(<code>root == nullptr</code>) for the current character, then the string is not present in the trie and return <code>false</code>.</li>
+<li>If we are successfully able to traverse the whole string until <code>i==s.size()</code>, then finally check <code>isEndofString</code> of the last node. If the string is present(<code>isEndofString = true)</code>, then set it to <code>false</code> and return <code>true</code>. Otherwise, return <code>false</code>-not present.</li>
+<li>Now, while backtracking stage of the recursion, delete nodes if it is no longer needed after deletion of the given string.</li>
+</ol>
+<p>Now, go through the code below with very intuitive comments.</p>
+<pre><code class="lang-cpp"><span class="hljs-comment">// Checks whether any link is present</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">isEmptyNode</span><span class="hljs-params">(trie_node* node)</span>
+</span>{
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i:node-&gt;link)
+        <span class="hljs-keyword">if</span>(i != <span class="hljs-literal">nullptr</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-comment">// Returns true if the string is successfully deleted</span>
+<span class="hljs-comment">// And if the string is not present in the trie then returns false.</span>
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">deleteString</span><span class="hljs-params">(trie_node* root, <span class="hljs-built_in">string</span>&amp; s, <span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>)</span>
+</span>{
+    <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+
+    <span class="hljs-keyword">if</span>(i == s.size()) {
+        <span class="hljs-comment">// present</span>
+        <span class="hljs-keyword">if</span>(root-&gt;isEndofString) {
+            <span class="hljs-comment">// delete it</span>
+            root-&gt;isEndofString = <span class="hljs-literal">false</span>;
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+        }
+        <span class="hljs-keyword">else</span> 
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    }
+
+    <span class="hljs-keyword">bool</span> ans = deleteString(root-&gt;link[s[i]-<span class="hljs-string">'a'</span>], s, i+<span class="hljs-number">1</span>);
+
+    <span class="hljs-comment">// String is present</span>
+    <span class="hljs-keyword">if</span>(ans) {
+        <span class="hljs-comment">// Check whether any other string</span>
+        <span class="hljs-comment">// passes through this link node</span>
+        <span class="hljs-comment">// If not passing, then delete it</span>
+        <span class="hljs-keyword">if</span>(isEmptyNode(root-&gt;link[s[i]-<span class="hljs-string">'a'</span>])) {
+
+            <span class="hljs-comment">// Deallocate used memory</span>
+            <span class="hljs-keyword">delete</span> root-&gt;link[s[i]-<span class="hljs-string">'a'</span>];
+            root-&gt;link[s[i]-<span class="hljs-string">'a'</span>] = <span class="hljs-literal">nullptr</span>;
+        }
+        <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    }
+
+    <span class="hljs-comment">// Not present the return false</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+}
+</code></pre>
+<p><strong>Time Complexity:</strong> $O(N)$, where $N$ is the length of the string we are deleting.</p>
+<h2 id="trie-as-an-array">Trie as an array</h2>
+<p>The availability of dynamic arrays allows us to create Trie without using pointers.</p>
+<p>Now, we are going to store trie as a dynamic array of <code>TrieNodes</code>. In this implementation, we are going to use an array of integers instead of pointers in <code>TrieNode</code> and as a link, we are going to store the index of a node rather than the address of a node in the former case.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/11.jpg" alt="enter image description here"></p>
+<p>See the below implementation of trie as an array, which is quite similar and intuitive as the previous implementation.</p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">struct</span> TrieNode
+{
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-keyword">int</span>&gt; id_link;
+    <span class="hljs-keyword">bool</span> isEndofString;
+
+    TrieNode(<span class="hljs-keyword">bool</span> end = <span class="hljs-literal">false</span>)
+    {
+        end = isEndofString;
+        id_link.assign(<span class="hljs-number">26</span>,<span class="hljs-number">-1</span>);
+    }
+};
+
+<span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;TrieNode&gt;&amp; trie, <span class="hljs-built_in">string</span> s)</span>
+</span>{
+    <span class="hljs-keyword">int</span> temp = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> n = s.size();
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+        <span class="hljs-keyword">if</span>(trie[temp].id_link[s[i]-<span class="hljs-string">'a'</span>] == <span class="hljs-number">-1</span>) {
+            trie[temp].id_link[s[i]-<span class="hljs-string">'a'</span>] = (<span class="hljs-keyword">int</span>)trie.size();
+            trie.push_back(TrieNode());
+        }
+        temp = trie[temp].id_link[s[i]-<span class="hljs-string">'a'</span>];
+    }
+    trie[temp].isEndofString = <span class="hljs-literal">true</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">bool</span> <span class="hljs-title">search</span><span class="hljs-params">(<span class="hljs-built_in">vector</span>&lt;TrieNode&gt;&amp; trie, <span class="hljs-built_in">string</span> s)</span>
+</span>{
+    <span class="hljs-keyword">int</span> temp = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">int</span> n = s.size();
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+        <span class="hljs-keyword">if</span>(trie[temp].id_link[s[i]-<span class="hljs-string">'a'</span>] == <span class="hljs-number">-1</span>)
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+        temp = trie[temp].id_link[s[i]-<span class="hljs-string">'a'</span>];
+    }
+    <span class="hljs-keyword">return</span> trie[temp].isEndofString;
+}
+</code></pre>
+<p>But it has a downside that you can not generally delete strings present in the trie. Why?</p>
+<p>Try deleting a single node(other than last one), you will realize that indexes of each subsequent node will change, and also deleting in an array has a very bad performance.</p>
+<p>It is an easy implementation, but with a single downside. Therefore, use as per the requirement.</p>
+<h2 id="count-the-total-number-of-words-present-in-a-trie">Count the total number of words present in a Trie</h2>
+<p>How will you find the number of words(strings) present in the trie below?</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/9(1" alt="enter image description here">.jpg)</p>
+<p>Ultimately, It means to find the total number of nodes having <code>true</code> value of <code>isEndofString</code>. Which can be easily done using recursive traversal of all the nodes present in the trie.</p>
+<p>The basic idea of the recursive procedure is as follow: </p>
+<p>Start from the $\text{root}$ node and go through all $26$ positions of the <code>link</code> array. For each not-null link, recursively call <code>countWords()</code> considering that linked node as a $\text{root}$. And therefore formula will be as below:</p>
+<p>$\text{TotalWords} = \text{TotalWords} + \text{countWords}(link_i)$, do it for all not-null links.</p>
+<p>Finally, add $1$ to $\text{TotalWords}$ if the current node has <code>isEndofString = true</code>.</p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">countWords</span><span class="hljs-params">(trie_node* root)</span>
+</span>{
+    <span class="hljs-keyword">int</span> total = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)
+        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i:root-&gt;link)
+        <span class="hljs-keyword">if</span>(i != <span class="hljs-literal">nullptr</span>)
+            total += countWords(i);
+    total += root-&gt;isEndofString;
+    <span class="hljs-keyword">return</span> total;
+}
+</code></pre>
+<p><strong>Time complexity:</strong> $O(\text{Number of nodes present in the trie})$, as we are visiting each and every node. <br>
+<strong>Space complexity:</strong> $O(1)$</p>
+<h2 id="print-all-words-stored-in-trie">Print all words stored in Trie</h2>
+<p>It is similar to finding the total number of words but instead of adding $1$ for each <code>isEndofString</code>&#39;s true value, we are going to store the word representing that particular end.</p>
+<p>The code is similar to finding the total number of words.</p>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">printAllWords</span><span class="hljs-params">(trie_node* root, <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt;&amp; ans, <span class="hljs-built_in">string</span> s=<span class="hljs-string">""</span>)</span>
+</span>{
+    <span class="hljs-keyword">if</span>(root == <span class="hljs-literal">nullptr</span>)
+        <span class="hljs-keyword">return</span>;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; alphabet_size; i++) {
+        <span class="hljs-keyword">if</span>(root-&gt;link[i] != <span class="hljs-literal">nullptr</span>) {
+            <span class="hljs-keyword">char</span> c = <span class="hljs-string">'a'</span> + i;
+            <span class="hljs-built_in">string</span> temp = s;
+            temp += c;
+            printAllWords(root-&gt;link[i], ans, temp);
+        }
+    }
+    <span class="hljs-keyword">if</span>(root-&gt;isEndofString)
+        ans.push_back(s);
+}
+</code></pre>
+<p><strong>Time complexity:</strong> $O(\text{Number of nodes present in the trie})$, as we are visiting each and every node. <br>
+<strong>Space Complexity:</strong> $O(\text{Total length of all words present in the trie})$</p>
+<h2 id="auto-suggestion-features">Auto-suggestion features</h2>
+<p>How will you design the autocompletion feature using Trie?</p>
+<p>For example, we have stored C++ keywords in a trie. Now, when you type <code>&quot;n&quot;</code> it should show all keywords starting from <code>&quot;n&quot;</code>. For simplicity, only keywords starting from <code>&quot;n&quot;</code> are shown in the trie below,</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/12(1" alt="enter image description here">.jpg)</p>
+<p>How will you print all keywords starting from <code>&quot;n&quot;</code>? OR how will you print all keywords having <code>&quot;n&quot;</code> as a prefix?</p>
+<p>Simply use <code>printAllWords()</code> on node <code>n</code>, and the problem is solved!</p>
+<p>A common procedure is as below:</p>
+<ol>
+<li><p>Traverse nodes in trie according to the given uncomplete string <code>s</code>. If we are successfully able to traverse <code>s</code>, then there are keywords having a prefix of <code>s</code>. Otherwise, there will be nothing to suggest.</p>
+</li>
+<li><p>Now, use <code>printAllWords()</code> considering the last node(after traversal of trie according to <code>s</code>) as a root.</p>
+</li>
+</ol>
+<pre><code class="lang-cpp"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">autocomplete</span><span class="hljs-params">(trie_node* root, <span class="hljs-built_in">string</span> s)</span>
+</span>{
+    <span class="hljs-keyword">int</span> n = s.size();
+    trie_node* temp = root;
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; n; i++) {
+        <span class="hljs-keyword">if</span>(temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>] == <span class="hljs-literal">nullptr</span>)
+            <span class="hljs-keyword">return</span>;
+        temp = temp-&gt;link[s[i]-<span class="hljs-string">'a'</span>];
+    }
+    <span class="hljs-built_in">vector</span>&lt;<span class="hljs-built_in">string</span>&gt; suggest;
+    printWords(temp, suggest, s);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">auto</span> i:suggest)
+        <span class="hljs-built_in">cout</span> &lt;&lt; i &lt;&lt; <span class="hljs-built_in">endl</span>;
+    <span class="hljs-comment">/*
+    OR
+    printWords(temp, suggest);
+    for(auto i:suggest)
+        cout &lt;&lt; s &lt;&lt; i &lt;&lt; endl;
+    */</span>
+}
+</code></pre>
+<p><strong>Time complexity:</strong> $O(\text{Length of S + Total length of all suggestions excluding common prefix(S) from all})$, where <code>s</code> is the string you want suggestions for. <br>
+<strong>Space complexity:</strong> $O(\text{Total length of all possible suggestions})$</p>
+<p>It is a widely used feature, as discussed at the start of the article.</p>
+<p>There is also something called <strong>&quot;Ternary Search Tree&quot;</strong>. When each node in the trie has most of its links used(having many similar prefix words), a trie is substantially more space-efficient and time-efficient than the ternary search tree.</p>
+<p>But, If each node stores a few links, then the ternary search tree is much more space-efficient, because we are using $26$ pointers in each node of trie and many of them may be unused.</p>
+<p>Therefore, use as per the requirements.</p>
+<h2 id="dictionary-using-trie">Dictionary using Trie</h2>
+<p>What are the common features of an English dictionary?</p>
+<ol>
+<li>Efficient Lookup of words</li>
+<li>As the dictionary is very large, Lesser memory usages</li>
+</ol>
+<p>Hashtable can be used to implement a dictionary. After precomputation of hash for each word in $O(M)$, where $M$ is the total length of all words in the dictionary, we can have efficient lookups if we design a very efficient hashtable. </p>
+<p>But as the dictionary is very large there will be collisions between two or more words. Still, you can design a hash table to have efficient look-ups.</p>
+<p>But hashtable has a very high space usages, as we simply store each word and attatched data. But what if we design it using a trie?</p>
+<p>As in a dictionary we have many common-prefix words, trie will save a substantial amount of memory consumption. Trie supports look-up in $O(\text{word length})$, which is higher than a very efficient hash table.</p>
+<p>Other advantages of the trie are as below:</p>
+<ol>
+<li>Auto-complete feature</li>
+<li>It also supports ordered traversal of words with given prefix</li>
+<li>No need for complex hash functions</li>
+</ol>
+<p>So, if you want some of the above features, then using a trie is good. Also, we don&#39;t have to deal with collisions.</p>
+<p>Note that in the dictionary along with a word, we have explanations or meanings of that word. That can be handled by separately maintaining an array that stores all those extra stuff. Then store one integer in the <code>TrieNode</code> structure to store the index of the corresponding data in the array.</p>
+<pre><code class="lang-cpp"><span class="hljs-keyword">struct</span> trie_node 
+{
+    <span class="hljs-comment">// Array of pointers of type </span>
+    <span class="hljs-comment">// trie_node</span>
+    <span class="hljs-built_in">vector</span>&lt;trie_node*&gt; links;
+    <span class="hljs-keyword">bool</span> isEndofString;
+    <span class="hljs-comment">// To store id of data</span>
+    <span class="hljs-keyword">int</span> idOfData;
+};
+</code></pre>
+<p>The below image shows a typical trie structure for the dictionary.</p>
+<p><img src="https://github.com/KingsGambitLab/Lecture_Notes/blob/master/articles/Akash%20Articles/md/Images/Trie/13.jpg" alt="enter image description here"></p>
+<script>
+function TrieNode(key) {
+  this.key = key;  
+  this.parent = null;  
+  this.children = {};  
+  this.end = false;
+}
+
+TrieNode.prototype.getWord = function() {
+  var output = [];
+  var node = this;
+
+  while (node !== null) {
+    output.unshift(node.key);
+    node = node.parent;
+  }
+
+  return output.join('');
+};
+
+
+function Trie() {
+  this.root = new TrieNode(null);
+}
+
+Trie.prototype.insert = function(word) {
+  var node = this.root;
+
+  for(var i = 0; i < word.length; i++) {
+    if (!node.children[word[i]]) {
+      node.children[word[i]] = new TrieNode(word[i]);
+
+      node.children[word[i]].parent = node;
+    }
+
+    node = node.children[word[i]];
+
+    if (i == word.length-1) {
+      node.end = true;
+    }
+  }
+};
+
+Trie.prototype.contains = function(word) {
+  var node = this.root;
+
+  for(var i = 0; i < word.length; i++) {
+    if (node.children[word[i]] || node.children[word[i]]) {
+      node = node.children[word[i]];
+    } else {
+      return false;
+    }
+  }
+
+  return node.end;
+};
+
+Trie.prototype.find = function(prefix) {
+  var node = this.root;
+  var output = [];
+
+  for(var i = 0; i < prefix.length; i++) {
+    if (node.children[prefix[i].toLowerCase()]) {
+      node = node.children[prefix[i].toLowerCase()];
+    } else if(node.children[prefix[i].toUpperCase()]) {
+        node = node.children[prefix[i].toUpperCase()];
+    } else {
+      return output;
+    }
+  }
+
+  findAllWords(node, output);
+
+  return output;
+};
+
+function findAllWords(node, arr) {
+  if (node.end) {
+    arr.unshift(node.getWord());
+  }
+
+  for (var child in node.children) {
+    findAllWords(node.children[child], arr);
+  }
+}
+
+var trie = new Trie();
+
+function start() {
+    countries = ["Afghanistan", "Albania", "Algeria", "American Samoa", "Andorra", "Angola", "Anguilla", "Antarctica", "Antigua and Barbuda", "Argentina", "Armenia", "Aruba", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bermuda", "Bhutan", "Bolivia", "Bosnia and Herzegowina", "Botswana", "Bouvet Island", "Brazil", "British Indian Ocean Territory", "Brunei Darussalam", "Bulgaria", "Burkina Faso", "Burundi", "Cambodia", "Cameroon", "Canada", "Cape Verde", "Cayman Islands", "Central African Republic", "Chad", "Chile", "China", "Christmas Island", "Cocos (Keeling) Islands", "Colombia", "Comoros", "Congo", "Congo, the Democratic Republic of the", "Cook Islands", "Costa Rica", "Cote d'Ivoire", "Croatia (Hrvatska)", "Cuba", "Cyprus", "Czech Republic", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "East Timor", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Ethiopia", "Falkland Islands (Malvinas)", "Faroe Islands", "Fiji", "Finland", "France", "France Metropolitan", "French Guiana", "French Polynesia", "French Southern Territories", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Gibraltar", "Greece", "Greenland", "Grenada", "Guadeloupe", "Guam", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Heard and Mc Donald Islands", "Holy See (Vatican City State)", "Honduras", "Hong Kong", "Hungary", "Iceland", "India", "Indonesia", "Iran (Islamic Republic of)", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Korea, Democratic People's Republic of", "Korea, Republic of", "Kuwait", "Kyrgyzstan", "Lao, People's Democratic Republic", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libyan Arab Jamahiriya", "Liechtenstein", "Lithuania", "Luxembourg", "Macau", "Macedonia, The Former Yugoslav Republic of", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Martinique", "Mauritania", "Mauritius", "Mayotte", "Mexico", "Micronesia, Federated States of", "Moldova, Republic of", "Monaco", "Mongolia", "Montserrat", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "Netherlands Antilles", "New Caledonia", "New Zealand", "Nicaragua", "Niger", "Nigeria", "Niue", "Norfolk Island", "Northern Mariana Islands", "Norway", "Oman", "Pakistan", "Palau", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Pitcairn", "Poland", "Portugal", "Puerto Rico", "Qatar", "Reunion", "Romania", "Russian Federation", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Seychelles", "Sierra Leone", "Singapore", "Slovakia (Slovak Republic)", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Georgia and the South Sandwich Islands", "Spain", "Sri Lanka", "St. Helena", "St. Pierre and Miquelon", "Sudan", "Suriname", "Svalbard and Jan Mayen Islands", "Swaziland", "Sweden", "Switzerland", "Syrian Arab Republic", "Taiwan, Province of China", "Tajikistan", "Tanzania, United Republic of", "Thailand", "Togo", "Tokelau", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Turks and Caicos Islands", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "United States Minor Outlying Islands", "Uruguay", "Uzbekistan", "Vanuatu", "Venezuela", "Vietnam", "Virgin Islands (British)", "Virgin Islands (U.S.)", "Wallis and Futuna Islands", "Western Sahara", "Yemen", "Yugoslavia", "Zambia", "Zimbabwe"];
+
+    for(let i=0;i<countries.length;i++) {
+        trie.insert(countries[i]);
+    }
+}
+
+
+function suggest() {
+
+    var myNode = document.getElementById("suggest");
+      myNode.innerHTML = '';
+
+    var s = document.getElementById("trie").value;
+
+    if(s.length == 0) return;
+
+    var ans = trie.find(s);
+
+    if(ans.length == 0) return;
+    var sstring = "";
+    for(let i=0;i<ans.length;i++){
+        let j = 0;
+        sstring += "<li>";
+        sstring += "<b>";
+        while(j < s.length) {
+            if (j == 0) {
+                let c = ans[i][j].toUpperCase();
+                sstring += c;
+            }
+            else {
+                let c = ans[i][j].toLowerCase();
+                sstring += c;
+            }
+            j++;
+        }
+        sstring += "</b>";
+        while(j < ans[i].length)
+            sstring += ans[i][j++].toLowerCase();
+        sstring += "</li>";
+    }
+    document.getElementById("suggest").innerHTML = sstring;
+}
+
+function done() {
+
+    document.getElementById("trie").value = "";
+    document.getElementById("suggest").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
