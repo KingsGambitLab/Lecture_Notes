@@ -16,10 +16,10 @@ For example,
     Why $z[1]=3$? 
     Because $s[0,2] = s[1,3] = "ccc"$.
 2. $z("ababab")=[0,0,4,0,2,0]$
-    Why z[2] = 4? 
+    Why $z[2] = 4$? 
     Because $s[0,3] = s[2,5] = "abab"$.
 3. $z("abacaba") = [0,0,1,0,3,0,1]$
-    Why z[4] = 3?
+    Why $z[4] = 3$?
     Because $s[0,2] = s[4,6] = "aba"$.
 
 Can you figure out how do we find the value of z-function?
