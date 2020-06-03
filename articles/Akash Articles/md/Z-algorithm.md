@@ -128,7 +128,7 @@ For example, `p = "ab"` and `s = "abbbabab"`, then Z-algorithm will find us `[0,
 
 Basic idea here is to create a new string having $p$ as a prefix and $s$ as a suffix i.e. `new_str = p + '#' + s`.
 
-**To make sure that the value of Z-function does not exceed the length of $p$, we add a character which is never going to appear in string $s$ like `'#'`**.
+**To make sure that the value of Z-function does not exceed the length of $p$, we add a character that is never going to appear in string $s$ like `'#'`**.
 
 Now, we will find Z-function of `new_str`.
 
