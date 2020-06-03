@@ -183,6 +183,8 @@ $O(|p|)$ is required for calculating the hash of the pattern and $O(|s|)$ for co
 
 You are given left($l$) and right($r$) indices of a substring, you are required to check whether the given substring is palindrome or not.
 
+We will simply compare hashes of two half parts of substring $s[l,r]$. If hashes are same means that two half parts are same and substring is a palindrome.
+
 If there are many queries of this type, then each query can be answered in $O(1)$, after $O(n)$ preprocessing.
 
 ```cpp
