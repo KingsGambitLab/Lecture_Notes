@@ -1,6 +1,6 @@
 Prefix function and KMP-algorithm
 
-KMP-algorithm is a widely used **string-matching algorithm**, which is used to find a place where a string is found within a larger string. It uses the value of **prefix function** for a given string.
+KMP-algorithm is a widely used **string-matching algorithm**, which is used to find a place where a string is found within a larger string. For example, `p = "ab"` and `s = "abbbabab"`, then KMP will find us `[0,4,6]` because $s$ has 3 occurrences of `"ab"`. It uses the value of **prefix function** to do so.
 
 Let's first see what is a **prefix function**.
 
@@ -213,6 +213,8 @@ int main()
     return 0;
 }
 ```
+
+Prefix function can also be used to solve various string related problems. Let's see some applications.
 
 ## Find a period of a string
 
