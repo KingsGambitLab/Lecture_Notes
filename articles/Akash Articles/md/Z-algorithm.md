@@ -1,6 +1,6 @@
 Z-function and z-algorithm
 
-Z-algorithm is a **string-matching algorithm**, which is used to find a place where a string is found within a larger string. It uses the value of **z-function** for a given string.
+Z-algorithm is a **string-matching algorithm**, which is used to find a place where a string is found within a larger string. For example, `p = "ab"` and `s = "abbbabab"`, then KMP will find us `[0,4,6]` because $s$ has 3 occurrences of `"ab"`. It uses the value of **z-function** to do so.
 
 Let's first see what is a **z-function**.
 
@@ -120,7 +120,7 @@ vector<int> z_function(string s) {
 
 $O(N)$, as at each step of the algorithm $r$ at least increases one step, and the maximum possible value of r is $n-1$.
 
-## Search for a string
+## Z-algorithm
 
 Z-algorithm is used to search all occurrences of pattern-string $p$ in a string $s$ in $O(N)$.
 
@@ -167,6 +167,7 @@ int main()
 }
 ```
 
+Z-function can also be used to solve various string related problems. Let's see some applications.
 
 ## To find the period of a string
 
