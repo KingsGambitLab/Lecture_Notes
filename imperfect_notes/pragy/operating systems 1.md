@@ -141,7 +141,7 @@ Two most important functionalities provided by OS
 Process Life Cycle
 ------------------
 
-![e745eb48.png](:storage/9f8091bd-a9ad-4d66-9418-cb5aedce6308/e745eb48.png)
+![e745eb48.png](attachments/e745eb48.png)
 
 - New: The process which is being created (long term scheduler)
 - Running: Instructions being executed
@@ -182,7 +182,7 @@ Hardware Bit - Mode controls what mode we're in. User mode or Kernel Mode. Use s
 Process Control Block
 ---------------------
 
-![b458e2c8.png](:storage/9f8091bd-a9ad-4d66-9418-cb5aedce6308/f3ecb73e.png)
+![b458e2c8.png](attachments/f3ecb73e.png)
 
 -- --
 
@@ -191,7 +191,7 @@ Burst, Turn Around, Total times, Response Time
 
 CPU burst, IO burst
 Process has mixed CPU and IO bursts
-![09f74762.png](:storage/9f8091bd-a9ad-4d66-9418-cb5aedce6308/09f74762.png)
+![09f74762.png](attachments/09f74762.png)
 
 CPU metrics
 -----------
@@ -202,7 +202,7 @@ Throuput - processes per unit time
 
 User Metrics
 
-![9158557f.png](:storage/9f8091bd-a9ad-4d66-9418-cb5aedce6308/9158557f.png)
+![9158557f.png](attachments/9158557f.png)
 
 1. Arrival Time: The time at which the process enters into the ready queue is called the arrival time.
 2. Burst Time: The total amount of time required by the CPU to execute the whole process is called the Burst Time. This does not include the waiting time. It is confusing to calculate the execution time for a process even before executing it hence the scheduling problems based on the burst time cannot be implemented in reality.
@@ -216,9 +216,9 @@ User Metrics
 
 Gantt Chart
 -----------
-![76e2dea7.png](:storage/9f8091bd-a9ad-4d66-9418-cb5aedce6308/76e2dea7.png)
+![76e2dea7.png](attachments/76e2dea7.png)
 
-![45bde4ea.png](:storage/9f8091bd-a9ad-4d66-9418-cb5aedce6308/45bde4ea.png)
+![45bde4ea.png](attachments/45bde4ea.png)
 -- --
 
 Scheduling Algos
