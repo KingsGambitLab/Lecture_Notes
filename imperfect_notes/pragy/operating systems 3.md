@@ -70,7 +70,7 @@ Critical Section
 
 Use smaller atomic operation to create large, custom atomic operation
 
-![96915cd0.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/be23bceb.png)
+![96915cd0.png](attachments/be23bceb.png)
 
 -- --
 
@@ -100,7 +100,7 @@ Opposite - starvation
 Peterson's Solution
 -------------------
 
-![6b9b2f89.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/6b9b2f89.png)
+![6b9b2f89.png](attachments/6b9b2f89.png)
 
 - flag: tells the other guy to wait
 - turn: to prevent a deadlock where everyone is waiting. Ensures that atleast 1 is running CS.
@@ -110,11 +110,11 @@ Peterson's Solution
 MuteX
 -----
 
-![28b6ef71.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/28b6ef71.png)
+![28b6ef71.png](attachments/28b6ef71.png)
 
 Note: aquiring and releasing locks is atomic
 
-![5407fbc7.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/5407fbc7.png)
+![5407fbc7.png](attachments/5407fbc7.png)
 
 cons: busy wait - splinlocks
 pros: no context switch
@@ -125,9 +125,9 @@ Semaphores
 - integer variables
 - wait and signal, both atomic, only 2 operations defined
 
-![b824a258.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/b824a258.png)
+![b824a258.png](attachments/b824a258.png)
 
-![301d7713.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/301d7713.png)
+![301d7713.png](attachments/301d7713.png)
 
 Note that S++, S-- is atomic here
 On single processors this can be implemented by disabling interrupts during the execution of wait and signal; Multiprocessor systems have to use more complex methods, including the use of spinlocking.
@@ -135,7 +135,7 @@ On single processors this can be implemented by disabling interrupts during the 
 Binary Semaphore -> Mutex
 -------------------------
 
-![fb5970c7.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/fb5970c7.png)
+![fb5970c7.png](attachments/fb5970c7.png)
 
 Counting Semaphore
 ------------------
@@ -148,7 +148,7 @@ Integer values
 Resource Allocation graph & Deadlocks revisited
 -----------------------------------------------
 
-![3598cec9.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/3598cec9.png)
+![3598cec9.png](attachments/3598cec9.png)
 
 Conditions
 1. Mutual Exclusion
@@ -157,7 +157,7 @@ Conditions
 4. Circular Wait
 
 
-![02fe9460.png](:storage/b4659e19-c2c4-4830-adf6-413c1cc30e92/02fe9460.png)
+![02fe9460.png](attachments/02fe9460.png)
 
 no cycle = no deadlock
 cycle and only one of each resource = deadlock
