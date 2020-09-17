@@ -36,7 +36,7 @@ Both P1 and P2 are accessing the same addresses in their logical space
 
 Mapping from Logical to Physical address is stored in the processs' memory table. Memory table is stored in the MMU (Memory Management Unit) - actual hardware chip
 
-![c952744b.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/c7aca012.png)
+![c952744b.png](attachments/c7aca012.png)
 
 -- --
 
@@ -88,18 +88,18 @@ The ability to load only the portions of processes that were actually needed
 - each process is only using a fraction of their total address space, there is more memory left for other programs, improving CPU utilization and system throughput.
 - less I/O is needed for swapping processes in and out of RAM, speeding things up.
 
-![fa2a6fd3.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/fa2a6fd3.png)
+![fa2a6fd3.png](attachments/fa2a6fd3.png)
 
 - Note that the address space shown in Figure 9.2 is sparse - A great hole in the middle of the address space is never used, unless the stack and/or the heap grow to fill the hole.
 
-![e192d829.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/dd763984.png)
+![e192d829.png](attachments/dd763984.png)
 
 - Virtual memory also allows the sharing of files and memory by multiple processes, with several benefits:
 System libraries can be shared by mapping them into the virtual address space of more than one process.
 Processes can also share virtual memory by mapping the same block of memory to more than one process.
 Process pages can be shared during a fork( ) system call, eliminating the need to copy all of the pages of the original ( parent ) process.
 
-![04891944.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/2e5f2d2a.png)
+![04891944.png](attachments/2e5f2d2a.png)
 
 
 Demand Paging
@@ -107,7 +107,7 @@ Demand Paging
 
 The basic idea behind demand paging is that when a process is swapped in, its pages are not swapped in all at once. Rather they are swapped in only when the process needs them. ( on demand. ) This is termed a lazy swapper, although a pager is a more accurate term.
 
-![f8c8bc1f.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/f8c8bc1f.png)
+![f8c8bc1f.png](attachments/f8c8bc1f.png)
 
 -- --
 
@@ -160,7 +160,7 @@ Number of page faults in larger memory vs number of page faults in smaller memor
 
 Example:
 
-![b4d22fbe.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/b4d22fbe.png)
+![b4d22fbe.png](attachments/b4d22fbe.png)
 
 
 -- --
@@ -180,7 +180,7 @@ Cause of Thrashing
 - The problem is that when memory filled up and processes started spending lots of time waiting for their pages to page in, then CPU utilization would lower, causing the schedule to add in even more processes and exacerbating the problem! Eventually the system would essentially grind to a halt.
 - Local page replacement policies can prevent one thrashing process from taking pages away from other processes, but it still tends to clog up the I/O queue, thereby slowing down any other process that needs to do even a little bit of paging ( or any other I/O for that matter. )
 
-![de01b42c.png](:storage/436fe62c-96f7-408c-8bec-6ffd49b87bf4/de01b42c.png)
+![de01b42c.png](attachments/de01b42c.png)
 
 - To prevent thrashing we must provide processes with as many frames as they really need "right now", but how do we know what that is?
 - The locality model notes that processes typically access memory references in a given locality, making lots of references to the same general area of memory before moving periodically to a new locality, as shown in Figure 9.19 below. If we could just keep as many frames as are involved in the current locality, then page faulting would occur primarily on switches from one locality to another. ( E.g. when one function exits and another is called. )
