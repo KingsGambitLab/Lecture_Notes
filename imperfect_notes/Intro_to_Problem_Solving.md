@@ -75,10 +75,12 @@
     - Discuss the process in detail using decision tree (Don't introduce the name yet)
     - after drawing a basic decision tree - introduce with the name "Decision Tree"
     - Keep on focusing on the importance of decisions in problem solving
+    ![ATM-MACHINE-DECISION_TREE](https://github.com/sofdev-ms/Lecture_Notes/blob/Intro_to_Programming/imperfect_notes/attachments/IMG_0016.jpg)
 
 - Example 2 : **Super Mario**
     - Engage students by asking about the game
     - Discuss what decision making happend when you press ```->``` arrow
+    ![SUPER-MARIO-DECISION-TREE](https://github.com/sofdev-ms/Lecture_Notes/blob/Intro_to_Programming/imperfect_notes/attachments/IMG_0015.jpg)
 
 - Example 3 : **Pubg Game**
     - Engage students by asking about the game
@@ -96,6 +98,7 @@
     - state the problem - tell them his teacher gave him the problem
     - Problem : Find the sum of numbers from 1 -> 100
     - discuss that He didn't jump on problem directly, **made observation** (focus on observation)
+    ![SUM-OF-NUMBERS](https://github.com/sofdev-ms/Lecture_Notes/blob/Intro_to_Programming/imperfect_notes/attachments/IMG_0014.jpg)
  
  - **Prime Numbers**
     - What are prime Numbers
@@ -134,6 +137,7 @@
         - based on previous checks decide to ignore one part - properly explain this with example
         - now rather than picking random , pick middle element
         - reason for picking middle element - it always removes atleast half of the prospect solution
+        ![LOG-N](https://github.com/sofdev-ms/Lecture_Notes/blob/Intro_to_Programming/imperfect_notes/attachments/IMG_0013.jpg)
     
     - Discuss the time Analysis
     
