@@ -9,7 +9,7 @@
     - [Problem](#problem)
     - [Implementation](#implementation)
     - [Advantages](#advantages)
-  - [Facade Pattern](#facade-pattern)
+  - [Facade Pattern](#facade-1)
     - [Implementation](#implementation-1)
   - [Design patterns in different languages](#design-patterns-in-different-languages)
     - [Adapter](#adapter-2)
