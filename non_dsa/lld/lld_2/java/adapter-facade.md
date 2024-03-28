@@ -1,24 +1,20 @@
-# Structural design patterns - Adapter and Flyweight
+# Structural design patterns - Adapter and Facade
 
-- [Structural design patterns - Adapter and Flyweight](#structural-design-patterns---adapter-and-flyweight)
+- [Structural design patterns - Adapter and Facade](#structural-design-patterns---adapter-and-facade)
   - [Key terms](#key-terms)
     - [Structural Patterns](#structural-patterns)
     - [Adapter](#adapter)
-    - [Flyweight](#flyweight)
+    - [Facade](#facade)
   - [Adapter](#adapter-1)
     - [Problem](#problem)
     - [Implementation](#implementation)
     - [Advantages](#advantages)
-  - [Flyweight Pattern](#flyweight-pattern)
+  - [Facade Pattern](#facade-pattern)
     - [Implementation](#implementation-1)
-    - [Recap](#recap)
   - [Design patterns in different languages](#design-patterns-in-different-languages)
     - [Adapter](#adapter-2)
       - [Python](#python)
       - [JavaScript](#javascript)
-    - [Flyweight](#flyweight-1)
-      - [Python](#python-1)
-      - [JavaScript](#javascript-1)
   
 ## Key terms
 ### Structural Patterns
@@ -29,8 +25,8 @@
 ### Adapter
 > The adapter pattern is a software design pattern (also known as wrapper, an alternative naming shared with the decorator pattern) that allows the interface of an existing class to be used from another interface. It is often used to make existing classes work with others without modifying their source code.
 
-### Flyweight
-> Flyweight is a structural design pattern that lets you fit more objects into the available amount of RAM by sharing common parts of state between multiple objects instead of keeping all of the data in each object.
+### Facade
+- A structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes.
 
 ## Adapter
 
@@ -211,117 +207,86 @@ public class PaymentProcessor {
 * Open/Closed Principle. You can introduce new types of adapters into the program without breaking the existing client code, as long as they work with the adapters through the target interface.
 
 ---
-## Flyweight Pattern
 
-> The flyweight pattern is used to reduce the memory footprint of a program by sharing as much data as possible with similar objects.
+## Facade
 
-Today, we again assume the role of game developer and are looking to create a role-playing game like PUBG, counter strike etc. We modeled our game in various classes such as Map, User, Gun and Bullet. We are able to create a functional end to end game. The game works smoothly when you and your friend play it.
-So you decide to host a game party to show off your new game. When a lot of players start playing the game, you notice that the game is lagging. You check the memory usage of the game and notice that the memory usage is very high. Each bullet was represented by a separate object containing plenty of data. At some point, when the carnage on a player’s screen reached its climax, newly created particles no longer fit into the remaining RAM, so the program crashed.
+> Facade is a structural design pattern that provides a simplified interface to a library, a framework, or any other complex set of classes.
 
-Let us take a closer look at the Bullet class.
-```mermaid
-classDiagram
-    class Bullet {
-        + double x
-        + double y
-        + double z
-        + double radius
-        + double direction
-        + double speed
-        + int status
-        + int type
-        + string image
+Facade means "face" in French. It is a front-facing building that is the main entrance to a building. The facade is the first thing that a visitor sees when they enter a building. The facade hides the complexity of the building from the visitor. The facade provides a simple interface to the building. The facade is a single point of entry to the building.
+
+### Problem
+
+Let us take the example of an e-commerce application. The application has a lot of functionality. It has a product catalog, a shopping cart, a payment system, a shipping system, etc. The application has a lot of classes and a lot of dependencies between them. The application is complex and it is hard to understand how all the classes work together. When you make an order, you have to do the following:
+* Call payment gateway to charge the credit card.
+* Update the inventory.
+* Email the customer.
+* Add the order to the shipping queue.
+* Update analytics.
+  
+The above steps are not trivial. The application has a lot of classes and a lot of dependencies between them. The application is complex and it is hard to understand how all the classes work together. The application is also hard to maintain. If you want to change the way the application sends emails, you will have to change the code in multiple places. If you want to add a new feature, you will have to change the code in multiple places. Imagine how the class looks:
+    
+```java
+public class Order {
+    private PaymentGateway paymentGateway;
+    private Inventory inventory;
+    private EmailService emailService;
+    private ShippingService shippingService;
+    private AnalyticsService analyticsService;
+
+    public void checkout() {
+        paymentGateway.charge();
+        inventory.update();
+        emailService.send();
+        shippingService.add();
+        analyticsService.update();
     }
-```
-The memory used by a single bullet instance would be:
-* `Double`  - 8 bytes * 6 = 48 bytes
-* `Integer` - 4 bytes * 2 = 8 bytes
-* `Image` - 1KB
-
-Let us say each person has around 400 bullets and there are 200 people playing the game. The total memory used by the bullets would be 1KB * 400 * 200 = 80MB. This is a lot of memory for just 200 people playing the game. Imagine if the number of bullets increase or the number of players increase. The memory usage would be even higher. For 2000 bullets for 200 players the memory usage would be 800MB.
-
-The major problem here is for each object, the image field consumes a lot of memory. The image is also the same for all the bullets. 
-
-Other parts of a particle’s state, such as coordinates, movement vector and speed, are unique to each particle. After all, the values of these fields change over time. This data represents the always changing context in which the particle exists, while the color and sprite remain constant for each particle.
-
-This constant data of an object is usually called the intrinsic state. It lives within the object; other objects can only read it, not change it. The rest of the object’s state, often altered “from the outside” by other objects, is called the extrinsic state.
-
-The Flyweight pattern suggests that you stop storing the extrinsic state inside the object. Instead, you should pass this state to specific methods which rely on it. Only the intrinsic state stays within the object, letting you reuse it in different contexts. As a result, you’d need fewer of these objects since they only differ in the intrinsic state, which has much fewer variations than the extrinsic.
-
-So our Bullet class will have to be divided into two classes. One class will contain the intrinsic state and the other class will contain the extrinsic state. The extrinsic state will be passed to the methods that need it. 
-
-```mermaid
-classDiagram
-    class FlyingBullet {
-        + double x
-        + double y
-        + double z
-        + double radius
-        + double direction
-        + double speed
-        + int status
-        + int type
-        + Bullet bullet
-    }
-    class Bullet {
-        + string image
-    }
-
-    FlyingBullet *-- Bullet 
+}
 ```
 
-Now, every bullet will have a reference to the Bullet object. The Bullet object will contain the image field. The FlyingBullet class will contain the extrinsic state. Each bullet does not need to have its own image field. The image field is shared between all the bullets. This way, the memory usage is reduced.
+Here we have a lot of dependencies, some of which might be external vendors.
+The business logic of your classes would become tightly coupled to the implementation details of 3rd-party classes, making it hard to comprehend and maintain. The Order class is hard to test. You will have to mock all the dependencies. The Order class is also hard to reuse. If you want to reuse the Order class in another application, you will have to change the code. Every time one of the logic changes, you will have to change the code in multiple places and hence violating SOLID principles.
+
+A facade is a class that provides a simple interface to a complex subsystem which contains lots of moving parts. A facade might provide limited functionality in comparison to working with the subsystem directly. However, it includes only those features that clients really care about.
+
+Having a facade is handy when you need to integrate your app with a sophisticated library that has dozens of features, but you just need a tiny bit of its functionality.
 
 ### Implementation
-* `Intrinsic state` - The intrinsic state is stored in the flyweight object. It is independent of the flyweight’s context and remains the same for all flyweight objects.
+
+The Facade pattern suggests that you wrap a complex subsystem with a simpler interface. The Facade pattern provides a higher-level interface that makes the subsystem easier to use. The Facade pattern is implemented by simply creating a new class that encapsulates the complex logic of the existing classes. For our example above, we will move the complex logic to a new class called OrderProcessor.
 
 ```java
-public class Bullet {
-    private String image;
-}
-```
-* `Extrinsic state` - The extrinsic state is stored or computed by client objects. It depends on the flyweight’s context and changes with it.
+public class OrderProcessor {
+    private PaymentGateway paymentGateway;
+    private Inventory inventory;
+    private EmailService emailService;
+    private ShippingService shippingService;
+    private AnalyticsService analyticsService;
 
-```java
-public class FlyingBullet {
-    private double x;
-    private double y;
-    private double z;
-    private double radius;
-    private double direction;
-    private double speed;
-    private int status;
-    private int type;
-    private Bullet bullet;
-}
-```
-
-* `Flyweight factory` - The flyweight factory is responsible for creating and managing flyweight objects. It ensures that flyweights are shared properly. When a client requests a flyweight, the flyweight factory either returns an existing instance or creates a new one, if it doesn’t exist yet.
-
-```java
-public class BulletFactory {
-    private static final Map<String, Bullet> bullets = new HashMap<>();
-
-    public Bullet getBullet(BulletType type) {
-        ...
-    }
-
-    public void addBullet(BulletType type, Bullet bullet) {
-        ...
+    public void process() {
+        paymentGateway.charge();
+        inventory.update();
+        emailService.send();
+        shippingService.add();
+        analyticsService.update();
     }
 }
 ```
 
-* `Client code` - The client code usually creates a bunch of pre-populated flyweights in the initialization stage of the application.
+Now we can use the OrderProcessor class in our Order class and delegate the complex logic to the OrderProcessor class.
+
+```java
+public class Order {
+    private OrderProcessor orderProcessor;
+
+    public void checkout() {
+        orderProcessor.process();
+    }
+}
+```
+The Order class is now much simpler. It has a single responsibility of creating an order. The Order class is also easier to test. You can mock the OrderProcessor class. The Order class is also easier to reuse. You can reuse the Order class in another application without changing the code.
 
 
-### Recap
-* The flyweight pattern is used to reduce the memory footprint of a program by sharing as much data as possible with similar objects.
-* First we need to identify the intrinsic and extrinsic state of the object.
-* The intrinsic state is stored in the flyweight object. It is independent of the flyweight’s context and remains the same for all flyweight objects.
-* The extrinsic state is stored or computed by client objects. It depends on the flyweight’s context and changes with it.
-* The extrinsic object contains a reference to the flyweight object or is composed of the flyweight object.
-* A flyweight factory is responsible for creating and managing flyweight objects. It ensures that flyweights are shared properly. When a client requests a flyweight, the flyweight factory either returns an existing instance or creates a new one, if it doesn’t exist yet.
+
 ## Design patterns in different languages
 
 ### Adapter
@@ -337,17 +302,4 @@ public class BulletFactory {
 * [Adapter - III](https://jsmanifest.com/adapter-pattern-in-javascript/)
 * [Adapter - IV](https://betterprogramming.pub/the-adapter-pattern-in-javascript-69c3f48ee164)
 
-### Flyweight
-#### Python
-* [Flyweight - I](https://refactoring.guru/design-patterns/flyweight/python/example#:~:text=Flyweight%20is%20a%20structural%20design,object%20state%20between%20multiple%20objects.)
-* [Flyweight - II](https://towardsdev.com/design-patterns-in-python-flyweight-pattern-ec3d321a86af)
-* [Flyweight - III](https://sbcode.net/python/flyweight/)
-* [Flyweight - IV](https://www.codespeedy.com/flyweight-design-pattern-in-python/)
-* [Flyweight - V](https://github.com/gennad/Design-Patterns-in-Python/blob/master/flyweight.py)
 
-#### JavaScript
-* [Flyweight - I](https://refactoring.guru/design-patterns/flyweight/typescript/example)
-* [Flyweight - II](https://www.oreilly.com/library/view/learning-javascript-design/9781449334840/ch09s18.html#:~:text=The%20Flyweight%20pattern%20is%20a,see%20Figure%209%2D12)
-* [Flyweight - III](https://jsmanifest.com/power-of-flyweight-design-pattern-in-javascript/)
-* [Flyweight - IV](https://www.patterns.dev/posts/flyweight-pattern/)
-* [Flyweight - V](https://www.dofactory.com/javascript/design-patterns/flyweight)
