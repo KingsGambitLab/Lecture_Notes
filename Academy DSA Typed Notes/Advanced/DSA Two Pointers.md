@@ -347,7 +347,7 @@ while (j < n) {
   } else if (diff < k) {
     j++;
   } else {
-    i--;
+    i++;
   }
 }
 ```
