@@ -93,9 +93,8 @@ return ans;
 **Time Complexity:** `O(N^2 * N) = O(N^3)`
 **Space Complexity:** `O(1)`
 
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
+:warning:Please take some time to think about the optimised approach on your own before reading further.....
+
 
 ---
 ### Find Maximum Subarray Sum using Carry Forward
@@ -565,9 +564,7 @@ No water is trapped, Since the building is like a mountain.
 
 
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
+:warning: Please take some time to think about the solution approach on your own before reading further.....
 
 ---
 ### Rain Water Trapping Brute Force Approach
