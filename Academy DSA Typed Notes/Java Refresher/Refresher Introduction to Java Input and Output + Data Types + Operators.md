@@ -471,6 +471,6 @@ Y = 25
 #### Code
 ```java
 String x = scn.next();
-String y = scn.nextInt();
+int y = scn.nextInt();
 System.out.print(x + " age is " + y);
 ```
