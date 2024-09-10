@@ -1,7 +1,33 @@
 # Trees 1: Structure & Traversal
 
+## Revision Quizzes
+
+### Question
+Which of the following scenarios is an example of a queue?
+
+
+### Choices
+
+- [ ] A stack of books
+- [ ] Undo operation in a text editor
+- [x] People standing in line at a ticket counter
+- [ ] A recursive function call stack
+ 
 ---
-## What is a tree 
+
+
+### Question
+Which of the following is a more efficient strategy for implementing a queue using a linked list?
+
+### Choices
+- [ ] Insert at head and delete at head.
+- [ ] Insert at head and delete at tail.
+- [ ] Insert and delete at tail.
+- [x] Insert at tail and delete at head.
+
+---
+
+## What is a tree?
 
 Till now, we have seen data structures such as Arrays, Linked Lists, Stacks, Queues... They are **Linear Data Structure** which means we can access them in sequencial order.
 
@@ -46,9 +72,9 @@ CEO (Chief Executive Officer)
 As we know that every tree has roots which are below the leaves but in the computer science the case is different the roots are at the top and leaves below it. 
 
 ---
-## Tree naming
+### Tree naming
 
-Example
+### Example
 ```sql
          1
        /   \
@@ -60,7 +86,7 @@ Example
 ```
 * **Node**: An element in a tree that contains data and may have child nodes connected to it. 1, 2, 3, 4, 5, 6, 7, 8.
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/525/original/gHw4HO4.png?1697188175" width=500/>
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/525/original/gHw4HO4.png?1697188175)" width=500/>
 
 
 * **Root**:<br> The topmost node in a tree from which all other nodes descend. It has no parent. Node 1 is the root.
@@ -76,37 +102,42 @@ Example
 
 
 ---
+
+
 ### Question
 Can a leaf node also be a subtree?
 
-**Choices**
+### Choices
 - [x] YES
 - [ ] NO
 - [ ] Can't say
 
 
-
-**Explanation:**
+### Explanation:
 
 Yes, a leaf node can also be considered a subtree. A subtree is a portion of a tree structure that is itself a tree.
 
 ---
+
+
 ### Question
 Do all nodes have a parent node?
 
-**Choices**
+### Choices
 - [ ] YES
 - [x] NO
 - [ ] Can't say
 
 
-**Explanation:**
+
+### Explanation:
 
 In a tree data structure, all nodes except for the root node have a parent node.
 
 ---
-### Levels of a tree
 
+
+### Levels of a Tree
 
 ```sql
     1            Level 0
@@ -122,18 +153,20 @@ In this example:
 * **Level 2:** Nodes 4 and 5 are at level 2.
 
 ---
+
+
 ### Question
 What is the height of the leaf node in any tree?
 
 
-**Choices**
+### Choices
 - [x] 0
 - [ ] 1
 - [ ] 2
 - [ ] 3
 
 
-**Explanation** 
+### Explanation 
 
 The height of a leaf node in any tree, including a binary tree, is 0. This is because the height of a node is defined as the length of the longest path from that node to a leaf node, and a leaf node is a node that doesn't have any children. Since there are no edges to traverse from a leaf node to a leaf node, the length of the path is 0.
 
@@ -153,7 +186,8 @@ A type of tree in which each node can have at most two children i.e, either 0, 1
 ```
 
 ---
-### Traversals in a Tree
+## Traversals in a Tree
+
 
 
 ### How can we traverse a Tree ?
@@ -180,7 +214,7 @@ Names are given w.r.t the position of the root node.
 
 > There are more techniques for traversing a tree that'll be covered in next set of sessions.
 
-#### Pre-order
+### Pre-order
 Pre-order traversal is a depth-first traversal technique used to visit all nodes of a binary tree in a specific order. In pre-order traversal, you start from the root node and follow these steps for each node:
 1. Visit the current node.
 2. Traverse the left subtree (recursively).
@@ -188,7 +222,7 @@ Pre-order traversal is a depth-first traversal technique used to visit all nodes
 
 **This traversal order ensures that the root node is visited before its children and the left subtree is explored before the right subtree.**
 
-**Example:**
+### Example:
 ```sql
          10
        /    \
@@ -198,18 +232,19 @@ Pre-order traversal is a depth-first traversal technique used to visit all nodes
 ```
 Pre-order traversal sequence: 10, 5, 3, 8, 15, 12, 18
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-void preorder(root) {
-    if (root == null)
+function preorder(root)
+{
+    if(root == null)
         return;
-
-    print(root.data); //node
-    preorder(root.left); //left
-    preorder(root.right) //right
+    
+    print(root.data);//node
+    preorder(root.left);//left
+    preorder(root.right)//right
 }
 ```
-#### In-order traversal
+### In-order traversal
 In-order traversal is another depth-first traversal technique used to visit all nodes of a binary tree, but in a specific order. In in-order traversal, you follow these steps for each node:
 
 1. Traverse the left subtree (recursively).
@@ -228,18 +263,19 @@ Here's an example of in-order traversal on a binary tree:
 ```
 In-order traversal sequence: 3, 5, 8, 10, 12, 15, 18
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-void inorder(root) {
-    if (root == null)
+function inorder(root)
+{
+    if(root == null)
         return;
-
-    inorder(root.left); //left
-    print(root.data); //node
-    inorder(root.right) //right
+    
+    inorder(root.left);//left
+    print(root.data);//node
+    inorder(root.right)//right
 }
 ```
-#### Post-order Traversal
+### Post-order Traversal
 Post-order traversal is another depth-first traversal technique used to visit all nodes of a binary tree, but in a specific order. In post-order traversal, you follow these steps for each node:
 
 1. Traverse the left subtree (recursively).
@@ -248,7 +284,7 @@ Post-order traversal is another depth-first traversal technique used to visit al
 
 **This traversal order ensures that nodes are visited from the bottom up, starting from the leaf nodes and moving towards the root node.**
 
-**Example**
+### Example
 ```cpp
          10
        /    \
@@ -258,10 +294,11 @@ Post-order traversal is another depth-first traversal technique used to visit al
 ```
 Post-order traversal sequence: 3, 8, 5, 12, 18, 15, 10
 
-#### Pseudocode:
+### Pseudocode:
 ```cpp
-void postorder(root) {
-    if (root = null) return;
+function postorder(root)
+{
+    if(root = null ) return;
     postorder(root.left) left
     postorder(root.right) right
     print(root.data) Node
@@ -269,6 +306,8 @@ void postorder(root) {
 ```
 
 ---
+
+
 ### Question
 What is the inorder traversal sequence of the below tree?
 ```cpp
@@ -278,21 +317,22 @@ What is the inorder traversal sequence of the below tree?
      /      / \
     3      5   6
 ```
-**Choices**
+### Choices
 - [ ] [1, 2, 3, 4, 5, 6]
 - [x] [3, 2, 1, 5, 4, 6]
 - [ ] [3, 2, 1, 4, 5, 6]
 - [ ] [4, 5, 6, 1, 2, 3]
 
 
-
-**Explanation** 
+### Explanation 
 
 The inorder traversal sequence is [3, 2, 1, 5, 4, 6].
 
 
+
 ---
-### Iterative Inorder traversal
+## Iterative Inorder traversal
+
 
 
 ### Approach:
@@ -308,7 +348,7 @@ Let's say we have the following binary tree as an example:
     / \
    4   5
 ```
-#### Dry-Run:
+### Dry-Run:
 * Start at the root node (1).
 * Push 1 onto the stack and move left to node 2.
 * Push 2 onto the stack and move left to node 4.
@@ -320,202 +360,231 @@ Let's say we have the following binary tree as an example:
 * The stack is empty, and all nodes have been visited.
 * So, the iterative Inorder traversal of the tree is 4, 2, 5, 1, 3.
 
-#### Need of recursion/stack:
+### Need of recursion/stack:
 In inorder traversal of a binary tree, you need a data structure like a stack or recursion because you need to keep track of the order in which you visit the nodes of the tree. The reason for using these techniques is to handle the backtracking that's inherent in traversing a binary tree in inorder fashion. In a binary tree's inorder traversal, you visit nodes in a specific order: left, current, right. You use a stack or recursion to remember where you left off in the tree when moving between nodes, ensuring you visit nodes in the correct order and navigate through the tree efficiently. This backtracking is essential for proper traversal.
 
-#### Pseudocode:
+### Pseudocode:
 ```cpp
 cur = root;
-while (cur != null || st.isempty()) {
-    if (cur != null) {
+while(cur != null || st.isempty())
+{
+    if(cur != null)
+    {
         st.push(curr)
         cur = cur.left;
-    } else {
+    }
+    else{
         cur = st.pop();
         print(cur.data)
         cur = cur.right
     }
 }
 ```
-
-#### Complexity
-**Time Complexity:** O(N)
-**Space Complexity:** O(N)
-
----
-
-### Construct binary tree from inorder and post order
-
-Constructing a binary tree from its inorder and postorder traversals involves a recursive process. Here's a brief explanation with an example:
-
-
-
-#### Brute-Force Approach
-
-
-* Generate all possible permutations of the given inorder traversal.
-* For each permutation, check if it forms a valid binary tree when combined with the given postorder traversal.
-* Return the first valid binary tree found.
-
-**Example:**
-Inorder: [4, 2, 7, 5, 1, 3, 6]
-Postorder: [4, 7, 5, 2, 6, 3, 1]
-
-#### Dry-Run:
-* Identify the root: In the postorder traversal, the last element is 1, which is the root of the binary tree.
-* Split into left and right subtrees: In the inorder traversal, find the position of the root element (1). Elements to the left of this position represent the left subtree, and elements to the right represent the right subtree.
-* Recurse on left subtree: For the left subtree, the root is 2 (found in postorder traversal). Split the left subtree's inorder and postorder traversals, and repeat the process.
-* Recurse on right subtree: For the right subtree, the root is 3 (found in postorder traversal). Split the right subtree's inorder and postorder traversals, and repeat the process.
-* Continue the recursion: Repeat steps 3 and 4 for each subtree until the entire binary tree is constructed.
-
-
-#### Pseudocode:
-```cpp
-function buildTreeBruteForce(inorder, postorder):
-    for each permutation of inorder:
-        if formsValidBinaryTree(permutation, postorder):
-            return constructBinaryTree(permutation, postorder)
-    return null
-```
-
-#### Complexity
-**Time Complexity:** O(N! * N)
-**Space Complexity:** O(N)
-
----
-
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
-
-### Most-Optimised Approach:
-
-* The last element in the postorder traversal is the root of the binary tree.
-* Find the root element in the inorder traversal to determine the left and right subtrees.
-* Recursively repeat the process for the left and right subtrees.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/527/original/M1IKDA8.png?1697188735" width=300/>
-
-Now as we can see in the above image let us understand this with the help of a dry/run:
-
-#### Dry-Run/Example:
-inorder={4,2,7,5,1,3,6} and postorder={4,7,5,2,6,3,1} 
-
-1. The last element in the postorder traversal is 1, which is the root of the binary tree.
-
-Binary Tree:
-```plaintext
-1
-```
-2. Find 1 in the inorder traversal to split it into left and right subtrees. The elements to the left are the left subtree, and the elements to the right are the right subtree.
-
-```cpp
-Inorder: [4,2,7,5,1,3,6]
-Postorder: [4,7,5,2,6,3,1]
-```
-
-Left Subtree (Inorder: [4,2,7,5], Postorder: [4,7,5,2]):
-
-```cpp
-  1
- /
-2
- \
-  5
- / \
-4   7
-```
-Right Subtree (Inorder: [3,6], Postorder: [6,3]):
-
-```cpp
-6
- \
-  3
-```
-3. Repeat the process for the left and right subtrees:
-
-For the left subtree:
-* The last element in the postorder traversal is 2, which is the root of the left subtree.
-* Find 2 in the inorder traversal to split it into left and right subtrees.
-* Left Subtree (Inorder: [4], Postorder: [4]):
-```cpp
-  2
- /
-4
-```
-Right Subtree (Inorder: [7,5], Postorder: [7,5]):
-```cpp
-  5
- /
-7
-```
-For the right subtree:
-
-* The last element in the postorder traversal is 3, which is the root of the right subtree.
-* Find 3 in the inorder traversal to split it into left and right subtrees.
-* Left Subtree (Inorder: [6], Postorder: [6]):
-```cpp
-  3
-   \
-    6
-```
-
-The final binary tree would look like this:
-```cpp
-         1
-        / \
-       2   3
-      / \   \
-     4   5   6
-        /
-       7
-```
-
----
-### Question
-The inorder traversal sequence `[4, 2, 5, 1, 6, 3]` and the postorder traversal sequence `[4, 5, 2, 6, 3, 1]`. What is the root of the binary tree?
-
-**Choices**
-- [x] 1
-- [ ] 2
-- [ ] 3
-- [ ] 4
-
-
-**Explanation:**
-
-In postorder traversal, the last element is always the root of the tree, so here, 1 is the root. 
+* **TC -** O(N)
+* **SC -** O(N)
 
 
 ---
-### Construct binary tree Pseudocode
-#### Pseudocode:
-* rootIndex is the index of the root value in the inorder array.
-* rootIndex + 1 represents the start of the right subtree in the arrays.
-* end represents the end of the right subtree in the arrays.
-* start represents the start of the left subtree in the arrays.
-* rootIndex - 1 represents the end of the left subtree in the arrays.
+## Equal Tree Partition
+
+### Problem Statement : 
+Given the root of a binary tree, return ***true*** if the tree can be split into two non-empty subtrees with equal sums, or ***false*** otherwise.
+
+### Example 1
 ```cpp
-function buildTree(inorder, postorder):
-    if postorder is empty:
-        return null
+Input:
+         5
+       /   \
+      3     7
+     / \   / \
+    4   2 6   1
 
-    // The last element in postorder is the root of the current subtree
-    rootValue = postorder.last
-    root = new TreeNode(rootValue)
+Output: True                
+```
+### Explanation:
 
-    // Find the index of the rootValue in inorder to split it into left and right subtrees
-    rootIndex = indexOf(inorder, rootValue)
-
-    // Recursive call for right subtree
-    root.right = buildTree(subarray(inorder, rootIndex + 1, end), subarray(postorder, rootIndex, end - 1))
+```cpp 
+Part 1 :- 
     
-    // Recursive call for left subtree
-    root.left = buildTree(subarray(inorder, start, rootIndex - 1), subarray(postorder, start, rootIndex - 1))
+    5
+   / 
+  3   
+ / \
+4   2   
 
-    return root
+Sum: 14
 ```
 
-#### Complexity
+```cpp 
+Part 2 :- 
+
+   7
+  /  \
+ 6    1
+
+Sum: 14
+```
+### Example 2
+```cpp
+Input:
+      5
+     / \
+    8   9
+       / \
+      2   3
+          
+Output: false                        
+```
+### Explanation:
+There is no way to split the course into two parts with equal sums.
+
+
+---
+
+
+### Question
+Check whether the given tree can be split into two non-empty subtrees with equal sums or not.
+
+```cpp
+       5
+      / \
+     10  10
+    /     \
+  20      3
+  /
+ 8
+```
+
+### Choices
+- [x] Yes, It is possible.
+- [ ] It is impossible. 
+
+
+### Explanation:
+
+Yes It is possible to split the tree into two non-empty subtrees with sum 28.
+
+Sub-Tree 1:
+```cpp
+       5
+      / \
+     10  10
+          \
+          3
+
+```
+
+Sub-Tree 2:
+```cpp
+     20
+     /
+    8
+```
+
+
+---
+## Equal Tree Partition Solution
+
+
+### Solution
+
+1. **Total Sum Check**:
+If the total sum of all nodes in the binary tree is odd, it is impossible to divide the tree into two subtrees with equal sums. This is because the sum of two equal values is always even, and if the total sum is odd, it cannot be divided equally into two parts.
+2. **Subtree Sum Check**:
+If we can find a subtree in the binary tree with a sum equal to half of the total sum, we can split the tree into two equal partitions by removing the edge leading to the root of that subtree. This means that we don't necessarily need to compare sums of all possible subtrees, but we can look for a single subtree that meets the subtree sum check condition.
+
+### Pseudocode
+```cpp
+function sum(TreeNode root) {
+    if (!root) {
+        return 0;
+    }
+    return sum(root.left) + sum(root.right) + root.val;
+}
+
+function hasSubtreeWithHalfSum(TreeNode root, int totalSum) {
+    if (!root) {
+        return false;
+    }
+    
+    int leftSum = sum(root.left);
+    int rightSum = sum(root.right);
+
+    if ((leftSum == totalSum / 2 || rightSum == totalSum / 2) || hasSubtreeWithHalfSum(root.left, totalSum) || hasSubtreeWithHalfSum(root.right, totalSum)) {
+        return true;
+    }
+
+    return false;
+}
+
+function isEqualTreePartition(TreeNode root) {
+    if (!root) {
+        return false; // An empty tree cannot be partitioned
+    }
+
+    int totalSum = sum(root);
+
+    if (totalSum % 2 == 1) {
+        return false; // If the total sum is odd, partition is not possible
+    }
+
+    return hasSubtreeWithHalfSum(root, totalSum);
+}
+```
+
+### Complexity
 **Time Complexity:** O(N)
-**Space Complexity:** O(N)
+**Space Complexity:** O(H)
+
+---
+## Path Sum
+
+### Problem Statement
+Given a binary tree and an integer k, determine if there exists a root-to-leaf path in the tree such that adding up all the node values along the path equals k.
+
+Example:
+```cpp 
+
+Input:
+                Binary Tree:
+                       5
+                      / \
+                     4   8
+                    /   / \
+                   11  13  4
+                  /  \      \
+                 7    2      1
+
+                k = 22
+                           
+Output: true
+```
+Explanation:
+
+In the given binary tree, there exists a root-to-leaf path 5 -> 4 -> 11 -> 2 with a sum of 5 + 4 + 11 + 2 = 22, which equals k. Therefore, the function should return true.
+
+### Solution:
+* To solve this problem,we first check if the current node is a leaf node (having no left and right children) and if the current value equals k. If both conditions are met, it returns true, indicating that a valid path is found.
+* If not, it recursively checks the left and right subtrees with a reduced sum (k - root->val).
+* It returns true if there's a path in either the left or right subtree, indicating that a valid path is found.
+
+
+### Pseudocode
+```cpp 
+function hasPathSum(Node root, k) {
+    if (!root) {
+        return false; // No path if the tree is empty
+    }
+
+    if (!root.left and !root.right) {
+        return (k == root.val);
+    }
+
+    return hasPathSum(root.left, k - root.val) || hasPathSum(root.right, k - root.val);
+}
+
+```
+
+### Complexity
+**Time Complexity:** O(N)
+**Space Complexity:** O(H)
