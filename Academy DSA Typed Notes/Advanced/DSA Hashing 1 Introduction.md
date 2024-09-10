@@ -1,8 +1,9 @@
 # Hashing 1: Introduction
 
----
 
-## HashMap
+## Hashmap and HashSet Introduction
+
+### HashMap
 
 Let's take an example:-
 
@@ -50,17 +51,19 @@ Solution: The hotel may maintain a manual register for five rooms like:-
 Let's see some questions based on Hashmap.
 
 ---
+
 ### Question
 
 Which of the following HashMap will you use to store the population of every country?
 
-**Choices**
+### Choices
 
 - [ ] HashMap<String, Float>
 - [ ] HashMap<String, Double>
 - [ ] HashMap<String, String>
 - [x] HashMap<String, Long>
 
+### Explanation
 
 
 * Key must be unique in Hashmap, so for that reason :
@@ -71,18 +74,20 @@ Which of the following HashMap will you use to store the population of every cou
 `hashmap<String,long> populationByCountry`.
 
 ---
+
+
 ### Question
 
 Which of the following HashMap will you use to store the no of states of every country?
 
-**Choices**
+### Choices
 
 - [ ] HashMap<String, Float>
 - [ ] HashMap<String, Double>
-- [x] HashMap<String, int>
+- [x] HashMap<String, INT>
 - [ ] HashMap<String, String>
 
-
+### Explanation
 
 * Key must be unique in Hashmap, so for that reason :
   * We use the country name as the key. 
@@ -93,17 +98,19 @@ Which of the following HashMap will you use to store the no of states of every c
 `hashmap<String,int> numberOfStatesByCountry`
 
 ---
+
 ### Question
 
 Which of the following HashMap will you use to store the name of all states of every country?
 
-**Choices**
+### Choices
 
 - [ ] HashMap<String, List < Float > >
 - [x] HashMap<String, List < String > >
 - [ ] HashMap<String, String>
 - [ ] HashMap<String, Long>
 
+### Explanation
 
 
 * Key must be unique in Hashmap, so for that reason :
@@ -120,18 +127,21 @@ Which of the following HashMap will you use to store the name of all states of e
 
 
 ---
+
+
+
 ### Question
 
 Which of the following HashMap will you use to store the population of each state in every country?
 
-**Choices**
+### Choices
 
 - [ ] HashMap<String, Int>
 - [ ] HashMap<String, List < Int > >
 - [x] HashMap<String,HM < String , Int > >
 - [ ] HashMap<String, Long>
 
-
+### Explanation
 
 * Key must be unique in Hashmap, so for that reason :
   * We use the country name as the key.
@@ -150,7 +160,6 @@ We can observe that:-
 ---
 ## HashSet
 
-
 Sometimes we only want to store keys and do not want to associate any values with them, in such a case; we use HashSet.
 
 `Hashset<Key Type>`
@@ -160,7 +169,9 @@ Sometimes we only want to store keys and do not want to associate any values wit
 * **Like HashMap, we can search in O(1) time in Set**
 
 ---
-### HashMap and HashSet Functionalities
+## HashMap and HashSet Functionalities
+
+
 ### HashMap
 * **INSERT(Key,Value):** new key-value pair is inserted. If the key already exists, it does no change.
 * **SIZE:** returns the number of keys.
@@ -188,13 +199,16 @@ Therefore, if we insert N key-value pairs in HashMap, then time complexity would
 | Hashmap | Hashmap | unordered_map | dictionary | map | dictionary |
 | Hashset | Hashset | unordered_set |    set     | set |  Hashset   |
 
----
-### Problem 1 Frequency of given elements
+## Implementations :
 
-**Problem Statement**
+
+## Problem 1 Frequency of given elements
+
+
+### Problem Statement
  Given N elements and Q queries, find the frequency of the elements provided in a query.
  
-**Example**
+### Example
 
 N = 10
 
@@ -207,7 +221,7 @@ Q = 4
 |:---:|:---:|:---:|:---:|
 
 
-#### Solution
+### Solution
 
 
 | Element | Frequency |
@@ -217,31 +231,27 @@ Q = 4
 |    3    |     2     |
 |    5    |     0     |
 
-#### Idea 1
+### Idea 1
 
 * For each query, find the frequency of the element in the Array.
 * TC - **O(Q*N)** and SC - **O(1)**.
 >How can we improve TC?
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Approach
+### Approach
 
 * First, search for the element in the Hashmap.
   * If the element does not exist, then insert the element as key and value as 1.
   * If an element already exists, then increase its value by one.
  
-#### Pseudeocode
+### Pseudeocode
 ```cpp
 Function frequencyQuery(Q[], A[])
 {
-   Hashmap<int,int> mp;
+   Hashmap<integer,integer> mp;
    q = Q.length
    n = A.length
    
-   for(i = 0 ; i < n ; i ++ )
+   for(i -> 0 to n - 1 )
    {
       if(mp.Search(A[i]) == true)
       {
@@ -252,7 +262,7 @@ Function frequencyQuery(Q[], A[])
       }
    }
    
-   for(i = 0 ; i < q; i ++ )
+   for(i -> 0 to q - 1 )
    { 
         if(mp.Search(Q[i]) == true)
       {
@@ -265,113 +275,21 @@ Function frequencyQuery(Q[], A[])
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
 
 
----
-### Problem 2 First non repeating element
-
-**Problem Statement**
-
-Given N elements, find the first non-repeating element. 
-
-**Example**
-
-Input 1:
-```
-N = 6
-```
-|  1  |  2  |  3  |  1  |  2  |  5  |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-
-Output1 :
-```plaintext
-ans = 3
-```
-
-|  1  |  2  |  3  |  1  |  2  |  5  |
-|:---:|:---:|:---:|:---:|:---:|:---:|
-
-Input 2:
-```
-N = 8
-```
-
-|  4  |  3  |  3  |  2  |  5  |  6  |  4  |  5  |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-
-Output 2:
-```plaintext
-ans = 2
-```
-Input 3:
-```
-N = 7
-```
-
-|  2  |  6  |  8  |  4  |  7  |  2  |  9  |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-
-Output 3:
-```plaintext
-ans = 6
-```
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-### Solution
-**Idea 1**
-
-* Use Hashmap to store the frequency of each element. Store <**key**:element, **value**:frequency>.
-* Iterate over the Hashmap and find the element with frequency 1.
-
-**Flaw in Idea 1**
-
-* When we store in Hashmap, the order of elements is lost; therefore, we cannot decide if the element with frequency 1 is first non-repeating in the order described in the Array.
-
-**Idea 2**
-
-* Use Hashmap to store the frequency of each element. Store `<key:element, value:frequency>`.
-* Instead of Hashmap, iterate over the Array from the start. If some element has a frequency equal to one, then return that element as answer.
-
-
-#### Pseudeocode
-```cpp
-Function firstNonRepeating(A[]) {
-    Hashmap < int, int > mp;
-    n = A.length
-
-    for (i = 0; i < n; i++) {
-        if (mp.Search(A[i]) == true) {
-            mp[A[i]]++
-        } else {
-            mp.Insert(A[i], 1)
-        }
-    }
-    for (i = 0; i < n; i++) {
-        if (mp[A[i]] == 1) {
-            return A[i]
-        }
-    }
-    return -1
-}
-```
-
-Time Complexity : **O(N)**
-Space Complexity : **O(N)**
 
 ---
-### Problem 3 Count of Distinct Elements
+## Problem 2 Count of Distinct Elements
 
-**Problem Statement**
+
+### Problem Statement
 
 Given an array of N elements, find the count of distinct elements.
 
-**Example**
+### Example
 **Input:** 
 
 N = 5
@@ -410,152 +328,114 @@ N = 5
 ```plaintext
 ans = 2
 ```
-**Solution** 
+### Solution 
 
 * Insert element in Hashset and return the size of HashSet.
 
 > In Hashset, if a single key is inserted multiple times, still, its occurrence remains one.
 
 
-#### Pseudeocode
+### Pseudeocode
 ```cpp
-Function distinctCount(Array[]) {
-    hashset < int > set;
-    for (i = 0; i < Array.length; i++) {
-        set.insert(Array[i])
-    }
-    return set.size
+Function distinctCount(Array[])
+{
+  hashset<integer>set;
+  for(i -> 0 to Array.length - 1 )
+  {
+    set.insert(Array[i])
+  }
+  return set.size
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
 
+---
+## Problem 3 Longest Substring Without Repeating Characters
+
+
+### Problem Statement
+Given a string s, find the length of the longest substring without repeating characters.
+
+### Examples
+
+**Example 1:**
+Input: "abcabcbb"
+Output: **3**
+Explanation: The longest substring without repeating characters is "abc", which has a length of 3.
+
+
+**Example 2:**
+Input: "bbbbb"
+Output: 1
+Explanation: The longest substring without repeating characters is "b", which has a length of 1.
+
+**Example 3:**
+Input: "pwwkew"
+Output: 3
+Explanation: The longest substring without repeating characters is "wke", which has a length of 3.
+
+### Brute Force Approach
+
+**To solve this problem using a brute force approach, follow these steps:**
+* Generate all possible substrings of the given string.
+* For each substring, check if all characters are unique.
+* Keep track of the length of the longest substring that contains unique characters.
+
+**Example:**
+For string "abcabcbb":
+Generate substrings: "a", "ab", "abc", "b", "bc", "bca", ...
+Check each substring for uniqueness.
+The longest substring with unique characters is "abc".
+
+### Complexity analysis of brute force approach
+- Time Complexity: **O(n^3)** — Generating all substrings takes O(n^2), and checking uniqueness takes O(n).
+- Space Complexity: **O(1)** — No extra space is used.
 
 
 ---
-### Problem 4 Subarray sum 0
-
-**Problem Statement**
-
-Given an array of N elements, check if there exists a subarray with a sum equal to 0.
-
-Example
-**Input:**
-
-N = 10
+## Longest Substring Without Repeating Characters optimised approach
 
 
-|  2  |  2  |  1  | -3  |  4  |  3  |  1  | -2  | -3  |  2  |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+### Observations for Optimization
 
-**Output:**
-if we add elements from index 1 to 3, we get 0; therefore, the answer is **true**.
+1) *Sliding Window Technique*: The brute force method is inefficient for larger strings. We can use a sliding window approach to optimize the solution.
+2) *HashSet for Uniqueness*: Use a data structure like HashSet to keep track of characters in the current window and efficiently check for duplicates.
+3) *Two-pointer Technique*: Use two pointers to represent the start and end of the current substring window.
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
+**Optimized Approach**
 
-#### Solution
-* Traverse for each subarray check if sum == 0.
-   * Brute Force: Create all Subarrays, Time complexity: **O(n<sup>3</sup>)**.
-   * We can optimize further by using **Prefix Sum** or **Carry Forward** method and can do it in Time Complexity: **O(n<sup>2</sup>)**.
-   * How can we further optimize it?
+We use the sliding window technique with two pointers and a hash set to solve the problem in linear time.
 
-#### Observations
+*Steps:*
+* Initialize two pointers start and end to represent the current window.
+* Use a hash set to keep track of characters in the current window.
+* Move the end pointer to expand the window and include new characters.
+* If a duplicate character is encountered, move the start pointer to reduce the window until the duplicate is removed.
+* Update the maximum length of substrings without repeating characters as you expand the window.
 
-* Since we have to find sum of a subarrays(range), we shall think towards **Prefix Sum**.
-
-Initial Array: -
-
-
-|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|  2  |  2  |  1  | -3  |  4  |  3  |  1  | -2  | -3  |  2  |
-
-Prefix sum array: -
-
-|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |
-|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
-|  2  |  4  |  5  |  2  |  6  |  9  | 10  |  8  |  5  |  7  |
-
-We need a subarray with **sum(i to j) = 0**
-Using Prefix Sum Array,
-**PrefixSum[j] - PrefixSum[i-1] = 0
-PrefixSum[j] = PrefixSum[i-1]**
-
-It implies, if there exist duplicate values in Prefix Sum Array, then the sum of a subarray is 0.
-
-Example,
-
+**Pseudocode**
 ```cpp
-PrefixSum[2] = 5
-PrefixSum[8] = 5
-sum of elements in intial array from index 3 to 8 = 0
+function lengthOfLongestSubstring(s):
+    initialize start = 0
+    initialize maxLength = 0
+    initialize hashSet = empty set
+
+    for end = 0 to length of s - 1:
+        while s[end] in hashSet:
+            remove s[start] from hashSet
+            increment start by 1
+        add s[end] to hashSet
+        maxLength = max(maxLength, end - start + 1)
+
+    return maxLength
 ```
 
-**Summary**
-* If numbers are repeating in Prefix Sum Array, then there exists a subarray with sum 0.
-* Also, if the Prefix Sum Array element is 0, then there exists a subarray with sum 0.
-    * Example: 
-        * A[] = {2, -1, 3, 5}
-        * PrefixSum[] = {2, -1, 0, 5}
-        * Here, 0 in PrefixSum Array implies that there exist a subarray with sum 0 starting at index 0.
-          
+**Complexity Analysis of Optimized Approach**
 
-#### Approach
+* Time Complexity: **O(n)** — Each character is processed at most twice (once added and once removed).
+* Space Complexity: **O(min(n,m))** — n is the length of the string, and m is the size of the character set (e.g., 128 for ASCII).
 
-* Calculate prefix sum array.
-* Traverse over elements of prefix sum array.
-  * If the element is equal to 0, return true.
-  * Else, insert it to HashSet.
-* If the size of the prefix array is not equal to the size of the hash set, return true.
-* Else return false.
-
-#### Pseudeocode
-```cpp
-// 1. todo calculate prefix sum array
-
-// 2.
-Function checkSubArraySumZero(PrefixSumArray[]) {
-    Hashset < int > s
-    for (i = 0; i < PrefixSumArray.length; i++) {
-        if (PrefixSumArray[i] == 0) {
-            return true
-        }
-        s.insert(PrefixSumArray[i])
-    }
-    if (s.size != PrefixSumArray.size)
-        return true
-    return false
-}
-```
-Time Complexity : **O(N)**
-Space Complexity : **O(N)**
-
-
----
-### HINT for Count Subarrays having sum 0 
-Given an array A of N integers.
-
-Find the count of the subarrays in the array which sums to zero. Since the answer can be very large, return the remainder on dividing the result with 109+7
-
-**Input 1**
-A = [1, -1, -2, 2]
- 
-**Output 1**
-3
-
-Explanation
-The subarrays with zero sum are [1, -1], [-2, 2] and [1, -1, -2, 2].
- 
-**Input 2**
-A = [-1, 2, -1]
-
-**Output 2**
-1
-
-Explanation
-The subarray with zero sum is [-1, 2, -1].
 
