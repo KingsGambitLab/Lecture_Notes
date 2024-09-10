@@ -1,6 +1,7 @@
 # Searching 1: Binary Search on Array
 
----
+
+## Introduction to Searching
 
 
 ### Introduction to Searching - Story
@@ -9,52 +10,55 @@
 * When you go to the police, you tell them what to search for—the target—and where to search—the search space.
 * It is easy to look for a word in the dictionary as compared to searching for a word in a book or newspaper. This is because along with the target element, we also have defined search space(alphabetical order). 
 * In the Phone book as well, we have names sorted in the contacts list, so it's easier to find a person's number. 
-* **Search space** - The area where we know the result exists and we search there only
-* **Target** - The item we are looking for
-* **Condition** - Some condition to discard some part of the search space repeatedly to make it smaller and finally reach the result.
-* **Binary Search** - divide the search space into two parts and repeatedly keep on neglecting one-half of the search space.
+    * **Search space** - The area where we know the result exists and we search there only
+    * **Target** - The item we are looking for
+    * **Condition** - Some condition to discard some part of the search space repeatedly to make it smaller and finally reach the result.
+    * **Binary Search** - divide the search space into two parts and repeatedly keep on neglecting one-half of the search space.
 
 ---
+
 ### Question
  
 In binary search, at each step, the search range is typically:
 
-**Choices** 
+### Choices 
 - [x] Halved
 - [ ] Tripled
 - [ ] Doubled
 - [ ] Reduced by one
 
 ---
-## Binary Search
+## Search element K
 
 
-### Binary Search Question
-Given a sorted array with distinct elements, search the index of an element **k**, if k is not present return -1.
+### Problem Statement
+
+Given a sorted array with distinct elements, search the index of an element **k**, if k is not present, return -1.
 arr[] = 
 
 | 3   | 6   | 9   | 12  | 14  | 19  | 20  | 23  | 25  | 27  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-#### Brute Force Approach - Linear Search
-* We can traverse the array and compare each element with the target element. This is done until we find the target element or all the elements of the array are compared. This method is called linear search and the time complexity in the worst case is **O(N)** where **N** is the number of elements in the array.
-* We can perform the same operation with less number of comparisons and with better time complexity using Binary Search as the array is sorted.
-#### Binary Search Approach
-* Binary search has three elements,
-    * **Search space -** array
-    * **target -** we are given a target element to be found from the array
-    * **condition ->** 
-    * array is sorted, say I am at some random position, if I compare the current element with the target element. 
-    * If `current_element > target_element`, I can discard all the element appearing before current element and the target_element as they will always be smaller than current element. 
-    * Similarly, if the  `current_element < target_element`, the target element and the elements appearing after it can be discareded.
-    * We have all the three elements and thus, binary search can be easily applied to it.
-* Let us take the middle index.
-* if `arr[mid] == k`, i.e. we found the target, we return the index of the target.
-* if `arr[mid] < k` i.e. the target exists on the right side of the array so the left half is of no use and we can move to the right.
-* Similarly, if `arr[mid] > k` i.e. the target exists on the left, and the right half can be discarded.
+
+### Brute Force Approach - Linear Search
+* We can use a linear search to compare each element in the array with the target until it's found, which has a worst-case time complexity of O(N).
+* If the array is sorted, we can use Binary Search for faster results with fewer comparisons.
+
+
+
+### Binary Search Approach
+
+**Search space:** The array
+
+**Target:** The element we want to find in the array.
+
+**Condition:**
+* If the array is sorted, we can use the current element’s value to determine which part of the array to search.
+* If the current element is greater than the target, we can ignore all elements before it since they will also be greater than the target.
+* If the current element is smaller than the target, we can ignore all elements after it since they will be smaller.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/908/original/upload_806379972b851dba6e99f692192ada2a.png?1696270159" width=400/>
 
-#### Dry Run
+### Dry Run
 
 Let us dry run binary search for the array:
 
@@ -91,85 +95,72 @@ Let us dry run binary search for the array:
 
 
 
-#### Binary Search Pseudo Code
+### Binary Search Pseudo Code
 ```javascript
-int search(int arr[], int N, int k) {
-  lo = 0, hi = N - 1;
-  while (lo <= hi) {
-    mid = lo + (hi + lo) / 2;
-    if (arr[mid] == k) {
-      return mid;
-    } else if (arr[mid] < k) {
-      lo = mid + 1;
-    } else {
-      hi = mid - 1;
+int search(int arr[], int N, int k){
+    lo = 0, hi = N - 1;
+    while(lo <= hi){
+        mid = lo + (hi + lo) / 2;
+        if(arr[mid] == k) {
+            return mid;
+        }else if(arr[mid] < k){
+            lo = mid + 1;
+        }else{
+            hi = mid - 1;
+        }
     }
-  }
-  return -1;
+    return -1;
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(log N)
 **Space Complexity:** O(1)
 
 
 ---
+
 ### Question
  
 If the element 'k' is found in a sorted array, what will be the time complexity of binary search?
 
-**Choices** 
+### Choices 
 - [ ] O(1)
 - [x] O(log n)
 - [ ] O(n)
 - [ ] O(n^2)
 
 ---
-### Best Practices - Binary Search
-
-
-* Some write the formula of mid calculation as <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/912/original/Screenshot_2023-10-02_235404.png?1696271055" width=80 /> but it is incorrect, as in some cases it may lead to overflow.
-* e.g, Let us assume that maximum number stored by a particular data type is `100` (It's Integer.Max_Int but just to make maths easy, assuming its 100), and the number of elements in the array is `100` for which last index will be `99` for zero indexing and thus, is in the limit. 
-* There is the posibility that the target element is at the position `98` and value of `low = 98` and `high = 99`. When we calculate `mid` for this scenario, the `high` and the `low` are in limits but while calculating the mid <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/915/original/Screenshot_2023-10-02_235615.png?1696271183" width="100"/> first the sum `197` will be calculated and stored. This will cause the overflow as the limit of the variable is `100` only(assumption).
-* This may result in incorrect or negative value.
-* Whereas, when we write <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/916/original/Screenshot_2023-10-02_235725.png?1696271253" width="100"/> we will get <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/917/original/Screenshot_2023-10-02_235917.png?1696271365" width="100"/> which even in the worst case be `99` and will not overflow.
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/918/original/upload_8464c14ddc9d5166e7118e05dcbfdc72.png?1696271394" width="500"/>
-
----
-### Identify 2024's First Email
+## Identify 2024's First Email
 
 
 All emails in your mailbox are sorted chronologically. Can you find the first mail that you received in 2024?
 
 ---
-### Binary Search Problems - Find first occurrence
+## Binary Search Problems - Find first occurrence
 
+
+### Problem Statement
 Given a sorted array of N elements, find the first occurrence of the target element.
 arr[] = 
 | -5  | -5  | -3  | 0   | 0   | 1   | 1   | 5   | 5   | 5   | 5   | 5   | 5   | 5   | 8   | 10  | 10  | 15  | 15  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
-For `5` first occurence is at  index `7` so we have to return `7`.
-* Brute force approach is linear search.
-* Now the array is sorted so using binary search we can find at least one of the occurences of the given target element.
-* The challenge is to **find the first occurence**. What we know about the first occurence is that it is always going to be the current position or in the left.
-* Now in left, we can do linear search but in worst it will take about O(N) time complexity.
-* What we have got is the potential answer, it can or cannot be final anser.
-* We can store the current position in a variable, in case it is the first occurence. Next, we can apply binary search in the left side of the array. 
-* The only change we are required to make is to not stop if we find the target element instead keep looking in the left side of the array until `low > high`.
-* If the `mid == target` store mid, go left.
-* else if `mid > target` go right.
-* else go left.
+For the number 5, the first occurrence is at index 7, so we return 7.
+
+* A brute-force way to find this is with a linear search.
+* Since the array is sorted, we can use binary search to find an occurrence of the target.
+* The challenge is to find the first occurrence. The first occurrence will be at the current position or to the left of it.
+* Instead of using linear search on the left, which can be slow, we can modify the binary search.
+* Store the current position if it matches the target, then continue searching to the left.
+    * If mid == target, store the mid index and go left.
+    * If mid > target, go left.
+    * Otherwise, go right.
 
 
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/919/original/upload_197946be7b82c2dc88b9782077ab3534.png?1696271433" width="500"/>
 
-
-#### Dry run for the example
+### Dry run for the example
 
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/920/original/upload_5ed94acbbf1929375865577543628202.png?1696271490" width="500"/>
@@ -207,11 +198,12 @@ For `5` first occurence is at  index `7` so we have to return `7`.
 * break;
 
 ---
+
 ### Question
  
 When searching for the first occurrence of an element in a sorted array, what should you do if the current element matches the target 'k'?
 
-**Choices** 
+### Choices 
 - [ ] Return the current index
 - [ ] Continue searching in the right subarray
 - [x] Continue searching in the left subarray
@@ -219,45 +211,42 @@ When searching for the first occurrence of an element in a sorted array, what sh
 
 
 ---
+
 ### Question
  
 What is the time complexity of finding the first occurrence of an element in a sorted array using binary search?
 
-**Choices** 
+### Choices 
 - [x] O(log n)
 - [ ] O(n)
 - [ ] O(1)
 - [ ] O(n^2)
 
 
----
-#### Complexity
+### Complexity
 **Time Complexity:** O(logn) (Everytime you are discarding the search space by half).
 **Space Complexity:** O(1)
 
-#### Follow up question
+### Homework
 * Try for the last occurence
 
 
 
 ---
-### Find the unique element
+## Find the unique element
 
-**Question**
+
+### Question
 Every element occurs twice except for 1, find the unique element.
 **Note:** Duplicate elements are adjacent to each other but the array is not sorted.
 
 **Example:**
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/055/816/original/Screenshot_2023-11-03_at_6.47.48_PM.png?1699017478" width=500 />
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Brute Force Approach
+### Brute Force Approach
 * The brute force approach can be comparing A[i] with A[i+1]. If `(A[i]!=A[i+1])`, then `A[i]` is the unique element.
 
-#### Optimal Approach
+### Optimal Approach
 * Can we apply Binary Search ?
     * Say we land at mid, how to know current element is the answer? => We can check element at its right and at its left. If both are different, then `mid` is the ans.
     * If `A[mid]` is not the answer, then how to decide in which direction shall we move?
@@ -275,7 +264,7 @@ Please take some time to think about the solution approach on your own before re
 * 3 is unique. 
 * First occurrence of 7 and 6 is at index even and after 3, first occurrences of elements, 8, 1, 9 is at odd index.
 
-#### Steps for applying Binary Search
+### Steps for applying Binary Search
 * Land at mid, if `A[mid] != A[mid-1] && A[mid] != A[mid+1]`, then `A[mid]` is the answer.
 * NOTE: To avoid accessing invalid indices, above conditions shall be modified as follows-
     * `mid == 0 || A[mid] != A[mid-1]`
@@ -284,7 +273,7 @@ Please take some time to think about the solution approach on your own before re
     * If index is even, then unique element must be present on right.
     * Else, on left.
 
-#### Dry Run for An Example
+### Dry Run for An Example
 
 | Index    | 0   | 1   | 2   | 3   | 4   | 5   | 6   | 7   | 8   | 9   | 10  | 11  | 12  | 13  | 14  |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -328,84 +317,46 @@ For the above array,
 * `arr[mid] != arr[mid + 1]` -> mid is the **unique element.** We will terminate the loop.
     
 
-#### Pseudo Code
+### Pseudo Code
 ```cpp
-int findUnique(int arr[], int N) {
+int findUnique(int arr[], int N){
 
-  lo = 0, hi = N - 1;
-
-  // binary search
-  while (lo <= hi) {
-    mid = lo + (hi - lo) / 2;
-
-    if ((mid == 0 || arr[mid] != arr[mid - 1]) && (mid == N - 1 || arr[mid] != arr[mid + 1])) { //checking mid is unique
-      return A[mid];
-    } else if (mid == 0 || arr[mid] == arr[mid - 1]) { //at first occurrence
-      if (mid % 2 == 0) lo = mid + 2;
-      else hi = mid - 1;
-    } else { //at second occurrence
-      if (mid % 2 == 0) hi = mid - 2;
-      else lo = mid + 1;
+    lo = 0, hi = N - 1;
+    
+    // binary search
+    while(lo <= hi){
+        mid = lo + (hi - lo) / 2;
+        
+        if((mid == 0 || arr[mid] != arr[mid - 1]) && (mid == N-1 || arr[mid] != arr[mid + 1])){ //checking mid is unique
+            return A[mid];
+        }
+        else if(mid == 0 || arr[mid] == arr[mid - 1]){ //at first occurrence
+            if(mid % 2 == 0) lo = mid+2;
+            else hi = mid-1;
+        }
+        else { //at second occurrence
+            if(mid % 2 == 0) hi = mid-2;
+            else lo = mid+1;
+        }
     }
-  }
 }
 ```
 
-#### Complexities
+### Complexities
 
 **Time Complexity:** O(log(N)
 **Space Complexity:** O(1)
 
 ---
-### Increasing Decreasing Array
-
-Given an increasing decreasing array with distinct elements. Find max element.
-
-**Examples**
-
-arr[] = {1, 3, 5, 2}
-In the above array `5` is the max value.
-arr[] = {1, 3, 5, 10, 15, 12, 6}
-In the given example max element is `15`
-
-The increasing decreasing array will look something like this:
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/935/original/upload_600873e03a8dbd810dfb493b4729f019.png?1696273571" width="500"/>
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Solution
-* Increasing decreasing arrays are the array that increases first and after reaching its peek it starts decreasing. We are supposed to find the peek or the max element of the array. The increasing side is sorted in ascending order and the decreasing side is sorted in descending order.
-* Brute force approach is a linear search with O(N) time complexity.
-* But as we see the elements are sorted in increasing and then decreasing order, so can we do better than O(N) time complexity?
-* Can we apply **Binary Search**? What do we need ?
-    * **Search space** -> array
-    * **target** -> peak element
-    * **Condition:** ->
-    * **Case 1**: if`(arr[mid] > arr[mid - 1] && arr[mid] < arr[mid + 1])` return mid; 
-        * If immediate left and right are less than current element than we are at peek element.
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/937/original/upload_9205cf3e62ccb5ba73b400184b99aa6f.png?1696273860" width="500"/>
-    * **Case 2**: if`(arr[mid] > arr[mid - 1] and arr[mid] < arr[mid + 1])` go right;
-        * Implies our mid is at the part of the array where it is still increasing. So the peek will be at the right side of the array.
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/938/original/upload_96ec793a723414c54eb5e677d907a358.png?1696274049" width="600"/>
-    * **Case 3**: go left 
-    * This infers that mid is at the decreasing side of the array and peek must be at left.
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/939/original/upload_1722e687ab9c054bdc01a48ccb0e3d31.png?1696274076" width="600"/>
-
-#### Pseudocode
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/055/884/original/Screenshot_2023-11-04_at_5.16.33_PM.png?1699098413" width=600 />
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/055/885/original/Screenshot_2023-11-04_at_5.16.45_PM.png?1699098432" width=700 />
+## Local Minima in an Array
 
 
----
-### Local Minima in an Array
-
+### Question
 Given an array of N distinct elements, find any local minima in the array
 
 **Local Minima** - a no. which is smaller than its adjacent neighbors.
 
-**Examples**
+### Examples
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/941/original/upload_964229b29d6489e936e31ff80703df2d.png?1696274200" width="500"/>
 
@@ -424,7 +375,7 @@ Given an array of N distinct elements, find any local minima in the array
 * This can have multiple local minima
 * We have to return any local minima
 
-#### Solution
+### Solution
 * **Case 1:** Current element is smaller than the next and the previous element returns the current element, since this is local minima.
 * **Case 2:** If the current element is greater than the previous element and less than the next element. 
 
@@ -435,24 +386,25 @@ Given an array of N distinct elements, find any local minima in the array
 * **Case 4:** The current element is greater than the previous as well next element. Then we can go to either the left or to the right, because both will contain atleast one local minima.
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/943/original/upload_74fbe76524c70f0033a17c07458b7d14.png?1696274380" width="600"/>
 
-#### Pseudo Code
+### Pseudo Code
 ```javascript
-int localMinima(int[] A) {
-  l = 0, h = n - 1;
-  while (l <= h) {
-    mid = l + (h - l) / 2;
-    if ((mid == 0 || arr[mid] < arr[mid - 1]) && (mid == N - 1 || arr[mid] < arr[mid + 1])) {
-      return mid;
-    } else if (mid == 0 || arr[mid] < arr[mid - 1]) {
-      l = mid + 1;
-    } else {
-      h = mid - 1;
+int localMinima(int[] A){
+    l = 0, h = n - 1;
+    while(l <= h){
+        mid = l + (h - l) / 2;
+        if((mid==0 || arr[mid] < arr[mid - 1]) && (mid==N-1 || arr[mid] < arr[mid + 1])){
+            return mid;
+        }
+        else if(mid==0 || arr[mid] < arr[mid - 1]){
+            l = mid + 1;
+        }else{
+            h = mid - 1;
+        }
     }
-  }
 }
 ```
 
-#### Dry run
+### Dry run
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/944/original/upload_b5c3cac9cd087c8dc019d07117aae11f.png?1696274450" width="500"/>
 
@@ -483,6 +435,7 @@ int localMinima(int[] A) {
 * Element to the right of mid -> `2 < 7`
 * **2 is our local minima.**
 
-#### Complexities
+### Complexities
 * **Time Complexity: O(log(N))**
 * **Space Complexity: O(1)**
+
