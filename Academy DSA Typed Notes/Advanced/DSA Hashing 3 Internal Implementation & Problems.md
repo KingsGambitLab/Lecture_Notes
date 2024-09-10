@@ -1,12 +1,10 @@
 # Hashmap Implementation
 
----
 ## Check if given element exists in Q queries 
-
 
 Given an array of size N and Q queries. In each query, an element is given. We have to check whether that element exists or not in the given array.
 
-**Example**
+### Example
 
 A [ ] = {`2, 4, 11, 15 , 6, 8, 14, 9`}
 
@@ -16,18 +14,14 @@ A [ ] = {`2, 4, 11, 15 , 6, 8, 14, 9`}
 `K = 17` (return false)
 `K = 14` (return true)
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Brute Force Approach
+### Brute Force Approach
 
 For every query, loop through the given array to check the presence.
 
 Time Complexity - **O(N * Q)**
 Space Complexity - **O(1)**
 
-#### Observation
+### Observation
 
 We can create an array to mark the presence of an element against that particular index. 
 
@@ -50,7 +44,7 @@ int dat[16] = {0}; //initally assuming an element is not present
 
 Let's mark the presence.
 ```cpp
-for(int i = 0; i < N; i++) {
+for(i -> 0 to N - 1) {
     dat[A[i]] = 1;
 }
 ```
@@ -61,13 +55,13 @@ Below is how that array looks like -
 | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
 | 0     | 0     | 1     | 0     | 1     | 0     | 1     | 0     | 1     | 1     | 0     | 1     | 0     | 0     | 1     | 1     |
 
-#### Advantage of using DAT
+### Advantage of using DAT
 
 1. Time Complexity of Insertion - `O(1)`
 2. Time Complexity of Deletion - `O(1)`
 3. Time Complexity of Search - `O(1)`
 
-#### Issues with such a representation
+### Issues with such a representation
 
 **1. Wastage of Space**
 * Say array is `A[] = {23, 60, 37, 90}`; now just to store presence of 4 elements, we'll have to construct an array of `size 91`.
@@ -79,8 +73,9 @@ Below is how that array looks like -
 * We'll have to make some adjustments to store negative numbers or characters. (It'll be possible but needs some work-around)
 
 ---
-### Overcome Issues while retaining Advantages
+## Overcome Issues while retaining Advantages
 
+### How to overcome the Issues provided we retain the advantages ?
 
 Let's say we have restriction of creating only array of size 10.
 
@@ -110,7 +105,7 @@ In array of size 10, we'll have indices from 0 to 9. How can we map all the valu
 | 30     | 21     | 42     | 0     | 0     | 45     | 0     | 37     | 0     | 99     | 
 
 
-#### What Have We Done ?
+### What Have We Done ?
 
 * We have basically done Hashing. Hashing is a process where we pass our data through the Hash Funtion which gives us the hash value(index) to map our data to.
 * In this case, the hash function used is **MOD**. This is the simplest hash function. Usually, more complex hash functions are used.
@@ -118,7 +113,7 @@ In array of size 10, we'll have indices from 0 to 9. How can we map all the valu
 
 
 
-#### Issue with Hashing ?
+### Issue with Hashing ?
 
 **COLLISION!**
 
@@ -149,7 +144,7 @@ Say we have 11 pigeons and we have only 8 holes to keep them. Now, provided hole
 But, we can find some resolutions to collision.
 
 ---
-### Collision Resolution Techniques
+## Collision Resolution Techniques
 
 
 ![](https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/865/original/Screenshot_2023-10-24_at_7.11.17_PM.png?1698154890)
@@ -157,11 +152,10 @@ But, we can find some resolutions to collision.
 
 >From Interview Perspective, Open Hashing is Important hence, we'll dive into that.
 
-
+>Whereas, please feel free to read about "Closed Hashing" if interested.
 
 ---
-### Chaining
-
+## Chaining
 
 Let's take the above problem where collision happened!
 
@@ -176,7 +170,6 @@ We can somehow store both 21 & 31 at the same index.
 
 Basically we can have a linked list at every index.
 i.e, Array of Linked List
-
 
 Every index shall have head node of Linked List.
 
@@ -201,7 +194,7 @@ Since order of Insertion doesn't matter to us, so we can **simply insert at head
 * Time Complexity in worst case is still O(N)
 
 ---
-### What is lamda
+## What is lamda
 
 
 There is a lamba($\lambda$) function which is nothing but a ratio of (number of elements inserted / size of the array).
@@ -227,9 +220,10 @@ Let's assume the predefined threshold is 0.7. The load factor is exceeding this 
 $\lambda$ = $\frac{6}{16} = 0.375$ (within the threshold of 0.7)
 
 ---
-### Code Implementation
+## Code Implementation
 
-#### Declaring the HashMap Class
+
+### Declaring the HashMap Class
 
 Let's go through the code implementation of a hashmap:
 
@@ -244,33 +238,33 @@ import java.util.ArrayList;
 
 class HashMap < K, V > {
 
-        private class HMNode {
-            K key;
-            V value;
+    private class HMNode {
+        K key;
+        V value;
 
-            public HMNode(K key, V value) {
-                this.key = key;
-                this.value = value;
-            }
+        public HMNode(K key, V value) {
+            this.key = key;
+            this.value = value;
         }
+    }
 
-        private ArrayList < HMNode > [] buckets;
-        private int size; // number of key-value pairs
+    private ArrayList < HMNode > [] buckets;
+    private int size; // number of key-value pairs
 
-        public HashMap() {
-            initbuckets();
-            size = 0;
+    public HashMap() {
+        initbuckets();
+        size = 0;
+    }
+
+    private void initbuckets() {
+        buckets = new ArrayList[4];
+        for (int i = 0; i < 4; i++) {
+            buckets[i] = new ArrayList<>();
         }
-
-        private void initbuckets() {
-            buckets = new ArrayList[4];
-            for (int i = 0; i < 4; i++) {
-                buckets[i] = new ArrayList < > ();
-            }
-        }
+    }
 ```
 
-#### Put Method
+### Put Method
 * The `put` method adds a key-value pair to the hashmap.
 * It calculates the bucket index (`bi`) using the `hash` method and finds the data index within the bucket using `getIndexWithinBucket`.
 * If the key is found in the bucket, it updates the value. Otherwise, it inserts a new node.
@@ -299,22 +293,22 @@ class HashMap < K, V > {
     }
 ```
 
-#### Hash Method
+### Hash Method
 * The `hash` method calculates the bucket index using the hash code of the key and takes the modulus to ensure it stays within the array size.
 ```java
     private int hash(K key) {
-      int hc = key.hashCode();
-      int bi = Math.abs(hc) % buckets.length;
-      return bi;
-  }
+        int hc = key.hashCode();
+        int bi = Math.abs(hc) % buckets.length;
+        return bi;
+    }
 ```
 
-#### Get Index within Bucket
+### Get Index within Bucket
 * The `getIndexWithinBucket` method searches for the data index (`di`) of a key within a specific bucket. It returns -1 if the key is not found
 ```java
     private int getIndexWithinBucket(K key, int bi) {
         int di = 0;
-        for (HMNode node: buckets[bi]) {
+        for (HMNode node : buckets[bi]) {
             if (node.key.equals(key)) {
                 return di; // Key found
             }
@@ -324,26 +318,26 @@ class HashMap < K, V > {
     }
 ```
 
-#### Rehash Method
+### Rehash Method
 
 * The `rehash` method is called when the load factor exceeds 2.0.
 * It creates a new array of buckets, initializes the size to 0, and iterates through the old buckets, reinserting each key-value pair into the new array.
 * 
 ```java
     private void rehash() {
-        ArrayList < HMNode > [] oldBuckets = buckets;
+        ArrayList<HMNode>[] oldBuckets = buckets;
         initbuckets();
         size = 0;
 
-        for (ArrayList < HMNode > bucket: oldBuckets) {
-            for (HMNode node: bucket) {
+        for (ArrayList <HMNode> bucket : oldBuckets) {
+            for (HMNode node : bucket) {
                 put(node.key, node.value);
             }
         }
     }
 ```
 
-#### Get Method
+### Get Method
 
 * The `get` method retrieves the value associated with a given key. It calculates the bucket index and searches within the bucket to find the key.
 ```java
@@ -359,7 +353,7 @@ class HashMap < K, V > {
     }
 ```
 
-#### Contains Key Method
+### Contains Key Method
 
 * The `containsKey` method checks if a given key exists in the hashmap by calculating the bucket index and checking the data index within the bucket.
 
@@ -372,7 +366,7 @@ class HashMap < K, V > {
     }
 ```
 
-#### Remove Method
+### Remove Method
 
 * The `remove` method removes a key-value pair from the hashmap. If the key is found, it returns the value; otherwise, it returns null
 
@@ -391,7 +385,7 @@ class HashMap < K, V > {
     }
 ```
 
-#### Size Method
+### Size Method
 The `size` method returns the total number of key-value pairs in the hashmap.
 
 ```java
@@ -400,48 +394,40 @@ The `size` method returns the total number of key-value pairs in the hashmap.
     }
 ```
 
-#### Key Set Method
+### Key Set Method
 
 * The `keyset` method returns an ArrayList containing all the keys in the hashmap by iterating through the buckets and nodes.
 
 ```java
-    public ArrayList < K > keyset() {
-        ArrayList < K > keys = new ArrayList < > ();
-        for (ArrayList < HMNode > bucket: buckets) {
-            for (HMNode node: bucket) {
+    public ArrayList<K> keyset() {
+        ArrayList<K> keys = new ArrayList<>();
+        for (ArrayList<HMNode> bucket : buckets) {
+            for (HMNode node : bucket) {
                 keys.add(node.key);
             }
         }
         return keys;
     }
-    }
+}
 ```
-
----
-### Question
-What is the time complexity of the brute-force approach for checking the existence of an element in the array for Q queries?
-
-**Choices**
-- [ ] O(N)
-- [ ] O(Q)
-- [x] O(N * Q)
-- [ ] O(1)
     
 ---
+
 ### Question
 What advantage does the Direct Access Table (DAT) provide in terms of time complexity for insertion, deletion, and search operations?
 
-**Choices**
+### Choices
 - [x] O(1) for all operations
 - [ ] O(N) for all operations
 - [ ] O(1) for insertion and deletion, O(N) for search
 - [ ] O(N) for insertion and deletion, O(1) for search
 
 ---
+
 ### Question
 What is the purpose of the load factor (lambda) in a hashmap?
 
-**Choices**
+### Choices
 - [ ] It represents the number of elements in the hashmap.
 - [ ] It is used to calculate the hash code of a key.
 - [x] It determines when to trigger rehashing.
@@ -449,11 +435,70 @@ What is the purpose of the load factor (lambda) in a hashmap?
 
 
 ---
+
 ### Question
 What does the rehashing process involve in a hashmap?
 
-**Choices**
+### Choices
 - [ ] Reducing the size of the hashmap
 - [x] Creating a new hash table with double the size and redistributing elements
 - [ ] Deleting all elements from the hashmap
 - [ ] Removing collision resolution techniques
+
+
+---
+## Longest Increasing Subsequence
+
+
+### Problem Statement
+Given an array of integers, find the length of the longest sub-sequence such that elements in the subsequence are consecutive integers, the consecutive numbers can be in any order. 
+
+### Example
+**Input:** arr[] = {1, 9, 3, 10, 4, 20, 2}
+**Output:** 4
+Explanation: The subsequence 1, 3, 4, 2 is the longest subsequence of consecutive elements
+
+**Input:** arr[] = {36, 41, 56, 35, 44, 33, 34, 92, 43, 32, 42}
+**Output:** 5
+Explanation: The subsequence 36, 35, 33, 34, 32 is the longest subsequence of consecutive elements.
+
+### Approach
+
+* The idea is to use Hashing. 
+* We first insert all elements in a Set. 
+* Then, traverse over all the elements and check if the current element can be a starting element of a consecutive subsequence. 
+* To check if the current element, say X can be a starting element, check if (X – 1) is present in the set. 
+    * If (X – 1) is present in the set, then X cannot be starting of a consecutive subsequence. 
+    * Else if (X – 1) is not present, then start from X and keep on removing elements X + 1, X + 2 …. to find a consecutive subsequence.
+
+### Pseudocode
+```javascript
+function findLongestConseqSubseq(arr, n):
+    set<int> s
+    ans = 0
+
+    // Step 1: Insert all elements into the set
+    FOR i FROM 0 TO n-1:
+        INSERT arr[i] INTO S
+
+    // Step 2: Check for the longest consecutive subsequence
+    FOR i FROM 0 TO n-1:
+        // If the current element is the start of a sequence
+        IF (arr[i] - 1) IS NOT IN S:
+            # Initialize the current number as arr[i]
+            j = arr[i]
+
+            // Check how far the sequence goes
+            WHILE j IS IN S:
+                j = j + 1
+
+            // Update the maximum length of the subsequence
+            ans = MAX(ans, j - arr[i])
+
+    RETURN ans
+```
+
+### Complexity
+
+* **Time complexity:** O(N), Only one traversal is needed and the time complexity is O(N) under the assumption that hash insert and search takes O(1) time.
+* **Auxiliary space:** O(N), To store every element in the hashmap O(N) space is needed
