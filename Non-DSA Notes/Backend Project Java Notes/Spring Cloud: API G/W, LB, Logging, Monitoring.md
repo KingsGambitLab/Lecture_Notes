@@ -3,7 +3,6 @@
    - The need for managing microservice communication and routing through an API gateway and distributing traffic using a load balancer.
 2. **Setting Up Prometheus and Grafana with a Spring Project**
    - Monitoring system health and performance metrics, and visualizing them using Prometheus and Grafana.
-
 ---
 
 ## **Implementing API Gateway and Load Balancer**
