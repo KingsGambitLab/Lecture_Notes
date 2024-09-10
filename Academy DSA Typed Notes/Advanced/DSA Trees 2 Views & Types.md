@@ -1,12 +1,14 @@
 # Advanced DSA : Trees 2: Views & Types
 
----
-## Level Order Traversal
+
+## Problem 1 Level order traversal
+
+### Level Order Traversal
 Input: 1, 2, 3, 5, 8, 10, 13, 6, 9, 7, 4, 12, 11.
 
 The diagram for the following nodes will be:
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/528/original/EBDvTnv.jpg?1697189390" width=500 />
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/528/original/EBDvTnv.jpg?1697189390" width=300 />
 
 
 ```cpp
@@ -19,41 +21,48 @@ The diagram for the following nodes will be:
 
 
 ---
+
+
+
 ### Question
 Will the last level node always be a leaf node?
 
-**Choices**
+### Choices
 - [x] YES
 - [ ] NO
 - [ ] Cant say
 
 
+### Explanation
 
-**Explanation**
+In a binary tree, the last level nodes are typically the leaf nodes. A leaf node is defined as a node that does not have any children. Since the last level of a binary tree is the lowest level, the nodes at this level do not have any child nodes, making them leaf nodes.
 
-Yes, in the context of a binary tree's right view, the last level node will always be a leaf node. This is because the right view of a binary tree focuses on the rightmost nodes at each level as seen from a top-down view. 
+Thus, the correct answer is "YES" because in a well-formed binary tree, the nodes at the last level will always be leaf nodes, as they cannot have any children further down the tree. 
 
 
 ---
+
+
+
 ### Question
 Which traversal is best to print the nodes from top to bottom?
 
-**Choices**
+### Choices
 - [x] Level order traversal
 - [ ] Pre order 
 - [ ] post order
 
 
 
-**Explanation:**
+### Explanation:
 
 When you want to print nodes from top to bottom, the level-order traversal, also known as Breadth-First Search (BFS), is the best choice. Level-order traversal ensures that nodes at the same level are processed before moving to the next level. This results in a top-to-bottom exploration of the tree.
 
 ---
-### Level order traversal Observations
+## Level order traversal Observations
 
 
-#### Observations:
+### Observations:
 * Level order traversal visits nodes level by level, starting from the root.
 * It uses a queue to keep track of the nodes to be processed.
 * Nodes at the same level are processed before moving on to the next level.
@@ -61,24 +70,26 @@ When you want to print nodes from top to bottom, the level-order traversal, also
 
 Since this will be done level by level hence we will be requiring a queue data structure to solve this problem:
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/529/original/Wf3Hhch.png?1697189478" width=500/>
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/529/original/Wf3Hhch.png?1697189478" width=400/>
 
 After the whole process the queue data strucutre will look somewhat like this:
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/530/original/8VJIelj.png?1697189508" width=500/>
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/530/original/8VJIelj.png?1697189508" width=400/>
 
 Like this(in theabove example) it will be done for all of the nodes. 
 Let us see the pseudocde to solve the problem in printing in one line only:
 
-#### Pseudocode:
+### Pseudocode:
 
 ```cpp
-q.enqueue(root) {
-    while (!q.eempty()) {
+q.enqueue(root)
+{
+    while(not q.empty())
+    {
         x = q.dequeue()
         print(x.data)
-        if (x.left != null) q.enqueue(x.left)
-        if (x.right != null) q.enqueue(x.right)
+        if(x.left != null) q.enqueue(x.left)
+        if(x.right != null) q.enqueue(x.right)
     }
 }
 ```
@@ -92,11 +103,11 @@ Each level will be printed in seperate line:
 ```
 
 
-#### Observations:
+### Observations:
 
 * Level order traversal prints nodes at the same depth before moving to the next level, ensuring that nodes on the same level are printed on separate lines.
 
-#### Approach:
+### Approach:
 1. Start with the root node and enqueue it.
 2.  Initialize last as the root.
 3.  While the queue is not empty:
@@ -104,7 +115,7 @@ Each level will be printed in seperate line:
     * Enqueue its children (if any).
     * If the dequeued node is the same as last, print a newline and update last.
 
-#### Dry-Run:
+### Dry-Run:
 ```cpp
         1
        / \
@@ -132,17 +143,20 @@ Each level will be printed in seperate line:
 
 Let us see the pseudocode to solve the problem in printing in **seperate** line only:
 
-#### Pseudocode:
+### Pseudocode:
 
 ```cpp
-q.enqueue(root) {
+q.enqueue(root)
+{
     last = root;
-    while (!q.empty()) {
+    while(!q.empty())
+    {
         x.dequeue()
         print(x.data)
-        if (x.left != null) q.enqueue(x.left)
-        if (x.right != null) q.enqueue(x.right)
-        if (x == last && !q.empty()) {
+        if(x.left != null) q.enqueue(x.left)
+        if(x.right != null) q.enqueue(x.right)
+        if(x == last && !q.empty())
+        {
             print("\n");
             last = q.rear();
         }
@@ -150,13 +164,15 @@ q.enqueue(root) {
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
 
 ---
-### Problem 2 Right and left view 
+## Problem 2 Right and left view 
 
+
+### Print right view of a binary tree:
 
 ### Example:
 Let us see an example below: 
@@ -190,7 +206,7 @@ Print right view of the given binary tree,
         9   10
 ```
 
-**Choices**
+### Choices
 - [ ] [1, 3, 6, 7]
 - [ ] [1, 3, 6, 8, 9]
 - [ ] [1, 3, 6, 7, 8, 9, 10]
@@ -199,14 +215,15 @@ Print right view of the given binary tree,
 
 
 ---
-### Right view  Observations
+## Right view  Observations
 
-#### Observations/Idea
+
+### Observations/Idea
 
 * The idea behind obtaining the right view of a binary tree is to perform a level-order traversal, and for each level, identify and print the rightmost node. This process ensures that we capture the rightmost nodes at each level, giving us the right view of the binary tree. We can obtain the right-view of the tree using a breadth-first level-order traversal with a queue and a loop. 
 
 
-#### Approach:
+### Approach:
 1. Initialize an empty queue for level order traversal and enqueue the root node.
 2. While the queue is not empty, do the following:
     * Get the number of nodes at the current level (levelSize) by checking the queue's size.
@@ -217,17 +234,19 @@ Print right view of the given binary tree,
 
 Let us see the pseudocode to solve the problem:
 
-#### Pseudocode:
+### Pseudocode:
 ```cpp
 q.enqueue(root)
 last = root;
-while (!q.empty(1)) {
+while(!q.empty(1))
+{
     x = q.dequeue()
-    if (x.left != null) q.enqueue(x.left)
-    if (x.right != null) q.enqueue(x.right)
-    if (x == last) {
+    if(x.left != null) q.enqueue(x.left)
+    if(x.right != null) q.enqueue(x.right)
+    if(x == last) { 
         print(x.data)
-        if (!q.empty()) {
+        if(!q.empty())
+        {
             print("\n");
             last = q.rear();
         }
@@ -236,201 +255,12 @@ while (!q.empty(1)) {
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(M)
 
 ---
-### Vertical Order traversal
-
-**Examples:**
-Consider the following binary tree:
-```cpp
-        1
-       / \
-      2   3
-     / \ / \
-    4  5 6  7
-       / \
-      8   9
-```
-Vertical order traversal of this tree would yield the following output:
-```cpp
-Vertical Line 1: 4
-Vertical Line 2: 2, 8
-Vertical Line 3: 1, 5, 6
-Vertical Line 4: 3, 9
-Vertical Line 5: 7
-```
-
-We need to print the vertical lines from top to bottom. 
-
-
----
-### Question
-Consider the following binary tree:
-```cpp
-        1
-       / \
-      2   3
-       \   \
-        5   6
-           / \
-          8   7
-         / \ 
-        9   10
-```
-
-Pick the vertical order traversal of the given Binary Tree.
-
-**Choices**
-- [x] [2, 1, 5, 9, 3, 8, 6, 10, 7]
-- [ ] [1, 2, 5, 3, 6, 8 ,9, 10, 7]
-- [ ] [1, 2, 3, 5, 6, 8, 7, 9, 10]
-- [ ] [1, 5, 2, 3, 6, 10, 8, 7, 9]
-
-**Explanation:**
-
-Vertical order traversal of this tree would yield the following output:
-```cpp
-Vertical Line 1: 2
-Vertical Line 2: 1, 5, 9
-Vertical Line 3: 3, 8
-Vertical Line 4: 6, 10
-Vertical Line 5: 7
-``` 
-
-
----
-### Vertical Order traversal Observations
-#### Observation:
-* Vertical order traversal of a binary tree prints nodes column by column, with nodes in the same column printed together.
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-These are the steps to Print vertical order traversal:
-#### Approach:
-* Assign horizontal distances to nodes (root gets distance 0, left decreases by 1, right increases by 1).
-* Create a map/hash table where keys are distances and values are lists of node values.
-* Update the map while traversing: append node values to corresponding distance lists.
-* After traversal, print the values from the map in ascending order of distances.
-
-
----
-### Vertical Order traversal Pseudocode
-#### Pseudocode
-
-Let us see the pseudocode to solve this:
-```cpp
-procedure levelOrderTraversal(root)
-    if root is null
-        return
-    
-    Create a queue
-    Enqueue root
-    
-    while queue is not empty
-        currentNode = dequeue a node from the queue
-        print currentNode's value
-        
-        if currentNode has left child
-            enqueue left child
-        end if
-        
-        if currentNode has right child
-            enqueue right child
-        end if
-    end while
-end procedure
-```
-
----
-### Problem 4 Top View 
-
-**Example:**
-Consider the following binary tree:
-```cpp
-        1
-       / \
-      2   3
-     / \ / \
-    4  5 6  7
-```
-The top view of this tree would be [4, 2, 1, 3, 7].
-
-
----
-### Question
-Consider the following binary tree:
-```cpp
-        1
-       / \
-      2   3
-       \   \
-        5   6
-           / \
-          8   9          
-```
-
-What is the top view of the given binary tree.
-
-**Choices**
-- [ ] [5, 2, 1, 3, 6, 9]
-- [ ] [8, 5, 2, 1, 3, 6, 9]
-- [ ] [2, 1, 5, 3, 8, 6, 9]
-- [x] [2, 1, 3, 6, 9]
-
-
-**Explanation:**
-
-The Top view of the Given Binary tree is [2, 1, 3, 6, 9].
-
-
----
-### Top View Observations
-
-#### Observations:
-* Assign Horizontal Distances: Nodes are assigned horizontal distances, with the root at distance 0, left children decreasing by 1, and right children increasing by 1. This helps identify the nodes in the top view efficiently.
-
-#### Approach:
-For this we need to follow these steps:
-* Traverse the binary tree.
-* Maintain a map of horizontal distances and corresponding nodes.
-* Only store the first node encountered at each unique distance.
-* Print the stored nodes in ascending order of distances to get the top view.
-
-#### Pseudocode:
-```cpp
-procedure topView(root)
-    if root is null
-        return
-    
-    Create an empty map
-    
-    Queue: enqueue (root, horizontal distance 0)
-    
-    while queue is not empty
-        (currentNode, currentDistance) = dequeue a node
-        
-        if currentDistance is not in the map
-            add currentDistance and currentNode's value to map
-        
-        enqueue (currentNode's left child, currentDistance - 1) if left child exists
-        enqueue (currentNode's right child, currentDistance + 1) if right child exists
-    
-    Print values in map sorted by keys
-end procedure
-
-```
-
-#### Complexity
-**Time Complexity:** O(N)
-**Space Complexity:** O(W)
-
----
-### Types of binary tree
+## Types of binary tree
 
 
 
@@ -464,27 +294,30 @@ Diagram:
 
 
 ---
+
+
+
 ### Question
 Perfect Binary Trees are also:
 
-**Choices**
+### Choices
 - [ ] Proper binary tree
 - [ ] Complete binary tree
 - [x] both
 - [ ] none
 
-
-**Explanation:**
+### Explanation:
 
 A perfect binary tree is a specialized case of both a proper binary tree and a complete binary tree, where all internal nodes have two children, all leaf nodes are at the same level, and all levels are completely filled.
 
 ---
-### Problem 5 : Check height balanced tree
+## Problem 3 Check height balanced tree
+
 
 ### Definition
 For all nodes if(`height_ofleftchild-height_ofrightchild`) <= 1
 
-**Example:**
+### Example:
 ```cpp
         1
        / \
@@ -496,18 +329,14 @@ For all nodes if(`height_ofleftchild-height_ofrightchild`) <= 1
 ```
 This tree is not height-balanced because the left subtree of node 2 has a height of 3, while the right subtree of node 2 has a height of 0, and the difference is greater than 1.
 
-:::warning
-Please take some time to think about the brute force approach on your own before reading further.....
-:::
-
 ### Brute Force
-#### Approach
+### Approach
 * For each node in the binary tree, calculate the height of its left and right subtrees.
 * Check if the absolute difference between the heights of the left and right subtrees for each node is less than or equal to 1.
 * If step 2 is true for all nodes in the tree, the tree is height-balanced.
 
 
-#### Pseudocode:
+### Pseudocode:
 ```cpp
 // Helper function to calculate the height of a tree
 function calculateHeight(root):
@@ -538,32 +367,35 @@ result = isHeightBalanced(root)
 > NOTE: For a null node: **height = -1**
 
 
-#### Complexity
+### Complexity
 **Time Complexity:** $O(N^2)$
 **Space Complexity:** O(N)
 
 ---
+
+
 ### Question
 Which traversal is best to use when finding the height of the tree?
 
-**Choices**
+### Choices
 - [ ] Level order
 - [ ] Inorder
 - [x] postorder
 - [ ] preorder
 
 
-**Explanation:** 
+### Explanation: 
 
 Postorder traversal works best for calculating the height of a tree because it considers the height of subtrees before calculating the height of parent nodes, which mirrors the hierarchical nature of tree height calculation.
 
 ---
-### Check height balanced tree Optimised Approach
+## Check height balanced tree Optimised Approach
 
-#### Observation/Idea:
+
+### Observation/Idea:
 * To solve the problem of determining whether a binary tree is height-balanced we can consider using a recursive approach where you calculate the height of left and right subtrees and check their balance condition at each step. Keep track of a boolean flag to indicate whether the tree is still balanced.
 
-#### Approach:
+### Approach:
 * We use a helper function height(root) to calculate the height of each subtree starting from the root.
 * In the height function:
 * If the root is null (i.e., an empty subtree), we return -1 to indicate a height of -1.
@@ -574,7 +406,7 @@ Postorder traversal works best for calculating the height of a tree because it c
 * If, at any point, the ishb flag becomes false, we know that the tree is not height-balanced, and we can stop further calculations.
 * After the traversal is complete, if the ishb flag is still true, the tree is height-balanced.
 
-#### Example:
+### Example:
 ```cpp
         1
        / \
@@ -584,18 +416,190 @@ Postorder traversal works best for calculating the height of a tree because it c
 ```
 This tree is height-balanced because the height of the left and right subtrees of every node differs by at most 1.
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-int height(root, ishb) {
-    if (root == null) return -1;
+function height(root, ishb)
+{
+    if(root == null) return -1;
     l = height(root.left)
     r = height(root.right)
-    if (abs(l - r) > 1) ishb = false;
+    if( absolute(l - r) > 1) ishb = false;
     return max(l, r) + 1
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(log N)
 
+---
+## Problem 4 Construct binary tree
+
+
+### Construct binary tree from inorder and post order
+
+Constructing a binary tree from its inorder and postorder traversals involves a recursive process. Here's a brief explanation with an example:
+
+### Brute-Force Approach
+
+### Approach:
+
+* Generate all possible permutations of the given inorder traversal.
+* For each permutation, check if it forms a valid binary tree when combined with the given postorder traversal.
+* Return the first valid binary tree found.
+
+### Example:
+Inorder: [4, 2, 7, 5, 1, 3, 6]
+Postorder: [4, 7, 5, 2, 6, 3, 1]
+
+### Dry-Run:
+* Identify the root: In the postorder traversal, the last element is 1, which is the root of the binary tree.
+* Split into left and right subtrees: In the inorder traversal, find the position of the root element (1). Elements to the left of this position represent the left subtree, and elements to the right represent the right subtree.
+* Recurse on left subtree: For the left subtree, the root is 2 (found in postorder traversal). Split the left subtree's inorder and postorder traversals, and repeat the process.
+* Recurse on right subtree: For the right subtree, the root is 3 (found in postorder traversal). Split the right subtree's inorder and postorder traversals, and repeat the process.
+* Continue the recursion: Repeat steps 3 and 4 for each subtree until the entire binary tree is constructed.
+
+
+### Pseudocode:
+```cpp
+function buildTreeBruteForce(inorder, postorder):
+    for each permutation of inorder:
+        if formsValidBinaryTree(permutation, postorder):
+            return constructBinaryTree(permutation, postorder)
+    return null
+```
+* **TC-** O(N! * N)
+* **SC-** O(N)
+
+---
+## Construct binary tree Most Optimised Approach
+
+### Most-Optimised Approach:
+
+* The last element in the postorder traversal is the root of the binary tree.
+* Find the root element in the inorder traversal to determine the left and right subtrees.
+* Recursively repeat the process for the left and right subtrees.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/527/original/M1IKDA8.png?1697188735"/>
+
+Now as we can see in the above image let us understand this with the help of a dry/run:
+### Dry-Run/Example:
+inorder={4,2,7,5,1,3,6} and postorder={4,7,5,2,6,3,1} 
+
+1. The last element in the postorder traversal is 1, which is the root of the binary tree.
+
+Binary Tree:
+```plaintext
+1
+```
+2. Find 1 in the inorder traversal to split it into left and right subtrees. The elements to the left are the left subtree, and the elements to the right are the right subtree.
+
+```cpp
+Inorder: [4,2,7,5,1,3,6]
+Postorder: [4,7,5,2,6,3,1]
+```
+
+Left Subtree (Inorder: [4,2,7,5], Postorder: [4,7,5,2]):
+
+```cpp
+  1
+ /
+2
+ \
+  5
+ / \
+4   7
+```
+Right Subtree (Inorder: [3,6], Postorder: [6,3]):
+
+```cpp
+6
+ \
+  3
+```
+3. Repeat the process for the left and right subtrees:
+
+For the left subtree:
+* The last element in the postorder traversal is 2, which is the root of the left subtree.
+* Find 2 in the inorder traversal to split it into left and right subtrees.
+* Left Subtree (Inorder: [4], Postorder: [4]):
+```cpp
+  2
+ /
+4
+```
+Right Subtree (Inorder: [7,5], Postorder: [7,5]):
+```cpp
+  5
+ /
+7
+```
+For the right subtree:
+
+* The last element in the postorder traversal is 3, which is the root of the right subtree.
+* Find 3 in the inorder traversal to split it into left and right subtrees.
+* Left Subtree (Inorder: [6], Postorder: [6]):
+```cpp
+  3
+   \
+    6
+```
+
+The final binary tree would look like this:
+```cpp
+         1
+        / \
+       2   3
+      / \   \
+     4   5   6
+        /
+       7
+```
+
+---
+
+### Question
+The inorder traversal sequence `[4, 2, 5, 1, 6, 3]` and the postorder traversal sequence `[4, 5, 2, 6, 3, 1]`. What is the root of the binary tree?
+
+### Choices
+- [x] 1
+- [ ] 2
+- [ ] 3
+- [ ] 4
+
+### Explanation:
+
+In postorder traversal, the last element is always the root of the tree, so here, 1 is the root. 
+
+---
+## Construct binary tree Pseudocode
+
+### Pseudocode:
+* rootIndex is the index of the root value in the inorder array.
+* rootIndex + 1 represents the start of the right subtree in the arrays.
+* end represents the end of the right subtree in the arrays.
+* start represents the start of the left subtree in the arrays.
+* rootIndex - 1 represents the end of the left subtree in the arrays.
+```cpp
+function buildTree(inorder, postorder):
+    if postorder is empty:
+        return null
+
+    // The last element in postorder is the root of the current subtree
+    rootValue = postorder.last
+    root = new TreeNode(rootValue)
+
+    // Find the index of the rootValue in inorder to split it into left and right subtrees
+    rootIndex = indexOf(inorder, rootValue)
+
+    // Recursive call for right subtree
+    root.right = buildTree(subarray(inorder, rootIndex + 1, end), subarray(postorder, rootIndex, end - 1))
+    
+    // Recursive call for left subtree
+    root.left = buildTree(subarray(inorder, start, rootIndex - 1), subarray(postorder, start, rootIndex - 1))
+
+    return root
+```
+
+**TC-O(N)
+SC-O(N)**
