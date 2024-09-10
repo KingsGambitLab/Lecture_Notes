@@ -1,5 +1,13 @@
 # Maths 3: Prime Numbers
 
+## Agenda
+
+* Introduction to Prime Numbers
+* Get all primes from 1 to N
+* Print smallest prime factor for 2 to N
+* Prime Factorization
+* Get the number of factors/divisors
+
 ---
 ## Introduction to Prime Numbers
 
@@ -11,11 +19,14 @@ Numbers having only 2 factors i.e, 1 and the number itself are known as Prime Nu
 **Example:** 2, 5, 7, 11
 
 ---
-### Problem 1 Check if a number is prime or not
+## Problem 1 Check if a number is prime or not
+
+
+### Problem Description
 
 Given a number, we need to check wheather its a prime number or not
 
-**Example**
+### Example
 **Input:**
 ```
 n = 3
@@ -31,12 +42,18 @@ false
 ```
 
 ---
+
+
 ### Question
 Check whether 11 is a prime number or not!
 
-**Choices**
+### Choices
 - [x] true, 11 is a prime number
 - [ ] false, 11 is not a prime number
+
+
+---
+## Check if a number is prime or not Approach
 
 
 
@@ -50,56 +67,70 @@ Check whether 11 is a prime number or not!
 ### Code snippet
 
 ```java 
-boolean checkPrime(int n) {
-    count = 0;
-    for (int i = 1; i * i <= n; i++) {
-        if (n % i == 0) {
-            if (i == n / i) {
+function checkPrime(function n){
+    count=0;
+    for(i -> 1 to sqrt(n)){
+        if(n % i == 0){
+            if(i == n / i) {
                 count++;
-            } else {
+            }
+            else {
                 count += 2;
             }
         }
     }
-    if (count == 2) {
+    if(count == 2) {
         print("prime");
-    } else {
-        print("Not Prime");
     }
+    else {
+        print("Not Prime");
+   }
 }
 ```
 
 ---
-## Problem 2 Print all prime numbers from 1 to N
+## Problem 2 SecurePrime's Encryption Strategy
 
-Given a number N, we need to print all the prime no. from 1 to N
+### Scenerio
+**SecurePrime Inc.** a renowned cybersecurity firm, is on a mission to upgrade its **encryption** techniques to outsmart potential attackers. Their strategy involves utilizing **prime numbers**, known for their pivotal role in strengthening cryptographic systems
 
-**Example**
+### Problem Statement
+**SecurePrime Inc.** plans to enhance its **encryption keys** by incorporating **random prime numbers** from the **1 to A** into their algorithms. This approach significantly complicates any brute force attempts by attackers, making the encryption much more robust and reliable.
+
+### Task
+As the requirement , you need to generate prime numbers** from the **1 to A**
+
+### Example
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/372/original/upload_ca624d99d0511b1d5e5bfea2d1f07826.png?1697652469" width="500"/>
+
+---
 
 ### Question
 Find all the prime numbers from 1 to N
 
-**Choices**
+### Choices
 - [ ] 1, 2, 3, 5, 7
 - [ ] 2, 3, 5, 7, 8
 - [x] 2, 3, 5, 7
 - [ ] 2, 5 ,7
 
+
+
+---
+## SecurePrime's Encryption Strategy Solution
+
+
 ### Solution
 **Brute Force:** Iterate from 1 to N, and check if a number is prime or not.
 
 ```java 
-void printAllPrime(int n) {
-        for (int i = 2; i <= n; ++i) {
-            boolean isPrime = true;
-            for (int j = 2; j * j <= i; ++j) {
-                if (i % j == 0) {
-                    isPrime = false;
-                    break;
-                }
-            }
+function printAllPrime(n) {
+    for (i -> 2 to n) {
+        if(checkPrime(i) == true) {
+            print(i + " ");
         }
+    }
+}
 ```
 
 * **Time Complexity (TC):** The time complexity of the given function is $O(n√n)$, as it iterates through numbers from 2 to N and for each number, it checks divisibility up to the square root of that number.
@@ -108,9 +139,10 @@ void printAllPrime(int n) {
 ---
 ## Sieve of Eratosthenes
 
+
 ### Optimized approach for counting number of primes between 1 to N
 
-**Approach**
+### Approach
 
 * **Assumption:** Begin by assuming that all numbers from 2 to N are prime numbers.
 * **Marking Non-Primes:** Start with the first prime number, which is 2. Since 2 is a prime number, mark all its multiples as non-prime. These multiples are 4, 6, 8, and so on.
@@ -123,14 +155,16 @@ void printAllPrime(int n) {
 ### Code Snippet
 
 ```java 
-void printAllPrime(int n) {
-    boolean[] isPrime = new boolean[n + 1]; // Initialize a boolean array to track prime numbers
-    Arrays.fill(isPrime, 2, n + 1, true); // Assume all numbers from 2 to n are prime
-
-    for (int i = 2; i * i <= n; ++i) {
+function printAllPrime(n) {
+    isPrime = new array of size [n + 1]; // Initialize a boolean array to track prime numbers
+    fill all values of isPrime from 2 to n with true     // Assume all numbers from 2 to n are prime
+    
+    for (i -> 2 to sqrt(n)) {
         if (isPrime[i]) {
-            for (int j = i * i; j <= n; j += i) {
+            j = i * i ;
+            while(j <= n) {
                 isPrime[j] = false; // Mark multiples of the current prime as non-prime
+                j = j + i ;
             }
         }
     }
@@ -150,151 +184,106 @@ Starting from the square of each prime number, mark all its multiples as non-pri
 * **Time Complexity (TC):** The optimized Sieve of Eratosthenes has a time complexity of O(n log log n), which means it grows very slowly. This is because the algorithm only visits and marks numbers up to the square root of N, and the number of non-prime numbers marked is logarithmic with respect to N.
 * **Space Complexity (SC):** The space complexity is O(n), which is used to store the boolean array indicating whether each number is prime or not. The space used is directly proportional to the input size N.
 
----
-### Problem 3 Smallest Prime Factor
-
-Given N, return the smallest prime factors for all numbers from 2 to N
-
-**Example:**
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/377/original/upload_1a33cf4015f2f1af58337fda6c441b81.png?1697654454" width="500"/>
-
-### Question
-What is the smallest prime factor of 25
-
-**Choices**
-- [ ] 1
-- [x] 5
-- [ ] 10
-- [ ] 25
 
 ---
+## Count of Divisors
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-### Smallest Prime Factor Approach
+### Problem Statement
+Given a number n, you need to find the count of divisors for every integer from 1 to n. The task is to efficiently calculate the number of divisors for all numbers in the range using a modified prime sieve technique.
 
-* **Initialization:** Create an integer array to store the smallest prime factors for each number from 2 to N. Initialize each element of the array to its own value, indicating that it's not yet known if the number is prime or not.
-* **Smallest Prime Factor Determination:** Starting from the first prime number (2), for each prime number:
-    * If the smallest prime factor for a number is still its own value (indicating it's not determined yet), mark it as the smallest prime factor for all its multiples.
-* **Iterate Over All Numbers:** Go through each number from 2 to N, and for each number, if its smallest prime factor is still itself, mark it as prime and set its smallest prime factor to itself.
-* **Smallest Prime Factors:** The array will now hold the smallest prime factors for all numbers from 2 to N.
+### Examples
+Input: n=6
+Output: [1,2,2,3,2,4]
+This means:
+1 has 1 divisor.
+2 has 2 divisors: 1,2
+3 has 2 divisors: 1,3
+4 has 3 divisors: 1,2,4
+5 has 2 divisors: 1,5
+6 has 4 divisors: 1,2,3,6
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/378/original/upload_e7db37ef3571b9313e25249114adbc52.png?1697654480" width="500"/>
-
-```java 
-public int[] smallestPrimeFactors(int n) {
-    int[] spf = new int[n + 1];
-
-    for (int i = 2; i <= n; ++i) {
-        spf[i] = i; // Initialize smallest prime factor with its own value
-
-        if (spf[i] == i) { // i is prime
-            for (int j = i * i; j <= n; j += i) {
-                if (spf[j] == j) {
-                    spf[j] = i; // Mark smallest prime factor for multiples
-                }
-            }
-        }
-    }
-
-    return spf;
-}
-```
+### Observation
+The number of divisors for a number k can be calculated by counting how many integers between 1 and k divide k exactly. 
+### For example:
+4 is divisible by 1,2 and 4, so it has 3 divisors.
+6 is divisible by 1,2,3 and 6, so it has 4 divisors.
 
 ---
-## Prime Factorization
+## Count of Divisors using Sieve
 
-Prime factorization is the process of finding the prime numbers, which are multiplied together to get the original number. For example, the prime factors of 16 are $2 × 2 × 2 × 2$.
+We can use a modified sieve approach to calculate the number of divisors for each number up to n. 
 
+The idea is to iterate over each number i and increment the divisor count for all multiples of i. **Here's how it works:**
+1. Initialize an array divisor_count of size n+1 with all elements set to zero. This array will hold the number of divisors for each number.
+2. Iterate through each number i from 1 to n. **For each i:**
+    - Increment the divisor count for all multiples of i (i.e., divisor_count[j]++ where j is a multiple of i).
+3. Return the divisor_count array (ignoring the 0th index as it is unused).
 
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/379/original/upload_2fd9d2307767e0e70c77bf0a029bb7b1.png?1697654511" width="500"/>
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/380/original/upload_f05609851563d97d890bdf800919116b.png?1697654544" width="500"/>
-
----
-### Problem 4 Total Number of Factors
-
-Given a number n, assume its prime factorization 
-
-$n=i^{a1}*j^{a2}*k^{a3}...z^{ax}$
-
-the number of choices we have for the power of every prime is [0, a1], [0,a2], [0, a3].............[0, ax]
-
-the number of divisor/factors will be given by the formula:
-
-(a1 + 1)*(a2 + 1)*(a3 + 1)*.....(ax + 1)
-
-
-Example
-
-**Example 1**
-$25 = 5^2$
-
-Number of divisors = $(2+1) = 3$
-
-
-**Example 2**
+### Find divisors
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/382/original/upload_8268cdcd52dde872eff270cd07fe0723_%281%29.png?1697655012" width="500"/>
 
-### Question
-Find the total number of factors of 20
-
-**Choices**
-- [x] 5
-- [ ] 1
-- [ ] 3
-- [ ] 4
-
-
-**Explanation:**
-
-20 = 2^2^ * 5^1^
-   = (2 + 1) * (1 + 1)
-   = 5
-
-
-The factors are 1, 2, 5, 10, 20.
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
 ---
-### Total Number of Factors Approach
+## Sorted Permutation Rank
 
-#### Approach
 
-* **Prime Factorization:** For each number from 1 to N, find its prime factorization. Determine the prime factors of the number and their respective powers.
-* **Counting Factors:** The number of factors for a given number is calculated by adding 1 to each power of its prime factors and then multiplying those incremented powers together.
-* **Iterate through Numbers:** Iterate through the numbers from 1 to N. For each number:
-     * Calculate its prime factorization.
-    * Count the factors using the prime factors' powers.
-* **Store or Output Results:** Store or output the number of factors/divisors for each number.
+### Problem Description
+You are given a string AAA containing distinct characters (no characters are repeated). The task is to find the rank of this string among all its permutations when sorted in lexicographical (dictionary) order.
 
-The number of factors for a given number is calculated by adding 1 to each power of its prime factors and then multiplying those incremented powers together.
+### Explanation in Simple Steps
+Lexicographical order is the order in which words are arranged in a dictionary. For example, for the string "ABC":
+The permutations in order are: "ABC", "ACB", "BAC", "BCA", "CAB", "CBA".
+The rank of "ACB" is 2, because it is the second permutation in this list.
 
-* **For 1:** $(1+1) = 2$ factors (1 and itself).
-* **For 2:** $(1+1) = 2$ factors (1 and 2).
-* **For 3:** $(1+1) = 2$ factors (1 and 3).
-* **For 4:** $(2+1) = 3$ factors (1, 2, and 4).
-* **For 5:** $(1+1) = 2$ factors (1 and 5).
-* **For 6:** $(1+1) * (1+1) = 4$ factors (1, 2, 3, and 6).
-* **For 7:** $(1+1) = 2$ factors (1 and 7).
-* **For 8:** $(3+1) = 4$ factors (1, 2, 4, and 8).
-* **For 9:** $(2+1) = 3$ factors (1, 3, and 9).
-* **For 10:** $(1+1) * (1+1) = 4$ factors (1, 2, 5, and 10).
+### How to Find the Rank of the String:
+* To determine the rank of the string AAA, we need to count how many permutations would appear before it in lexicographical order.
+* For each character in the string, you compare it with the characters that come after it and count how many characters are smaller than it. These smaller characters could have appeared in the earlier permutations.
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/383/original/upload_822d2bbd4f4aac99df10def9ff33c6f1.png?1697655221" width="500"/>
+---
+## Sorted Permutation Rank Solution
 
-#### Code
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/285/original/Screenshot_2024-01-24_at_7.25.23_PM.png?1706104531" width="400"/>
+### Step-by-Step Process:
+* Start with the first character of the string.
+* For each character, calculate how many permutations can be formed with the smaller characters to the right of it.
+* Add up these counts to get the total number of permutations that come before the string.
+* The rank is 1 plus this total count (since rank starts at 1).
 
-* **Time Complexity (TC):** The time complexity of this code is O(N * log N), mainly due to the prime factorization process for each number from 1 to N.
-* **Space Complexity (SC):** The space complexity is O(N), where the primary space usage comes from the arrays for storing the smallest prime factors and the hashmap for storing the factors count for each number.
+### Modulo Operation:
+Since the rank might be a large number, return the answer modulo 100000310000031000003 (a large prime number) to ensure it fits within standard data types.
+
+### Example Walkthrough
+Consider the string A="BAC":
+**Step 1:** Look at the first character, "B".
+Characters that could come before "B" in sorted order are "A".
+There are 2 remaining characters ("AC"), which can be arranged in 2!=2 ways.
+So, 2 permutations start with "A", which would come before any permutation starting with "B".
+**Step 2:** Move to the next character, "A".
+There are no characters smaller than "A" after it, so no new permutations can be formed that would come before "BAC".
+**Step 3:** Finally, count the total permutations before "BAC":
+There are 2 permutations before "BAC", so the rank of "BAC" is 2+1=32 + 1 = 32+1=3.
+Thus, the rank of "BAC" is 3.
+
+### Pseudocode
+```javascript
+function find_rank(A):
+    rank = 1
+    n = len(A)
+    factorials[0] = 1
+    FOR i FROM 1 TO n:
+        factorials[i] = (factorials[i-1] * i) % 1000003
+    
+    FOR i FROM 0 TO n-1:
+        COUNT smaller characters on the right of A[i]
+        rank += COUNT * factorials[n-i-1]
+        rank %= 1000003
+        
+    RETURN rank
+```
+
+### Key Points:
+- **Counting:** For each character, count the number of smaller characters to its right and calculate the permutations.
+- **Result:** Add up these permutation counts, add 1 for the current string, and return the result modulo 1000003.
+- This approach efficiently calculates the rank in O(n^2^) time complexity, which is feasible for strings of moderate length.
