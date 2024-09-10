@@ -1,73 +1,83 @@
 # Linked List 2: Sorting and Detecting Loop
 
+## Revision Quizzes
+
+### Question
+What is the main advantage of using a linked list over an array?
+
+### Choices
+- [x]  It can utilize all free memory without requiring contiguous space.
+- [ ] It provides constant time access to any element.
+- [ ] It requires less memory overall.
+- [ ] It is easier to implement.
+ 
+ 
 ---
+
+
+### Question
+What is the time complexity to search for a value X in a linked list?
+
+### Choices
+- [ ] O(1)
+- [ ] O(log N)
+- [x] O(N)
+- [ ] O(N^2)
+
+---
+
+
+### Question
+How can you check if a linked list is a palindrome using O(N) time and O(1) space?
+
+
+### Choices
+
+- [ ] By copying the list to an array and checking.
+- [ ] By sorting the list and comparing.
+- [x] By finding the middle, reversing the second half, and comparing both halves.
+- [ ] By using a stack to store nodes.
+
+
+---
+
 ### Question
 What is the time complexity needed to delete a node from a linked list?
-
-**Choices**
+### Choices
 - [ ] O(1)
 - [ ] O(log(N))
 - [x] O(N)
 - [ ] O(N^2)
 
-#### Explanation
+### Explanation
 
 To delete a node from the linked list we need to traverse till that node. In the worst case, the time-complexity would be O(N).
 
----
-
-### Question
-What is the time complexity needed to insert a node as the head of a linked list?
-
-
-**Choices**
-- [x] O(1)
-- [ ] O(log(N))
-- [ ] O(N)
-- [ ] O(N$^2$)
-
-
-**Explanation**
-
-No traversal is needed to reach the head node. Therefore the time complexity needed is constant i.e. O(1).
 
 ---
-### Question
 
-What is the time complexity needed to delete the last node from a linked list?
-
-**Choices**
-- [ ] O(1)
-- [ ] O(log(N))
-- [x] O(N)
-- [ ] O(N$^2$)
-
-**Explanation:**
-
-To delete the last node from the linked list we need to traverse till that node. In that case, the time-complexity would be O(N).
-
----
 ### Question
 
 Can we do Binary Search in a sorted Linked List?
 
-**Choices**
+### Choices
 - [ ] Yes
 - [x] No
 
-
-**Explanation:**
+### Explanation:
 
 Binary search relies on random access to elements, which is not possible in a linked list.
 
 
 
 ---
-### Problem 1 Find the middle element.
+## Problem 1 Find the middle element.
 
+
+### Problem Statement
 Given a Linked List, Find the middle element.
 
-**Examples** 
+### Examples 
 
 Following 0 based indexing: The middle node is the node having the index (n / 2), where n is the number of nodes.
 
@@ -87,22 +97,14 @@ There are two middle elements here: 2 and 3 respectively.
 
 ```
 
----
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-
-### Find the middle element Solution
-#### Solution
+### Solution
 
 * First, We will find the length of the linked-list. 
 * Now we will traverse half the length to find the middle node 
 
 
 
-#### Pseudocode
+### Pseudocode
 ```cpp
 function findMiddle(head)
     if head is null
@@ -123,11 +125,11 @@ function findMiddle(head)
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(n * 2) = O(n)
 **Space Complexity:** O(1)
 
-#### Optimized Solution
+### Optimized Solution
 We can optimize the solution using the **Two Pointers** technique. 
 * Take two pointers initially pointing at the head of the Linked List and name them slowPointer and fastPointer respectively.
 * The fastPointer will travel two nodes at a time, whereas the slowPointer will traverse a single node at a time 
@@ -135,7 +137,7 @@ We can optimize the solution using the **Two Pointers** technique.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/464/original/upload_11f71a7c2d1ec9ad9294aa1d8cb91211.png?1697176856" width=700/>
 
-#### Pseudocode
+### Pseudocode
 ```java
 function findMiddleTwoPointers(head)
     if head is null
@@ -151,18 +153,18 @@ function findMiddleTwoPointers(head)
     return slowPointer
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:**  O(n / 2) = O(n)
 **Space Complexity:** O(1)
 
-
-
 ---
-### Problem 2 Merge two sorted Linked Lists
+## Problem 2 Merge two sorted Linked Lists
 
+
+### Problem Statement
 Given two sorted Linked Lists, Merge them into a single sorted linked list.
 
-**Example 1 :** 
+### Example 1 : 
 
 ```cpp
 Input: [1 -> 2 -> 8 -> 10], [3 -> 5 -> 9 -> 11]
@@ -170,7 +172,7 @@ Input: [1 -> 2 -> 8 -> 10], [3 -> 5 -> 9 -> 11]
 Output: [1 -> 2 -> 3 -> 8 -> 9 -> 10 -> 11]
 ```
 
-**Example 2 :** 
+### Example 2 : 
 
 ```cpp
 Input: [1 -> 7 -> 8 -> 9], [2 -> 5 -> 10 -> 11]
@@ -179,12 +181,14 @@ Output: [1 -> 2 -> 5 -> 7 -> 8 -> 9 -> 11]
 ```
 
 ---
+
+
 ### Question
 Given two sorted Linked Lists, Merge them into a single sorted linked list.
 
 `Input: [2 -> 10 -> 11] [1 -> 5 -> 12 -> 15]` 
 
-**Choices**
+### Choices
 - [x] [1 -> 2 -> 5 -> 10 -> 11 -> 12 -> 15]
 - [ ] [2 -> 10 -> 11 -> 1 -> 5 -> 12 -> 15]
 - [ ] [1 -> 5 -> 12 -> 15 -> 2 -> 10 -> 11]
@@ -192,14 +196,10 @@ Given two sorted Linked Lists, Merge them into a single sorted linked list.
 
 
 ---
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
+## Merge two sorted Linked Lists Solution
 
 
-### Merge two sorted Linked Lists Solution
-#### Solution
+### Solution
  * Base Cases Handling: First of all, we need to take care of the Base cases: if either list is empty,we return the other list
  * Determine Merged List's Head: The algorithm compares the first nodes of the two lists. The smaller node becomes the head of the merged list.
  * Merge the Remaining Nodes:Merge the remaining nodes in such a way that whichever linked lists node is the smallest, we add it to the current list
@@ -207,7 +207,7 @@ Please take some time to think about the solution approach on your own before re
  * Finally we attach any remaining nodes from list1 or list2
 * Returning the Result: We return the linked list
 
-#### Pseudocode
+### Pseudocode
 
 ```cpp
 function mergeSortedLists(list1, list2)
@@ -246,16 +246,18 @@ function mergeSortedLists(list1, list2)
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:**  O(n + m)
 **Space Complexity:** O(1)
 
 ---
-### Problem 3 Sort a Linked List
+## Problem 3 Sort a Linked List
 
+
+### Problem Statement
 A Linked List is given, Sort the Linked list using merge sort.
 
-**Example** 
+### Example 
 ```cpp
 Input: [1 -> 2 -> 5 -> 4 -> 3]
 Output: [1 -> 2 -> 3 -> 4 -> 5]
@@ -268,8 +270,11 @@ Output: [1 -> 2 -> 3 -> 4]
 
 ```
 
+---
+## Sort a Linked List Solution
 
-#### Solution
+
+### Solution
 
 **Base Case:**<br> The function starts by checking if the head of the linked list is null or if it has only one element (i.e., head.next is null). These are the base cases for the recursion. If either of these conditions is met, it means that the list is already sorted (either empty or has only one element), so the function simply returns the head itself.
 
@@ -283,7 +288,7 @@ Output: [1 -> 2 -> 3 -> 4]
 
 **Return the Sorted List:**<br> Finally, the function returns the sortedList, which is the fully sorted linked list obtained by merging the sorted left and right sublists
 
-#### Pseudocode
+### Pseudocode
 ```cpp
 // Function to merge two sorted linked lists
 
@@ -336,16 +341,49 @@ function mergeSort(head)
     return sortedList
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:**  O(Nlog(N))
 **Space Complexity:** O(log(N))
 
 ---
-### Problem 4 Detect Cycle in a Linked List.
+## Google Maps got your back
 
+
+### Scenerio
+You are using **Google Maps** to help you find your way around a new place. But, you get lost and end up walking in a circle. **Google Maps** has a way to keep track of where you've been with the help of special **sensors**. 
+
+These sensors notice that you're **walking in a loop**, and now, **Google** wants to create a new feature to help you figure out exactly where you started going in circles. 
+
+### Problem
+You have a **linked list** that shows each **step** of your **journey**, like a chain of events. Some of these steps have accidentally led you back to a place you've already been, making you **walk in a loop**. The goal is to find out the exact point where you first started walking in this loop.
+
+### Example
+
+**Input:**
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/471/original/upload_627b814b08d3cc13417de9d895cf1446.gif?1697177500" width=500/>
+
+
+**Output:**
+```plaintext
+5
+```
+
+**Explanation**
+From node 5 onwards you started walking in the loop again, so answer is 5
+
+### Solution 
+This problem comprises of two concepts which we will disscuss individually one by one.
+
+---
+## Problem 4 Detect Cycle in a Linked List.
+
+
+
+### Problem Statement
 Given a Linked List, Find whether it contains a cycle.
 
-**Example 1**
+### Example 1
 
 **Input:**
 
@@ -356,7 +394,7 @@ Given a Linked List, Find whether it contains a cycle.
 Yes
 ```
 
-**Example 2**
+### Example 2
 
 **Input:**
 Input: [1 -> 4 -> 3 -> 2 -> 11 -> 45 -> 99]
@@ -368,8 +406,10 @@ No
 ```
 
 ---
-### Detect Cycle in a Linked List Solution
-#### Solution
+## Detect Cycle in a Linked List Solution
+
+
+### Solution
 
 
 * **Initialization:**<br> Start with two pointers, slow and fast, both pointing to the head of the linked list.
@@ -383,7 +423,7 @@ No
 * **Cycle Detected:**<br> If the slow and fast pointers meet, it implies that the linked list contains a cycle. The function returns true.
 
 
-#### Pseudo Code
+### Pseudo Code
 ```cpp
 function hasCycle(head)
     if head is null or head.next is null
@@ -403,17 +443,18 @@ function hasCycle(head)
 
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(1)
 
 
 ---
-### Problem 5 Find the starting point
+## Problem 5 Find the starting point
 
+### Problem Statement
 Given a Linked List which contains a cycle , Find the start point of the cycle.
 
-**Example**
+### Example
 
 **Input:**
 
@@ -427,15 +468,9 @@ Given a Linked List which contains a cycle , Find the start point of the cycle.
 
 
 ---
-### Find the starting point Solution
+## Find the starting point Solution
 
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-
-#### Solution
+### Solution
 * **Initialization:**<br> Similar to cycle detection, start with two pointers, slow and fast, both pointing to the head of the linked list.
 
 * **Cycle Detection:**<br> In each iteration, move the slow pointer by one step and the fast pointer by two steps. If a cycle exists, they will eventually meet within the cycle.
@@ -467,7 +502,7 @@ x = z
 This approach ensures that you can find the start point of the cycle using the Floyd's Tortoise and Hare algorithm with a slightly modified process.
 
 
-#### Pseudo Code
+### Pseudo Code
 ```cpp
 function detectCycleStart(head)
     if head is null or head.next is null
@@ -497,7 +532,7 @@ function detectCycleStart(head)
 
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(1)
 
