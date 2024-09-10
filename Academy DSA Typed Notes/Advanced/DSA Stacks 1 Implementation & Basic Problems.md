@@ -1,13 +1,32 @@
 # Stacks 1: Implementation & Basic Problems
 
----
-## Introduction to Stacks with Example
 
-### Definition
+## Definition
 * A stack is a linear data structure that stores information in a sequence, from **bottom to top**. 
 * The data items can only be accessed from the top and new elements can only be added to the top, i.e it follows **LIFO (Last In First Out)** principle. 
 
-**Examples**
+
+---
+
+### Question
+What is the most common application of a stack?
+
+### Choices
+- [ ] Evaluating arithmetic expressions
+- [ ] Implementing undo/redo functionality
+- [ ] Used in recursion internally
+- [x] All of the above
+
+
+###  Explanation
+
+Answer: All of the above
+
+Explanation: Stacks are versatile data structures that find applications in various domains. They are commonly used in expression evaluation, undo/redo functionality, and representing parenthesis in expressions.
+
+---
+
+### Examples
 Before proceeding to more technical examples, let's start from the real life basic examples.
 1. **Pile of Plates**:<br> Imagine a scenario where you have a pile of plates, you can only put a plate on the pile from top also only pick a plate from top. You can't really see the plates underneath the top one without first removing the top plate, which means only the first plate is accessible to you.
 
@@ -23,42 +42,26 @@ Before proceeding to more technical examples, let's start from the real life bas
 2. **Undo / Redo Operations**:<br> In software programs, stacks are commonly used to store the state during Undo and Redo operations. Consider the given example we have performed several calculations here, our first stack stores the current state. As soon as user performs UNDO operation the state is moved to REDO stack so that later it can be restored from there.
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/271/original/upload_b94fe74ac3ed8ce1ba35a58b1bc59c49.png?1695925403" width=500/>
 
-
-
 ---
-### Question
-What is the most common application of a stack?
-
-**Choices**
-- [ ] Evaluating arithmetic expressions
-- [ ] Implementing undo/redo functionality
-- [ ] Representing parenthesis in expressions
-- [x] All of the above
+## Operations on Stack
 
 
-Answer: All of the above
-
-Explanation: Stacks are versatile data structures that find applications in various domains. They are commonly used in expression evaluation, undo/redo functionality, and representing parenthesis in expressions.
-
-
----
 ### Operations on Stack
-
 These operations are generally used on the stack. The time complexity for all of these operations is constant **O(1)**.
 
-#### 1. Push
+### 1. Push
 Push operation is to insert a new element into the top of stack. 
 ```cpp
 push(data)
 ```
 
-#### 2. Pop
+### 2. Pop
 Pop operation is to remove an element from the top of stack.
 ```cpp
 pop()
 ```
 
-#### 3. Peek
+### 3. Peek
 Peek means to access the top element of the stack, this operation is also called as **top**.
 ```cpp
 data = peek() 
@@ -66,28 +69,33 @@ data = peek()
 data = top()
 ```
 
-#### 4. isEmpty
+### 4. isEmpty
 This operation is used to check whether stack is empty or not. It is an important operation because it allows program to run efficiently by checking conditions of overflow and underflow.
 ```cpp
 isEmpty()
 ```
 
+---
+
+
 ### Question
 What is the time complexity of the push and pop operations in a stack?
 
-**Choices**
+### Choices
 - [x] O(1) for both push and pop
 - [ ] O(n) for push and O(1) for pop
 - [ ] O(1) for push and O(n) for pop
 - [ ] O(n) for both push and pop
 
+### Explanation
 
 Answer: O(1) for both push and pop
 
 Explanation: The push and pop operations in a stack operate on the top element, making them constant time operations. This is because the top element is always accessible regardless of the stack's size.
 
----
 
+---
+## Problem 1 Implementation of Stack with Arrays
 
 ### Implement Stack using Arrays
 * Just try to think what a data structure is, a data structure is nothing but a way to store some data in memory along with some rules to insert/access/modify that data. 
@@ -99,18 +107,18 @@ Explanation: The push and pop operations in a stack operate on the top element, 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/272/original/upload_e8a49a3429c4b6c4436549b942d039d1.png?1695925468" width=600/>
 
 
-#### Pseudocode
+### Pseudocode
 ```cpp
 // Consider an array `A`.
-int A[];
+A[];
 
 // Consider a counter to keep track of stack size and currently used index
-int t = -1;
+t = -1;
 ```
 
 1. For push operation we can keep pushing data from left to right.
 ```cpp
-void push(data){
+function push(data){
     t++;
     A[t] = data;
 }
@@ -118,32 +126,52 @@ void push(data){
 
 2. And as we are maintaining a counter we can always access the top element in O(1) by just index access of array.
 ```cpp
-int top(){
+function top(){
     return A[t];
 }
 ```
 
 3. To remove element we can simply decrement our counter. Also we can place some value at that index to denote that it is not part of our data.
 ```cpp
-void pop(){
+function pop(){
     t--;
 }
 ```
 
 4. We are maintaining our counter in such a way that it indicates the size of stack. We can simply perform an equality check on counter to know whether stack is empty.
 ```cpp
-bool isEmpty(){
+function isEmpty(){
     return t == -1;
 }
 ```
 
+---
+
+
+### Question
+What happens when you try to pop an element from an empty Stack? 
+
+### Choices
+- [ ] It returns null 
+- [ ] It returns the top element 
+- [x] It causes an underflow 
+- [ ] It causes an overflow 
+
+### Explanation
+
+
+Attempting to pop an element from an empty stack will cause an underflow. 
 
 ---
-### Overflow and Underflow in stack and it's solution
+## Overflow and Underflow in stack and it's solution
+
+
+
+### Concept of Overflow and Underflow
 * Overflow occurs when we try to store new data even when there is no empty space in array. For this we have to introduce a overflow condition before push operation.
 
 ```cpp
-void push(x){
+function push(x){
     // Whenever our counter reaches to the size of the array 
     // It means stack is already full
     if(t >= A.size())
@@ -156,7 +184,7 @@ void push(x){
 * Underflow means when we try to perform pop operation or try to access the element of stack but there are none. Again we have to introduce conditions during pop and top operation.
 
 ```cpp
-void pop(){
+function pop(){
     if(!isEmpty()) return;
     t--;
 }
@@ -164,7 +192,7 @@ void pop(){
 
 
 ```cpp
-int top(){
+function top(){
     if(!isEmpty()) return -1;
     return A[t];
 }
@@ -173,20 +201,11 @@ int top(){
 ### Problem with implementation using Arrays
 We have to predefine the size of stack to create array. To overcome this problem we can create a dynamic array which can grow or shrink at runtime according to need.
 
----
-### Question
-What happens when you try to pop an element from an empty Stack? 
-
-**Choices**
-- [ ] It returns null 
-- [ ] It returns the top element 
-- [x] It causes an underflow 
-- [ ] It causes an overflow 
-
-Attempting to pop an element from an empty stack will cause an underflow. 
-
 
 ---
+## Problem 2 Implementation of Stack using Linked List
+
+
 
 ### Implement Stack using Linked List
 * We can also implement stack using linked list, similar to the array it also has constant `O(1)` time complexity for all operations. 
@@ -196,45 +215,46 @@ Attempting to pop an element from an empty stack will cause an underflow.
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/274/original/upload_208dc0a5d19dc57d2f2be8a50c5554c0.png?1695925709" width=500/>
 
 
-#### Pseudocode
+### Pseudocode
 
 1. To push data into stack, just create a node and attach before head.
 ```cpp
-void push(data) {
-  new_node = Create a new Node with 'data'
-  new_node.next = head
-  head = new_node
-  // Increment size
-  t++
+function push(data){
+    new_node = Create a new Node with 'data'
+    new_node.next = head
+    head = new_node
+    // Increment size
+    t++
 }
 ```
 
 2. To pop data just remove one node from the beginning of linked list.
 ```cpp
-void pop() {
-  if (!isEmpty()) return;
-  head = head.next
-  // Decrement size
-  t--
+function pop(){
+    if( ! isEmpty()) return;
+    head = head.next
+    // Decrement size
+    t--
 }
 ```
 
 3. To find the data on top just access the head node.
 ```cpp
-int top() {
-  if (!isEmpty()) return -1;
-  return head.data;
+function top(){
+    if( ! isEmpty()) return -1;
+    return head.data;
 }
 ```
 
 > Note: While accessing top value in function, We can use another concept to indicate that stack is empty if we are using -1 as value to store in stack.
 
 ---
-### Problem 3 Balanced Paranthesis Concept with Implementation
+## Problem 3 Balanced Paranthesis Concept with Implementation
 
+
+### Problem Statement
 Check whether the given sequence of parenthesis is valid ?
-
-#### Explanation of Problem
+### Explanation
 Imagine you have a bunch of different types of brackets, like `{` and `}` (curly brackets), `[` and `]` (square brackets), and `(` and `)` (round brackets).
 
 A valid sequence of these brackets means that for every opening bracket, there is a matching closing bracket. It's like having pairs of shoes; you need a left shoe and a right shoe for each pair. In a valid sequence, you have the same number of left and right brackets, and they are correctly matched.
@@ -249,41 +269,40 @@ In summary, a valid sequence of brackets is like having balanced pairs of bracke
 Imagine you are writing a small compiler for your college project and one of the tasks (or say sub-tasks) for the compiler would be to detect if the parenthesis are in place or not.
 
 ---
+
 ### Question
 Which of the following expressions is balanced with respect to parentheses?
 
-**Choices**
+### Choices
 - [x] `(a + b) * c`
 - [ ] `(a + b)) * c`
-- [ ] `(a + b)(c`
-- [ ] `(a + b)c`
+- [ ] `(a + b) ( c`
+- [ ] `(a + b) c )`
 
 ---
-### Balanced Parenthesis Implementation
-#### Idea
+## Balanced Parenthesis Implementation
+
+### Idea
 An interesting property about a valid parenthesis expression is that a sub-expression of a valid expression should also be a valid expression. (Not every sub-expression) e.g.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/279/original/upload_3ac6edf960237dc2a57e328052515438.png?1695930871" width=500/>
 
-#### Hint
+### Hint
 What if whenever we encounter a matching pair of parenthesis in the expression, we simply remove it from the expression?
 
 The stack data structure can come in handy here in representing this recursive structure of the problem. We can't really process this from the inside out because we don't have an idea about the overall structure. But, the stack can help us process this recursively i.e. from outside to inwards.
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-#### Approach
+### Approach
 * Iterate through the sequence, and whenever you encounter an opening parenthesis, you push it onto the stack. 
 * When you encounter a closing parenthesis, you pop the top element from the stack and compare it to the current closing parenthesis. If they are of the same type (matching), you continue; otherwise, the sequence is invalid. 
 
 Additionally, if you finish iterating through the sequence and the stack is not empty, the sequence is also invalid.
 
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-bool is_valid_parentheses(sequence):
+function is_valid_parentheses(sequence):
     // Initialize an empty stack
     
     For each character 'char' in sequence:
@@ -302,7 +321,7 @@ bool is_valid_parentheses(sequence):
         Return true
 ```
 
-#### Dry Run
+### Dry Run
 **Example:** `{()[]}`
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/280/original/upload_eed9c829bc8d00d0ff3ed04247044436.png?1695930919" width=600/>
@@ -318,21 +337,52 @@ bool is_valid_parentheses(sequence):
 
 
 ---
-### Problem 4 Remove equal pair of consecutive elements till possible
+## Problem 4 Remove equal pair of consecutive elements till possible
 
 
+### Problem Statement
 
 Given a string, remove equal pair of consecutive elements till possible
 
-**Example**
-Let's say we have a string like `abcddc`,  The idea here is to check if there are any consecutive pairs of characters that are the same. In this case, we see `dd` is such a pair. When you find such a pair, you simply remove it from the string, and it becomes `abcc` Then, you repeat the process with the new string, searching for and removing consecutive matching pairs of letters. This cycle continues until there are no more matching pairs left to remove. 
+### Example
+String - `abcddc`
+The idea here is to check if there are any consecutive pairs of characters that are the same. In this case, we see `dd` is such a pair. When you find such a pair, you simply remove it from the string, and it becomes `abcc` Then, you repeat the process with the new string, searching for and removing consecutive matching pairs of letters. This cycle continues until there are no more matching pairs left to remove. 
 In the end the final string would be the solution.
 
+---
 
-**Approach**
+
+
+### Question
+If we remove equal pair of consecutive characters in this string multiple times then what will be the final string: `abbcbbcacx`
+ 
+### Choices
+- [ ] empty string
+- [ ] ax
+- [x] cx
+- [ ] x
+
+---
+## Remove consecutive elements approach
+
+
 This problem can be solved very efficiently by using the concept of stack. The stack will help you keep track of the elements that haven't been canceled out by a matching element.
+
+### Explanation:
+
+Let's go through the step-by-step process for the given example: `abbcbbcacx`.
+
+1. Begin by pushing `a` onto the stack: **Stack - [a]**
+2. Next, push `b` onto the stack: **Stack - [a, b]**
+3. During the next iteration, we will encounter `b` which matches the top element `b` of the stack. Continue iterating with a pop operation.  **Stack - [a]**
+4. Proceed to push `c` during the next iteration, followed by `b`. **Stack - [a, c, b]**
+5. During the subsequent iteration, encountering `b` matches the top element of the stack. Since a consecutive pair is found, perform a pop operation to remove the topmost character, which is `b`. **Stack - [a, c]**
+6. As we encounter `c` again, and another `c` is already at the top of stack, pop `c` and continue iterating. **Stack - [a]**
+7. The stack now contains only `a`. In the next iteration, encountering `a` leads to a pop operation for the existing `a`. **Stack - []**
+8. Towards the end, push `c` and `x` onto the stack. Since there's no more to continue, the final stack **[c, x]**, represents the answer.
+
 ```cpp
-string remove_equal_pairs(s):
+function remove_equal_pairs(s):
     Initialize an empty stack
     
     For each character 'char' in s:
@@ -349,39 +399,14 @@ string remove_equal_pairs(s):
     Return 'result'
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:**  O(n) 
 **Space Complexity:**  O(n) 
 
 ---
-### Question
-If we remove equal pair of consecutive characters in this string multiple times then what will be the final string: `abbcbbcacx`
- 
-**Choices**
-- [ ] empty string
-- [ ] ax
-- [x] cx
-- [ ] x
+## Problem 5 Evaluate Postfix Expression
 
-
-
-**Explanation:**
-
-Let's go through the step-by-step process for the given example: `abbcbbcacx`.
-
-1. Begin by pushing `a` onto the stack: **Stack - [a]**
-2. Next, push `b` onto the stack: **Stack - [a, b]**
-3. During the next iteration, we will encounter `b` which matches the top element `b` of the stack. Continue iterating with a pop operation.  **Stack - [a]**
-4. Proceed to push `c` during the next iteration, followed by `b`. **Stack - [a, c, b]**
-5. During the subsequent iteration, encountering `b` matches the top element of the stack. Since a consecutive pair is found, perform a pop operation to remove the topmost character, which is `b`. **Stack - [a, c]**
-6. As we encounter `c` again, and another `c` is already at the top of stack, pop `c` and continue iterating. **Stack - [a]**
-7. The stack now contains only `a`. In the next iteration, encountering `a` leads to a pop operation for the existing `a`. **Stack - []**
-8. Towards the end, push `c` and `x` onto the stack. Since there's no more to continue, the final stack **[c, x]**, represents the answer.
-
-
-
----
-### Problem 5 Evaluate Postfix Expression
+### Problem Statement:
 
 Given a postfix expression, evaluate it.
 
@@ -392,16 +417,12 @@ Below is an example of postfix expression:
 2 + 3 => Postfix => 2 3 +
 ```
 
-#### Idea
+### Idea
 An operator is present after the operands on which we need to apply that operator, hence stack is perfect data structure for this problem. 
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
 We'll process the expression as follows-
 
-**Example 1**
+### Example 1
 ```cpp
 [2, 3, +]
 ```
@@ -410,7 +431,7 @@ We'll process the expression as follows-
 3. Then we found '`+`', so we will pop top two operands, i.e 3 & 2 in this case
 4. Final result is 2 + 3 = 5
 
-**Example 2**
+### Example 2
 ```cpp
 [4, 3, 3, *, +, 2, -]
 ```
@@ -424,17 +445,18 @@ We'll process the expression as follows-
 
 
 ---
+
+
 ### Question
 What is the final answer obtained using the stack-based evaluation algorithm for the expression `[5, 2, *, 3, -]`?
 
-**Choices**
+### Choices
 - [ ] 8
 - [ ] 13
 - [x] 7
 - [ ] 15
 
-
-**Explanation:**
+### Explanation:
 
 1. Push 5 onto the stack.
         `Stack: [5]`
@@ -450,6 +472,8 @@ What is the final answer obtained using the stack-based evaluation algorithm for
 
 
 ---
+
+
 ### Question
 
 Evaluate the given postfix expression:
@@ -457,14 +481,14 @@ Evaluate the given postfix expression:
 3 5 + 2 - 2 5 * -
 ```
 
-**Choices**
+### Choices
 - [ ] 0
 - [ ] 4
 - [x] -4
 - [ ] 8
 
 
-**Explanation:**
+### Explanation:
 
 Let's evaluate the given postfix expression step by step: `3 5 + 2 - 2 5 * -`
 
@@ -483,10 +507,12 @@ Let's evaluate the given postfix expression step by step: `3 5 + 2 - 2 5 * -`
 
 
 ---
-### Evaluate Postfix Expression Pseudocode
-#### Pseudocode
+## Evaluate Postfix Expression Pseudocode
+
+
+### Pseudocode
 ```cpp
-int evaluate_postfix(expression):
+function evaluate_postfix(expression):
     Initialize an empty stack
     
     For each element 'element' in expression:
@@ -502,6 +528,17 @@ int evaluate_postfix(expression):
     Pop and return the result
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(n)
 **Space Complexity:** O(n)
+
+---
+## Summary of Lecture 
+
+### Conclusion
+* Stack is a linear data structure which stores data in LIFO manner. 
+* The element which is inserted last will be popped out first.
+* In stack only top element is accessible.
+* All operations of stack are of constant time `O(1)`.
+* Stack is used at several places in real life problems, like postfix evaluation in calculators, valid paranthesis check in code editor.
+* We can implement stack with arrays or dynamic linked list in a conveninent manner.
