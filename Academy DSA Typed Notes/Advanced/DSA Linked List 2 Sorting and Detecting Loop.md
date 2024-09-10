@@ -1,538 +1,571 @@
-# Linked List 2: Sorting and Detecting Loop
+# Linked List 3: Problems & Doubly Linked List
 
 ## Revision Quizzes
 
 ### Question
-What is the main advantage of using a linked list over an array?
+What is the time complexity to merge two sorted linked lists into a single sorted linked list?
 
 ### Choices
-- [x]  It can utilize all free memory without requiring contiguous space.
-- [ ] It provides constant time access to any element.
-- [ ] It requires less memory overall.
-- [ ] It is easier to implement.
- 
- 
----
-
-
-### Question
-What is the time complexity to search for a value X in a linked list?
-
-### Choices
-- [ ] O(1)
-- [ ] O(log N)
-- [x] O(N)
-- [ ] O(N^2)
-
----
-
-
-### Question
-How can you check if a linked list is a palindrome using O(N) time and O(1) space?
-
-
-### Choices
-
-- [ ] By copying the list to an array and checking.
-- [ ] By sorting the list and comparing.
-- [x] By finding the middle, reversing the second half, and comparing both halves.
-- [ ] By using a stack to store nodes.
-
+- [x] O(n + m)
+- [ ] O(n log(n))
+- [ ] O(n * m)
+- [ ] O(m log(m))
 
 ---
 
 ### Question
-What is the time complexity needed to delete a node from a linked list?
+How is the starting point of the cycle found once a cycle is detected in the linked list?
+
 ### Choices
-- [ ] O(1)
-- [ ] O(log(N))
-- [x] O(N)
-- [ ] O(N^2)
 
-### Explanation
-
-To delete a node from the linked list we need to traverse till that node. In the worst case, the time-complexity would be O(N).
+- [x] Reset the slow pointer to head and move both pointers one step at a time.
+- [ ] Continue moving fast pointer until it reaches the head.
+- [ ] Move slow pointer two steps at a time.
+- [ ] Move fast pointer to the start of the cycle.
 
 
 ---
+## Agenda
+- What is doubly linked list?
+- LRU Cache
+- Check if LL is palindrome
 
-### Question
-
-Can we do Binary Search in a sorted Linked List?
-
-### Choices
-- [ ] Yes
-- [x] No
-
-### Explanation:
-
-Binary search relies on random access to elements, which is not possible in a linked list.
-
-
+So let's start.
 
 ---
-## Problem 1 Find the middle element.
 
+### What is doubly linked list?
+A dll is a type of data structure used to store collection of elements. It is similar to a singly linked list but with an additional feature- each node in a dll contains pointers or references to both the next and the previous nodes in the list.
 
-### Problem Statement
-Given a Linked List, Find the middle element.
+### Example
 
-### Examples 
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/483/original/upload_213ccfab994121707413abee35188ad7.png?1697178938" width=500 />
 
-Following 0 based indexing: The middle node is the node having the index (n / 2), where n is the number of nodes.
+The `previous` pointer of the first node always points to `null` and the `next` pointer of the last node also points to `null` in the doubly linked list.
 
-```cpp
-Input: [1 -> 2 -> 3 -> 4 -> 5]
-Output: [3]
-
-Here 3 is the middle element
-
+### Structure
 ```
-
-```cpp
-Input: [1 -> 2 -> 3 -> 4]
-Output: [2]
-
-There are two middle elements here: 2 and 3 respectively.
-
-```
-
-### Solution
-
-* First, We will find the length of the linked-list. 
-* Now we will traverse half the length to find the middle node 
-
-
-
-### Pseudocode
-```cpp
-function findMiddle(head)
-    if head is null
-        return null
+class Node {
+    int data;
+    Node prev, next;
     
-    count = 0
-    current = head
-    while current is not null
-        count = count + 1
-        current = current.next
-    
-    middleIndex = count / 2
-    current = head
-    for i = 0 to middleIndex - 1
-        current = current.next
-    
-    return current
+    Node(x) {
+        data = x;
+        prev = NULL;
+        next = NULL;
+    }
 }
 ```
 
-### Complexity
-**Time Complexity:** O(n * 2) = O(n)
-**Space Complexity:** O(1)
-
-### Optimized Solution
-We can optimize the solution using the **Two Pointers** technique. 
-* Take two pointers initially pointing at the head of the Linked List and name them slowPointer and fastPointer respectively.
-* The fastPointer will travel two nodes at a time, whereas the slowPointer will traverse a single node at a time 
-* When the fastPointer reaches the end node, the slowPointer must necessarily be pointing at the middle node
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/464/original/upload_11f71a7c2d1ec9ad9294aa1d8cb91211.png?1697176856" width=700/>
-
-### Pseudocode
-```java
-function findMiddleTwoPointers(head)
-    if head is null
-        return null
-    
-    slowPointer = head
-    fastPointer = head
-    
-    while fastPointer is not null and fastPointer.next is not null
-        slowPointer = slowPointer.next
-        fastPointer = fastPointer.next.next
-    
-    return slowPointer
-```
-
-### Complexity
-**Time Complexity:**  O(n / 2) = O(n)
-**Space Complexity:** O(1)
-
----
-## Problem 2 Merge two sorted Linked Lists
-
-
-### Problem Statement
-Given two sorted Linked Lists, Merge them into a single sorted linked list.
-
-### Example 1 : 
-
-```cpp
-Input: [1 -> 2 -> 8 -> 10], [3 -> 5 -> 9 -> 11]
-
-Output: [1 -> 2 -> 3 -> 8 -> 9 -> 10 -> 11]
-```
-
-### Example 2 : 
-
-```cpp
-Input: [1 -> 7 -> 8 -> 9], [2 -> 5 -> 10 -> 11]
-
-Output: [1 -> 2 -> 5 -> 7 -> 8 -> 9 -> 11]
-```
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/077/479/original/Screenshot_2024-06-09_at_5.38.35_PM.png?1717934924" width=600 />
 
 ---
 
 
 ### Question
-Given two sorted Linked Lists, Merge them into a single sorted linked list.
-
-`Input: [2 -> 10 -> 11] [1 -> 5 -> 12 -> 15]` 
+`prev` Pointer of Head of Doubly Linked List points to:
 
 ### Choices
-- [x] [1 -> 2 -> 5 -> 10 -> 11 -> 12 -> 15]
-- [ ] [2 -> 10 -> 11 -> 1 -> 5 -> 12 -> 15]
-- [ ] [1 -> 5 -> 12 -> 15 -> 2 -> 10 -> 11]
-- [ ] [1 -> 2 -> 10 -> 5 -> 12 -> 11 -> 15]
+- [ ] Next to Head Node
+- [x] Null pointer
+- [ ] Tail
+- [ ] Depends
 
 
 ---
-## Merge two sorted Linked Lists Solution
-
-
-### Solution
- * Base Cases Handling: First of all, we need to take care of the Base cases: if either list is empty,we return the other list
- * Determine Merged List's Head: The algorithm compares the first nodes of the two lists. The smaller node becomes the head of the merged list.
- * Merge the Remaining Nodes:Merge the remaining nodes in such a way that whichever linked lists node is the smallest, we add it to the current list
- * We continue doing this till the end of one of the linked lists is reached
- * Finally we attach any remaining nodes from list1 or list2
-* Returning the Result: We return the linked list
-
-### Pseudocode
-
-```cpp
-function mergeSortedLists(list1, list2)
-    if list1 is null
-        return list2
-    if list2 is null
-        return list1
-    
-    mergedList = null
-    
-    if list1.data <= list2.data
-        mergedList = list1
-        list1 = list1.next
-    else
-        mergedList = list2
-        list2 = list2.next
-    
-    current = mergedList
-    
-    while list1 is not null and list2 is not null
-        if list1.data <= list2.data
-            current.next = list1
-            list1 = list1.next
-        else
-            current.next = list2
-            list2 = list2.next
-        current = current.next
-    
-    if list1 is not null
-        current.next = list1
-    if list2 is not null
-        current.next = list2
-    
-    return mergedList
-
-}
-```
-
-### Complexity
-**Time Complexity:**  O(n + m)
-**Space Complexity:** O(1)
-
----
-## Problem 3 Sort a Linked List
-
-
-### Problem Statement
-A Linked List is given, Sort the Linked list using merge sort.
-
-### Example 
-```cpp
-Input: [1 -> 2 -> 5 -> 4 -> 3]
-Output: [1 -> 2 -> 3 -> 4 -> 5]
-
-```
-
-```cpp
-Input: [1 -> 4 -> 3 -> 2]
-Output: [1 -> 2 -> 3 -> 4]
-
-```
-
----
-## Sort a Linked List Solution
-
-
-### Solution
-
-**Base Case:**<br> The function starts by checking if the head of the linked list is null or if it has only one element (i.e., head.next is null). These are the base cases for the recursion. If either of these conditions is met, it means that the list is already sorted (either empty or has only one element), so the function simply returns the head itself.
-
-**Find the Middle Node:**<br> If the base case is not met, the function proceeds to sort the list. First, it calls the findMiddle function to find the middle node of the current list. This step is essential for dividing the list into two halves for sorting.
-
-**Split the List:**<br> After finding the middle node (middle), the function creates a new pointer nextToMiddle to store the next node after the middle node. Then, it severs the connection between the middle node and the next node by setting middle.next to null. This effectively splits the list into two separate sublists: left, which starts from head and ends at middle, and right, which starts from nextToMiddle.
-
-**Recursively Sort Both Halves:**<br> The function now recursively calls itself on both left and right sublists. This recursive step continues until each sublist reaches the base case (empty or one element). Each recursive call sorts its respective sublist.
-
-**Merge the Sorted Halves:**<br> Once the recursive calls return and both left and right sublists are sorted, the function uses the mergeSortedLists function to merge these two sorted sublists into a single sorted list. This merging process combines the elements from left and right in ascending order.
-
-**Return the Sorted List:**<br> Finally, the function returns the sortedList, which is the fully sorted linked list obtained by merging the sorted left and right sublists
-
-### Pseudocode
-```cpp
-// Function to merge two sorted linked lists
-
-function mergeSortedLists(list1, list2)
-    if list1 is null
-        return list2
-    if list2 is null
-        return list1
-    
-    mergedList = null
-    
-    if list1.data <= list2.data
-        mergedList = list1
-        mergedList.next = mergeSortedLists(list1.next, list2)
-    else
-        mergedList = list2
-        mergedList.next = mergeSortedLists(list1, list2.next)
-    
-    return mergedList
-
-function findMiddle(head)
-    if head is null or head.next is null
-        return head
-    
-    slow = head
-    fast = head.next
-    
-    while fast is not null and fast.next is not null
-        slow = slow.next
-        fast = fast.next.next
-    
-    return slow
-
-function mergeSort(head)
-    if head is null or head.next is null
-        return head
-    
-    // Find the middle node
-    middle = findMiddle(head)
-    nextToMiddle = middle.next
-    middle.next = null
-    
-    // Recursively sort both halves
-    left = mergeSort(head)
-    right = mergeSort(nextToMiddle)
-    
-    // Merge the sorted halves
-    sortedList = mergeSortedLists(left, right)
-    
-    return sortedList
-```
-
-### Complexity
-**Time Complexity:**  O(Nlog(N))
-**Space Complexity:** O(log(N))
-
----
-## Google Maps got your back
+## Real Life Application - Spotify's Music Manager
 
 
 ### Scenerio
-You are using **Google Maps** to help you find your way around a new place. But, you get lost and end up walking in a circle. **Google Maps** has a way to keep track of where you've been with the help of special **sensors**. 
-
-These sensors notice that you're **walking in a loop**, and now, **Google** wants to create a new feature to help you figure out exactly where you started going in circles. 
+**Spotify** wants to enhance its user experience by allowing users to navigate through their music playlist seamlessly using "**next**" and "**previous**" song functionalities. 
 
 ### Problem
-You have a **linked list** that shows each **step** of your **journey**, like a chain of events. Some of these steps have accidentally led you back to a place you've already been, making you **walk in a loop**. The goal is to find out the exact point where you first started walking in this loop.
+You are tasked to implement this feature using a **doubly linked list** where each node represents a song in the playlist. The system should support the following operations:
 
-### Example
+- **Add Song**: Insert a new song into the playlist. If the playlist is currently empty, this song becomes the "**Current song**".
+- **Play Next Song**: Move to the next song in the playlist and display its details.
+- **Play Previous Song**: Move to the previous song in the playlist and display its details.
+- **Current Song**: Display the **details** of the current song **being played**.
 
-**Input:**
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/471/original/upload_627b814b08d3cc13417de9d895cf1446.gif?1697177500" width=500/>
+### Constraints:
+
+- Each song is uniquely identified by its song ID.
+- The playlist starts empty, and the first song added becomes the current song.
+- All operations are valid within the current state of the playlist (i.e., there won’t be a request to play the next song if there is no next song, and no request to play the previous song if there is no previous song).
 
 
-**Output:**
-```plaintext
-5
+### Example Input :
+```=
+Add Song (ID: 1, Name: "Yesterday Blues")
+Add Song (ID: 2, Name: "Imagine Dragons")
+Play Next Song
+Current Song
+Add Song (ID: 3, Name: "Hotel California")
+Play Next Song
+Current Song
+Play Previous Song
+Play Previous Song
+Current Song
 ```
 
-**Explanation**
-From node 5 onwards you started walking in the loop again, so answer is 5
+### Output : 
+``` =
+Current song playing: Imagine Dragons
+Current song playing: Hotel California
+Current song playing: Yesterday Blues
+```
 
-### Solution 
-This problem comprises of two concepts which we will disscuss individually one by one.
+Since we shall have to move to and from in a list, we can use doubly linked list. This is a real life application of DLL.
 
 ---
-## Problem 4 Detect Cycle in a Linked List.
+## Problem 1 Insert node just before tail in a dll
 
+
+1. Say we have direct access to first and last node via head and tail pointer.
+2. temp = tail.prev
+3. Then we can make connections as shown in image below
+
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/077/481/original/Screenshot_2024-06-09_at_5.44.25_PM.png?1717935285" width="600" />
+
+### Pseudocode
+
+```javascript
+function insert_back(Node head, Node tail, Node new_node) {
+    temp = tail.prev;
+    new_node.prev = temp;
+    new_node.next = tail;
+    temp.next = new_node;
+    tail.prev = new_node
+}
+```
+
+### T.C
+O(1)
+
+
+---
+
+
+### Question
+In a doubly linked list, the number of pointers affected for an insertion operation between two nodes will be?
+
+### Choices
+- [ ] 1
+- [ ] 2
+- [ ] 3
+- [x] 4
+- [ ] Depends
+
+
+---
+## Problem 2 Delete a given node from dll
 
 
 ### Problem Statement
-Given a Linked List, Find whether it contains a cycle.
+Delete a given node from dll
+1. Node reference is given
+2. Given node will not be head/tail
+3. DLL is not NULL
 
-### Example 1
+Example -
+Say we are given address of node x (#adx), then below connections have to be made
 
-**Input:**
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/077/484/original/Screenshot_2024-06-09_at_5.53.33_PM.png?1717935820" width="600" />
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/470/original/upload_fd21b14f9b526a9dee6af96d7c9f5f3d.gif?1697177234" width=800/>
-
-**Output:**
-```plaintext
-Yes
+### Pseudocode
+```
+    function remove(Node x) {
+        p = x.prev
+        n = x.next
+        p.next = n;
+        n.prev = p;
+        x.prev = x.next = NULL;
+        free(x);
+    }
 ```
 
-### Example 2
-
-**Input:**
-Input: [1 -> 4 -> 3 -> 2 -> 11 -> 45 -> 99]
-
-
-**Output:**
-```plaintext
-No
-```
+### T.C
+O(1)
 
 ---
-## Detect Cycle in a Linked List Solution
+## Memory Hierarchy
 
 
-### Solution
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/077/485/original/Screenshot_2024-06-09_at_5.58.52_PM.png?1717936140" width = 600 />
 
+Cache Memory is a special very high-speed memory. The cache is a smaller and faster memory that stores copies of the data from frequently used main memory locations. There are various different independent caches in a CPU, which store instructions and data. The most important use of cache memory is that it is used to reduce the average time to access data from the main memory. 
 
-* **Initialization:**<br> Start with two pointers, slow and fast, both pointing to the head of the linked list.
+There are different ways of implementing cache, one of them is LRU cache.
 
-* **Traversal:**<br> In each iteration, the slow pointer advances by one step, while the fast pointer advances by two steps. This mimics the tortoise and hare analogy. If there is a cycle, these two pointers will eventually meet at some point within the cycle.
-
-* **Cycle Detection:**<br> While traversing, if the slow pointer becomes equal to the fast pointer, this indicates that the linked list contains a cycle. This is because the fast pointer "catches up" to the slow pointer within the cycle.
-
-* **No Cycle Check:**<br> If the fast pointer reaches the end of the linked list and becomes null or if the fast pointer's next becomes nullp, this means there is no cycle in the linked list. 
-
-* **Cycle Detected:**<br> If the slow and fast pointers meet, it implies that the linked list contains a cycle. The function returns true.
-
-
-### Pseudo Code
-```cpp
-function hasCycle(head)
-    if head is null or head.next is null
-        return false // No cycle in an empty or single-node list
-    
-    slow = head
-    fast = head.next
-    
-    while fast is not null and fast.next is not null
-        if slow is the same as fast
-            return true // Cycle detected
-        slow = slow.next
-        fast = fast.next.next
-    
-    return false // No cycle detected
-
-
-```
-
-### Complexity
-**Time Complexity:** O(N)
-**Space Complexity:** O(1)
-
+The Least Recently Used (LRU) Cache operates on the principle that the data most recently accessed is likely to be accessed again in the near future. By evicting the least recently accessed items first, LRU Cache ensures that the most relevant data remains available in the cache.
 
 ---
-## Problem 5 Find the starting point
+## Problem 3 Implement LRU Cache
+
 
 ### Problem Statement
-Given a Linked List which contains a cycle , Find the start point of the cycle.
+We have been given a running stream of integers and the fixed memory size of `M`, we have to maintain the most recent `M` elements. In case the current memory is full, we have to delete the least recent element and insert the current data into the memory (as the most recent item).
 
 ### Example
 
-**Input:**
+{ 7, 3, 9, 2, 6, 10, 14, 2, 10, 15, 8, 14 }
+Given cache size = 5
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/471/original/upload_627b814b08d3cc13417de9d895cf1446.gif?1697177500" width=500/>
-
-
-**Output:**
-```plaintext
-5
+Insert 7
 ```
+-----------
+7
+-----------
+size = 1
+```
+
+Insert 3
+```
+-----------
+7 3
+-----------
+size = 2
+```
+
+Insert 9
+```
+------------
+7 3 9
+------------
+size = 3
+```
+
+Insert 2
+```
+------------
+7 3 9 2
+------------
+size = 4
+```
+
+Insert 6
+```
+----------
+7 3 9 2 6
+----------
+size = 5
+```
+
+Insert 10
+```
+remove 7
+-----------
+3 9 2 6 10
+-----------
+size = 5
+```
+
+Insert 14
+```
+remove 3
+------------
+9 2 6 10 14
+------------
+size = 5
+```
+
+Insert 2
+```
+2 is already there, remove it and add at end
+-----------
+9 6 10 14 2
+-----------
+size = 5
+```
+
+Insert 10
+```
+10 is already there, remove it and add at end
+-----------
+9 6 14 2 10
+-----------
+size = 5
+```
+
+Insert 15
+```
+remove 9
+------------
+6 14 2 10 15
+------------
+size = 5
+```
+
+Insert 8
+```
+remove 6
+------------
+14 2 10 15 8
+------------
+size = 5
+```
+
+Insert 14
+```
+14 is already there, remove it and add at end
+------------
+2 10 15 8 14
+------------
+size = 5
+```
+
+---
+
+
+### Question
+What is the behavior of an LRU cache memory when a new item is inserted and the cache is already full?
+
+### Choices
+
+- [x] The new item is added to the cache, and the least recently used item is removed from the cache.
+- [ ] The new item is not added to the cache, and the least recently used item is not removed from the cache.
+- [ ] The new item is added to the cache, and the least recently used item is updated to be the most recently used item.
+- [ ] The new item is not added to the cache, and the most recently used item is removed from the cache.
 
 
 ---
-## Find the starting point Solution
-
-### Solution
-* **Initialization:**<br> Similar to cycle detection, start with two pointers, slow and fast, both pointing to the head of the linked list.
-
-* **Cycle Detection:**<br> In each iteration, move the slow pointer by one step and the fast pointer by two steps. If a cycle exists, they will eventually meet within the cycle.
-
-* **Meeting Point:**<br> If a cycle is detected (slow meets fast), set a flag hasCycle to true.
-
-* **Start Point Identification:**<br> Reset the slow pointer to the head of the list while keeping the fast pointer at the meeting point. Advance both pointers by one step in each iteration. They will eventually meet at the start point of the cycle.
-
-* **Returning the Result:**<br> Once the slow and fast pointers meet again, it implies that the linked list has a cycle, and the meeting point is the start of the cycle. Return this pointer.
+### Explanation
 
 
+In an LRU cache, the least recently used item is always the one that is removed when the cache is full and a new item needs to be inserted. This ensures that the most recently accessed items are always prioritized and kept in the cache.
 
-Assume that the length from the head to the first node of cycle is x and the distance from the first node of cycle to the meeting point is y. Also the length from the meeting point to the first node is z.
+---
+## LRU Solution flow
 
-Now, speed of the fast pointer is twice the slow pointer 
+## Flowchart
 
-```cpp
-2(x + y) = x + y + z + y
+![](https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/151/original/upload_82e7a60d97ef6bef6d579178a4035d03.png?1692855639)
 
-x = z
+- If a data `x` will come, so first we search it in cache, it is available or not.
+    - If `x` is present in cache(HIT) then:
+        - delete(x)
+        - insertBack(x)
+    - If `x` is not present in cache(MISS) then:
+        - If cache size is not full, insertBack(x)
+        - If cache size is full, deleteFront() and insertBack(x).
 
+
+**Note :** Duplicates are not possible inside cache.
+
+**Finally operations Required :**
+1. **search(x)**
+2. **remove(x)**
+3. **insertBack(x)**
+
+## Complexities of implementing LRU through various Data Structures
+
+|    Operations     | ArrayList |      Singly Linked List      | Singly LinkedList + HashSet`<Data>` | Doubly Linked List + `HashMap<Data, Address>` |
+|:-----------------:|:---------:|:----------------------------:|:-----------------------------------:|:---------------------------------------------:|
+|   **search(x)**   |   O(N)    |             O(N)             |                O(1)                 |                     O(1)                      |
+|   **remove(x)**   |   O(N)    |             O(N)             |                O(N)                 |                     O(1)                      |
+| **insertBack(x)** |   O(1)    | O(1): if tail node is stored |    O(1): if tail node is stored     |                     O(1)                      |
+    
+    
+
+## Example of HashMap Storage 
+
+**Doubly Linked List**
+![](https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/152/original/upload_3adf0ccde4f6e984f0539ba67281e432.png?1692855686)
+
+**Storage in HashMap**
+![](https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/153/original/upload_265836e1268b993818190f0185c40c05.png?1692855708)
+
+### Example
+**Input:**
+Data: 7 3 9 10 14 9 10 15 8 14
+Cache size: 3
+
+**Solution:**
+In some cases, sometimes we may need to delete head/tail node also. So first of all we are taking two dummy nodes `head` and `tail`.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/154/original/upload_709510197670a1e0649f1d4c3a1d6d09.png?1692855731" width=400/>
+
+- Declare a `HashMap<int, Node> hm`.
+- First 7 will come, 7 is not present in the cache as it is not in Map, so insert 7 in doubly linked list just before `tail` and store the `<7,address_of_node_inserted>` in map.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/155/original/upload_8c5d209ecd77ceae6d879f407a7c320c.png?1692855759" width=400/>
+
+
+`hm: {<7,a1>}`
+
+- Now 3 will come, 3 is not present in the cache as it is not in Map, so insert 3 in doubly linked list just before `tail` and store the `<3,address_of_node _inserted>` in map.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/157/original/upload_071bf3ad5d6d202096cd7d2b5cf066e5.png?1692855788" width=400/>
+
+`hm:{<7,a1>, <3,a2>}`
+
+- Now 9 will come, 9 is also not present in the cache as it is not in Map, so insert 9 in doubly linked list just before `tail` and store the `<9,address_of_node _inserted>` in map.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/158/original/upload_5eef6aa42b1c1582738e99aea53650fd.png?1692855813" width=500/>
+
+`hm:{<7,a1>, <3,a2>, <9,a3>}`
+
+- Now 10 will come, 10 is also not present in the cache as it is not in Map, but the size of cache is fill as hashmap size is equal to the cache size, so delete `#a1`, and `#a1` can be accessed by `head.next` then we can simply delete it and delete it from hashMap also and insert 10 in doubly linked list just before `tail` and store the `<10,address_of_node _inserted>` in map.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/159/original/upload_d9c228557188bdc85eb6f71c7042a7ec.png?1692855834" width=600/>
+
+hm:{ ~~<7,a1>~~, <3,a2>, <9,a3>, <10,a4>}
+
+- Now 14, we can insert 14 as similar to 10.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/160/original/upload_1ae952300db1d4652a2b3ae2703cd9dc.png?1692855855" width=600/>
+
+hm:{ ~~<7,a1>~~, ~~<3,a2>~~ , <9,a3>, <10,a4>, <14,a5>}
+
+- Now 9, it is already present in cache,so first get the address of 9 from HashMap. Then delete 9 from doubly linked list and insert 9 at back before the `tail` node and update address of 9 in hashMap also.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/044/161/original/upload_c168153c0d04219af2a3b934b554dfb5.png?1692855881" width=600/>
+
+hm:{ ~~<7,a1>~~, ~~<3,a2>~~ , <9,~~a3~~ a6>, <10,a4>, <14,a5>}
+
+- Now 10, it is already present in cache,so first get the address of 10 from HashMap. Then delete 10 from doubly linked list and insert 10 at back before the `tail` node and update address of 10 in hashMap also.
+
+hm:{ ~~<7,a1>~~, ~~<3,a2>~~ , <9,~~a3~~ a6>, <10,~~a4~~ a7>, <14,a5>}
+
+- similary other elements can be inserted in cache.
+
+Implementation of LRU is mentioned in different langauges(https://docs.google.com/document/d/1IC_c1mFOwWHyst-YtuXbhxfZlNXxxYTnxu1MWTS6QkA/edit)
+
+## PseudoCode
+```java 
+class Node {
+    integer data;
+    Node next;
+    Node prev;
+
+    constructor Node(x) {
+        data = x;
+        next = null;
+        prev = null;
+    }
+}
+
+// Initialization
+Node head = new Node(-1);
+Node tail = new Node(-1);
+head.next = prev;
+tail.prev = head;
+HashMap<integer, Node> hm;
+
+function LRU(x, limit) {
+    // if x present
+    if (hm.containsKey(x) == true) {
+        Node t = hm.get(x);
+        DeleteNode(t);
+        Node nn = new Node(x);
+        insertBack(nn, tail);
+        hm.put(x, nn);
+    } else {
+        if (hm.size() == limit) {
+            // delete the first node
+            Node t = head.next;
+            int val = t.data;
+            DeleteNode(t);
+            hm.remove(val);
+        }
+        Node nn = new Node(x);
+        insertBack(nn, tail);
+        hm.put(x, nn);
+    }
+}
+
+function insertBack(Node nn, Node tail) {
+    t = tail.prev;
+    t.next = nn;
+    tail.prev = nn;
+    nn.prev = t;
+    nn.next = tail;
+}
+
+function DeleteNode(Node temp) {
+    t1 = temp.prev;
+    t2 = temp.next;
+    t1.next = t2;
+    t2.prev = t1;
+    temp.next = null;
+    temp.prev = null;
+}
 ```
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/481/original/upload_53a9113ef4baf57965effd9d80628c34.png?1697178095" width=700/>
+---
+## Problem 4 Check Palindrome
 
 
-* **No Cycle Check:** If the fast pointer reaches the end of the linked list (i.e., becomes nullptr) or if the fast pointer's next becomes nullptr, there is no cycle. In such cases, return nullptr.
+### Problem Statement
+Given a Linked List, check if it is a palindrome.
 
-This approach ensures that you can find the start point of the cycle using the Floyd's Tortoise and Hare algorithm with a slightly modified process.
+### Example:
+maam, racecar, never, 121, 12321 
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/052/215/original/upload_cda9b4e733dcc81c3804f1a2d12d9021.png?1696393390" width=500/>
 
 
-### Pseudo Code
-```cpp
-function detectCycleStart(head)
-    if head is null or head.next is null
-        return null // No cycle in an empty or single-node list
+---
 
-    slow = head
-    fast = head
-    hasCycle = false
+### Question
+Check the Given linked list is Palindrome or not.
 
-    while fast is not null and fast.next is not null
-        slow = slow.next
-        fast = fast.next.next
+Linked List : ```Head -> 1 -> Null```
 
-        if slow is the same as fast
-            hasCycle = true
-            break
+### Choices
+- [x] YES
+- [ ] NO
 
-    if not hasCycle
-        return null // No cycle detected
+### Explanation:
 
-    slow = head
-    while slow is not the same as fast
-        slow = slow.next
-        fast = fast.next
+Yes, The Given Linked List is an Palindrome, Because it reads the same in reverse order as well.
 
-    return slow // Return the start point of the cycle
+---
 
-```
+### Solution 1 :
+Create a copy of linked list. Reverse it and Compare
 
 ### Complexity
-**Time Complexity:** O(N)
-**Space Complexity:** O(1)
+**Time Complexity -** O(N) 
+**Space Complexity -** O(N).
+
+
+### Solution 2 :
+1. Find middle element of linked list 
+2. Reverse second half of linked list 
+3. Compare first half and compare second half 
+
+**Step wise solution:**
+
+1. **Find length of linked list**
+```java
+n = 0
+temp = Head
+while(temp != null){
+    n++
+    temp = temp.next
+}
+```
+2. **Go to the middle element**
+// If n = 10(even), we'll reverse from 6th node.
+// If n = 9(odd), then also we'll reverse from 6th node.(**5th node will be middle one that need not be compared with any node**)
+
+So, regardless of even/odd, we can skip (n + 1) / 2 nodes.
+```java
+temp Head
+(for i --> 1 to (n + 1) / 2){
+    temp =temp.next
+}
+//temp middle
+```
+3. Now reverse the linked list from $((n+1)/2 + 1)th$ node.
+4. Compare both the linked list
+
+### T.C & S.C
+
+Total time complexity for checking palindrome is O(N) and space complexity is O(N).
+
+
 
