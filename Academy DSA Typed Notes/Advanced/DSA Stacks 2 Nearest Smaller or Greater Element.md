@@ -1,12 +1,12 @@
 # Stacks 2: Nearest Smaller/Greater Element
 
----
 ## Problem 1 Nearest smallest element on left
 
+### Problem Statement
 Given an integer array A, find the index of nearest smallest element on left for all i index in A[].
 Formally , for all i find j such that `A[j] < A[i]`, `j < i` and j is maximum.
 
-**Example:**
+### Example:
 
 A[] = [8, 2, 4, 9, 7, 5, 3, 10]
 Answer = [-1, -1, 1, 2, 2, 2, 1, 6]
@@ -25,50 +25,52 @@ For each element in the input array, the output indicates the index of the neare
 |   10    |            3            |                6                 |
 
 ---
+
+
 ### Question
 
-Given N array elements, find the nearest smaller element on the left side for all the elements. If there is NO smaller element on left side, return -1. (Assume all elements are positive).
+Given N array elements, find the **index** of the nearest smaller element on the left side for all the elements. If there is NO smaller element on left side, ans is -1.
 
 A = [4, 6, 10, 11, 7, 8, 3, 5]
 
-**Choices**
+### Choices
 
-- [ ] [-1, 4, 6, 10, 4, 7, -1, 3]
-- [ ] [-1, 4, 6, 10, 6, 6, -1, 3]
-- [x] [-1, 4, 6, 10, 6, 7, -1, 3]
+- [ ] [-1, 0, 1, 2, 0, 4, -1, 6]
+- [ ] [-1, 0, 1, 2, 1, 1, -1, 6]
+- [x] [-1, 0, 1, 2, 1, 4, -1, 6]
 
 
 ---
+
+
 ### Question
 
-Given N array elements, find the nearest smaller element on the left side for all the elements. If there is NO smaller element on left side, return -1. (Assume all elements are positive).
+Given N array elements, find the **index** of the nearest smaller element on the left side for all the elements. If there is NO smaller element on left side, ans is -1.
 
 A = [4, 5, 2, 10, 8, 2]
 
-**Choices**
+### Choices
 
-- [ ] [4, 4, -1, 2, 2, -1]
-- [x] [-1, 4, -1, 2, 2, -1]
-- [ ] [-1, 4, 4, 2, 2, -1]
-- [ ] [-1, 4, 2, 2, 2, 2]
+- [ ] [0, 0, -1, 2, 2, -1]
+- [x] [-1, 0, -1, 2, 2, -1]
+- [ ] [-1, 0, 0, 2, 2, -1]
+- [ ] [-1, 0, 2, 2, 2, 2]
 
 ---
+## Nearest smallest element on left Brute Force
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-### Nearest smallest element on left Brute Force
 
 For each element in the array, iterate through all the elements to its left.
 
-#### Pseudocode
+Note: We want the indices in answer array.
+
+### Pseudocode
 ```java 
 result[n];
-for (int i = 0; i < n; i++) {
-    int nearestSmaller = -1;
+for (i -> 0 to n - 1) {
+    nearestSmaller = -1;
 
-    for (int j = i - 1; j >= 0; j--) {
+    for (j -> i - 1 down to 0) {
         if (arr[j] < arr[i]) {
             nearestSmaller = j;
             break;
@@ -80,49 +82,48 @@ for (int i = 0; i < n; i++) {
 return result;
 ```
 
-#### Time Complexity
+### Time Complexity
 
 This approach has a time complexity of $O(n^2)$ because for each element, it requires checking all elements to its left. It is inefficient for large input arrays.
 
 ---
+
+
 ### Question
 
 If A = [8, x, x, x, x, 5, x, x, x, x...]
-For any element > 5 can the element 8 become nearest smaller element on left?
+For any element present after 5, can the element 8 become nearest smaller element on left?
 
-**Choices**
+### Choices
 
 - [ ] Yes
 - [x] No
 
-
-#### Explanation
+### Explanation
 
 Not really since 5 will be the answer for them.
 
 ---
-### Nearest Smallest Element Optimized Approach
-#### Observation/Intuition:
-
-When iterating through the array from left to right, we want to find the nearest smaller element on the left for each element efficiently.
-* Using a stack helps us keep track of potential candidates for the nearest smaller element as we move from left to right. The stack stores the indices of elements that have not yet found their nearest smaller element.
-* When we encounter a new element, we check if it is smaller than the element at the top of the stack (the most recent candidate for the nearest smaller element). If it is, we know that the element at the top of the stack cannot be the nearest smaller element for any future elements because the new element is closer and smaller. Therefore, we pop elements from the stack until we find an element that is smaller than the current element or until the stack becomes empty.
-* The popped elements from the stack are assigned as the nearest smaller elements on the left for the corresponding indices.
-* By doing this, we efficiently find the nearest smaller element for each element in the array without the need for nested loops or extensive comparisons, resulting in a linear time complexity of O(n).
+## Nearest Smallest Element Optimized Approach
 
 
-#### Optimized Approach:
+### Observation/Intuition:
 
-* Create an empty stack to store the indices of elements.
-* Initialize an empty result array with -1 values.
-* Iterate through the input array from left to right.
-* For each element, while the stack is not empty and the element at the current index is less than or equal to the element at the index stored at the top of the stack, pop elements from the stack and update the result array for those popped elements.
-* After the loop, the stack will contain indices of elements that haven't found their nearest smaller element. These elements have no smaller element on the left side.
-* The result array will contain the index of the nearest smaller element for all other elements.
-* Return the result array.
+To efficiently find the nearest smaller element to the left of each element in an array, you can use a stack. Here’s a simplified explanation:
+
+1. **Use a Stack:** As you move from left to right through the array, use a stack to keep track of element indices that haven't yet found their nearest smaller element.
+
+2. **Compare with Stack's Top:** For each new element, compare it with the element at the top of the stack. If the new element is smaller, it means it's the nearest smaller element for the future elements, making the stack's top element no longer valid.
+
+3. **Pop the Stack:** Continue popping the stack until you find an element smaller than the current one or the stack is empty. This way, the popped elements are marked as having their nearest smaller element found.
+
+4. **Linear Time Complexity:** This method avoids nested loops and extensive comparisons, allowing you to find each element's nearest smaller neighbor with a linear time complexity, 𝑂(𝑛)
+
+By continuously updating the stack and assigning nearest smaller elements efficiently, this approach streamlines the process, ensuring each element's comparison is handled as you iterate through the array.
+
 
 ---
-### Nearest Smallest Element Optimized Approach Dry Run
+## Nearest Smallest Element Optimized Approach Dry Run
 
 
 * Initialize an empty stack and an empty result array of the same length as A filled with -1s.
@@ -140,72 +141,81 @@ When iterating through the array from left to right, we want to find the nearest
 |  7  |   10    |    NIL    | 1, 6  |            3            |     7      |
 
 
-**Code:**
+**PseudoCode:**
 
 ```java
-for (int i = 0; i < n; i++) {
-    // While the stack is not empty and the element at the current index is less than or
-    // equal to the element at the index stored at the top of the stack, pop elements from
-    // the stack and update the result array.
-    while (!stack.isEmpty() && arr[i] <= arr[stack.peek()]) {
-        stack.pop();
+for (i -> 0 to n - 1) {
+        // While the stack is not empty and the element at the current index is less than or
+        // equal to the element at the index stored at the top of the stack, pop elements from
+        // the stack and update the result array.
+        while (not Empty(stack) and arr[i] <= arr[stack.top()]) {
+            stack.pop();
+        }
+
+        // If the stack is not empty, the top element's index is the nearest smaller element on the left.
+        if (not Empty(stack)) {
+            result[i] = stack.top();
+        }
+
+        // Push the current index onto the stack.
+        stack.push(i);
     }
 
-    // If the stack is not empty, the top element's index is the nearest smaller element on the left.
-    if (!stack.isEmpty()) {
-        result[i] = stack.peek();
-    }
-
-    // Push the current index onto the stack.
-    stack.push(i);
-}
-
-return result;
+    return result;
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
 
 ---
-### Nearest Smallest Element related questions
+## Variation Question 2 Restraunt Hunt
 
-### Question-2
 
-For all `i`, find nearest smaller or equal element on left
+A person uses **Google Maps** to find the nearest restaurants and picks one based on its proximity. Unfortunately, after visiting, they realized that the restaurant didn't meet their expectations. 
 
-**ANS:** For this question, we need to change the sign from `<=` to `<` in the above code of the approach in line number 5.
+**Task**
+Let's break it down with a simple example. You have a list of restaurants and their **ratings**. For each restaurant, we're going to find the next restaurant to the **right** on the list that's not just close but also has a **higher rating** than the **current** one. If there's no better option on the list, we'll say there's **none** available.
 
-### Question-3
+**Problem** 
+Given a sequence of restaurants listed on Google Maps with their ratings, create a tool that helps users discover the rating of the next higher-rated restaurant to the right for each listed establishment. 
 
-For all `i`, find nearest greater element on left
+#### Example Input
 
-**ANS:** For this question, we need to change the sign from `<=` to `>=` in the above code of the approach.
+Ratings[] =
 
-### Question-4
 
-For all `i`, find nearest greater or equal element  on left.
+| 0 | 1 | 2 | 3 | 4 | 5 |  6 |
+| -| -| -| -| -| -|-|
+| 3 | 2 | 6 | 5 | 8 | 7 |9 |
 
-**ANS:** For this question, we need to change the sign from `<=` to `>` in the above code of the approach.
+Output -
+Next greater elements' indices are mentioned for each element.
+| 3 | 2 | 6 | 5 | 8 | 7 |9 |
+| -| -| -| -| -| -|-|
+| 2 | 2 | 4 | 4 | 6 | 6 |  -1 |
 
-### Question-5
+### Approach
 
-For all `i`, find nearest smaller element on right.
+In this problem, **we have to find greater element on right.**
+This is also a variation of above problem only.
+* For this question, we need to iterate from right to left.
+* For an element A[i], while A[i] >= element at top of stack, then keep removing.
+* If at the end stack is not empty, the element at top will be answer for A[i].
 
-**ANS:** For this question, the for loop iterates through the input array arr in reverse order (from right to left), and it finds the nearest smaller element on the right for each element using a stack.
+### Code
 
 ```java 
-for (int i = n - 1; i >= 0; i--) {
-    // While the stack is not empty and the element at the current index is less than or
-    // equal to the element at the index stored at the top of the stack, pop elements from
-    // the stack and update the result array.
-    while (!stack.isEmpty() && arr[i] <= arr[stack.peek()]) {
+for (i -> n - 1 down to 0) {
+    // While the stack is not empty and the current element is greater than or
+    // equal to the element at top, pop and update the result array.
+    while (not stack.isEmpty() and arr[i] >= arr[stack.to()]) {
         stack.pop();
     }
 
-    // If the stack is not empty, the top element's index is the nearest smaller element on the right.
-    if (!stack.isEmpty()) {
-        result[i] = stack.peek();
+    // If the stack is not empty, the top element is the nearest greater element on the right.
+    if (not stack.isEmpty()) {
+        result[i] = stack.top();
     }
 
     // Push the current index onto the stack.
@@ -215,29 +225,21 @@ for (int i = n - 1; i >= 0; i--) {
 return result;
 ```
 
-### Question-6
-For all `i`, find nearest smaller or equal element on right.
-
-**ANS:** For this question, we need to change the sign from `<=` to `>` in the above code of the approach.
-
-### Question - 7
-
-For all `i`, find nearest greater element on right.
-
-**ANS:** For this question, we need to change the sign from `<=` to `>=` in the above code of the approach.
-
-### Question-8
-
-For all `i`, find the nearest greater or equal element on right.
-
-**ANS:** For this question, we need to change the sign from `<=` to `>` in the above code of the approach.
+---
+## Variations of the problem
 
 
+## Try the below problems by yourselves
 
+### Question 3: For all `i`, find nearest greater element on left
+
+### Question 4: For all `i`, find nearest smaller element on right.
 
 ---
-### Problem 2 Largest Rectangle in histogram
+## Problem 2 Largest Rectangle in histogram
 
+
+### Problem Statement
 
 Given an integer array A, where
 A[i] = height of i-th bar.
@@ -256,24 +258,30 @@ The goal is to find the largest rectangle that can be formed using continuous ba
 Sure, here is a brief MCQ based on finding the largest rectangle formed by continuous bars in an integer array representing bar heights:
 
 ---
+
+
 ### Question
 Find the area of the largest rectangle formed by continious bars.
 
 bars = [1, 2, 3, 2, 1]
 
-**Choices**
+### Choices
 - [ ] 5
 - [ ] 9
 - [ ] 7
 - [x] 6
 - [ ] 3
 
-**Explanation:**
+### Explanation:
 
 The largest rectangle is formed from [2, 3, 2] whose contribution is [2, 2, 2] thus the area of the largest rectangle is 6. 
 
 
-#### Largest Rectangle Brute Force
+---
+## Largest rectangle Approach
+
+
+### Largest Rectangle Brute Force
 
 **Brute - Force Approach Pseudo Code:**
 
@@ -297,11 +305,8 @@ function findMaxRectangleArea(hist):
 
 The brute-force approach involves nested loops and has a time complexity of O(n^2) because it considers all possible combinations of starting and ending points for rectangles.
 
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
 
-#### Optimized Approch
+### Optimized Approch
 
 **Mathematical Representation:**
 
@@ -354,8 +359,10 @@ function findMaxRectangleArea(hist):
 * We subtract 1 from the product of `nearest_smaller_right[i]` and `nearest_smaller_left[i]` to account for the width of the rectangle.
 
 ---
-### Problem 3 Sum of (Max-Min) of all subarrays
+## Problem 3 Sum of (Max-Min) of all subarrays
 
+
+### Question
 
 Giver an integer array with distinct integers, for all subarrays find (max-min) and return its sum as the answer.
 
@@ -376,10 +383,6 @@ The goal is to find the sum of the differences between the maximum and minimum e
 
 The sum of all differences is 0 + 0 + 0 + 3 + 2 + 3 = 8.
 
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
 ### Sum of (Max-Min) of all subarrays Brute force approach
 **Brute-Force Approach Pseudo Code:**
@@ -407,24 +410,26 @@ function sumOfDifferences(arr):
     return result
 ```
 
-#### Complexity
-**Time Complexity:** O(N * N)
+### Complexity
+**Time Complexity:** O(N^3^)
 **Space Complexity:** O(1)
 
 ---
+
+
 ### Question
 Giver an integer array, A with distinct integers, for all subarrays find (max-min) and return its sum as the answer.
 
 A = [1, 2, 3]
 
-**Choices**
+### Choices
 - [x] 4
 - [ ] 6
 - [ ] 5
 - [ ] 0
 
 
-#### Explanation:
+### Explanation:
 
 The goal is to find the sum of the differences between the maximum and minimum elements for all possible subarrays.
 
@@ -444,63 +449,105 @@ The sum of all differences is 0 + 0 + 0 + 1 + 1 + 2 = 4.
 
 
 ---
-### Sum of (Max-Min) of all subarrays Optimized approach
+## Sum of (Max-Min) of all subarrays Optimized approach
 
-#### Optimized Approach
+
+### Optimized Approach
 
 **Intuition:**
 
-* The contribution technique eliminates redundant calculations by efficiently counting the number of subarrays in which each element can be the maximum or minimum element.
-* By tracking the elements that are greater or smaller than the current element in both directions, we can calculate their contributions to the sum of (max - min) differences without repeatedly considering the same subarrays.
+1. Calculate the contribution of each element being the maximum
+2. Calculate the contribution of each element being the minimum
+3. Calculate the total contribution : contribution = element × (count as max − count as min)
+
+### Contribution idea
+Let's take example  **A** = $[1, 2, 3]$
+
+Now compute the 4 things for each element:
+1. Previous Greater element's index (default value -1)
+2. Next Greater element's index (default value n)
+3. Previous Smaller element's index (default value -1)
+4. Next Smaller element's index (default value n)
+
+| index | prvGreater | nxtGreater | prvSmaller | nxtSmaller |
+|:-----:|:----------:|:----------:|:----------:|:----------:|
+|   0   |     -1     |     1      |     -1     |     3      |
+|   1   |     -1     |     2      |     0      |     3      |
+|   2   |     -1     |     3      |     1      |     3      |
+
+
+**Contributions :**
+
+1. Contribution as Min = $(nxtSmaller - i) * (i - prvSmaller)$
+2. Similarly Contribution as Max = $(nxtGreater - i) * (i - prvGreater)$
+3. Total contribution = (contribution as max - contribution as min)
+
+| index | contribution as Min | contribution as Max | Total Contribution |
+|:-----:|:-------------------:|:-------------------:| ------------------ |
+|   0   |          3          |          1          | -2                 |
+|   1   |          2          |          2          | 0                  |
+|   2   |          1          |          3          | 2                  |
+
+Hence Total Contribution = $A[0] * (-2) + A[1] * (0) + A[2] * (2)$ 
+= $-2 + 0 + 6$ = $4$
 
 **Optimized Approach Pseudo code:**
 
 ```cpp
-function sumOfDifferences(arr):
-    n = length of arr
-    left = new array of size n
-    right = new array of size n
-    max_stack = empty stack
-    min_stack = empty stack
+function subarrayRanges(A):
+    n = size(A)
+    nextGreater = array of size n, initialized to n
+    prevGreater = array of size n, initialized to -1
+    nextSmaller = array of size n, initialized to n
+    prevSmaller = array of size n, initialized to -1
+
+    stack = empty stack
+
+    // Find next greater elements
+    for i from 0 to n-1:
+        while stack is not empty and A[stack.top()] < A[i]:
+            nextGreater[stack.top()] = i
+            stack.pop()
+        stack.push(i)
+
+    clear stack
+
+    // Find previous greater elements
+    for i from n-1 to 0:
+        while stack is not empty and A[stack.top()] <= A[i]:
+            prevGreater[stack.top()] = i
+            stack.pop()
+        stack.push(i)
+
+    clear stack
+
+    // Find next smaller elements
+    for i from 0 to n-1:
+        while stack is not empty and A[stack.top()] > A[i]:
+            nextSmaller[stack.top()] = i
+            stack.pop()
+        stack.push(i)
+
+    clear stack
+
+    // Find previous smaller elements
+    for i from n-1 to 0:
+        while stack is not empty and A[stack.top()] >= A[i]:
+            prevSmaller[stack.top()] = i
+            stack.pop()
+        stack.push(i)
+
     result = 0
 
-    // Initialize left and right arrays
-    for i from 0 to n - 1:
-        left[i] = (i + 1) * (n - i)
-        right[i] = (i + 1) * (i + 1)
-
-    // Calculate left contributions
-    for i from 0 to n - 1:
-        while (not max_stack.isEmpty() and arr[i] > arr[max_stack.top()]):
-            max_stack.pop()
-
-        if (max_stack.isEmpty()):
-            left[i] = (i + 1) * (i + 1)
-        else:
-            left[i] = (i - max_stack.top()) * (i + 1)
-
-        max_stack.push(i)
-
-    // Calculate right contributions
-    for i from n - 1 to 0:
-        while (not min_stack.isEmpty() and arr[i] < arr[min_stack.top()]):
-            min_stack.pop()
-
-        if (min_stack.isEmpty()):
-            right[i] = (n - i) * (n - i)
-        else:
-            right[i] = (min_stack.top() - i) * (n - i)
-
-        min_stack.push(i)
-
-    // Calculate the sum of (max - min) differences
-    for i from 0 to n - 1:
-        contribution = (right[i] * left[i]) * arr[i]
-        result += contribution
+    // Calculate the result based on the contributions
+    for i from 0 to n-1:
+        maxContribution = (i - prevGreater[i]) * (nextGreater[i] - i)
+        minContribution = (i - prevSmaller[i]) * (nextSmaller[i] - i)
+        result += A[i] * (maxContribution - minContribution)
 
     return result
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
