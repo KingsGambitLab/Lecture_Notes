@@ -1,62 +1,30 @@
 # Searching 2: Binary Search Problems
 
----
-## Understanding Binary Search
+## Another formula for finding mid
 
-### Introduction:
-We will continue with our second lecture on Binary Search. In our previous session, we explored the fundamental concepts of this efficient searching algorithm. Today, we will dive even deeper into the world of binary search, uncovering advanced techniques and applications that expand its capabilities.
+Sometimes when people try to find the middle point of something (like an array), they use a simple formula: 
+**`$mid = (low+high) / 2$`**
+However, this can sometimes cause problems, especially if the numbers are very big. Let me explain with an example:
+ 
+Imagine we can only handle numbers up to 100, and we have a list of 100 items. The last position in this list is 99. If we want to find something near the end, say between position 98 and 99, adding these numbers together gives us 197. This is a problem because 197 is bigger than 100 and our system can't handle it, which might cause errors or give us a negative number when we try to find the middle.
 
-In this lecture, we will build upon the foundation laid in the first session. We'll delve into topics such as binary search on rotated arrays, finding square root using binary search etc and addressing various edge cases and challenges that may arise during binary search implementation.
+To avoid this problem, we can use a different way to find the middle: 
+**`$mid = low + ( (high-low) / 2 )$`**
+Using our example, this would be, **`$98 + ( (99-98)/2 ) = 98.5$`**, which rounds down safely to 98. This method makes sure we don't go over our limit and keeps everything working smoothly.
 
-### Pseudocode
-```java
-function binarySearch(array, target):
-    left = 0
-    right = length(array) - 1
 
-    while left <= right:
-        mid = left + (right - left) / 2
 
-        if array[mid] == target:
-            return mid
-        else if array[mid] < target:
-            left = mid + 1
-        else:
-            right = mid - 1
 
-    return NOT_FOUND
-```
-
-### Use Cases:
-Binary search has numerous applications, including:
-* Searching in databases.
-* Finding an element in a sorted array.
-* Finding an insertion point for a new element in a sorted array.
-* Implementing features like autocomplete in search engines.
-
----
-###  Question
-In what scenario does Binary Search become ineffective?
-
-**Choices**
-- [x] When the dataset is unsorted.
-- [ ] When the dataset is extremely large.
-- [ ] When the dataset is sorted in descending order.
-- [ ] When the dataset contains only unique elements.
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/918/original/upload_8464c14ddc9d5166e7118e05dcbfdc72.png?1696271394" width="500"/>
 
 
 ---
-### Problem 1 Searching in Rotated Sorted Arrays
-
-### Introduction:
-We'll explore the fascinating problem of searching in rotated sorted arrays using the Binary Search algorithm. This scenario arises when a previously sorted array has been rotated at an unknown pivot point. We'll discuss how to adapt the Binary Search technique to efficiently find a target element in such arrays.
+## Problem 1 Searching in Rotated Sorted Arrays
 
 ### Scenario:
 Imagine you have an array that was sorted initially, but someone rotated it at an unknown index. The resulting array is a rotated sorted array. The challenge is to find a specific element in this rotated array without reverting to linear search.
 
-### Example: Finding an Element in a Rotated Array
-
-Suppose we have the following rotated sorted array:
+**Suppose we have the following rotated sorted array:**
 ```javascript
 Original Sorted Rotated Array: [4, 5, 6, 7, 8, 9, 1, 2, 3]
 ```
@@ -64,68 +32,31 @@ Let's say we want to find the element 7 within this rotated array using a brute-
 
 ### Brute-Force Approach:
 
-* Initialize a variable target with the value we want to find (e.g., 7).
-* Loop through each element in the array one by one, starting from the first element.
-* Compare the current element with the target:
-* If the current element matches the target, we have found our element, and we can return its index.
-* If the current element does not match the target, continue to the next element.
-* Repeat step 3 until we either find the target or reach the end of the array without finding it.
+* Iterate and get the element. T.C: O(N)
 
-### Adapting Binary Search:
-While the array is rotated, we can still leverage the divide-and-conquer nature of Binary Search. However, we need to make a few adjustments to handle the rotation.
 
-**Intution:**
-* In a rotated sorted array, elements were initially sorted in ascending order but have been rotated at some point.
-* Let's asusme array contain distinct elements only.
-* The goal is to find a specific target element within this rotated array.
-* The key to binary search in a rotated array is to determine the pivot point, which is where the array rotation occurred.
-* The pivot point is essentially the maximum element in the array.
-* Once you've identified the pivot point, you have split the array into two subarrays, each of which is sorted.
-* Then you can apply individual binary search in both the parts, and find the target element.
-* **Another Idea of Doing it in one Binary Search we'll discuss below**
-* **Partitioning of Rotated Sorted Array:**
-  * A rotated sorted array can be visualized as being split into two parts: part 1 and part 2.
-  * Crucially, both part 1 and part 2 are sorted individually, but every element in part 1 is greater than those in part 2 due to the rotation.
+### Optimised Approach
+ **`A rotated sorted array can be visualized as being split into two parts: part 1 and part 2.`**
+  > Crucially, both part 1 and part 2 are sorted individually, but every element in part 1 is greater than those in part 2 due to the rotation.
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/290/original/upload_7109177bd564db28fb52884947596f19.jpeg?1697636298" width=600 />
 
-* **Identifying Target's Part**
-  * To determine which part the Target belongs to (part 1 or 2), compare it with the 0th element.
-  * If the midpoint is greater than (also equals to) the 0th element, then it belongs to part 1. Otherwise, it's in part 2.
- <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/291/original/upload_de49790f61452f4caceea8736169fe3d.jpeg?1697636323" width=500 />
 
 
-* **Identifying Midpoint's Part:**
+**`How to identify in which part mid point is present?`**
   
-  * To determine which part the midpoint belongs to (part 1 or 2), compare it with the 0th element.
-  * If the midpoint is greater than (also equals to) the 0th element, then it belongs to part 1. Otherwise, it's in part 2.
-* **Midpoint vs Target:**
-  * If the midpoint is the equals to the target, you've found it.
-   * If not, then check if the target lies in the same part as the midpoint. If yes, both target and midpoint is within the same sorted part, perform a binary search in that part to move your midpoint towards the target.
+> To determine which part the midpoint belongs to (part 1 or 2), compare it with the 0th element.
+> -- If arr[mid] >= arr[0], then it belongs to part 1. Otherwise, it's in part 2.
+
+**`How to identify where is the target ?`**
+> If the midpoint is the equals to the target, you've found it.
+   #### If not, then check if the target lies in the same part as the midpoint. 
+   * If yes, both target and midpoint is within the same sorted part, perform a binary search in that part to move your midpoint towards the target.
  <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/292/original/upload_e222ee12696646bb515fe8b21149991b.png?1697636367" width=600 />
- 
   * If no, move your search towards the other part, effectively approaching the midpoint towards target.
  <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/293/original/upload_8ab6fabad4f92c55665e78291b1befb5.png?1697636388" width=600 />
- 
-* **Iterative Process:**
-  * Continue adjusting your boundaries based on the decisions made in the previous step until you either find the target or exhaust your search space.
+
 * **Result:**
   * Return the index of the target if found, or -1 if not.
-
-**Algorithm:**
-* Initialize left to 0 and right to len(nums) - 1.
-* While left is less than or equal to right, do the following:
-* Calculate the middle index mid as left + (right - left)/2.
-* If nums[mid] is equal to the target, return mid as the index of the target.
-* Check if the target is less than nums[0] (indicating it's on part 2):
-* If target < nums[0], check if nums[mid] is greater than or equal to nums[0]:
-* If true, update left to mid + 1 to search the right half.
-* If false, update right to mid - 1 based on target's relation to nums[mid].
-* If the target is greater than or equal to nums[0] (indicating it's on the left side of the pivot):
-* If target >= nums[0], check if nums[mid] is less than nums[0]:
-* If true, update right to mid - 1 to search the left half.
-* If false, update left to mid + 1 based on target's relation to nums[mid].
-* Repeat steps 2-6 until left is less than or equal to right.
-* If the loop exits without finding the target, return -1 to indicate the target is not in the array.
 
 ### Example: 
 
@@ -147,9 +78,10 @@ Consider the rotated sorted array **[4, 5, 6, 7, 0, 1, 2]** and our target is 0.
  **We found the target 0 at index 5.**
 
 ---
-### Searching in Rotated Sorted Arrays Pseudocode
+### Searching in Rotated Sorted Arrays 
 
-#### Pseudocode:
+
+### Pseudocode:
 
 ```cpp
 function searchRotatedArray(nums, target):
@@ -182,7 +114,7 @@ function searchRotatedArray(nums, target):
     return -1
 ```
 
-#### Complexity Analysis:
+### Complexity Analysis:
 The time complexity of this modified Binary Search algorithm is still O(log n), making it efficient even in rotated sorted arrays.
 **Reason**:
 * **Divide and Conquer:**<br> The algorithm works by repeatedly dividing the search space in half. In each step, it either eliminates half of the remaining elements or finds the target element. This is a characteristic of binary search, which has a time complexity of O(log N).
@@ -190,41 +122,24 @@ The time complexity of this modified Binary Search algorithm is still O(log n), 
 * **No Need to Examine All Elements:**<br> Unlike linear search, which would require examining all N elements in the worst case, binary search significantly reduces the number of elements that need to be considered, leading to a logarithmic time complexity.
 
 ---
+
+
 ### Question
-In the problem of searching for a target element in a rotated sorted array, what advantage does Binary Search offer over Linear Search?
+Consider a rotated sorted array of distinct integers. What is the worst-case time complexity of finding a specific target element in this array using binary search?
 
-
-**Choices**
-- [ ] Binary Search doesn't require any comparisons.
-- [ ] Binary Search works faster on unsorted arrays.
-- [x] Binary Search divides the search space in half with each step.
-- [ ] Binary Search is always faster than Linear Search.
-
-
-
-**Explanation:**
-Binary Search offers a significant advantage over Linear Search when searching in a rotated sorted array. With each step, Binary Search efficiently narrows down the search interval by dividing it in half, greatly reducing the number of elements under consideration. This characteristic leads to a time complexity of O(log n), making Binary Search much faster compared to Linear Search's O(n) time complexity, especially for larger arrays.
-
+### Choices
+- [ ] O(1)
+- [ ] O(n)
+- [x] O(log n)
+- [ ] O(n log n)
 
 ---
-### Problem 2 Finding the square root of a number
-
-
-### Introduction:
-Now, we'll explore a fascinating application of Binary Search: finding the square root of a number. The square root operation is a fundamental mathematical operation, and we'll see how Binary Search helps us approximate this value with great efficiency.
+## Problem 2 Finding the square root of a number
 
 ### Motivation:
 Imagine you're working on a mathematical problem or a scientific simulation that requires the square root of a number. Calculating square roots manually can be time-consuming, and a reliable and fast method is needed. Binary Search provides an elegant way to approximate square roots efficiently.
 
 ### Brute-Force Algorithm to Find the Square Root:
-
-* **Input Validation:** If it's negative, return "Undefined" because the square root of a negative number is undefined.
-* **Special Cases:** If x is 0 or 1, return x because the square root of 0 or 1 is the number itself.
-* **Initialize Guess:** Start with an initial guess of 1.
-* Check if the square of the current guess is less than or equal to x. If it is, continue to the next step. If not, exit the loop.
-* **Increment Guess:** Increment the guess by 1.
-* **Exit Loop:** When the loop exits, it means guess * guess exceeds x. The square root is approximated as guess - 1 because guess at this point is the smallest integer greater than or equal to the square root of x.
-* Return Result: Return guess - 1 as the square root of x.
 
 ```cpp
 function sqrt_with_floor(x):
@@ -243,15 +158,10 @@ function sqrt_with_floor(x):
     return guess - 1
 ```
 
-:::warning
-Please take some time to think about the Binary Search approach on your own before reading further.....
-:::
-
 ### Binary Search Principle for Square Root:
-The Binary Search algorithm can be adapted to find the square root of a number by treating the square root as a search problem. The key idea is to search for a number within a certain range that, when squared, is closest to the target value. We'll repeatedly narrow down this range until we achieve a satisfactory approximation.
-Establish a search range: The square root of a non-negative number is always within the range of 0 to the number itself. So, you set up an initial search range as [0, x], where 'x' is the number for which you want to find the square root.
+The key idea is to search for a number within a certain range that, when squared, is closest to the target value. We'll repeatedly narrow down this range until we achieve a satisfactory approximation.
 
-**Intution**:
+**Intuition**:
 * **Binary search:** You then start a binary search within this range. The midpoint of the range is calculated, and you compute the square of this midpoint.
 * **Comparison:** You compare the square of the midpoint to the original number (x). Three cases can arise:
   * **Exact Match:** If the square of the midpoint is exactly equal to x, you've found a value very close to the square root.
@@ -261,7 +171,6 @@ Establish a search range: The square root of a non-negative number is always wit
 
 For example:
  <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/294/original/upload_42e49c38798729971da9ece87233dca8.png?1697636550" width=600 />
-
 
 ### Example: Finding Square Root using Binary Search
 
@@ -283,8 +192,9 @@ We want to find the square root of the number 9 using Binary Search.
 * We found an exact match! The square root of 9 is 3.
 
 ---
-### Finding the square root of a number Pseudocode
-#### Pseudocode:
+## Finding the square root of a number 
+
+### Pseudocode:
 Here's a simple pseudocode representation of finding the square root using Binary Search:
 
 ```cpp
@@ -310,7 +220,6 @@ function findSquareRoot(target):
     return result
 ```
 
-
 ### Analysis and Complexity:
 
 In each step of the Binary Search, we compare the square of the middle element with the target value. Depending on the result of this comparison, we adjust the search range. Since Binary Search divides the range in half with each step, the time complexity of this algorithm is O(log n), where n is the value of the target number.
@@ -318,252 +227,178 @@ In each step of the Binary Search, we compare the square of the middle element w
 ### Use Cases:
 Finding the square root using Binary Search has applications in various fields, such as mathematics, engineering, physics, and computer graphics. It's often used when precise square root calculations are required, especially in scenarios where hardware or library-based square root functions are not available.
 
----
-### Question
-
-What advantage does using Binary Search for finding the square root of a number offer over directly calculating the square root?
-
-
-**Choices**
-- [ ] Binary Search has a lower time complexity.
-- [x] Binary Search provides a more precise result.
-- [ ] Binary Search doesn't require any comparisons.
-- [ ] Binary Search can find the square root of any number.
-
 
 ---
-### Problem 3 Finding the Ath magical number
-In this problem, we are tasked with finding the a-th magical number that satisfies a specific condition. A magical number, in the context of this problem, is defined as a positive integer that is divisible by either b or c (or both).
-* Magical Number Definition: A magical number is a positive integer that is divisible by either b or c or both. In other words, if a number x is a magical number, it means that x % b == 0 or x % c == 0, or both conditions hold.
-* Task: Our task is to find and return the a-th magical number based on the conditions mentioned above.
+## Problem 3 Median of two sorted Arrays
 
-#### Example
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/055/887/original/Screenshot_2023-11-04_at_6.52.03_PM.png?1699104135" width=500 />
+## Problem Statement
+Given two sorted arrays A and B of sizes m and n, respectively, your task is to find the **median** of the two sorted arrays. 
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
+The median is the middle value in an ordered list of numbers. If the combined size of the two arrays (i.e., m + n) is odd, the median is the middle element. If the combined size is even, the median is the average of the two middle elements.
 
-#### Brute force
-```cpp
-Function findAMagicalNumberBruteForce(a, b, c):
-    number = 1  // Start with the first positive integer
-    count = 0   // Initialize the count of magical numbers found
-
-    while count < a:
-        if number is divisible by b or c:
-            count = count + 1  // Increment the count if it's divisible by either b or c
-        number = number + 1
-
-    return number - 1  // Subtract 1 because we increased 'number' after finding the a-th magical number
-```
-
-#### Observation
-
-Answer has to be a multiple of either B or C. So, we know we will get answer till A * B or A * C depending on which is smaller. Therefore, our answer range will be between`[1 to A * min(B,C)]`
-
-Example:
-A = 8
-B = 2
-C = 3
-
-A * B = 16
-A * C = 24
-So, our answer will be within range [1 to 16]
-
-**Que: How many multiples of B, C will be within range [1 to x]?** => x/B + x/C - x/LCM(B,C)$
-
-`The LCM of 'b' and 'c' represents the smallest common multiple of 'b' and 'c' such that any number that is divisible by both 'b' and 'c' will be a multiple of their LCM and we will have to subtract it`
-
-Example:
-A = 5
-B = 3
-C = 4
-Range => [1 to 15]
-Multiples 
-=> 15/3 + 15/4 - 15/LCM(3,4)
-=> 5 + 3 + 1 = 7 `[3, 4, 6, 8, 9, 12, 15]`
-
-**Que: How to calculate LCM(B,C) ?**
-LCM(B,C) = (B * C) / GCD(B,C) [We know how to calculate GCD!]
+![median_def](https://hackmd.io/_uploads/B1ENZJU2R.png)
 
 
-### Can we apply Binary Search ?
 
-**Search Space** => `[1 to A * min(B,C)]`
-**Target** => Ath Magical Number
-**Condition** =>
-* Say we land at mid.
-* To check mid is magical, we need to know how many magical numbers are there in the range [1, mid].
-* Compare with A: If the count is more than A, it means we need to search in the lower range [low, mid-1]. 
-* Otherwise, if count is < A, we need to search in higher range
-* If count == A, then we store mid as answer, and go left.
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/297/original/upload_843ecddf1f70df2f9b0438fae6efe6ee.png?1697636713" width=600 />
+**Example:**
+
+A = [1,3,4,7,10,12]
+B = [2,3,6,15]
+
+median = 5
+
+**Explantation**
+
+On merging the two arrays, the resulting array when sorted, would look like [1,2,3,3,4,6,7,10,12,15].
+Hence, the median is (4+6)/2 = 5
 
 
-#### Pseudocode:
-```cpp 
-int count(x, B, C) {
-    return x/B + x/C - x/LCM(B,C);
-}
+### Brute Force Approach
 
-int magical(A, B, C) {
-    l = 1, h = A * min(B,C)
-    while(l <= h) {
-        m = l + (h-l)/2;
-        if(count(m,B,C) > A) {
-            h = m-1;
-        }
-        else if(count(m,B,C) < A) {
-            l = m+1;
-        }
-        else {
-            ans = m;
-            h = m-1;
-        }
-    }
-    return ans;
-}
-```
+The brute force approach to find the median of two sorted arrays involves merging both arrays into a single sorted array, and then finding the median of this merged array.
 
----
-### Question
-What is the time complexity of the binary search approach for finding the a-th magical number in terms of A, B, and C?
+Steps:
+1. Merge the two sorted arrays into one sorted array.
+2. Find the median of the merged array.
 
-**Choices**
-
-- [ ]  O(A)
-- [x]  O(log A)
-- [ ]  O(A * B * C)
-- [ ]  O(log(A * B * C))
-
----
-### Problem 4 Finding median of array
-
-**What is Median?**
-The median of an array is the middle element of the array when it is sorted. For arrays with an odd number of elements, the median is the value at the exact center. For arrays with an even number of elements, the median is typically defined as the average of the two middle elements. It's a measure of central tendency and divides the data into two equal halves when sorted.
-
-### Brute-Force Algorithm to Find the Median of an Array:
-
-* Sort the given array in ascending order. You can use any sorting algorithm (e.g., bubble sort, insertion sort, quicksort, or mergesort).
-* Calculate the length of the sorted array, denoted as n.
-* If n is odd, return the middle element of the sorted array as the median (e.g., sorted_array[n // 2]).
-* If n is even, calculate the average of the two middle elements and return it as the median (e.g., (sorted_array[n // 2 - 1] + sorted_array[n // 2]) / 2).
+### Implementation for Brute Force
 
 ```cpp
-def find_median_brute_force(arr):
-    # Step 1: Sort the array
-    sorted_array = sorted(arr)
+def findMedianBruteForce(arr1, arr2):
+    merged = []
+    i, j = 0, 0
     
-    # Step 2: Calculate the length of the sorted array
-    n = len(sorted_array)
-    
-    # Step 3: Find the median
-    if n % 2 == 1:
-        median = sorted_array[n // 2]
-    else:
-        median = (sorted_array[n // 2 - 1] + sorted_array[n // 2]) / 2.0
-    
-    return median
-```
-
-:::warning
-Please take some time to think about the Binary Search approach on your own before reading further.....
-:::
-
-### Binary Search Approach:
-The Binary Search technique can be harnessed to find the median of two sorted arrays by partitioning the arrays in such a way that the elements on the left side are less than or equal to the elements on the right side. The median will be either the middle element in a combined array (for an odd number of total elements) or the average of two middle elements (for an even number of elements).
-
-### Example: Finding Median of Two Sorted Arrays
-
-**Scenario**:
-Consider the two sorted arrays: nums1 = [1, 3, 5] and nums2 = [2, 4, 6]. We want to find the median of the combined array.
-
-**Intuition:**
-
-* **Combined Sorted Array:** To find the median of two sorted arrays, you can think of combining them into a single sorted array. The median of this combined array will be our solution.
-* **Partitioning:** The key idea is to partition both arrays into two parts such that:
-  * The elements on the left side are smaller than or equal to the elements on the right side.
-  * The partitioning should be done in such a way that we can calculate the median easily.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/298/original/upload_e44a66607d277bde52444cb943fdd5a6.png?1697636987" width=600 />
-
-* **Binary Search:** To achieve this, we can perform a binary search on the smaller array (in this case, nums1). We calculate a partition point in nums1, and then we can calculate the corresponding partition point in nums2.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/299/original/upload_3759b6f6f4cb57981e8ddf27c4c31541.png?1697637273" width=600 />
-
-* **Median Calculation:** Once we have the partitions, we can calculate the maximum element on the left side (max_left) and the minimum element on the right side (min_right) in both arrays. The median will be the average of max_left and min_right.
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/300/original/upload_7d4dede78ac17c636e6f6681bc76427e.png?1697637315" width=600 />
-
-* **Handling Even and Odd Lengths:** Depending on whether the total length of the combined array is even or odd, the median calculation varies. If it's even, we average the two values; if it's odd, we take the middle value.
-
-**Solution**:
-* We start by calculating the total length of the combined arrays to determine if the median will be even or odd.
-* Then, we use binary search on the smaller array (nums1) to find a partition point that satisfies the conditions mentioned earlier. This ensures that elements on the left are smaller or equal to elements on the right.
-* We calculate max_left and min_right for both arrays based on the partitions.
-* Finally, we calculate the median as the average of max_left and min_right.
-
-**Binary Search:**
-
-* Initialize left = 0 and right = len(nums1) = 3.
-* Iteration 1:
-* Calculate partition_nums1 = $(0 + 3) / 2 = 1$.
-* Calculate partition_nums2 = $(6 + 1) / 2 - 1 = 2$.
-* Calculate max_left_nums1 = 1 and max_left_nums2 = 2.
-* Calculate min_right_nums1 = 3 and min_right_nums2 = 4.
-* Since 1 <= 4 and 2 <= 3, we have found the correct partition.
-* Since the total length is even (6), the median is the average of the maximum of left elements and the minimum of right elements, which is $(2 + 3) / 2 = 2.5$.
-
----
-
-#### Pseudocode:
-Here's a simplified pseudocode representation of finding the median of two sorted arrays using Binary Search:
-
-
-```cpp
-function findMedianSortedArrays(nums1, nums2):
-    if len(nums1) > len(nums2):
-        nums1, nums2 = nums2, nums1
-    
-    total_length = len(nums1) + len(nums2)
-    left = 0
-    right = len(nums1)
-
-    while left <= right:
-        partition_nums1 = (left + right) / 2
-        partition_nums2 = (total_length + 1) / 2 - partition_nums1
-
-        max_left_nums1 = float('-inf') if partition_nums1 == 0 else nums1[partition_nums1 - 1]
-        max_left_nums2 = float('-inf') if partition_nums2 == 0 else nums2[partition_nums2 - 1]
-
-        min_right_nums1 = float('inf') if partition_nums1 == len(nums1) else nums1[partition_nums1]
-        min_right_nums2 = float('inf') if partition_nums2 == len(nums2) else nums2[partition_nums2]
-
-        if max_left_nums1 <= min_right_nums2 and max_left_nums2 <= min_right_nums1:
-            if total_length % 2 == 0:
-                return (max(max_left_nums1, max_left_nums2) + min(min_right_nums1, min_right_nums2)) / 2
-            else:
-                return max(max_left_nums1, max_left_nums2)
-        elif max_left_nums1 > min_right_nums2:
-            right = partition_nums1 - 1
+    while i < len(arr1) and j < len(arr2):
+        if arr1[i] < arr2[j]:
+            merged.append(arr1[i])
+            i += 1
         else:
-            left = partition_nums1 + 1
+            merged.append(arr2[j])
+            j += 1
+    
+    while i < len(arr1):
+        merged.append(arr1[i])
+        i += 1
+    
+    while j < len(arr2):
+        merged.append(arr2[j])
+        j += 1
+    
+    n = len(merged)
+    if n % 2 == 0:
+        return (merged[n // 2 - 1] + merged[n // 2]) / 2
+    else:
+        return merged[n // 2]
 ```
-#### Analysis:
-In each iteration, the algorithm adjusts the partition positions based on the comparison of maximum elements on the left side with minimum elements on the right side of the partitions. The Binary Search nature of this algorithm leads to a time complexity of O(log(min(m, n))), where m and n are the lengths of the two input arrays.
 
-#### Use Cases:
-The concept of finding the median of two sorted arrays is crucial in various fields, including data analysis, algorithms, and statistics.
+### Complexity Analysis for Brute Force:
+* **Time Complexity** : 
+ Merging Two Arrays: O(m + n) where m and n are the lengths of the two arrays.
+ Finding the Median: O(1).
+ Overall Time Complexity: **0(m+n)**
+* **Space Complexity :**
+ The additional space is required to store the merged array, hence space complexity: **0(m+n)**
+
+### Optimized Approach
+
+**Observations:**
+
+1. Whenever we are dealing with sorted arrays, we should atleast once think about Binary Search to reduce Time Complexity.
+
+![bs](https://hackmd.io/_uploads/rJ4VEyUnA.png)
+
+2. We know when we finally merge these arrays, we will have half elements on the left of median and half on the right of it. If we fix the number of elements from the first array that we will keep on the left, the number for second array gets fixed
+
+![obs1](https://hackmd.io/_uploads/BkjSrJIhC.png)
 
 
----
-### Observations
+**Steps:** 
 
-* **Sorted Arrays:** Binary Search excels in sorted arrays, capitalizing on their inherent order to quickly locate elements.
-* **Search Space:** Identify the range within which the solution exists, which guides setting up the initial search range.
-* **Midpoint Element:** The middle element provides insights into the properties of elements in different subranges, aiding decisions in adjusting the search range.
-* **Stopping Condition:** Define conditions under which the search should stop, whether an element is found or the search range becomes empty.
-* **Divide and Conquer:** Binary Search employs a "divide and conquer" strategy, progressively reducing the problem size.
-* **Boundary Handling:** Pay special attention to handling boundary conditions, avoiding index out-of-bounds errors.
-* **Precision & Approximations:** Binary Search can yield approximate solutions by adjusting the search criteria.
+1) Assume two arrays, A and B, where A is the smaller one.
+2) Use binary search on the smaller array to partition it and the larger array such that the elements on the left partition are less than or equal to the elements on the right partition. It is sufficient to check the boundary elements to ascertain that.
+
+![l1r1](https://hackmd.io/_uploads/rJBiBy8h0.png)
+![l2r2](https://hackmd.io/_uploads/SyhorJUh0.png)
+
+
+Lets take a few examples to solidify this step
+![case1](https://hackmd.io/_uploads/Hymx8kLh0.png)
+
+If we choose 4 as the number of elements to be on the left from the A, B needs to have 1 element on the left part. We can see that this is not a valid partition as 7 > 3 violates the requirement.
+
+![case2](https://hackmd.io/_uploads/rJ6VIJL2R.png)
+
+If we choose 2 elements from A to be on the left, B needs to have 3. Here too 6>4 violates the condition.
+
+![case3](https://hackmd.io/_uploads/SyZYUkL3C.png)
+
+For 3 elements from A, our condition is satisified.
+
+3) Find the maximum element on the left and the minimum element on the right. The median is calculated based on whether the total number of elements is odd or even.
+
+**Implementation for Optimized approach**
+
+```cpp
+function findMedianOptimized(arr1, arr2):
+    if length(arr1) > length(arr2):
+        # Ensure arr1 is smaller than arr2
+        swap(arr1, arr2)
+
+    x = length(arr1)
+    y = length(arr2)
+    low = 0
+    high = x
+
+    # Binary search on the smaller array (arr1)
+    while low <= high:
+        partitionX = (low + high) // 2
+        partitionY = (x + y + 1) // 2 - partitionX
+
+        # maxX is the largest element on the left side of arr1
+        if partitionX == 0:
+            maxX = negative infinity
+        else:
+            maxX = arr1[partitionX - 1]
+
+        # maxY is the largest element on the left side of arr2
+        if partitionY == 0:
+            maxY = negative infinity
+        else:
+            maxY = arr2[partitionY - 1]
+
+        # minX is the smallest element on the right side of arr1
+        if partitionX == x:
+            minX = positive infinity
+        else:
+            minX = arr1[partitionX]
+
+        # minY is the smallest element on the right side of arr2
+        if partitionY == y:
+            minY = positive infinity
+        else:
+            minY = arr2[partitionY]
+
+        # Check if we found the correct partition
+        if maxX <= minY and maxY <= minX:
+            # If total elements are even
+            if (x + y) % 2 == 0:
+                return (max(maxX, maxY) + min(minX, minY)) / 2
+            # If total elements are odd
+            else:
+                return max(maxX, maxY)
+
+        # If maxX > minY, we took too many elements from arr1
+        elif maxX > minY:
+            high = partitionX - 1
+        # If maxY > minX, we took too few elements from arr1
+        else:
+            low = partitionX + 1
+
+```
+
+### Complexity Analysis of Optimized Approach:
+
+* Time Complexity: **O(log(min(m, n)))**.
+* Space Complexity: **O(1)** (no extra space except variables for the binary search).
+
 
