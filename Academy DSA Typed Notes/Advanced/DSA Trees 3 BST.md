@@ -1,6 +1,7 @@
 # Advanced DSA : Trees 3: BST
 
----
+
+
 ## Binary Search Tree
 
 Binary search tree is searching data in an organized dataset using divide and conquer. 
@@ -20,21 +21,23 @@ Example of a binary search tree:
 ```
 
 ---
+
+
+
 ### Question
 What is a Binary Search Tree (BST)?
 
 
-**Choices**
+### Choices
 - [ ] A tree with only two nodes
 - [ ] A tree where the left child of a node has a value <= the node, and the right child has a value > the node
 - [x] A tree where for a node x, everything on the left has data <= x and on the right > x.
 - [ ] A tree that has height log N.
 
-
-
 ---
-### Problem 1 Searching in Binary Search Tree
+## Problem 1 Searching in Binary Search Tree
 
+### Searching
 Searching in a Binary Search Tree (BST) involves utilizing the property that values in the left subtree are smaller and values in the right subtree are larger than the current node's value. This property allows for efficient search operations.
 Here's an example using the BST diagram from earlier:
 ```cpp
@@ -52,6 +55,8 @@ Here's an example using the BST diagram from earlier:
 * The value 6 matches the current node's value, so the search is successful.
 
 ---
+
+
 ### Question
 What is the number of nodes you need to visit to find the number `1` in the following BST?
 
@@ -63,22 +68,22 @@ What is the number of nodes you need to visit to find the number `1` in the foll
     1  4  6 9 
 ```
 
-**Choices**
+### Choices
 - [ ] 2
 - [x] 3
 - [ ] 4
 - [ ] 1
 
 
-**Explanation**
+### Explanation
 First node: 5. From 5 you move left.
 Second node: 3. From 3 you move left, again.
 Third node: 1. You finally get 1. 
 
 ---
-### Searching in Binary Search Tree Pseudo Code
+## Searching in Binary Search Tree Pseudo Code
 
-#### Pseudo Code
+### Pseudo Code
 ```cpp
 function search(root, target):
     if root is None:
@@ -96,8 +101,7 @@ function search(root, target):
 
 
 ---
-### Problem 2 Insertion in Binary Search Tree
-
+## Problem 2 Insertion in Binary Search Tree
 
 ### Insertion in BST:
 Inserting a new value into a Binary Search Tree (BST) involves maintaining the property that values in the left subtree are smaller and values in the right subtree are larger than the current node's value.
@@ -129,7 +133,7 @@ The updated tree after insertion:
             7
 ```
 
-#### Pseudocode:
+### Pseudocode:
 ```cpp
 function insert(root, value):
     if root is null:
@@ -144,34 +148,31 @@ function insert(root, value):
 ```
 
 ---
+
+
 ### Question
 Where does the node with the smallest value resides in a BST?
 
-**Choices**
+### Choices
 - [x] We keep on going left and we get the smallest one.
 - [ ] Depends on the tree.
 - [ ] We keep on going right and we get the smallest one.
 - [ ] The root node.
 
 
-
 For every node, we need to go to its left, that's the only way we can reach the smallest one.
 
 ---
-### Problem 3 Find smallest in Binary Search Tree
+## Problem 3 Find smallest in Binary Search Tree
 
+### Problem Statement
 Find smallest in Binary Search Tree
 
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-**Approach**
+### Approach
 
 The left most node in the tree, will be the smallest.
 
-**Example:**
+### Example:
 Suppose we have the following BST:
 ```cpp
        5
@@ -187,28 +188,29 @@ To find the smallest element:
 * Continue moving to the left child until you reach a node with no left child.
 * The node with no left child is the smallest element in the BST. In this case, it's the node with the value 2.
 * So, in this example, the smallest element in the BST is 2.
-
-#### Pseudocode
+### Pseudocode
 
 ```cpp
-temp = root // not null
-while (temp.left != null) {
-  temp = temp.left
+temp = root// not null
+while(temp.left != null)
+{
+    temp = temp.left
 }
 return temp.data;
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(1)
 
 ---
-### Problem 4 Find largest in Binary Search Tree
-#### Approach
+## Problem 4 Find largest in Binary Search Tree
+
+### Approach
 
 The right most node in the tree, will be the largest.
 
-**Example:**
+### Example:
 Suppose we have the following BST:
 ```cpp
        5
@@ -224,24 +226,27 @@ Suppose we have the following BST:
 * The node with no right child is the largest element in the BST. In this case, it's the node with the value 9.
 * So, in this example, the largest element in the BST is 9.
 
-#### Pseudocode
+### Pseudocode
 
 ```cpp
-temp = root // not null
-while (temp.right != null) {
-  temp = temp.right
+temp = root// not null
+while(temp.right != null)
+{
+    temp = temp.right
 }
 return temp.data;
 ```
 
 ---
-### Problem 5 Deletion in Binary Search Tree
+## Problem 5 Deletion in Binary Search Tree
 
+
+### Deletion in Binary Search Tree
 Deleting a node from a Binary Search Tree (BST) involves maintaining the BST property while handling various cases depending on the node's structure. Here's how the deletion process works:
 
 * Find the Node to Delete: Start at the root and traverse the tree to find the node you want to delete. Remember to keep track of the parent node as well.
 
-#### Case 1: Node with No Children (Leaf Node)
+### Case 1: Node with No Children (Leaf Node)
 In this case, we have a node with no children (a leaf node). Deleting it is straightforward; we simply remove it from the tree.
 
 **Example:**
@@ -261,7 +266,7 @@ After deleting the node with the value 7, the tree becomes:
      /    /  \
     3    12  18
 ```
-#### Case 2: Node with One Child
+### Case 2: Node with One Child
 In this case, the node to be deleted has only one child. To delete it, we replace the node with its child.
 
 **Example:**
@@ -283,7 +288,7 @@ After deleting the node with the value 5, we replace it with its child (3):
 ```
 
 
-#### Case 3: Node with Two Children
+### Case 3: Node with Two Children
 In this case, the node to be deleted has two children. To delete it, we find either the in-order predecessor or successor and replace the node's value with the value of the predecessor or successor. Then, we recursively delete the predecessor or successor.
 
 **Example:**
@@ -310,25 +315,57 @@ To delete the node with value 10, we can either choose its in-order predecessor 
 ```
 These are the three main cases for deleting a node in a Binary Search Tree (BST). 
 
-#### Pseudo Code
+### Pseudo Code
 Here's the pseudo code with each of the cases mentioned.
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/059/687/original/Screenshot_2023-12-19_at_9.48.10_PM.png?1703002703" width=550 />
+
+
+```cpp 
+Node delete(Node root, int K){
+    if(root == NULL) return NULL;
+    
+    if(root.data == K){
+        if(root.left == NULL && root.right == NULL)
+            return NULL;
+        if(root.left || root.right){
+            if(root.left == NULL) return root.right;
+            if(root.right == NULL) return root.left;
+        }
+        
+        Node temp = root.left;
+        while(temp.right != NULL){
+            temp = temp.right;
+        }
+        root.data = temp.data;
+        root.left = delete(root.left, temp.data);
+        return root;
+    }
+    else if(root.left > K){
+        root.left = delete(root.left, K);
+    }
+    else{
+        root.right = delete(root.right, K);
+    }
+}
+```
+
+---
+
 
 ### Question
 What is the purpose of balancing a Binary Search Tree?
-
-**Choices**
+### Choices
 - [ ] To make it visually appealing
 - [ ] To ensure all nodes have the same value
 - [x] To maintain efficient search, insert, and delete operations
 - [ ] Balancing is not necessary in a Binary Search Tree
 
-
 ---
-### Problem 6  Construct a binary search tree
+## Problem 6  Construct a binary search tree
 
 
-#### Approach:
+### Construct BST from sorted array of unique elements:
+
+### Approach:
 * Find the middle element of the sorted array.
 * Create a new node with this middle element as the root of the tree.
 * Recursively repeat steps 1 and 2 for the left and right halves of the array, making the middle element of each subarray the root of its respective subtree.
@@ -336,7 +373,7 @@ What is the purpose of balancing a Binary Search Tree?
 * The final tree will be a valid BST with the given sorted array as its inorder traversal.
 * Here's an example construction of a BST using the values 8, 3, 10, 1, 6, 14, 4, 7, and 13:
 
-#### Example:
+### Example:
 * Sorted Array - 1, 3, 4, 6, 7, 8, 10, 13, 14
 * Create the root node with value 8.
 * Insert 3: Move to the left child of the root (value 3).
@@ -359,7 +396,7 @@ The constructed BST:
 ```
 
 
-#### Pseudocode:
+### Pseudocode:
 
 ```cpp
 function insert(root, value):
@@ -380,12 +417,15 @@ for each value in values:
     root = insert(root, value)
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(logn)
 
 ---
-### Problem 7 Check if a binary tree is a binary search tree
+## Problem 7 Check if a binary tree is a binary search tree
+
+
+### Check if a binary tree is a binary search tree
 
 To check if a binary tree is a binary search tree (BST), you can perform an inorder traversal of the tree and ensure that the values encountered during the traversal are in ascending order. Here's how you can do it:
 
@@ -394,7 +434,7 @@ To check if a binary tree is a binary search tree (BST), you can perform an inor
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/537/original/yd0ry4C.png?1697191775" width=500/>
 
 
-#### Approach:
+### Approach:
 * Perform an inorder traversal of the binary tree.
 * During the traversal, keep track of the previously visited node's value.
 * At each step, compare the current node's value with the previously visited node's value.
@@ -403,7 +443,7 @@ To check if a binary tree is a binary search tree (BST), you can perform an inor
 
 
 
-**Example:**
+### Example:
 Suppose we have the following binary tree:
 ```cpp
         4
@@ -423,6 +463,8 @@ Suppose we have the following binary tree:
 * Since there's a violation, the tree is not a BST.
 
 ---
+
+
 ### Question
 Check where the given binary tree is a Binary Search Tree.
 
@@ -434,21 +476,20 @@ Check where the given binary tree is a Binary Search Tree.
     1  3 4  7
 ```
 
-**Choices**
+### Choices
 - [ ] Yes, It is a Binary Search Tree
 - [x] No, It is not a Binary Search Tree
 - [ ] May be
 - [ ] Not sure
 
 
-**Explanation:**
+---
+
+### Explanation:
 
 No, It is not a Binary Search Tree.
 
 The node with the value 4 should not be on the right sub of the root node, since the root is 5, the node has to be placed on left subtree.
-
----
-
 
 ### Pseudocode:
 ```cpp
@@ -479,6 +520,6 @@ function isBST(root):
     return inorderTraversal(root)
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
