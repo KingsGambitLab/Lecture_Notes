@@ -1,15 +1,16 @@
 # Recursion 1
 
----
+
 ## Introduction to Recursion
 
+
 ### Definition
-1. See this video - [LINK](https://www.youtube.com/watch?v=-xMYvVr9fd4)
+1. Watch this video - [LINK](https://www.youtube.com/watch?v=-xMYvVr9fd4)
 2. Function calling itself.
 3. A problem is broke into smaller problem(subproblem) and the solution is generated using the subproblems.
 
 
-**Example**
+### Example
 Here's an example of how recursion can be used to calculate the sum of the first **N** natural numbers:
 ```cpp
 sum(N) = 1 + 2 + 3 + 4 + ..... + N-1 + N
@@ -25,8 +26,24 @@ We can solve any recursive problem using below magic steps:
 2. **Main logic:** Break the problem down into smaller subproblems to solve the assumption.
 3.  **Base case:** Identify the inputs for which we need to stop the recursion.
 
+### Sum of N
+```
+//Assumption: function sum(N) will return sum of numbers from 1 to N
+
+function sum(N) {
+    //Base Case
+    if(N==0) {
+        return 0;
+    }
+    
+    //Main Logic
+    return N + sum(N-1); //sum(N-1) will return sum of numbers from 1 to N-1
+}
+```
+
 ---
 ## Function Call Tracing
+
 
 * Function call tracing involves tracing the sequence of function calls that are made when a program is executed. 
 * It involves keeping track of the function calls, their arguments, and the return values in order to understand the flow of the program and how the functions are interacting with each other.
@@ -34,27 +51,25 @@ We can solve any recursive problem using below magic steps:
 ### Example:
 We have the following code:
 ```cpp
-int add(int x, int y) {
+function add(x, y) {
     return x + y;
 }
 
-int mul(int x, int y, int z) {
+function mul(x, y, z) {
     return x * y * z;
 }
 
-int sub(int x, int y) {
+function sub( x, y) {
     return x - y;
 }
 
-void(int x) {
+function ( x) {
     cout << x << endl;
 }
 
-int main() {
-    int x = 10;
-    int y = 20;
+function main() {
+    x = 10, y = 20;
     print(sub(mul(add(x, y), 30), 75));
-    return 0;
 }
 ```
 Here are the steps involved in function call tracing of the above code:
@@ -75,19 +90,24 @@ Here are the steps involved in function call tracing of the above code:
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/033/383/original/Screenshot_2023-05-02_at_3.13.05_PM.png?1683043955" alt= “” width="600" >
 
 ---
-### Problem 1 : Factorial of N
+## Problem 1 Factorial of N
+
+### Problem Statement
 Given a positive integer N, find the factorial of N.
+
+---
 
 ### Question
 If N = 5, find the factorial of N.
-
-**Choices**
+### Choices
 - [ ] 100
 - [x] 120
 - [ ] 150
 - [ ] 125
 
-**Solution**
+
+---
+### Factorial of N Solution
 
 **Assumptions:** Create a function which - 
 * takes an integer value `N` as parameter. 
@@ -96,7 +116,7 @@ If N = 5, find the factorial of N.
 
 **Main logic:** 
 * The factorial of N is equal to N times the factorial of (N-1)
-* We made assumption that sum(N) calculates and return factorial of N natural number. Similarly, sum(N-1) shall calculate and return the factorial of N-1 natural number.
+* We made assumption that sum(N) calculates and return sum of N natural number. Similarly, sum(N-1) shall calculate and return the factorial of N-1 natural number.
 `factorial(N) = N * factorial(N-1)`
 
 **Base case:** The base case is when N equals 0, i.e., `0! = 1`
@@ -107,15 +127,15 @@ When we perform, `factorial(N) = N * factorial(N-1)`, value of N keeps on decrea
 for N = 1 as well as 0, the factorial is 1.
 So, we can write base case for N = 0 which will also cover for N = 1.
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-int factorial(int N) {
+factorial(N) {
     // base case
-    if (N == 0) {
+    if (N == 0) { 
         return 1;
-    }
+    } 
     // recursive case
-    return N * factorial(N - 1);
+    return N * factorial(N-1);
 }
 ```
 
@@ -123,10 +143,158 @@ int factorial(int N) {
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/052/805/original/Screenshot_2023-10-08_at_6.50.26_PM.png?1696771237" width="350" />
 
+---
+## Problem 2 Printing numbers in increasing order
+
+
+### Problem Statement
+Given N, print all numbers from 1 to N in increasing order.
+
+Inc(5)= 1 2 3 4 5
+Inc(5) = Inc(4) + 5
+Subproblem: Inc(4)
 
 ---
-### Problem 2 : Nth number in the Fibonacci Series
+### Question
 
+Which of the following correctly represents the N Increasing numbers in form of subproblems?
+
+### Choices
+- [x] Inc(N - 1) 
+- [ ] Inc(N + 1) 
+- [ ] Inc(N) 
+
+---
+### Solution 
+
+```javascript
+// Assumption - Given N, print all numbers from 1 to N
+
+function increasing(N) {
+    //Base Condition
+    if(N == 1) {
+        print(N)
+        return
+    }
+    
+    //Main Logic
+    increasing(N-1) //subproblem
+    print(N) //first we call for recursion and then print
+}
+```
+
+**Dry Run**
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/164/original/upload_ad93d552333c416bad2a243d135af117.png?1695877458" width=700 />
+
+**Note:** 
+* If the return type is void we can still write **return statement** to exit the function.
+* When the function ends {last line executed} or when we execute a return, it will go back to where it was called.
+
+---
+## Problem 3 Whirlpool's countdown timer
+
+
+### Problem 
+**Whirlpool** wants to design a timer for their **washing machines**. This feature is a simple countdown timer. When a user sets a time, for example, 10 minutes, the washing machine needs to show each minute passing, counting down until it reaches 0.
+
+Your task is to write a program that takes an integer **A** (the time in minutes set by the user) and then prints out each minute as it counts down to **0**.The requirement is that after a user set a timer for the washing machine for some time say **A** , the washing machine should display each minute after that decremented one by one till the time becomes **0**.
+
+
+### Simplified Problem statement 
+Given **N**, print all numbers from **1 to N** in decreasing order.
+
+### Approach
+
+- `decreasing(5) = 5 4 3 2 1`
+- `decreasing(5) = print(5) decreasing(4)`
+- `decreasing(N) = N N - 1 N - 2 ... 2 1` 
+- `decreasing(N) = print(N) decreasing(N - 1)`
+
+### Pseudocode
+```java
+// Assumption - Given N, print all numbers from N to 1
+
+function decreasing(N) {
+    //Base Condition
+    if(N == 1) {
+        print(N)
+        return
+    }
+    
+    //Main Logic
+    print(N) //first we print and then we call for recursion
+    decreasing(N-1) //subproblem
+}   
+```
+
+### Time and Space Complexity of Recursion
+
+
+**Time Complexity = O(Number of function calls * Time per function call)**
+
+**Space Complexity = O(Maximum depth of recursion tree/stack space + Space per function call)**
+
+The space complexity of recursion refers to the amount of memory required by a recursive algorithm as it executes. It is determined by the maximum amount of memory needed on the call stack at any given point during the recursion(stack space can be measured from height of the tree).
+
+## Factorial(N)
+
+#### Pseudocode
+```cpp
+function factorial(N) {
+    // base case
+    if (N == 0) { 
+        return 1;
+    } 
+    // recursive case
+    return N * factorial(N-1);
+}
+```
+
+#### Recursive Tree for Factorial
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/065/181/original/Screenshot_2024-02-15_at_11.51.09_AM.png?1707978082" width=200 />
+
+
+
+### Time Complexity
+
+For finding number of function calls, we can see the above recursive tree.
+If N=5, number of function calls = 5
+If N=6, number of function calls = 6
+Hence for N, number of function calls = N
+Time take per call = O(1)
+
+Hence, for factorial, overall time complexity = O(N)
+
+### Space Complexity
+Total N call will be stored in the stack.
+```
+factorial(1)
+factorial(2)
+---------------
+---------------
+---------------
+factorial(N-1)
+factorial(N)
+```
+The height of recursive tree = N, hence stack space is O(N) and no extra space is used in calls, hence total space complexity O(N)
+
+## increasing(N) /decreasing(N)
+
+### Time Complexity
+Number of function calls are N
+Time per call is O(1)
+Total T.C = O(N)
+
+### Space Complexity
+Since height of recursive tree is N, and no extra space is used otherwise, the S.C = O(N)
+
+
+---
+## Problem 4 Nth number in the Fibonacci Series
+
+### Problem Statement
 The Fibonacci sequence is a series of numbers in which each number is the sum of the two preceding numbers.
 
 
@@ -138,7 +306,7 @@ The sequence goes like this:
 
 Given a positive integer N, write a function to compute the Nth number in the Fibonacci sequence using recursion.
 
-**Example**
+### Example
 ```cpp
 Input = 6
 Output = 8
@@ -151,23 +319,20 @@ Output = 8
 Fibonacci(6) = Fibonacci(5) + Fibonacci(4) = 3 + 5 = 8.
 
 ---
+
 ### Question
 If N = 7, find the Nth number in the fibonacci sequence.
-
-**Choices**
+### Choices
 - [ ] 8
 - [ ] 5
 - [x] 13
 - [ ] 10
 
 ---
+## Nth number in the Fibonacci sequence Solution
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-### Nth number in the Fibonacci sequence Solution
-#### Solution
+### Solution
 **Assumptions:** Create a function which - 
 * takes an integer value `N` as parameter. 
 * calculates and returns Nth number in the fibonacci sequence.
@@ -180,195 +345,80 @@ Please take some time to think about the solution approach on your own before re
 
 * Since, according to the definition of fibonacci sequence, the smallest two possible values of N are `N = 1` & `N = 2`, therefore, stop recursion as soon as N becomes 0 or 1.
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-int fibonacci(int N) {
+function fibonacci(N) {
     // base case
     if (N == 0 || N == 1) {
         return N;
     }
-
+    
     // recursive case
     return fibonacci(N - 1) + fibonacci(N - 2);
 }
 
 ```
-#### Function Call Tracing
+### Function Call Tracing
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/034/890/original/Screenshot_2023-05-22_at_8.05.10_PM_%281%29.png?1684766319" alt= “” width="500" height="500">
 
-
+**HW:** Do the above function call tracing with stack.
 
 ---
-### Time Complexity of Recursion - using Recurrence Relation
+## Time and Space for Fibonacci
 
-**Factorial(N)**
-#### Pseudocode
-```cpp
-int factorial(int N) {
-    // base case
-    if (N == 0) {
-        return 1;
-    }
-    // recursive case
-    return N * factorial(N - 1);
-}
-```
-
-* Let's assume that time taken to calculate **factorial(n)** = **T(n)**.
-* **factorial(n)** depends on the time taken by **factorial(n-1)** and other than that, constant work is being performed. 
-* Time taken by **factorial(n-1) = T(n-1) + O(1)**.
-* Therefore, for the sum of digits, the recursive relation will be defined as follows: 
-
-#### Equation 1
-```
-T(n) = T(n-1) + 1
-```
-**1** is added because other than function calls, a constant amount of work is being done. 
-
-Substituting the value of ```T(n-1) = T(n-2) + 1```
-
-#### Equation 2
-```
-T(n) = T(n-2) + 2
-```
-Substituting the value of ```T(n-2) = T(n-3) + 1```
-
-#### Equation 3
-```
-T(n) = T(n-3) + 3
-```
-Substituting the value of ```T(n-3) = T(n-4) + 1```
-#### Equation 4
-```
-T(n) = T(n-4) + 4
-```
-
-After say **k** iterations, we shall reach to the base step.
-The equation will be:
-#### Equation 5
-```
-T(n) = T(n-k) + k    
-```
-
-The base case shall take constant time:
-
-```
-T(0) = O(1) 
-```
-
-We shall substitute the value of **n - k = 0**
-
-```
-=> n - k = 0 
-=> n = k 
-```
-Put the above value in a generalized equation, we get
-```
-T(n) = T(0) + n
-T(n) = 1 + n
-T(n) = O(n)
-```
-Hence we can say that.
-```
-T(n) = O(n)
-```
----
-### Time Complexity of Fibonacci
 
 #### Pseudocode
-```cpp
-Function fibonacci(int n) {
-    if (n == 0 || n == 1) return n;
-    return fibonacci(n - 1) + fibonacci(n - 2);
-}
+```c++
+Function fibonacci(n){
+    if(n == 0 || n == 1) return n;
+    return fibonacci(n-1) + fibonacci(n-2);
+} 
 ```
-Recurrence Relation is:
-```
-    T(n) = T(n-1) + T(n-2)
-```
-For easy calculation, we can write the recurrence relation as follows:
-```
-    T(n) = 2 * T(n-1)
-```
-It will evaluate to **O(2<sup>N</sup>)**
->Note to Instructor: Please evaluate above recurrence relation in class.
-
-
-### Another definition of Time Complexity
-
-Time Complexity can also be defined as 
-
-**Time taken in a single function call * Number of function calls**
-
----
-### Question
-How many recursive calls in the factorial(6)?
-
-Choose the correct answer
-**Choices**
-- [ ] 0
-- [ ] 2
-- [x] 6
-- [ ] 10
-
----
-### Space Complexity of Recursive Code
-
-
-The space complexity of recursion refers to the amount of memory required by a recursive algorithm as it executes. It is determined by the maximum amount of memory needed on the call stack at any given point during the recursion.
-
-### Space Complexity of factorial(N)
-Total N call will be stored in the stack.
-```
-factorial(1)
-factorial(2)
----------------
----------------
----------------
-factorial(N-1)
-factorial(N)
-```
-
-Maximum stack space used is N, hence space is O(N)
-
-Hence, total O(N) space is required to execute all the recursive calls.
-
-### Space complexity of fibonacci(n)
-If the time complexity of our recursive Fibonacci is O(2^n), what’s the space complexity?
-
-***Tempted to say the same?***
-> NOTE to Instructor: Show it using a stack
-
-**SPACE COMPLEXITY** can also be calculated using **RECURSIVE TREE**
-
+#### Recursive Tree for Fibonacci
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/163/original/fibonacci.png?1706036608" width=500/>
->Please Note: This tree is known as Recursive Tree.
 
-Space complexity is the amount of memory used by the algorithm.
+### T.C 
+
+In above tree, how many function calls are there ?
+In level 1 => 2^0^
+In level 2 => 2^1^
+In level 3 => 2^2^
+.
+.
+.
+In level x => 2^x-1^
+
+The last is Nth level, hence x = N.
+
+Total function calls are -
+2^0^ + 2^1^ + 2^2^ + 2^3^ + ....... + 2^N-1^
+This is sum of GP, a=1, r=2, #terms = N
+
+Formula = a(r^#terms^ - 1) / (r-1)
+        = 1(2^N^ - 1) / (2-1)
+        = O(2^N^)
+
+
+
+### S.C
+
+Space complexity is the maximum amount of stack space used by the algorithm.
 
 When a function is called, it is added to the stack.
-
 When a function returns, it is popped off the stack.
 
 We’re not adding all of the function calls to the stack at once.
-
 We only make n calls at any given time as we move up and down branches.
 
 We proceed branch by branch, making our function calls until our base case is met, then we return and make our calls down to the next branch.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/164/original/fibnocci_compexity.png?1706036686" width=500/>
 
-We can also define **Space Complexity** as **height of the Recursive Tree**. 
+Hence, at a time at max calls = height of the tree, will be present in stack, hence space complexity is O(N) for fibonacci.
 
----
-### Question
-What is the height of tree for fibonacci(6) ?
-Choose the correct answer
+#### Emulation of space for Fibonacci(3) using stack
 
-**Choices**
-- [ ] 0
-- [ ] 7
-- [x] 6
-- [ ] 8
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/065/197/original/Screenshot_2024-02-15_at_1.05.24_PM.png?1707982536" width=500 />
+
 
