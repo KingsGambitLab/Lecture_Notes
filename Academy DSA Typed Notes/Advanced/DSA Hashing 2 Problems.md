@@ -1,13 +1,113 @@
-# Hashing Problems
+# Hashing 2: Problems
+
+
+## Problem 1 First non repeating element
+
+### Problem Statement
+
+Given N elements, find the first non-repeating element. 
+
+### Example
+
+Input 1:
+```
+N = 6
+```
+|  1  |  2  |  3  |  1  |  2  |  5  |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+Output1 :
+```plaintext
+ans = 3
+```
+
+|  1  |  2  |  3  |  1  |  2  |  5  |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+
+Input 2:
+```
+N = 8
+```
+
+|  4  |  3  |  3  |  2  |  5  |  6  |  4  |  5  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+
+Output 2:
+```plaintext
+ans = 2
+```
+Input 3:
+```
+N = 7
+```
+
+|  2  |  6  |  8  |  4  |  7  |  2  |  9  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+
+Output 3:
+```plaintext
+ans = 6
+```
+
+## Solution
+### Idea 1
+
+* Use Hashmap to store the frequency of each element. Store <**key**:element, **value**:frequency>.
+* Iterate over the Hashmap and find the element with frequency 1.
+
+### Flaw in Idea 1
+
+* When we store in Hashmap, the order of elements is lost; therefore, we cannot decide if the element with frequency 1 is first non-repeating in the order described in the Array.
+
+### Idea 2
+
+* Use Hashmap to store the frequency of each element. Store `<key:element, value:frequency>`.
+* Instead of Hashmap, iterate over the Array from the start. If some element has a frequency equal to one, then return that element as answer.
+
+
+### Pseudeocode
+```cpp
+Function firstNonRepeating(A[])
+{
+   Hashmap<integer,integer> mp;
+   n = A.length
+   
+   for(i -> 0 to n - 1)
+   {
+      if(mp.Search(A[i]) == true)
+      {
+         mp[A[i]] ++
+      }
+      else{
+        mp.Insert(A[i],1)
+      }
+   }
+   for(i -> 0 to n - 1)
+   {
+       if(mp[A[i]] == 1)
+       {
+          return A[i]
+       }
+   }
+   return - 1
+}
+```
+
+Time Complexity : **O(N)**
+Space Complexity : **O(N)**
+
 
 ---
-## Problem 1 Pair Sum K
+## Problem 2 Pair Sum K
+
+
+### Problem Statement
 Given arr[N] and K, check if there exists a pair(i, j) such that,
 ```kotlin
 arr[i] + arr[j] == K && i != j
 ```
 
-**Example**
+### Example
 Let's say we have an array of 9 elements and K, where K is our target sum, 
 
 | Index |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |
@@ -21,33 +121,33 @@ K = 8: arr[4] + arr[8]: such a pair exists
 Hence if K = `6` or `8` the answer is `true`, for K = `22`, it will be `false`.
 
 ---
+
 ### Question
 Check if there exists a pair(i, j) such that, arr[i] + arr[j] == K && i != j in the given array A = [3, 5, 1, 2, 1, 2] and K = 7.
 
 
-**Choices** 
+### Choices 
 - [x] true
 - [ ] false
+
+---
+
 
 ### Question
 Check if there exists a pair(i, j) such that, arr[i] + arr[j] == K && i != j in the given array A = [3, 5, 1, 2, 1, 2] and K = 10.
 
 
-**Choices** 
+### Choices 
 - [ ] true
 - [x] false
 
 ---
+## Pair Sum K Brute Force
 
-:::warning
-Please take some time to think about the bruteforce approach on your own before reading further.....
-:::
-
-### Problem 1 Brute Force
-#### Idea 1: 
+### Idea 1: 
 Iterate on all pairs(i, j) check if their sum == k
 
-**Example 2**:
+### Example 2:
 Take another example of arr[5] 
 | Index  |  0  |  1  |  2  |  3  |  4  |
 |:------:|:---:|:---:|:---:|:---:|:---:|
@@ -60,10 +160,10 @@ We can have following cases of pairs from an array of size 5
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/049/583/original/upload_3a54ba208d44d76c7063510180eb6da1.png?1695221986" alt= “” width ="500" height="400">
 
 * Here, since we are not allowed to consider pairs where i == j these diagonal elements (marked in red) will not be considered. 
-* Now, as you can see the upper (blue) and lower (yellow) triangles represent the same pairs (order of pair doesn't matter here) our program would work with either one of these triangular parts. 
+* Now, as you can see the upper (blue) and lower (yellow) triangles represent the same pairs (order of pair doesn't matter here) our program would work with either one of these triangular parts.  
 
 *Now, considering upper triangle -*
-#### Observation:
+### Observation:
 
 |  i  | j loops from [i...(N - 1)] |
 |:---:|:------------------------:|
@@ -77,31 +177,31 @@ Here for every index of i, j loops from i to N - 1
 
 For an `arr[i]`, the target will be `K-arr[i]`
 
-#### Pseudocode:
+### Pseudocode:
 ```kotlin
-boolean checkPair(int arr[], int K) {
-
-    int N = arr.length
-    for (int i = 0; i < N; i++) {
+function checkPair(arr[], K){
+    
+    N = arr.length
+    for(i -> 0 to N - 1){
         //target: K-arr[i]
-        for (int j = i; j < N; j++) {
-            if (arr[i] == K - arr[i]) {
+        for(j -> i to N - 1){
+            if(arr[j] == K - arr[i]){ // arr[i] + arr[j] == K
                 return true;
             }
-        }
+        }    
     }
     return false;
 }
 
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N^2)
 **Space Complexity:** O(1)
 
 
 ---
-### Problem 1 Optimization with HashSet(Doesn't Work)
+## Pair Sum K Optimization with HashSet(Doesn't Work)
 
 * We can insert all elements in the set initially.
 * Now, iterate over every arr[i] and check if K-arr[i] is present in the set. If yes, return tue, else false.
@@ -126,7 +226,8 @@ We need not insert all elements into set at once. Rather only insert from [0, i 
 
 
 ---
-### Problem 1 Optimization with HashSet(Works)
+## Pair Sum K Optimization with HashSet(Works)
+
 
 At ith index: Hashset should contain all the elements:[0...i - 1]
 
@@ -147,17 +248,18 @@ Let's take another example,
 
 
 
-#### Pseudocode:
+### Pseudocode:
 ```kotlin
-boolean targetSum(int arr[], int K) {
-    int N = arr.length;
-    Hashset < int > bs;
-
-    for (int i = 0; i < N; i++) {
+function targetSum(arr[], K){
+    N = arr.length;
+    Hashset<integer> bs;
+    
+    for(i -> 0 to N - 1){
         //target = K - arr[i]
-        if (bs.contains(K - arr[i])) {
+        if(bs.contains(K - arr[i])){
             return true;
-        } else {
+        }
+        else {         
             bs.add(arr[i]);
         }
     }
@@ -165,36 +267,44 @@ boolean targetSum(int arr[], int K) {
 }
 ```
 ---
+
 ### Question
 Count pairs(i, j) such that, arr[i] + arr[j] == K && i != j in the given array.
 A = [3, 5, 1, 2, 1, 2] and K = 3.
 
+Note that (i, j) and (j, i) considered as same.
 
-**Choices** 
+### Choices 
 - [ ] 1
 - [ ] 2
 - [ ] 3
 - [x] 4
 
+### Explanation
 
 
 In the given array A = [3, 5, 1, 2, 1, 2], pairs with sum = 3 are:
 
-| Pairs  |
-| ------ |
-| {2, 3} |
-| {2, 5} |
-| {3, 4} |
+| Pairs(i, j)  | arr[i] | arr[j] |
+| ------ | ------ | ------ |
+| {2, 3} |   1    |   2    |
+| {2, 5} |   1    |   2    |
+| {3, 4} |   2    |   1    |
+| {4, 5} |   1    |   2    |
+
 
 ---
-### Problem 2 Count no. of pairs with sum K
+## Problem 3 Count no. of pairs with sum K
 
+
+### Problem Statement
 Given an `arr[n]`, count number of pairs such that 
 ```kotlin
 arr[i] + arr[j] = K && i != j
 ```
+Note that (i, j) and (j, i) considered as same.
 
-**Example**
+### Example
 
 Provided we have an arr[8] and K = 10, we have 
 | Index  |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |
@@ -217,10 +327,6 @@ Provided we have an arr[8] and K = 10, we have
 
 Here (i, j) and (j, i) considered as same. 
 
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
-
 ### Optimised Approach(Same as in previous question)
 * Similar to our previous problem, we'll be searching for our target. 
 * This time we also need to consider the frequency of how many times a particular element appeared, so we shall be maintianing a map.
@@ -233,23 +339,24 @@ Please take some time to think about the optimised approach on your own before r
 
 ### Pseudocode:
 ```kotlin
-int countTargetSum(int arr[], int K) {
-    int N = arr.length;
-    Hashmap < int, int > hm;
-
-    int c = 0;
-
-    for (int i = 0; i < n; i++) {
+function countTargetSum(arr[], K){
+    N = arr.length;
+    Hashmap<integer, integer> hm;
+    
+    c = 0;
+    
+    for(i -> 0 to n - 1){
         //target = K-arr[i]
-        if (hm.contains(K - arr[i])) {
+        if(hm.contains(K - arr[i])){
             c = c + hm[K - arr[i]] //freq of target = pairs
         }
-
+        
         //insert arr[i]
-        if (hm.contains(arr[i])) {
+        if(hm.contains(arr[i])){
             hm[arr[i]]++;
-        } else {
-            hm.put(arr[i], 1);
+        }
+        else{
+            hm[arr[i]] = 1;
         }
     }
     return c;
@@ -261,8 +368,112 @@ int countTargetSum(int arr[], int K) {
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
 
+
 ---
-### Problem 3 Subarray with Sum K
+## Problem 4 Subarray sum 0
+
+
+### Problem Statement
+
+Given an array of N elements, check if there exists a subarray with a sum equal to 0.
+
+### Example
+**Input:**
+
+N = 10
+
+
+|  2  |  2  |  1  | -3  |  4  |  3  |  1  | -2  | -3  |  2  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+
+**Output:**
+if we add elements from index 1 to 3, we get 0; therefore, the answer is **true**.
+
+### Solution
+* Traverse for each subarray check if sum == 0.
+   * Brute Force: Create all Subarrays, Time complexity: **O(n<sup>3</sup>)**.
+   * We can optimize further by using **Prefix Sum** or **Carry Forward** method and can do it in Time Complexity: **O(n<sup>2</sup>)**.
+   * How can we further optimize it?
+
+### Observations
+
+* Since we have to find sum of a subarrays(range), we shall think towards **Prefix Sum**.
+
+Initial Array: -
+
+
+|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|  2  |  2  |  1  | -3  |  4  |  3  |  1  | -2  | -3  |  2  |
+
+Prefix sum array: -
+
+|  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |
+|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|:---:|
+|  2  |  4  |  5  |  2  |  6  |  9  | 10  |  8  |  5  |  7  |
+
+We need a subarray with **sum(i to j) = 0**
+Using Prefix Sum Array,
+**PrefixSum[j] - PrefixSum[i-1] = 0
+PrefixSum[j] = PrefixSum[i-1]**
+
+It implies, if there exist duplicate values in Prefix Sum Array, then the sum of a subarray is 0.
+
+Example,
+
+```cpp
+PrefixSum[2] = 5
+PrefixSum[8] = 5
+sum of elements in intial array from index 3 to 8 = 0
+```
+
+**Summary**
+* If numbers are repeating in Prefix Sum Array, then there exists a subarray with sum 0.
+* Also, if the Prefix Sum Array element is 0, then there exists a subarray with sum 0.
+    * Example: 
+        * A[] = {-2, -1, 3, 5}
+        * PrefixSum[] = {-2, -3, 0, 5}
+        * Here, 0 in PrefixSum Array implies that there exist a subarray with sum 0 starting at index 0.
+          
+
+### Approach
+
+* Calculate prefix sum array.
+* Traverse over elements of prefix sum array.
+  * If the element is equal to 0, return true.
+  * Else, insert it to HashSet.
+* If the size of the prefix array is not equal to the size of the hash set, return true.
+* Else return false.
+
+### Pseudeocode
+```cpp
+// 1. todo calculate prefix sum array
+
+// 2.
+Function checkSubArraySumZero(PrefixSumArray[])
+{
+  Hashset<integer> s
+  for(i -> 0 to PrefixSumArray.length - 1 )
+  { 
+    if(PrefixSumArray[i] == 0)
+    {
+       return true
+    }
+    s.insert(PrefixSumArray[i])
+  }
+  if (s.size != PrefixSumArray.size) 
+      return true
+  return false
+}
+```
+Time Complexity : **O(N)**
+Space Complexity : **O(N)**
+
+
+---
+## Problem 5 Subarray with Sum K
+
+### Problem Statement
 Given an array arr[n] check if there exists a subarray with sum = K
 
 ### Example: 
@@ -278,18 +489,21 @@ Possible subarrays for the following values of K are,
 * k = 15: {-4, 1, 5, 6, 2, 5}
 
 ---
+
+
 ### Question
 Check if there exist a subarray with sum = 110 in the given array?
 A = [ 5, 10, 20, 100, 105 ]
  
 
-**Choices** 
+### Choices 
 - [x] No
 - [ ] YES
 
 
 ---
-###  Approach
+## Subarray with Sum K Approach
+
 
 To get subarray sum for any subarray in constant time, we can create a prefix sum array.
 
@@ -321,170 +535,35 @@ Please take below example:
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/049/591/original/upload_0efad47d63c86de9d905ecc34a17410f.png?1695222380" alt= “” width ="600" height="200">
 
 
-#### Pseudocode:
+### Pseudocode:
 ```kotlin
-boolean targetSubarray(int arr[], int K) {
-    int N = arr.length;
-    long a = 0;
-
+function targetSubarray(arr[], K){
+    N = arr.length;
+    a = 0;
+    
     //cumulative sum, long -> to avoid overflow
-    HashSet < long > hs;
+    HashSet<long integer> hs;
     hs.add(0);
-    for (int i = 0; i < N; i++) {
+    for(i -> 0 to N - 1){
         a = a + arr[i];
-
+        
         //cumulative sum = target = a - k
-        if (hs.contains(a - K)) {
+        if(hs.contains(a - K)){
             //subarray exists
             return true;
         } else {
             hs.add(a);
-
+            
         }
-
+     
     }
     return false;
 }
 
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
 
-
----
-### Problem 4 Distinct elements in every window of size K
-
-Given an array of integers and a number, K. Find the count of distinct elements in every window of size K in the array.
-
-**Example**
-
-```java
-// Input:
-Array = [1, 2, 1, 3, 4, 2, 3]
-K = 4
-
-// Output:
-[3, 4, 4, 3]
-```
-
-- In the first window `[1, 2, 1, 3]`, there are 3 distinct elements: 1, 2, and 3.
-- In the second window `[2, 1, 3, 4]`, there are 4 distinct elements: 2, 1, 3, and 4.
-- In the third window `[1, 3, 4, 2]`, there are again 4 distinct elements: 1, 3, 4, and 2.
-- In the fourth window `[3, 4, 2, 3]`, there are 3 distinct elements: 3, 4, and 2.
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-
-#### Approach - Using HashSet
-
-- The code iterates through each possible window of size K in the given array.
-- For each window, a temporary HashSet (`distinctSet`) is created to store the distinct elements within that window.
-- Within the inner loop, the code adds each element of the window to the HashSet.
-- After processing the entire window, the size of the HashSet is calculated using `distinctSet.size()`, which represents the count of distinct elements.
-- The count is then added to the result list.
-- This process is repeated for all possible windows in the array.
-- The result list contains the count of distinct elements in each window
-
-#### Pseudocode
-
-```java
-//Pseudo code for 'countDistinctElements' function
-function countDistinctElements(arr, k):
-    result = empty list
-
-    for i = 0 to length of arr - k:
-        distinctSet = empty set
-
-        for j = i to i + k - 1:
-            add arr[j] to distinctSet
-
-        add size of distinctSet to result
-
-    return result
-```
-
-#### Complexity
-**Time Complexity:** `O((N-K+1) * K)`
-
-Considering the values of `K` as N/2, 1, and N.
-**When K = N/2:**
-   If `K` is about half of `N`, then the expression simplifies to `O((N/2 + 1) * N/2)`, which further simplifies to `O((N^2 + N) / 4)`. In this case, the primary factor is `N^2`, leading to a time complexity of approximately `O(N^2)`.
-**When K = 1:**
-   When `K` is set to 1, the expression becomes `O((N - 1 + 1) * 1)`, which straightforwardly simplifies to `O(N)`. It's important to note that this doesn't align with the original statement of the time complexity being `O(N^2)`.
-**When K = N:**
-   If `K` is equal to `N`, then the expression becomes `O((N - N + 1) * N)`, which further simplifies to `O(N^2)`.
-   
-**Space Complexity:** O(K)
-
----
-### Problem 4 Sliding Window - Map
-
-Sliding Window suggests to insert all elements of the first window in the set. Now slide the window, throw the prev element out and insert new adjacent element in the set.
-
-But we can't use Set here, since it is possible that the element just thrown out may be present in the current window.
-
-We will also need to maintain the frequency of elements, hence we will use Hashmap.
-
-- Maintain a HashMap to track the frequency of elements within the current subarray.
-- Initially, the algorithm populates the HashMap with the elements of the first subarray, counting distinct elements.
-- Then, as the window slides one step at a time:
-  - The algorithm updates the HashMap by updating frequency of the element leaving the window and increasing frequency of the new element entering the window.
-- The distinct element count for each subarray is determined by the size of the HashMap.
-
-#### Pseudocode
-
-```java
-void subfreq(int ar[], int k) {
-  int N = ar.length;
-
-  HashMap < int, int > hm;
-
-  // Step 1: Insert 1st subarray [0, k-1]
-  for (int i = 0; i < k; i++) {
-    //Increase frequecy by 1
-    if (hm.contains(ar[i])) {
-      int val = hm.get(ar[i]);
-      hm.put(ar[i], val + 1);
-    } else {
-      hm.put(ar[i], 1);
-    }
-
-    print(hm.size());
-  }
-
-  //step 2: Iterate all other subarrays
-  int s = 1, e = k;
-
-  while (e < N) {
-    //Remove ar[s-1]
-    int val = hm[ar[s - 1]];
-    hm[ar[s - 1]]--;
-
-    if (hm.get[ar[s - 1]] == 0) {
-      hm.remove(ar[s - 1]);
-    }
-
-    //add ar[e]
-    if (hm.contains(ar[e])) {
-      //Inc freq by 1
-      int val = hm[ar[e]];
-      hm[ar[e]]++;
-    } else {
-      hm.put(ar[e], 1);
-    }
-
-    print(hm.size());
-    s++
-
-  }
-}
-
-```
-#### Complexity
-**Time Complexity**: `O(n)`
-**Space Complexity**: `O(n)`
 
