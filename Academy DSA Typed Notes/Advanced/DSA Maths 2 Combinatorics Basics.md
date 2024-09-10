@@ -1,8 +1,17 @@
 # Maths 2: Combinatorics Basic
 
 
+## Agenda
+
+* Addition and Multiplication Rule
+* Permutation basics
+* Combination basics and properties
+* Pascal Triangle
+* Find N-th column title
+
 ---
 ## Addition and Multiplication Rule Example 1
+
 
 ### Example - 1
 
@@ -15,7 +24,7 @@ Given 10 girls and 7 boys, How many different pairs can be formed?
 Since each pair consists of one boy and one girl, you can pair each of the 7 boys with any of the 10 girls. This results in a total of 7 boys × 10 girls = 70 different pairs that can be formed.
 
 ---
-### Addition and Multiplication Rule Example 2
+## Addition and Multiplication Rule Example 2
 
 ### Example - 2
 
@@ -35,17 +44,19 @@ So, the total number of ways to reach Agra via Delhi from Pune is:
 ---
 
 
-# Question
+### Question
 
 No. of ways of reaching Agra from Pune ?
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/640/original/Screenshot_2023-10-21_at_12.15.51_PM.png?1697870821" width="400" />
 
-# Choices
+### Choices
 
 - [ ] 72
 - [ ] 12
 - [x] 18
 - [ ] 20
+
+### Explanation
 
 To go to Pune to delhi , there are 3 ways. And do go from delhi to agra there are 4 ways. From pune to Mumbai there are 2 ways, from Mumbai to agra there are 3 ways.
 
@@ -71,6 +82,56 @@ There are 18 different ways to reach Agra from Pune through these routes.
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/411/original/upload_f652c91e49444d681f084737296d046d.png?1697696353" width="500"/>
 
 ---
+## Most Varied Meal Combo
+
+### Scenerio
+**Zomato**, features an exciting option for its users - meal combos. Each combo includes one main course, one *dessert*, and one *beverage*, offering a complete dining experience from various restaurants. Zomato believes that a greater variety of combos can significantly enhance customer satisfaction.
+
+### Problem Statement
+
+You're tasked with helping **Zomato** identify which restaurant offers the most variety in its meal combos. You're provided with a list, shaped like a grid or a 2D matrix **A**, where each row corresponds to a different restaurant's offerings. 
+
+Each row is divided into three parts: 
+1. A[i][0] tells you the number of main courses, 
+2. A[i][1] the number of desserts, and 
+3. A[i][2] the number of beverages a restaurant offers.
+
+Your challenge is to analyze this data and pinpoint which restaurant gives its customers the most options to mix and match their meal combo.
+
+### Examples
+#### Example 1 : 
+```csharp
+A = [
+    [3, 2, 2],   # Restaurant 1
+    [4, 3, 3],   # Restaurant 2
+    [1, 1, 1]    # Restaurant 3
+]
+```
+#### Output  :    $2$
+#### Explanation for input 1 : 
+- Restaurant 1 offers 12 combos (3 mains x 2 desserts x 2 beverages)
+- Restaurant 2 offers 36 combos (4 mains x 3 desserts x 3 beverages)
+- Restaurant 3 offers 1 combo (1 main x 1 dessert x 1 beverage)
+
+So, Restaurant 2 provides the most variety with 36 possible combinations.
+
+### Solution
+1. **Understanding the Combinations:** The number of ways to form a meal combo at each restaurant is determined by the product of the number of main courses, desserts, and beverages. This is based on the combinatorial principle where each choice of a main course can be combined with each choice of a dessert and each choice of a beverage.
+
+
+2. **Iterating through Restaurants:** For each restaurant (each row in the matrix):
+    - Multiply the numbers from the three columns together (main courses x desserts x beverages).
+    - This product gives the total number of unique meal combos that can be created using the menu items listed by the restaurant.
+
+
+3. **Tracking Maximum Variety**: As you compute the number of possible combinations for each restaurant, you need to keep track of which restaurant has the highest number. This involves:
+    - Maintaining a variable to store the maximum number of combinations found so far.
+    - Keeping an index or identifier for the restaurant that offers these maximum combinations.
+
+4. **Result**: After evaluating all the rows, the restaurant with the highest product (representing the maximum number of meal combos) is identified as offering the most variety.
+
+
+---
 ## Permutation
 
 
@@ -88,11 +149,12 @@ Given 3 distinct characters, in how many ways can we arrange them?
 
 ---
 
+
 ### Question
 
 In how many ways n distinct characters can be arranged?
 
-**Choices**
+### Choices
 
 - [ ] N * (N + 1) / 2
 - [x] N! (N Factorial)
@@ -104,6 +166,7 @@ In how many ways n distinct characters can be arranged?
 
 N distinct characters can be arranged in n! (n factorial) ways. This means that for each distinct character you have, you can multiply the total number of arrangements by the count of characters. Here's the formula:
 
+---
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/449/original/N!.png?1697704088" width="500"/>
 
 ---
@@ -145,6 +208,7 @@ Here:
 ---
 ## Combination
 
+
 ### Explanation
 
 Combination is defined as the number of ways to select something.
@@ -176,6 +240,7 @@ Number of Selections * Number of Arrangements in Each Selection = $4 * 6 = 24$
 ---
 ## nCr Formulae
 
+
 ### Example - 3
 
 Given **n** distinct elements, in how many ways we can select **r** elements s.t `0 <= r <= n`
@@ -192,9 +257,10 @@ Given **n** distinct elements, in how many ways we can select **r** elements s.t
 ---
 ## Properties of Combination
 
+
 ### Property - 1 
 
- The number of ways of selecting **0** items from **N** items, i.e. number of ways to **not select anything**, will always be **1**. 
+The number of ways of selecting **0** items from **N** items, i.e. number of ways to **not select anything**, will always be **1**. 
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/423/original/upload_593decf3cd709e2904f9238a8641f134.png?1697696921" width="500"/>
 
@@ -240,18 +306,17 @@ When you choose to "reject" an element, it means that you are not including that
 ---
 ## Problem 1 Pascal Triangle
 
+
+### Pascal Triangle
+### Problem Description
+
 Generate Pascal's triangle for given value of `n`.
 
-**Example**
+### Example
 
 Pascal Triangle for `n = 4` is given below
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/430/original/upload_b7eeb6693170725bdea0966e6ffc36d7.png?1697697147" width="500"/>
-
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
 **Brute Force:** For each and every value, calculate the factorial and print it.
 
@@ -272,12 +337,12 @@ But as we know that, factorial grows very fast as the number increases, hence th
 ### Pseudo Code
 
 ```java 
-void pascalsTriangle(int n) {
+function pascalsTriangle(n) {
     nCr[n][n] = {0};
-    for (int i = 0; i < n; i++) {
+    for (i -> 0 to n) {
         nCr[i][0] = 1;
         nCr[i][i] = 1;
-        for (int j = 1; j < i; j++) {
+        for (j -> 1 to i - 1) {
             nCr[i][j] = nCr[i-1][j] + nCr[i-1][j-1];
             // If mentioned in the question to take % M then:
             // nCr[i][j] = (nCr[i-1][j] + nCr[i-1][j-1]) % M;
@@ -292,7 +357,10 @@ void pascalsTriangle(int n) {
 **Space Complexity:** $O(N^2)$
 
 ---
-### Problem 2 Finding N-th column title
+## Problem 2 Finding N-th column title
+
+
+### Problem Description
 
 Find the n-th column title, the columns are titled as A, B, C... and after Z, it is AA, AB, AC... and so on. Given the column number, find the title of the column.
 
@@ -301,15 +369,11 @@ Find the n-th column title, the columns are titled as A, B, C... and after Z, it
 
 Base for mapping A-Z will be 26
 
-#### Example
+### Example
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/436/original/upload_ac79c11bd69ab4ca16e15931c263e9e7.png?1697697604" width="500"/>
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Approach
+### Approach
 
 * Start with the given number **n**.
 * For each digit of the column title (from right to left):
@@ -321,9 +385,9 @@ Please take some time to think about the solution approach on your own before re
 * The resulting string is the Excel column title for the original number n.
 
 
-#### Code
+### Code
 ```java 
-void columnTitle(int n) {
+function columnTitle(n) {
     ans = "";
     while(n > 0) {
         ans = (char) ((n - 1) % 26 + 'A') + ans; // char + string
@@ -333,7 +397,7 @@ void columnTitle(int n) {
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(log(N)) [base 26]
 **Space Complexity:** O(1)
 
