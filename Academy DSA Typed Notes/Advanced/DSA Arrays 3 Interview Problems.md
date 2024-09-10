@@ -1,6 +1,63 @@
 # Lecture | Advanced DSA: Arrays 3 - Interview Problems
 
+## Revision Quizzes
+
+### Question
+Which starting point would you choose as the most efficient to find whether element k is present in a row-wise and column-wise sorted matrix?
+
+### Choices
+- [ ] Top left
+- [x] Top right
+- [ ] Bottom right
+- [ ] None
+
+
 ---
+
+### Question
+In the optimized approach for finding an element in a row-wise and column-wise sorted matrix of size NxM, what is the time complexity?
+
+### Choices
+- [ ] O(N^2^)
+- [ ] O(log(N))
+- [x] O(M + N)
+- [ ] O(N)
+
+---
+
+### Question
+In a matrix, what is a submatrix?
+
+### Choices
+- [ ] a matrix with all elements zero
+- [ ] a matrix with all elements one
+- [x] a continuous part of original matrix
+- [ ] a matrix with only diagonal elements
+
+---
+
+### Question
+How can a submatrix be uniquely identified ?
+
+### Choices
+- [ ] Using one corner coordinates
+- [ ] Using two corner coordinates
+- [x] Using two diagonal coordinates
+- [ ] All of above
+
+---
+
+### Question
+In the optimized approach for finding the sum of all submatrices of a Matrix of size NxN, what is the time complexity?
+
+### Choices
+- [ ] O(1)
+- [ ] O(N)
+- [x] O(N<sup>2</sup>)
+- [ ] O(N log (N))
+
+---
+
 ## Merge Intervals
 
 An Interval is defined by start and end time, where start <= end.
@@ -33,13 +90,17 @@ So, if above condition is not followed, it says that Intervals are overlapping!
 After merging -
 **[min(I1.start, I2.start) , max(I1.end, I2.end)]**
 
+
 ---
+
 ### Question
 If the intervals [3, 8] and [5, 12] are given, do they overlap?
 
-**Choices**
+### Choices
 - [x] Yes
 - [ ] No
+
+
 
 
 ### Explanation:
@@ -49,14 +110,17 @@ Answer: Yes
 The intervals [3, 8] and [5, 12] overlap because 8 is greater than 5. The overlapping area is [5, 8]
 
 ---
+
 ### Question
 What is the correct way to represent the merged result of intervals [6, 10] and [8, 15]?
 
-**Choices**
+### Choices
 - [x] [6, 15]
 - [ ] [6, 8, 10, 15]
 - [ ] [6, 10] and [8, 15]
 - [ ] [8, 10]
+
+
 
 ### Explanation:
 
@@ -66,19 +130,22 @@ This is because the merging of intervals involves combining overlapping interval
 
 
 ---
-### Problem 1 : Merge sorted Overlapping Intervals
+## Problem 1 Merge sorted Overlapping Intervals
 
-**Problem Statement**
-Given a sorted list of overlapping intervals, sorted based on start time, merge all overlapping intervals and return sorted list.
 
-**Input:**
+### Problem Statement
+You are given a collection of intervals A in a 2-D array format, where each interval is represented by a pair of integers `[start, end]`. The intervals are sorted based on their start values.
+
+Your task is to merge all overlapping intervals and return the resulting set of non-overlapping intervals.
+
+### Input:
 Interval[] = {(0,2), (1,4), (5,6), (6,8), (7,10), (8,9), (12,14)}
 
-**Output:**
+### Output:
 
 {(0,4), (5,10), (12,14)}
 
-#### Explanation:
+### Explanation:
 
 
 | Interval 1 | Interval 2 |                 | Answer Interval List |
@@ -91,7 +158,7 @@ Interval[] = {(0,2), (1,4), (5,6), (6,8), (7,10), (8,9), (12,14)}
 |    5-10    |   12-14    | Not Overlapping |   0-4, 5-10, 12-14   |
 
 
-#### The Array Is Sorted Based on Start Time. What Is the Overlapping Condition? 
+### The Array Is Sorted Based on Start Time. What Is the Overlapping Condition? 
 Say start time of A < start time of B
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/052/056/original/Screenshot_2023-09-27_at_1.55.29_PM.png?1696314693)" width=300 />
@@ -101,31 +168,34 @@ Overlapping Condition -
 
 
 ---
+
 ### Question
-Given a sorted list of overlapping intervals, sorted based on start time, merge all overlapping intervals and return sorted list.
+Given a sorted list of overlapping intervals, sorted based on start time, merge all overlapping intervals and return sorted list. Select output for following input.
+Input:
+Interval[] = { (1,10), (2, 3), (4, 5), (9, 12) }
 
-**Input:**
-Interval[] = { (1,10), (2, 3), (4, 5), (9, 12)}
-
-**Choices**
+### Choices
 - [x] (1, 12)
 - [ ] (1, 10), (9, 12)
 - [ ] (1, 9), (9, 12)
 - [ ] No Change 
 
 
-#### Problem 1 Approach
+
+---
+
+## Problem 1 Approach
 
 * Create an array to store the merged intervals.
 * If the current and ith intervals overlaps, merge them. In this case update the current interval with the merged interval.
 * Else, insert the current interval to answer array since it doesn't overlap with any other interval and update the current Interval to ith Interval.
 
-#### Dry Run
+### Dry Run
 
-**Input:**
+### Input:
 Interval[] = {(0,2), (1,4), (5,6), (6,8), (7,10), (8,9), (12,14)}
 
-#### Explanation:
+### Explanation:
 
 
 | current |  ith  |                 | After merging | answer list |
@@ -140,208 +210,92 @@ Interval[] = {(0,2), (1,4), (5,6), (6,8), (7,10), (8,9), (12,14)}
 
 At the end, we are left with the last interval, so add it to the list.
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-//Already a class/structure will be present for Interval
-//We will only need to create an answer array of type Interval
+currS = A[0][0], currE = A[0][1];
 
-list < Interval > ans;
-
-// Current Segment
-int cur_start = A[0].start, cur_end = A[0].end;
-
-for (int i = 1; i < A.size(); i++) {
-
-  // if i'th interval overlaps with current interval
-  if (A[i].start <= cur_end) {
-    // merging them
-    cur_end = max(cur_end, A[i].end);
-  } else {
-    //adding current interval to answer.
-    //create a new Interval
-    Interval temp(cur_start, cur_end); //if struct is declared, otherwise if class is declared then we can simply use new keyword
-    ans.push_back(temp);
-
-    // update cur Interval to ith
-    cur_start = A[i].start;
-    cur_end = A[i].end;
-  }
+for (i -> 1 to N - 1) {
+    if (A[i][0] <= currE) {
+        currE = max(currE, A[i][1]);
+    } else {
+        ans.insert({currS, currE});
+        currS = A[i][0];
+        currE = A[i][1];
+    }
 }
-Interval temp(cur_start, cur_end);
-ans.push_back(temp);
+ans.insert({currS, currE});
+
 return ans;
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(1)
 
 ---
-### Problem 2 Sorted Set of Non Overlapping Intervals
+## Real life application - Website Maintenance - follow up to first problem
 
-Given a sorted list of overlapping intervals based on start time, insert a new interval such that the final list of intervals is also sorted and non-overlapping.
-Print the Intervals.
 
-**Example 1:**
-**N = 9**
-(1,3)
-(4,7)
-(10,14)
-(16,19)
-(21,24)
-(27,30)
-(32,35)
-(38,41)
-(43,50)
+### Background
+**Scaler Academy**, a leading ed-tech platform known for its comprehensive learning programs, is planning to conduct maintenance on its website to enhance user experience and introduce new features. 
 
-New Interval
-**(12, 22)**
+To ensure the maintenance work does not disrupt the learning process for its students, Scaler Academy aims to schedule this maintenance during the period of **no user activity**.
 
-**Explanation:**
+### Problem Statement
 
-|   ith   |   new Interval   |   Overlaps?   | Print |
-|-------|----------|----------|-----------------|
-|   (1,3)   |    (12,22)     |   No      |     (1,3)         |
-|   (4,7)  |    (12,22)     |    No     |     (4,7)         |
-|   (10,14)   |    (12,22)     |    Yes; merged: (10,22)     ||
-|   (16,19)   |    (10,22)     |    Yes; merged: (10,22)     ||
-|   (21,24)   |    (10,22)     |    Yes; merged: (10,24)     ||
-|   (27,30)   |    (10,22)     |    No; small new Interval gets printed first     |(10,22)|
-| (32,35)| | |(32,35)|
-| (38,41)| | |(38,41) |
-| (43,50)| | | (43,50)|
+Given sorted data on the active hours of multiple learners on the platform, your task is to analyze this data and identify the longest continuous period when no learners are active. This identified time slot is crucial as it represents the best opportunity to perform website maintenance with the least disruption to learners' activities.
 
-**Please Note:** Once the new Interval gets printed, all the Intervals following it also gets printed.
+### Example Input : 
+DATA =  [(9, 11), (14, 16), (15, 20)]
+### Output :
+Maximum time = **8**
+### Explanation
 
-**More Examples**
+After merging the data, we get the following intervals -
+[(9, 11), (14, 20)]
 
-**Example 2:**
-**N = 5**
-(1,5)
-(8,10)
-(11,14)
-(15,20)
-(21,24)
+There are three time intervals during which there is no user online for the day:- 
+- First is (0, 9) => 9 hrs
+- Second is (11, 14) => 3 hrs
+- Third is (20, 24 (00)) => 4 hrs
 
-New Interval
-**(12, 24)**
+**Here the our answer is the longest time interval which is (0, 9) for 9 hours**
 
-|   ith   | new Interval |      Overlaps?       | Print  |
-|:-------:|:------------:|:--------------------:|:------:|
-|  (1,5)  |   (12, 24)   |          No          | (1,5)  |
-| (8,10)  |   (12, 24)   |          No          | (8,10) |
-| (11,14) |   (12, 24)   | Yes; merged:(11, 24) |        |
-| (15,20) |   (11, 24)   | Yes; merged:(11, 24) |        |
-| (21,24) |   (11, 24)   | Yes; merged:(11, 24) |        |
 
-We are done with all the intervals but left the new Interval at the end; in this case we have to print the new Interval.
+### How does this question use the same concept?
+- Once intervals are **merged** as per problem 1, identifying **gaps** becomes straightforward. 
+- Each gap between consecutive intervals represents a potential maintenance window. 
+- The longest of these gaps is then an optimal time for maintenance.
 
-**Example 3:**
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/052/057/original/Screenshot_2023-09-27_at_2.30.39_PM.png?1696314838)" width=500 />
+This is just a real life situation for above problem.
 
 
 ---
-### Question
-If the sorted set of non-overlapping intervals is [1, 5], [6, 10], and [12, 15], what happens if you add the interval `[4, 7]` such that the final list of intervals is also sorted and non-overlapping.?
+## Problem 2 Find First Missing Natural Number
 
-**Choices**
-- [x] [1, 10] and [12, 15]
-- [ ] [1, 5], [4, 7], [6, 10], [12, 15]
-- [ ] [1, 5] and [6, 10] only
-- [ ] No change
-
-
-#### Explanation:
-(1,5)
-(6,10)
-(12,15)
-
-New Interval
-**(4, 7)**
-
-|   ith   | new Interval |      Overlaps?       | Print  |
-|:-------:|:------------:|:--------------------:|:------:|
-|  (1,5)  |   (4, 7)   | Yes; merged:(1, 7)  |        |
-| (6,10)  |   (1, 7)   | Yes; merged:(1, 10)  |    |
-| (12,15) |   (1, 10)   |  No; small new Interval gets printed first  | (1, 10) |
-| (12,15) |      |    | (12, 15) |
-
-Thus after merging, the intervals are [1, 10] and [12, 15]
-
-#### Problem 2 Pseudocode
-
-```cpp
-
-void merge(int Interval[], int nS, int nE) {
-    for (int i = 0; i < N; i++) {
-        int L = Interval[i].start, R = Interval[i].end;
-
-        //Not Overlapping
-        if (nS > R) {
-            print({
-                L,
-                R
-            });
-        }
-        // new Interval is not overlapping and is smaller
-        // print new Interval and then all the remaining Intervals
-        else if (L > nE) {
-            print({
-                nS,
-                nE
-            });
-
-            for (int j = i; j < N; j++) {
-                print({
-                    Interval[j].start,
-                    Interval[j].end
-                })
-            }
-            return;
-        } else {
-            nS = min(L, nS);
-            nE = max(R, nE);
-        }
-    }
-    print({
-        nS,
-        nE
-    });
-}
-```
-
-#### Complexity
-**Time Complexity:** O(N)
-**Space Complexity:** O(1)
-
----
-### Problem 3 Find First Missing Natural Number
-
+### Problem Statement
 Given an unsorted array of integers, Find first missing Natural Number.
 
-**Examples**
+### Examples
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/052/058/original/Screenshot_2023-09-27_at_2.42.15_PM.png?1696314889" width=500 />
 
 
 ---
+
 ### Question
 In the array [5, 3, 1, -1, -2, -4, 7, 2], what is the first missing natural number?
 
-**Choices**
+### Choices
 - [x] 4
 - [ ] 6
 - [ ] -3
 - [ ] 8
 
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::    
+w## Find First Missing Natural Number Solution Approach
 
----
-### Find First Missing Natural Number Solution Approach
-#### Approach 1: Brute Force
+
+### Approach 1: Brute Force
 Check for all the numbers from 1 till we get the answer
 **T.C -** O(N * ans)
 
@@ -350,7 +304,10 @@ Here, in the worst case answer can go uptil N+1, in case if all numbers from 1 t
 **Example -** {4, 1, 3, 2}
 Here we will have to iterate till 5, ie. N+1.
 
-#### Idea
+
+## First Missing Natural Number Optimised Approach
+
+### Idea
 **Can we utilise the fact that answer can be out of 1 to N+1?**
 If any number other than 1 to N is present, then missing is out of 1 to N only.
 If all elements from 1 to N are present, then it will be N+1.
@@ -372,7 +329,7 @@ We can set element at that index as negative.
 
 *But what if negative number is part of the input?*
 
-**Let's assume only positive numbers are present**
+### Let's assume only positive numbers are present
 We can use indices to mark the presence of a number.
 We can set element at that index as negative.
 
@@ -399,21 +356,23 @@ Here, index: 4 is +ve, hence 5 is the answer.
 
 **NOTE:** Since we are marking elements as negative, so when checking presence of a certain number, we'll have to consider the absolute value of it.
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-for (int i = 0; i < N; i++) {
-    int ele = abs(A[i]);
-
-    if (ele >= 1 && ele <= N) {
+for(i -> 0 to N - 1) {
+    ele = absolute(A[i]);
+    
+    if(ele >= 1 and ele <= N) {
         int idx = ele - 1;
-        A[idx] = -1 * abs(A[i]);
+        A[idx] = -1 * absolute(A[i]);
     }
 }
 ```
 
 ---
-### Find First Missing Natural Number For Negative Numbers
-#### How to resolve for negative numbers ?
+## First missing natural number if negative numbers are present
+
+
+### How to resolve for negative numbers ?
 
 Will negatives ever be our answer?
 **NO!**
@@ -428,29 +387,29 @@ Should we mark them 0?
 ***We can just change negative number to a number that is out of our answer range. **It can be N+2**.***
 
 ```cpp
-for (int i = 0; i < N; i++) {
-    if (A[i] <= 0) {
+for(i -> 0 to N - 1) {
+    if(A[i] <= 0) {
         A[i] = N + 2;
     }
 }
 
-for (int i = 0; i < N; i++) {
-    int ele = abs(A[i]);
-
-    if (ele >= 1 && ele <= N) {
-        int idx = ele - 1;
+for(i -> 0 to N - 1) {
+    ele = abs(A[i]);
+    
+    if(ele >= 1 && ele <= N) {
+        idx = ele - 1;
         A[idx] = -1 * abs(A[i]);
     }
 }
 
-for (int i = 0; i < N; i++) {
-    if (A[i] > 0) return i + 1;
+for(i -> 0 to N - 1) {
+    if(A[i] > 0) return i + 1;
 }
 return N + 1;
 ```
 >Please show a dry run on - {4, 0, 1, -5, -10, 8, 2, 6}
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(1)
 
