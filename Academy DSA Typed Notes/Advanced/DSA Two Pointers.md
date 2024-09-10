@@ -1,43 +1,42 @@
 # Two Pointers
 
+## Agenda
+- Pairs with given sum - 2
+- Pairs with given difference
+- Subarrays with given sum
+- Container with most water
+
 ---
 ## Problem 1 Pairs with given sum 2
 
+
+### Problem Statement
 *Given an integer sorted array `A` and an integer `k`, find any pair (i, j) such that `A[i] + A[j] = k`, `i != j`.*
 
 
-**Example**:
+### Example:
 A = [-5, -2, 1, 8, 10, 12, 15] 
 k = 11
 
 Ans: (2, 4) as A[2] + A[4] = 1 + 10 = 11 = k
 
-
-
 ---
+
 ### Question
 Check if there exists a pair with sum k
 `A [ ] = { -3, 0, 1, 3, 6, 8, 11, 14, 18, 25 }`
 `k = 12`
 
-**Choices**
+### Choices
 - [x] Yes
 - [ ] No
 
-**Explanation:**
+### Explanation:
 
-Yes. Because there are 2 pairs with sum as 11, They are
-- (1, 11)
-- (3, 8)
----
+Yes, there is a pair with sum as 12, at indices (2, 6) => A[2] + A[6] = 12.
+ 
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-### Pairs with given sum 2 Approaches
-
-
-#### Brute Force Apporach:
+### Brute Force Apporach:
 *Run two for loops and for every indices: i, j, check if sum is k.*
 
 - **Time Complexity:**
@@ -45,7 +44,7 @@ Please take some time to think about the solution approach on your own before re
 - **Space Complexity:**
 O(1), as no additional space is required.
 
-#### Binary Search Apporach
+### Binary Search Apporach
 **Observation**: 
 - We need to find two elements whose sum is `k`, i.e., `A[i] + A[j] == k`.
 - So, `A[j] = k - A[i]`. Essentially, for an element, `A[i]`, we need to find an element `k - A[i]`.
@@ -61,7 +60,7 @@ O(1), as no additional space is required.
 
 
 ---
-### Pairs with given sum 2 Two Pointers Approach
+## Pairs with given sum 2 Two Pointers Approach
 
 Let's keep two pointers, `i` and `j` and we put them at 0 and 1st idx.
 
@@ -112,17 +111,18 @@ Similary, taking A[i] = A[2] = 1 and A[j] = A[5] = 10
 A[i] + A[j] = 1 + 10 
 Here, **A[i] + A[j] = k**.
 
-#### Pseudocode:
+### Pseudocode:
 
 ```java
-while (i < j) {
-  if (A[i] + A[j] == k) {
-    return (i, j);
-  } else if (A[i] + A[j] < k) {
-    i++;
-  } else {
-    j--;
-  }
+while(i < j) {
+    if(A[i] + A[j] == k) {
+        return (i, j);
+    }
+    else if (A[i] + A[j] < k) {
+        i++;
+    } else {
+        j--;
+    }       
 }
 ```
 
@@ -132,22 +132,20 @@ O(N), as we need to traverse the complete array once in the worst case.
 O(1), as no additional space is required.
 
 ---
-### Problem 2 Count Pair Sum K
+## Problem 2 Count Pair Sum K
 
 
+### Problem Statement
 Find all the pairs in a sorted array whose sum is k.
 
-**Example:**
+### Example:
 A  = {1, 2, 3, 4, 5, 6, 8}
 k = 10
 
 **Ans:** (2, 8), (4, 6)
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-#### Two Pointer Approach:
+### Two Pointer Approach:
 **`Case 1: When elements are distinct`**
 - Use two pointer approach to find the first pair whose sum is 10.
 - For array `A`, it will be (2, 8).
@@ -158,15 +156,16 @@ Please take some time to think about the solution approach on your own before re
 **`Pseudocode:`**
 ```java
 count = 0;
-while (i < j) {
-  if (A[i] + A[j] == k) {
-    count++;
-    i++, j--;
-  } else if (A[i] + A[j] < k) {
-    i++;
-  } else {
-    j--;
-  }
+while(i < j) {
+    if(A[i] + A[j] == k) {
+        count++;
+        i++, j--;
+    }
+    else if (A[i] + A[j] < k) {
+        i++;
+    } else {
+        j--;
+    }       
 }
 return count;
 ```
@@ -188,39 +187,51 @@ return count;
     - Final result would be 6.
 
 **`Pseudocode:`**
-```javascript
+```java
 count = 0;
+i = 0, j = A.size() - 1;
+
 while (i < j) {
-  if (A[i] + A[j] == k) {
-    counti = 1, countj = 1;
-    while (i < j && A[i] == A[i + 1]) {
-      counti++;
-      i++;
-    }
+    if (A[i] + A[j] == k) {
+        // Find A[i] duplicates
+        int x = A[i], counti = 0;
+        while (i < j && A[i] == x) {
+            counti++; 
+            i++;
+        }
+        // Find A[j] duplicates
+        int y = A[j], countj = 0;
+        while (i < j && A[j] == y) {
+            countj++; 
+            j--;
+        }
 
-    while (i < j && A[j] == A[j - 1]) {
-      countj++;
-      j--;
-    }
+        if (x == y) {
+            int temp = counti + countj;
+            count += (temp * (temp + 1)) / 2;
+        } else {
+            count += counti * countj;
+        }
 
-    count = counti * countj;
-    i++, j--;
-  } else if (A[i] + A[j] < k) {
-    i++;
-  } else {
-    j--;
-  }
+    } else if (A[i] + A[j] < k) {
+        i++;
+    } else {
+        j--;
+    }
 }
 print(count)
 ```
 
----
-### Problem 3 Pair Difference K
 
+---
+## Problem 3 Pair Difference K
+
+
+### Problem Statement
 Given a sorted integer array A and an integer k. Find any pair (i, j) such that A[j] - A[i] = k, i != j and k > 0.
 
 Note: 0-based indexing
-**Example:**
+### Example:
 A[] = 
 
 | Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
@@ -232,7 +243,7 @@ k = 11
 Ans: (2, 5) as A[5] - A[2] = 12 - 1 = 11 = k.
 
 
-#### Brute Force Apporach:
+### Brute Force Apporach:
 *Run two for loops and for every indices: i, j, check if difference is k.*
 
 - **Time Complexity:**
@@ -240,7 +251,7 @@ Ans: (2, 5) as A[5] - A[2] = 12 - 1 = 11 = k.
 - **Space Complexity:**
 O(1), as no additional space is required.
 
-#### Binary Search Apporach
+### Binary Search Apporach
 *For all `i`, binary search and find `k + A[i]`.*
 
 - **Time Complexity:**
@@ -252,31 +263,34 @@ O(1), as no additional space is required.
 
 ---
 
+
 ### Question
-Given an array A is **[5, 4, 2, 12, 1, 6]**  and K is 10.
+
+Given an array A is **[1, 2, 4, 5, 6, 12]**  and K is 10.
 
 Find any pair `(i, j)` such that 
 * A[j] - A[i] = k
 * i != j
 
 Note: 0-based indexing
-**Choices**
-- [x] (2, 3)
+### Choices
+- [x] (1, 5)
 - [ ] (5, 5)
 - [ ] (0, 0)
 - [ ] (3, 2)
 
-**Explanation:**
+### Explanation:
 
-The answer is (2, 3).
+The answer is (1, 5).
 
-Since (2, 3) satisfies both the condition:
-* A[3] - A[2] = 10
-* 3 != 2
+Since (1, 5) satisfies both the condition:
+* A[5] - A[1] = 10
+* 1 != 5
+
 
 
 ---
-### Pair Difference K Two Pointers Apporach
+## Pair Difference K Two Pointers Apporach
 
 We have, A[] = 
 | Index | 0 | 1 | 2 | 3 | 4 | 5 | 6 |
@@ -337,18 +351,19 @@ So, let's place the pointers at 0 and 1 indices, i.e., i = 0 and j = 1.
 - A[i] = A[2] = 1 and A[j] = A[5] = 12. A[j] - A[i] = A[5] - A[0] = 12 - 1 = 11. Finally, **A[j] - A[i] = k**.
 - Required pair: (i, j) = (2, 5).
 
-#### Pseudocode:
+### Pseudocode:
 ```java
 i = 0, j = 1
-while (j < n) {
-  diff = A[j] - A[i];
-  if (diff == k) {
-    return (i, j);
-  } else if (diff < k) {
-    j++;
-  } else {
-    i--;
-  }
+while(j < n) {
+    diff = A[j] - A[i];
+    if(diff == k) {
+        return (i, j);
+    }
+    else if (diff < k) {
+        j++;
+    } else {
+        i--;
+    }       
 }
 ```
 
@@ -365,12 +380,14 @@ O(N), as we need to traverse the complete array once in the worst case.
 - **Space Complexity:**
 O(1), as no additional space is required.
 
----
-### Problem 4 Check subarray with sum k
+--- 
+## Problem 4 Check subarray with sum k
 
+
+### Problem Statement
 Given an integer array `A` and an integer `k`. Check if there exists a subarray with sum `k`
 
-**Example:**
+### Example:
 A = {1, 3, 15, 10, 20, 3, 23}; k = 33
 
 **Ans:** True, because {10, 20, 3} sums upto 33.
@@ -381,8 +398,7 @@ A = {1, 3, 15, 10, 20, 3, 23}; k = 43
 
 > Number of subarrays in an array of length n is `n * (n + 1) / 2`.
 
-
-#### Brute Force Apporach:
+### Brute Force Apporach:
 *Check every subarray sum (with carry forward approach)*
 
 - **Time Complexity:**
@@ -393,24 +409,20 @@ O(1), as no additional space is required.
 
 
 ---
+
 ### Question
 If the given array is [1, 2, 5, 4, 3] and k is 9, does there exist a subarray with sum k?
 
-**Choices**
+### Choices
 - [ ] Not Exist
 - [x] Exist
 
-**Explanation:**
+### Explanation:
 
 Exist. The subarray is [5, 4].
 
 ---
-
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
-
-### Check subarray with sum k Two Pointers Approach
+## Check subarray with sum k Two Pointers Approach
 
 Given A = {1, 3, 15, 10, 20, 3, 23}, k = 33. Let's create prefix sum array for this: Pf = {1, 4, 19, 29, 49, 52, 75}.
 
@@ -432,7 +444,7 @@ Given A = {1, 3, 15, 10, 20, 3, 23}, k = 33. Let's create prefix sum array for t
 O(1), as no additional space is required if we use same array to create prefix sum array.
 
 
-#### Dynamic Sliding Window Approach:
+### Dynamic Sliding Window Approach:
 *We can maintain a running sum based on the pointers position and check if it is equal to `k`.*
 
 Example:
@@ -470,27 +482,27 @@ We know that, sum (0, 3) < k. Therefore, sum(1, 3) will definitely be less than 
 - `sum(i, j) = sum(3, 5) = A[3] + A[4] + A[5] = 10 + 20 + 3 = 33 = k`. We have found the required subarray.
 
 
-#### Pseudocode
+### Pseudocode
 ```java
 i = 0, j = 0, sum = A[0]
 
 while (j < n) {
-  if (sum == k) {
-    return true;
-  } else if (sum < k) {
-    j++;
-    if (j == n) { // To make sure index is not out of bounds
-      break;
+    if (sum == k) {
+        return true;
+    } else if (sum < k) {
+        j++;
+        if (j == n) { // To make sure index is not out of bounds
+            break;
+        }
+        
+        sum += A[j];
+    } else {
+        sum -= A[i];
+         i++;
+         if (i > j) { // To make sure i never exceeds j
+             break;
+        }
     }
-
-    sum += A[j];
-  } else {
-    sum -= A[i];
-    i++;
-    if (i > j) { // To make sure i never exceeds j
-      break;
-    }
-  }
 }
 
 return false;
@@ -502,11 +514,13 @@ O(N), as in the worst case, complete array will be traversed.
 O(1), as no additional space is required if we use same array to create prefix array.
 
 ---
-### Problem 5 Container with most Water
+## Problem 5 Container with most Water
 
+
+### Problem Statement
 Given an integer array `A` where array elements represent the height of the wall. Find any two walls that can form a container to store the maximum amount of water.
 
-**Example:**
+### Example:
 A = {4, 2, 10, 6, 8, 2, 6, 2}
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/051/951/original/upload_1a07a9117e364327980824142fcb99c2.png?1696278947" width=600 />
@@ -519,7 +533,7 @@ Amount of water stored between any two walls `A[i]` and `A[j]` = `min(A[i], A[j]
  
 > **Note:** height = `min(A[i], A[j])`, as water can be stored upto minimum height of the wall, and width = `(j - i)`, i.e., the difference between the position of walls.
 
-#### Brute Force Apporach:
+### Brute Force Apporach:
 *Choose all the pair of walls, calculate the amount of water stored between them and find the maximum.*
 
 - **Time Complexity:**
@@ -529,20 +543,22 @@ O(1), as no additional space is required.
 
 
 ---
+
+
 ### Question
 What is the water trapped between 2 walls at index L and R.
 Array A gives the heights of buildings
 Chose the correct answer
 
 
-**Choices**
+### Choices
 - [x] (R - L) * min(A[L], A[r])
 - [ ] (R - L)* max(A[L], A[r])
 - [ ] (R - L + 1) * min(A[L], A[r])
 - [ ] (R - L + 1) * max(A[L], A[r])
 
 
-**Explanation:**
+### Explanation:
 
 The answer is **(R - L) * min(A[L], A[r])**.
 
@@ -553,12 +569,7 @@ width = (R - L).
 
 
 ---
-
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
-
-### Container with most Water Two Pointer Approach
+## Container with most Water Two Pointer Approach
 
 
 - Since `area = height * width`. To achieve the maximum area, we should find the maximum values for height and width. 
@@ -623,18 +634,18 @@ A[] =
    After this, moving any of i or j will yield width as 0. Hence, we stop the execution and final ans is 24.
 
 
-#### Pseudocode:
+### Pseudocode:
 ```java
 i = 0, j = n - 1;
 while (i < j) {
-  area = min(A[i], A[j]) * (j - 1);
-  if (A[i] < A[j]) {
-    i++;
-  } else if (A[i] > A[j]) {
-    j--;
-  } else {
-    i++, j--; // Doesn't matter if we move only i or j or both
-  }
+    area = min(A[i], A[j]) * (j - 1);
+    if (A[i] < A[j]) {
+        i++;
+    } else if (A[i] > A[j]) {
+        j--;
+    } else {
+        i++, j--; // Doesn't matter if we move only i or j or both
+    }
 }
 return area;
 ```
