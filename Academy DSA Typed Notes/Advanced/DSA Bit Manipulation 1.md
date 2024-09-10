@@ -1,11 +1,13 @@
 # Bit Manipulation 1
 
+
 ## Truth Table for Bitwise Operators
 
 
 Below is the truth table for bitwise operators.
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/052/031/original/Screenshot_2023-10-03_at_11.07.51_AM.png?1696311508" width="350" />
 
+---
 ## Basic AND XOR OR Properties
 
 ### Basic AND Properties
@@ -60,17 +62,20 @@ A ^ B = B ^ A // Bitwise XOR
 ```
 
 ---
+
+
 ### Question
 
 Evaluate the expression: a ^ b ^ a ^ d ^ b
 
-**Choices**
+### Choices
 
 - [ ] a ^ b ^ a ^ b
 - [ ] b
 - [ ] b ^ d
 - [x] d
 
+### Explanation
 
 We can evaluate the expression as follows:
 ```cpp
@@ -80,26 +85,33 @@ a ^ b ^ a ^ d ^ b = (a ^ a) ^ (b ^ b) ^ d // grouping the a's and the b's
 ```
 Therefore, the expression a ^ b ^ a ^ d ^ b simplifies to d.
 
+---
+
 ### Question
 
 Evaluate the expression: 1 ^ 3 ^ 5 ^ 3 ^ 2 ^ 1 ^ 5
 
-**Choices**
+### Choices
 
 - [ ] 5
 - [ ] 3
 - [x] 2
 - [ ] 1
 
+###  Explanation
 
 We can evaluate the expression as follows:
 ```cpp
-1 ^ 3 ^ 5 ^ 3 ^ 2 ^ 1 ^ 5 = ((1 ^ 1) ^ (3 ^ 3) ^ (5 ^ 5)) ^ 2 // grouping the pairs of equal values and XORing them
+// grouping the pairs of equal values and XORing them
+1 ^ 3 ^ 5 ^ 3 ^ 2 ^ 1 ^ 5 = ((1 ^ 1) ^ (3 ^ 3) ^ (5 ^ 5)) ^ 2 
 = (0 ^ 0 ^ 0) ^ 2 // since x ^ x is always 0
 = 0 ^ 2 // since 0 ^ y is always y
 = 2 // the result is 2
 ```
 Therefore, the expression 1 ^ 3 ^ 5 ^ 3 ^ 2 ^ 1 ^ 5 simplifies to 2.
+
+---
+## Left Shift Operator
 
 
 ### Left Shift Operator (<<)
@@ -136,7 +148,8 @@ In above case, if we shift the number 10 more than 4 positions to the left an ov
 
 **Note:** We can increase the number of bits, but after a certain point it will reach limit and overflow will occur.
 
-
+---
+## Right Shift Operator
 
 ### Right Shift Operator (>>)
 * The right shift operator (>>) shifts the bits of a number to the right by a specified number of positions. 
@@ -160,11 +173,14 @@ a >> n = a/2^n
 Here, overflow condition doesn't arise.
 
 
+---
+
+
 ### Question
 
 What will we get if we do 1 << 3 ?
 
-**Choices**
+### Choices
 
 - [ ] 1
 - [x] 8
@@ -173,9 +189,14 @@ What will we get if we do 1 << 3 ?
 
 
 ---
-### Power of Left Shift Operator
+## Power of Left Shift Operator
 
-### OR( | ) Operator
+Let's see how left shift operator can be used in combination with other operators like (OR, AND, XOR) to set, unset, check or toggle an ith bit.
+
+
+---
+## SET ith bit
+
 **Left Shift Operator** can be used with the **OR** operator to **SET** the **i<sup>th</sup>** bit in the number.
 
 ```
@@ -183,11 +204,13 @@ N = (N | (1<<i))
 ```
 It will SET the **i<sup>th</sup>** bit if it is UNSET else there is no change.
 
-**Example**
+### Example
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/167/original/or_operator.png?1706037170" width=500/>
 
-### XOR( ^ ) Operator
+---
+## TOGGLE ith bit
+
 **Left Shift Operator** can be used with the **XOR** operator to **FLIP(or TOGGLE)** the **i<sup>th</sup>** bit in the number.
 
 ```
@@ -195,30 +218,55 @@ N = (N ^ (1<<i))
 ```
 After applying the operation, if the **i<sup>th</sup>** bit is SET, then it will be UNSET or vice-versa.
 
-**Example**
+### Example
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/165/original/xor_operator.png?1706037082" width=500/>
 
+---
+## UNSET ith bit
 
-### AND( & ) Operator
-**Left Shift Operator** can be used with **AND** operator to check whether the **i<sup>th</sup>** bit is set or not in the number.
+
+### Example
+
+Suppose we have a number ```N = 6```
+Binary Representation of 6:
+```
+1 1 0 0
+```
+We have to unset its 2nd bit
+
+```
+1 0 0 0
+```
+
+### Approach 
+
+First of all, we can check if the bit is set or not by taking & with 1.
 
 ```
 X = (N & (1<<i))
 ```
+Then, we have two condition:
+* if X > 0, it means the **i<sup>th</sup>** bit is SET. To UNSET that bit do:
+`N = (N ^ (1<<i))` {XOR with 1 toggles the bit}
 
-if the value of X is 0 then the **i<sup>th</sup>** bit is unset. Else the *i-th* bit is set.
+* else if it is UNSET, no need to do anything.
 
-**Example**
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/168/original/And_operator.png?1706037268" width=500/>
-
+### Pseudocode
+```cpp
+Function unsetbit(N, i){
+    X = (N & (1<<i));
+    if(checkbit(N,i)){
+        N = (N ^ (1<<i));
+    }
+}
+```
+### Complexity 
+**Time Complexity** - O(1)
+**Space Complexity** - O(1)
 
 ---
-### Problem 1 Check whether ith bit in **N** is SET or not
+## CHECK ith bit whether it is set or unset
 
-Check whether the **i<sup>th</sup>** bit in **N** is SET or not.
-
-
-#### Approach
 
 Taking **AND with 1** can help us. 
 0 & 1 = 0 
@@ -229,7 +277,7 @@ Taking **AND with 1** can help us.
     * if X > 0, then **i<sup>th</sup>** bit is set.
     * else **i<sup>th</sup>** bit is not set.
 
-**Example**
+### Example
 Suppose we have 
 ```
 N = 45
@@ -251,47 +299,45 @@ The binary representation of (1<<2) is:
 
 It is greater than 0. Hence **i<sup>th</sup>** bit is SET.
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-function checkbit(int N, int i) {
-    if (N & (1 << i)) {
+function checkbit(N, i){
+    if(N & (1<<i)){
         return true;
-    } else {
+    }
+    else{
         return false;
     }
 }
 ```
 
-#### Complexity 
+### Complexity 
 **Time Complexity** - O(1).
 **Space Complexity** - O(1).
 
+
 ---
-### Problem 2 Count the total number of SET bits in N
+## Problem 1 Count the total number of SET bits in N
 
 
 Given an integer **N**, count the total number of SET bits in **N**.
 
-**Input**
+### Input
 ```
 N = 12
 ```
-**Output**
+### Output
 ```
 2
 ```
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Approach 1
+### Approach 1
 Iterate over all the bits of integer(which is maximum 32) and check whether that bit is set or not. If it is set then increment the answer(initially 0).
 ```cpp
-function countbit(int N) {
-    int ans = 0;
-    for (i = 0; i < 32; i++) {
-        if (checkbit(N, i)) {
+function countbit(N){
+    ans = 0;
+    for(i -> 0 to 31){
+        if(checkbit(N, i)){
             ans = ans + 1;
         }
     }
@@ -301,7 +347,7 @@ function countbit(int N) {
 
 Here, checkbit function is used to check whether the **i<sup>th</sup>** bit is set or not.
 
-#### Approach 2
+### Approach 2
 To count the number of SET bits in a number, we can use a Right Shift operator as: 
 
 * Initialize a count variable to zero.
@@ -312,10 +358,10 @@ To count the number of SET bits in a number, we can use a Right Shift operator a
 * Return the count variable.
 
 ```cpp
-function countbit(int N) {
-    int ans = 0;
-    while (N > 0) {
-        if (N & 1) {
+function countbit(N){
+    ans = 0;
+    while(N > 0){
+        if(N & 1){
             ans = ans + 1;
         }
         N = (N >> 1);
@@ -325,72 +371,128 @@ function countbit(int N) {
 ```
 
 ---
+
 ### Question
 
 What is the time complexity to count the set bits ?
 
-**Choices**
+### Choices
 
-- [x] log N
-- [ ] N 
-- [ ] N^2
-- [ ] 1
+- [x] O(log N)
+- [ ] O(N) 
+- [ ] O(N^2)
+- [ ] O(1)
+
+---
 
 
-**Explanation** 
-For both of the above approaches,
-* **Time Complexity** - O(log<sub>2</sub>(N)) 
-Since N is being repeatedly divided by 2 till it is > 0.
-* **Space Complexity** - O(1).
+### Explanation 
+
+O(log(N)), where 'N' is the value of the given number. 
+
+Since there are log(N) bits in a number and we are going through all the bits one by one, the time complexity of this approach is O(log(N)).
+
+* **Time Complexity** - O(log(N)) 
+* **Space Complexity** - O(1)
+
 
 
 ---
-### Problem 3 Unset the ith bit of the number N if it is set
+## Problem 2 Real Life Application - IRCTCs most frequent train search
 
-**UNSET** the **i<sup>th</sup>** bit of the number **N** if it is set.
 
-**Example**
+### Scenerio
+**IRCTC (India's train ticketing system)** wants to improve how it shows train options to its users. They've decided that trains which run more **frequently** should appear higher up in the search results. To figure this out, they look at a **28-day period** to see how often each train runs.
 
-Suppose we have a number ```N = 6```
-Binary Representation of 6:
+### Problem
+For **each** train, they've come up with a **special number**. This isn't just any number, though. If you were to write it down in binary form (which is like a special code of $0$s and $1$s), each of the **$28$ digits** corresponds to a day in that **period**. A  **‘1’**  means the train runs on that day, and a  **‘0’**  means it doesn't.
+
+### Task
+Your task is to help **IRCTC** by writing a program. Given a list **A** of these **special numbers** for different **trains**, your program should find the train that runs the most.
+
+
+### Examples
+**Input 1 :** **A =** $[4369, 8738, 349525]$
+
+**Output 1 :** $[2]$
+
+**Explanation :** 
+
+| Train No. (Index) | Binary Representation | Count Set bits |
+| -------- | -------- | -------- |
+| 0  | $0000000000000001000100000001$   | 3    |
+| 1 | $0000000000000010001000000010$ | 3 |
+| 2 | $0000000101010101010101010101$| 14 |
+
+- Clearly the train which is most frequent is **Train 2**. Therefore the output is $[2]$
+
+**Input 2:** A = $[255, 127, 63]$
+
+**Output 2:** $[0]$
+
+**Explanation :**
+
+| Train No. (Index) | Binary Representation | Count Set bits |
+| -------- | -------- | -------- |
+| 0  | $0000000000000000000011111111$   | 8    |
+| 1 | $0000000000000000000001111111$ | 7 |
+| 2 | $0000000000000000000000111111$| 6 |
+
+**Input 3:** A = $[268435455, 134217727, 134217727, 268435455]$
+
+**Output 3:** $[0, 3]$
+
+
+
+**Explanation :**
+
+| Train No. (Index) | Binary Representation | Count Set bits |
+| -------- | -------- | -------- |
+| 0  | $1111111111111111111111111111$   | 28    |
+| 1 | $0111111111111111111111111111$ | 27 |
+| 2 | $0111111111111111111111111111$| 27 |
+| 3 | $1111111111111111111111111111$ | 28 |
+
+- Here both the Trains 0 and 3 run on 28 days, so we output them both.
+
+### Solution
+- This problem is just an extension of **count number of set bits in N**
+- Assume that you have the function for counting the number of set bits already.
+- You just need to call this function multiple times on each element and add those elements to the answer which have largest number of set bits count.
+
+### Pseudocode : 
+```cpp=
+function findMostFrequentTrains(A):
+    # A: list of special numbers representing train frequencies
+
+    # Initialize variables
+    maxCount = 0
+    result = []
+
+    # Iterate over the list of special numbers
+    for i -> 0 to length(A) - 1:
+        # Count the number of set bits for the current train
+        currentCount = countbit(A[i])
+        
+        # If current count is greater than maxCount, update maxCount and reset result list
+        if currentCount > maxCount:
+            maxCount = currentCount
+            result = [i]
+        # If current count equals maxCount, add the train index to the result list
+        else if currentCount == maxCount:
+            result.append(i)
+    
+    return result
+
 ```
-1 1 0 0
-```
-We have to unset its 2nd bit
-
-```
-1 0 0 0
-```
-
-#### Approach 
-
-First of all, we can check if the bit is set or not by taking & with 1.
-
-```
-X = (N & (1<<i))
-```
-Then, we have two condition:
-* if X > 0, it means the **i<sup>th</sup>** bit is SET. To UNSET that bit do:
-`N = (N ^ (1<<i))` {XOR with 1 toggles the bit}
-
-* else if it is UNSET, no need to do anything.
-
-#### Pseudocode
-```cpp
-Function unsetbit(int N, int i) {
-    int X = (N & (1 << i));
-    if (checkbit(N, i)) {
-        N = (N ^ (1 << i));
-    }
-}
-```
-#### Complexity 
-**Time Complexity** - O(1)
-**Space Complexity** - O(1)
+Time Complexity - O(N)
+Space Complexity - O(1)
 
 ---
-### Problem 4 SET bits in a range
+## Problem 3 SET bits in a RANGE
 
+
+### Problem Statement
 
 A group of computer scientists is working on a project that involves encoding binary numbers. They need to create a binary number with a specific pattern for their project. The pattern requires A 0's followed by B 1's followed by C 0's. To simplify the process, they need a function that takes A, B, and C as inputs and returns the decimal value of the resulting binary number. Can you help them by writing a function that can solve this problem efficiently?
 
@@ -416,7 +518,7 @@ C = 2
 The corresnponding binary number is "000011100" whose decimal value is 28.
 ```
 
-#### Solution Explanation:
+### Solution Explanation:
 We can take a number 0 and set the bits from C to B+C-1 (0 based indexing from right)
 
 Say initially we have -
@@ -438,14 +540,14 @@ This is how the number will look like finally -
 | -- | -------- | -------- | -------- | -------- | -------- | -------- |-------- | -------- |
 | 0| 0     | 0     | 0     | **1**     | **1**    | **1**     | 0     | 0     |
 
-**How to set a bit ?**
+### How to set a bit ?
 We can take OR(|) with (1<<i)
 
-#### Pseudocode
+### Pseudocode
 ```cpp
-long solve(int A, int B, int C) {
-    long ans = 0;
-    for (int i = C; i < B + C; i++) {
+function solve(A, B, C) {
+    ans = 0;
+    for(i -> C to B+C - 1) {
         ans = ans | (1 << i);
     }
     return ans;
@@ -453,3 +555,4 @@ long solve(int A, int B, int C) {
 ```
 
 **Please NOTE:** We have taken ans as long because A+B+C can go uptil total 60 bits as per constraints which can be stored in long but not in integers.
+
