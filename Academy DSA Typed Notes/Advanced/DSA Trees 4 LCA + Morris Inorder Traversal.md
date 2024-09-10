@@ -1,220 +1,147 @@
 # Advanced DSA : Trees 4: LCA
 
----
-## Understanding Binary Trees and Binary Search Trees
 
-### Binary Trees
+## Agenda
 
-A Binary Tree is a hierarchical data structure composed of nodes, where each node has at most two children: a left child and a right child. The top node is called the root, and nodes without children are called leaves.
-
-### Binary Search Trees (BSTs)
-
-A Binary Search Tree is a type of binary tree with an additional property: for each node, all nodes in its left subtree have values smaller than the node's value, and all nodes in its right subtree have values greater than the node's value.
-
----
-### Problem 1 Finding the kth Smallest Element in a Binary Search Tree
-
-
-Given a Binary Search Tree and a positive integer k, the problem is to find the kth smallest element in the BST.
-
-:::warning
-Please take some time to think about the brute force approach on your own before reading further.....
-:::
-
-### In-Order Traversal storing elements in array(Brute Force):
-
-#### Algorithm
-1. Initialize a binary search tree (BST) as root.
-2. Iterate through the elements of the array and insert each element into the BST.
-3. Perform an in-order traversal of the BST to collect the elements in sorted order.
-4. Access the Kth element from the sorted elements list.
-5. Return the Kth element as the Kth smallest element.
-
-#### Pseudocode:
-```java
-// Define a TreeNode structure
-Struct TreeNode:
-    val
-    left
-    right
-
-// Function to find the Kth smallest element in a BST
-Function findKthSmallestElement(arr, k):
-    If arr is empty:
-        Return None  // Array is empty, no elements to find
-
-    Root = null  // Initialize the root of the binary search tree
-
-    // Step 1: Create a binary search tree (BST) from the array
-    For each element in arr:
-        Root = insert(Root, element)
-
-    SortedElements = []  // Initialize an empty list to store sorted elements
-
-    // Step 2: Perform an in-order traversal of the BST
-    InorderTraversal(Root, SortedElements)
-
-    // Step 3: Return the Kth element from the sorted elements list
-    If 1 <= k <= length(SortedElements):
-        Return SortedElements[k - 1]  // Subtract 1 because indices are 0-based
-    Else:
-        Return None  // Handle the case when k is out of bounds
-
-// Function to insert a value into a BST
-Function insert(root, value):
-    If root is null:
-        Return TreeNode(value)  // Create a new node with the given value
-
-    If value < root.val:
-        root.left = insert(root.left, value)  // Insert into the left subtree
-    Else:
-        root.right = insert(root.right, value)  // Insert into the right subtree
-
-    Return root
-
-// Function to perform an in-order traversal of the BST
-Function InorderTraversal(root, result):
-    If root is null:
-        Return
-
-    // Step 4: Perform an in-order traversal recursively
-    InorderTraversal(root.left, result)
-    Append root.val to result
-    InorderTraversal(root.right, result)
-
-// Example usage:
-Elements = [12, 3, 7, 15, 9, 20]
-K = 3  // Find the 3rd smallest element
-
-Result = findKthSmallestElement(Elements, K)
-
-If Result is not null:
-    Output "The Kth smallest element is: " + Result
-Else:
-    Output "Invalid value of K: " + K
-
-```
-
-#### In-Order Traversal Approach(Count Method):
-The in-order traversal of a BST visits the nodes in ascending order. Therefore, by performing an in-order traversal and keeping track of the count of visited nodes, we can identify the kth smallest element when the count matches k.
-
-#### Example: Finding the 3rd Smallest Element in a BST
-
-**BST:**
-
-```java
-    4
-   / \
-  2   6
- / \ / \
-1  3 5  7
-```
-
-**Scenario:**
-We want to find the 3rd smallest element in the given BST.
-
-**Solution:**
-
-* Perform an in-order traversal of the BST:
-* In-order traversal: 1, 2, 3, 4, 5, 6, 7
-* The 3rd smallest element is 3.
-
-#### Pseudocode:
-Here's a simplified pseudocode representation of finding the kth smallest element using in-order traversal:
-```java
-function findKthSmallest(root, k):
-    count = 0
-    stack = []
-
-    while stack or root:
-        while root:
-            stack.append(root)
-            root = root.left
-        
-        root = stack.pop()
-        count += 1
-
-        if count == k:
-            return root.val
-        
-        root = root.right
-```
-
-
-#### Analysis:
-
-The in-order traversal visits every node once, making the time complexity of this algorithm $O(n)$, where n is the number of nodes in the BST. The space complexity is $O(h)$, where h is the height of the BST, due to the stack used for traversal.
+1. Kth smallest element in BST
+2. Node to Root Path in a given Tree
+3. LCA in Binary Tree
+4. LCA in Binary Search Tree
 
 
 ---
-### Problem 2 Morris Traversal
-
-#### Morris Traversal Approach:
-Morris Traversal takes advantage of unused null pointers in the tree structure to link nodes temporarily, effectively threading the tree. By doing so, it enables us to traverse the tree in a specific order without requiring a stack or recursion.
-
-#### In-Order Morris Traversal:
-
-* Start at the root.
-* Initialize the current node as the root.
-* While the current node is not null:
-  * If the current node's left child is null, print the current node's value and move to the right child.
-  * If the current node's left child is not null:
-    * Find the rightmost node in the left subtree.
-    * Make the current node the right child of the rightmost node.
-    * Move to the left child of the current node.
-* Repeat the process until the current node becomes null.
-
-#### Pre-Order Morris Traversal:
-
-* Start at the root.
-* Initialize the current node as the root.
-* While the current node is not null:
-  * Print the current node's value.
-  * If the current node's left child is null, move to the right child.
-  * If the current node's left child is not null:
-    * Find the rightmost node in the left subtree.
-    * Make the current node the right child of the rightmost node.
-    * Move to the left child of the current node.
-* Repeat the process until the current node becomes null.
+## Problem 1 Finding the kth Smallest Element in a Binary Search Tree
 
 
-**Example:**
-```java
-       1
-      / \
-     2   3
-    / \
-   4   5
+### Problem Statement
+
+Given a Binary Search Tree and a positive integer k, find the kth smallest element in the BST.
+
+### Approach 1
+
+We can use inorder traversal and store elements in an array, then return (k-1)th element.
+**T.C:** O(N)
+**S.C:** O(N)
+
+### Approach 2
+The **`Inorder Traversal`** of a BST visits the nodes in ascending order. Therefore, by performing an inorder traversal and keeping track of the count of visited nodes, we can identify the kth smallest element when the count matches k. Basically instead of storing elements, we can just keep the track of count.
+**T.C:** O(N)
+**S.C:** O(Height)
+
+```cpp
+count = 0;
+result = -infinity;
+function inorderTraversal(Node node, k) {
+    if (node == null) {
+        return;
+    }
+
+    // Traverse the left subtree
+    inorderTraversal(node.left, k);
+
+    // Increment count for each node visited
+    count++;
+
+    // If count equals k, we've found the kth smallest element
+    if (count == k) {
+        result = node.val;
+        return; // Stop the traversal
+    }
+
+    // Only proceed to the right subtree if we haven't found the kth smallest element
+    if (result == -infinity) {
+        inorderTraversal(node.right, k);
+    }
+}
+
+//Once "inorderTraversal" function completes, "result" variable shall hold the answer. 
 ```
-We will carefully go through each step:
 
-- **Step 1: Start at the root node, which is 1.**
-    1. Initialize current pointer as current = 1.
-
-- **Step 2: At node 1:**
-    1. Check if the left subtree of the current node is null.
-    2. Since the left subtree of 1 is not null, find the rightmost node in the left subtree. This is node 5.
-    3. Create a thread (temporary link) from 5 to the current node (1): 5 -> 1.
-    4. Update the current node to its left child: current = 2.
-
-- **Step 3: At node 2:**
-    1. Check if the left subtree of the current node is null.
-    2. The left subtree of 2 is not null, so find the rightmost node in the left subtree of 2, which is 5.
-    3. Remove the thread from 5 to 1 (undoing the link created earlier).
-    4. Print the current node's value, which is 2.
-    5. Move to the right child of the current node: current = 3
+---
+## Problem 2 Morris Traversal
 
 
-- **Step 4: At node 3:**
-    1. Check if the left subtree of the current node is null.
-    2. The left subtree of 3 is null, so print the current node's value, which is 3.
-    3. Move to the right child of the current node (null): current = None.
+### Introduction:
+Morris Traversal is a clever method used to walk through binary trees without needing extra memory structures like stacks or queues. This technique not only saves memory but also provides an interesting way to explore trees.
 
-- **Step 5:** Since the current node is now None, we've reached the end of the traversal.
-    1. The Morris Inorder Traversal of the binary tree 1 -> 2 -> 4 -> 5 -> 3 allows us to visit all the nodes in ascending order without using additional data structures or modifying the tree's structure. It's an efficient way to perform an inorder traversal.
+### Idea:
+
+Morris Traversal works by making use of the empty spaces in the tree's structure to create temporary links between nodes. This process threads the tree, allowing traversal without relying on recursion or additional memory.
 
 
-#### Pseudocode Example (In-Order):
+### In-Order Morris Traversal Dry Run:
+
+Lets take an Example and understand the traversal better.
+
+To Perform Inorder traversal,  We need to visit **Left-Data-Right**
+
+![image](https://hackmd.io/_uploads/ryRVTEKmA.png)
+
+The root 6 has no left child, So `print 6`, then move towards the right child.
+
+From node 8, it has no left child, So `print 8`, then move to the right child.
+
+On 29, there is a left child. So the left subtree needs to be visited before 29.
+
+> The Problem here is "If we go to the left node, do we have a way to come to 29 ?"
+
+                > During recursion, we recusively call the function, once the function call is over, then we will move back to the root, using the stack memory.
+> While print 6 and moving to 8,  We know that, we dont need to visit 6 again, But on 29, we need to come back.
+
+So we need to secure a way to come back.
+
+Now focus on this particular tree alone, and find the last node to be visited during the In-order traversal.
+
+![image](https://hackmd.io/_uploads/By4alrKQA.png)
+
+
+That is 25.  So, Before moving to 20, we will secure a way, from 25 to the current node 29, like the below.
+
+![image](https://hackmd.io/_uploads/By6ZWrYQA.png)
+
+After making the connecting, move to 20.
+
+Now, 20 has a left child.  So before printing 20, need to visit the left node. 
+
+![image](https://hackmd.io/_uploads/HkXAWSFX0.png)
+
+
+> Lets ask the same question here as well, "If we go to the left node, do we have a way to come to 20 ?"
+> No, So lets do the same process, Connect the Last node of the inorder traversal to the current node like the below
+
+![image](https://hackmd.io/_uploads/HyHnWBt7R.png)
+
+
+The same process for the node 5 as well.
+![image](https://hackmd.io/_uploads/Sy_QzrFmR.png)
+
+
+On node 9, there is no left child,  `print 9` then move to right child.
+
+On node 10, there is no left child,  `print 10` then move to right child.
+
+On node 13, there is no left child,  `print 13` then move to right child.
+
+> Here is the main catch, Visually we can see that we are visiting 5 for the second time, But how do we realise programically ? 
+
+lets do the same process, and see how it works,
+
+> 5 has left child, so need to visit its left child, before printing 5. need to secure a path from the last node of the inorder traversal of the left subtree. 
+> Here is the main thing we can notice, when trying to make a connection, there is connection which is already established.  
+
+`This is how, we can figure out the left subtree is already visited`
+
+> After this, we will break the connection which we used to come back.
+
+![image](https://hackmd.io/_uploads/rkWKarYQA.png)
+
+
+The same process goes for the rest of the nodes as well!
+
+![image](https://hackmd.io/_uploads/Sk4j-LYm0.png)
+
+
+### Pseudocode:
 
 ```java
 function morrisInOrderTraversal(root):
@@ -237,152 +164,55 @@ function morrisInOrderTraversal(root):
 ```
 
 
-#### Analysis:
+### Analysis:
 Morris Traversal eliminates the need for an explicit stack, leading to a constant space complexity of $O(1)$. The time complexity for traversing the entire tree remains $O(n)$, where n is the number of nodes.
 
 ---
+
+
 ###  Question
 What is the primary advantage of Morris Traversal for binary trees?
-
-**Choices**
+### Choices
 - [ ] It uses an auxiliary stack to save memory.
-- [ ] It guarantees the fastest traversal among all traversal methods.
 - [ ] It allows for traversal in reverse order (right-to-left).
 - [x] It achieves memory-efficient traversal without using additional data structures.
 
 
 
-
 ---
-### Problem 3 Finding an element
+## We are all connected
 
 
-#### Approach:
-Finding an element in a binary tree involves traversing the tree in a systematic way to search for the desired value. We'll focus on a common approach known as depth-first search (DFS), which includes pre-order, in-order, and post-order traversal methods.
+### Problem Statement
+It is said that we all **humans** are related through some **common ancestor** at some point of time. Assume that a person can have **0, 1 or 2** **children** **only**. 
 
-#### Algorithm:
-1. Start at the root node of the binary tree.
-2. If the root node is null (indicating an empty tree), return False (element not found).
-3. Check if the value of the current node matches the target value:
-4. If they are equal, return True (element found).
-5. Recursively search for the target element in the left subtree by calling the function with the left child node.
-6. Recursively search for the target element in the right subtree by calling the function with the right child node.
-7. If the element is found in either the left or right subtree (or both), return True.
-8. If the element is not found in either subtree, return False.
+Given the Binary tree **A** representing the family tree, discover the earliest common family member who connects two given people **B and C** in a family tree.
 
-#### Example:
+### Example
 ```java
-      1
-      / \
-     2   3
-    / \
-   4   5
-```
-**Dry Run:**
-1. Start at the root (1).
-2. Check if it matches the target (3) - No.
-3. Move to the left child (2).
-4. Check if it matches the target (3) - No.
-5. Move to the left child (4).
-6. Check if it matches the target (3) - No.
-7. Move to the right child (null).
-8. Move back to 4's parent (2).
-9. Move to the right child (5).
-10. Check if it matches the target (3) - No.
-11. Move to the left child (null).
-12. Move back to 5's parent (2).
-13. Move back to 2's parent (1).
-14. Check if it matches the target (3) - Yes, found!
-15. Finish the search.
+       Ram
+      /   \
+  Shyam    Bob
+   /   \      \
+Dholu  Bholu   Satish
 
-#### Pseudocode Example:
-
-```java
-function findElement(root, target)
-    if root is null
-        return False  // Element not found in an empty tree
-
-    if root.value is equal to target
-        return True   // Element found at the current node
-
-    // Recursively search in the left subtree
-    found_in_left = findElement(root.left, target)
-
-    // Recursively search in the right subtree
-    found_in_right = findElement(root.right, target)
-
-    // Return True if found in either left or right subtree
-    return found_in_left OR found_in_right
+-> Find LCA of Dholu and Bob
+-> Answer = Ram
 ```
 
-
-#### Analysis:
-The time complexity of finding an element in a binary tree using DFS depends on the height of the tree. In the worst case, it's O(n), where n is the number of nodes in the tree. The space complexity is determined by the depth of the recursion stack.
-
+### Simplified Problem
+Let's simplify the problem where we are only working with numbers and let's formally define the problem statement.
 
 ---
-### Problem 4 Path from root to node in Binary Tree
+## Problem 3 LCA 
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-#### Approach:
-To find the path from the root to a specific node, we'll leverage depth-first search (DFS), a versatile traversal method that includes pre-order, in-order, and post-order traversal techniques.
+The LCA is a crucial concept with applications in genealogy research, network routing, and more. Let's explore the intricacies of finding the LCA in a binary tree.
 
-#### DFS Pre-Order Traversal for Finding Path:
-
-1. Initialize an empty list path to store the path.
-2. Define a recursive function findPath(root, target, path):
-3. If root is null, return False.
-4. If root matches the target, append it to path and return True.
-5. Recursively call findPath on the left subtree and right subtree.
-6. If either subtree returns True, append root to path and return True.
-7. Start the search from the root node by calling findPath(root, target, path).
-8. If the search returns True, reverse the path list to get the path from root to target.
-9. Return the reversed path.
-
-#### Pseudocode Example (DFS Pre-Order):
-
-```java
-function findPath(root, target):
-    if root is null:
-        return false  // Element not found in an empty tree
-        
-    if root.value == target:
-        list.add(root)  // Add the current node to the list (path found)
-        return true;    // Element found
-    
-    res = findPath(root -> left, target) OR findPath(root -> right, target)
-    
-    if res == true:
-        list.add(root)  // Add the current node to the list (part of the path)
-       
-    return res;
-    
-// Reverse the list to get the answer (the path from root to target)
-
-```
-#### Analysis:
-The time complexity of finding the path from the root to a node using DFS depends on the height of the tree. In the worst case, it's O(n), where n is the number of nodes in the tree. The space complexity is determined by the depth of the recursion stack and the length of the path.
-
----
-### Question
-What is the primary benefit of using depth-first search (DFS) for finding the path from the root to a specific node in a Binary Tree?
-
-**Choices**
-- [ ] DFS guarantees the shortest path between the root and the target node.
-- [ ] DFS ensures that the tree remains balanced during traversal.
-- [ ] DFS enables efficient path finding with a time complexity of O(log n).
-- [x] DFS allows us to explore the structure of the tree while tracking visited nodes.
-
----
-### Problem 5 finding the Lowest Common Ancestor (LCA) of two nodes
-
-#### Approach:
+### Approach:
 To find the LCA of two nodes in a binary tree, we'll utilize a recursive approach that capitalizes on the tree's structure. The LCA is the deepest node that has one of the nodes in its left subtree and the other node in its right subtree.
 
-#### Recursive Algorithm for LCA:
+### Recursive Algorithm for LCA:
 
 * Start at the root of the binary tree.
 * If the root is null or matches either of the target nodes, return the root as the LCA.
@@ -392,7 +222,7 @@ To find the LCA of two nodes in a binary tree, we'll utilize a recursive approac
 * If both target nodes are found in the same subtree, continue the search in that subtree.
 
 
-**Example**:
+### Example:
 ```java
          1
         / \
@@ -418,7 +248,7 @@ To find the LCA of two nodes in a binary tree, we'll utilize a recursive approac
 13. Return node 2 as the Lowest Common Ancestor (LCA).
 
 
-#### Pseudocode Example:
+### Pseudocode Example:
 
 ```java
 function findLCA(root, node1, node2):
@@ -438,16 +268,20 @@ function findLCA(root, node1, node2):
     return right_lca  # LCA found in the right subtree
 ```
 
-#### Analysis:
+### Analysis:
 The time complexity of finding the LCA in a binary tree using this recursive approach is O(n), where n is the number of nodes in the tree. The space complexity is determined by the depth of the recursion stack.
 
 ---
-### Problem 6 Lowest Common Ancestor (LCA) in a Binary Search Tree (BST)
+## Problem 4 Lowest Common Ancestor (LCA) in a Binary Search Tree (BST)
 
-#### Approach:
+
+### Introduction:
+Hello, everyone! Today, we're going to explore a specialized case of finding the Lowest Common Ancestor (LCA) in a data structure known as a Binary Search Tree (BST). The LCA operation is essential for understanding relationships between nodes in a tree, and in a BST, it becomes even more efficient due to the inherent properties of the structure. Let's dive into the process of finding the LCA in a BST.
+
+### Approach:
 To find the LCA of two nodes in a Binary Search Tree, we'll utilize the properties of BSTs that make traversal and comparison more efficient.
 
-#### Algorithm for Finding LCA in a BST:
+### Algorithm for Finding LCA in a BST:
 
 * Start at the root of the BST.
 * Compare the values of the root node, node1, and node2.
@@ -456,7 +290,7 @@ To find the LCA of two nodes in a Binary Search Tree, we'll utilize the properti
 * If one node is smaller and the other is larger than the root's value, or if either node matches the root's value, the root is the LCA.
 * Repeat steps 2-5 in the chosen subtree until the LCA is found.
 
-#### Example: Finding LCA in a Binary Search Tree
+### Example: Finding LCA in a Binary Search Tree
 
 **BST:**
 ```java
@@ -487,7 +321,7 @@ Let's find the LCA of nodes 4 and 7 in this BST:
     4. The current node (6) is the LCA of nodes 4 and 7.
     5. So, in this example, the LCA of nodes 4 and 7 in the BST is node 6.
 
-#### Pseudocode Example:
+### Pseudocode Example:
 
 ```java
 function findLCA(root, node1, node2):
@@ -508,219 +342,5 @@ function findLCA(root, node1, node2):
     return null  // If no LCA is found (unlikely in a valid BST)
 
 ```
-#### Analysis:
+### Analysis:
 The time complexity of finding the LCA in a BST is O(h), where h is the height of the BST. In a balanced BST, the height is log(n), making the LCA operation highly efficient. The space complexity is determined by the depth of the recursion stack.
-
-
----
-### Problem 7  In-time and Out-time of Binary Tree
-
-
-#### Approach:
-The Interval Assignment technique involves three main steps: DFS traversal, interval assignment, and construction of the rooted tree.
-
-:::warning
-Please take some time to think about the further solution approach on your own before reading further.....
-:::
-
-#### DFS Traversal and Interval Assignment:
-
-* Start a DFS traversal of the tree from any chosen starting node.
-* As nodes are visited, assign start times when a node is entered and finish times when the traversal returns from that node. These times define intervals for each node.
-#### Constructing the Rooted Tree:
-
-1. From the DFS traversal, we have a collection of intervals (start and finish times) for each node.
-2. Choose the node with the smallest start time as the root of the rooted tree.
-3. For each remaining node:
-   1. Find the node with the largest start time that is still smaller than the current node's finish time. This node becomes the parent of the current node in the rooted tree.
-   2. Repeat this process for all nodes.
-
----
-### Question
-What is the significance of in-time and out-time values in DFS traversal?
-
-**Choices**
-- [ ] They indicate the number of times each node is visited during the traversal.
-- [ ] They represent the depth of each node in the tree.
-- [x] They help create hierarchical visualizations of trees.
-- [ ] They are used to determine the balance of the tree.
-
-
-
-**Example:**
-```java
-       1
-      / \
-     2   3
-    / \
-   4   5
-```
-1. We initialize the global time variable to 1.
-2. We traverse the tree using Depth-First Search (DFS):
-3. Starting at Node 1:
-4. In-Time for Node 1 is recorded as 1.
-5. We recursively visit the left child, Node 2.
-6. At Node 2:
-7. In-Time for Node 2 is recorded as 2.
-8. We recursively visit the left child, Node 4.
-9. At Node 4:
-10. In-Time for Node 4 is recorded as 3.
-11. Since Node 4 has no further children, we record its Out-Time as 5.
-12. Now, we return to Node 2:
-13. We recursively visit the right child, Node 5.
-14. At Node 5:
-15. In-Time for Node 5 is recorded as 8.
-16. Since Node 5 has no further children, we record its Out-Time as 10
-17. We return to Node 2 and record its Out-Time as 11.
-18. We return to Node 1 and recursively visit its right child, Node 3.
-19. At Node 3:
-20. In-Time for Node 3 is recorded as 12.
-21. We recursively visit its right child, but it's null.
-22. We record the Out-Time for Node 3 as 14.
-23. Finally, we return to Node 1 and record its Out-Time as 15.
-
-**The in-time and out-time values are now calculated:**
-* Node 1 - In-Time: 1, Out-Time: 15
-* Node 2 - In-Time: 2, Out-Time: 11
-* Node 3 - In-Time: 12, Out-Time: 14
-* Node 4 - In-Time: 3, Out-Time: 5
-* Node 5 - In-Time: 8, Out-Time: 10
-
-#### Pseudocode
-```java
-function calculateInTimeOutTime(root):
-    global time  // A global variable to keep track of time
-    
-    // Initialize arrays to store in-time and out-time for each node
-    inTime = [0] * (2 * n)  // Assuming 'n' is the number of nodes in the tree
-    outTime = [0] * (2 * n)
-    
-    // Helper function for DFS traversal
-    function dfs(node):
-        nonlocal time
-        
-        // Record the in-time for the current node and increment time
-        inTime[node] = time
-        time = time + 1
-        
-        // Recursively visit left child (if exists)
-        if node.left is not null:
-            dfs(node.left)
-        
-        // Recursively visit right child (if exists)
-        if node.right is not null:
-            dfs(node.right)
-        
-        // Record the out-time for the current node and increment time
-        outTime[node] = time
-        time = time + 1
-    
-    // Start DFS traversal from the root
-    dfs(root)
-
-```
-
-
----
-### Problem 8 For multiple queries find LCA(x,y)
-
-#### Algorithm:
-1. Calculate In-Time and Out-Time for Each Node:
-2. First, calculate the in-time and out-time for each node in the binary tree as explained in a previous response.
-3. Answer LCA Queries:
-4. To find the LCA of multiple pairs of nodes (x, y):
-5. For each LCA query (x, y):
-6. Check if inTime[x] is less than or equal to inTime[y] and outTime[x] is greater than or equal to outTime[y]. If true, it means that node x is an ancestor of node y.
-7. Check if inTime[y] is less than or equal to inTime[x] and outTime[y] is greater than or equal to outTime[x]. If true, it means that node y is an ancestor of node x.
-8. If neither of the above conditions is met, it means that x and y have different ancestors.
-9. In such cases, move up the tree from the deeper node until you find a node that is at the same level as the shallower node. This node will be their LCA.
-
-#### Example
-```java
-       1
-      / \
-     2   3
-    / \
-   4   5
-```
-And we'll find the Lowest Common Ancestor (LCA) for a few pairs of nodes (x, y) using the in-time and out-time approach.
-
-* **Step 1: Calculate In-Time and Out-Time** <br>We've already calculated the in-time and out-time values for this tree as follows:
-    1. Node 1 - In-Time: 1, Out-Time: 10
-    2. Node 2 - In-Time: 2, Out-Time: 7
-    3. Node 3 - In-Time: 8, Out-Time: 9
-    4.  Node 4 - In-Time: 3, Out-Time: 4
-    5.   Node 5 - In-Time: 5, Out-Time: 6
-
-* **Step 2: Find LCA for Pairs**
-    * Find LCA(4, 5):
-    * Check in-time and out-time:
-    * In-Time(4) <= In-Time(5) and Out-Time(4) >= Out-Time(5) is true.
-    * So, LCA(4, 5) is 4.
-    * Find LCA(2, 3):
-    * Check in-time and out-time:
-    * In-Time(2) <= In-Time(3) and Out-Time(2) >= Out-Time(3) is false.
-    * Now, bring both nodes to the same depth:
-    * Move 2 up once: 2 is now at the same depth as 3.
-    * Continue moving both nodes up:
-    * LCA(2, 3) is 1.
-    * Find LCA(4, 3):
-    * Check in-time and out-time:
-    * In-Time(4) <= In-Time(3) and Out-Time(4) >= Out-Time(3) is false.
-    * Now, bring both nodes to the same depth:
-    * Move 4 up once: 4 is now at the same depth as 3.
-    * Continue moving both nodes up:
-    * LCA(4, 3) is 1.
-    * Find LCA(5, 2):
-    * Check in-time and out-time:
-    * In-Time(5) <= In-Time(2) and Out-Time(5) >= Out-Time(2) is false.
-    * Now, bring both nodes to the same depth:
-    * Move 5 up once: 5 is now at the same depth as 2.
-    * Continue moving both nodes up:
-    * LCA(5, 2) is 1.
-
-#### Pseudocode:
-```java
-function findLCA(x, y):
-    if inTime[x] <= inTime[y] and outTime[x] >= outTime[y]:
-        return x  # x is an ancestor of y
-    
-    if inTime[y] <= inTime[x] and outTime[y] >= outTime[x]:
-        return y  # y is an ancestor of x
-    
-    # Move x and y up the tree to the same depth
-    while depth[x] > depth[y]:
-        x = parent[x]
-    
-    while depth[y] > depth[x]:
-        y = parent[y]
-    
-    # Move x and y up simultaneously until they meet at the LCA
-    while x != y:
-        x = parent[x]
-        y = parent[y]
-    
-    return x  # LCA found
-```
-
----
-### Question
-What is the primary purpose of constructing a rooted tree using the start and finish times obtained during the DFS traversal?
-
-**Choices**
-- [ ] To optimize the tree structure for faster traversal.
-- [ ] To visualize the tree with nodes arranged in increasing order.
-- [x] To efficiently represent the hierarchy and relationships within the tree.
-- [ ] To eliminate the need for recursion in tree traversal.
-
----
-### Observations
-
-* **In-Order Traversal:**<br> It visits Binary Search Tree (BST) nodes in ascending order, enabling efficient kth smallest element retrieval.
-* **Morris Traversal:**<br> An efficient memory-saving tree traversal method with O(1) space complexity.
-* **Path from Root:**<br> DFS traversal is used to find the path from the root to a node, with space complexity tied to recursion depth.
-* **Lowest Common Ancestor (LCA) in Tree:**<br> LCA is found through recursion with O(n) time complexity and stack space.
-* **In-Time & Out-Time:**<br> These values in DFS help create hierarchical visualizations of trees.
-* **Interval Assignment Visualization:**<br> Provides a visual hierarchy for analyzing complex structures in various fields.
-* **Finding LCA for Multiple Queries:**<br> LCA retrieval for multiple pairs involves adjusting node depths until they meet.
-
