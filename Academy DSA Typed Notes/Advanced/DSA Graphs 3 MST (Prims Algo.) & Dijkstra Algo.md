@@ -1,8 +1,14 @@
 # Graphs 3: MST & Dijkstra
 
----
-### Challenges in Flipkart's Logistics and Delivery 
 
+
+### Agenda of the lecture:
+
+* Challenges in Flipkart's Logistics and Delivery Operations
+* Prim's Algorithm
+* Djikstra's Algorithm
+
+### Challenges in Flipkarts Logistics and Delivery 
 
 **Scenario:**
 Suppose Flipkart has N local distribution centers spread across a large metropolitan city. These centers need to be interconnected for efficient movement of goods. However, building and maintaining roads between these centers is costly. Flipkart's goal is to minimize these costs while ensuring every center is connected and operational.
@@ -11,7 +17,7 @@ Suppose Flipkart has N local distribution centers spread across a large metropol
 
 
 
-**Explanation**
+### Explanation
 
 **Example:**
 
@@ -55,6 +61,7 @@ The minimum spanning tree has all the properties of a spanning tree with an adde
 
 **Algorithms for MST:** Kruskal's and Prim's algorithms are used to find MSTs. The MST found can vary based on the choices made for edges with equal weights. Both algorithms solve for same problem having same time and space complexities.
 
+*Note: We'll cover Prim's in today's session, Kruskal shall be covered in DSA 4.2*
 
 ### Solution to Flipkart's problem
 
@@ -67,9 +74,7 @@ The minimum spanning tree has all the properties of a spanning tree with an adde
 
 * **Outcome:** The result is a network of roads connecting all centers with the shortest total length or the lowest cost.
 
----
-## Prim's Algorithm
-
+### Prims Algorithm
 
 Let's consider the below **Graph:**
 
@@ -94,12 +99,59 @@ We choose 5 ---- 4 with weight 3
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/859/original/Screenshot_2024-01-31_at_4.44.49_PM.png?1706699696" width=350 />
 
+---
+
+### Question
+What is the next node, we need to visit ? 
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/859/original/Screenshot_2024-01-31_at_4.44.49_PM.png?1706699696" width=350 />
+
+
+### Choices
+- [ ] 3
+- [x] 2
+- [ ] 1
+- [ ] 6
+
+
+
+
+### Explanation:
+
+The next we need to visit is **2**.
+
+We choose 4 ----> 2 with weight 3, This is the smallest weight node among all possible edges of 3, 4, and 5.
+
+---
+###  Prims Algorithm Continued
+
 Now, same process follows i.e, we can select a min weighted edge originating from 3, 4, or 5 such that it should connect to a vertex that hasn't been visited yet.
 
 
 **After completing the entire process, we shall have below MST.**
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/860/original/Screenshot_2024-01-31_at_4.47.55_PM.png?1706699884" width=350 />
+
+
+---
+
+
+### Question
+What is the most suitable data structure for implementing Prim's algorithm?
+
+### Choices
+- [ ] Linked List 
+- [ ] Array
+- [x] Heap
+- [ ] Stack
+
+
+### Explanation:
+
+Prim's algorithm typically uses a Heap (min-heap) to efficiently select the minimum-weight edge at each step of the algorithm. Min Heaps allow for constant time access to the minimum element, making them well-suited for this purpose.
+
+---
+## Prims Algorithm Execution
 
 
 ### Execution
@@ -127,12 +179,12 @@ Select the minimum weighted -> (3, 4)
 Now, this shall continue.
 
 
-#### Pseudocode
+### Pseudocode
 
 ```java 
-while (!heap.isEmpty()) {
-
-    Pair p = heap.getMin();
+while (no heap.isEmpty()) {
+    
+    p = heap.getMin();
 
     if (vis[v] == true)
         continue;
@@ -143,91 +195,272 @@ while (!heap.isEmpty()) {
 
     // Now, you can optionally iterate through the adjacent vertices of 'v' and update the heap with new edges
     for ((u, w) in adj[v]) {
-
+        
         if (!vis[u]) {
             // Add the unvisited neighbor edges to the heap
-            heap.add({w,u});
+            heap.add({w, u});
         }
     }
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(E * logE)
 **Space Complexity:** O(V + E)
 
----
-## Dijkstra’s Algorithm
+## Dijkstras Algorithm
 
+### Question
 
 There are N cities in a country, you are living in city-1. Find minimum distance to reach every other city from city-1.
 
 We need to return the answer in the form of array
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/133/original/upload_3a593270efea8fe4f4dfe3a94fcb3e19.png?1696922261)" width=600 />
+### Example
+
+**Input Graph:**
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/064/422/original/graph.jpg?1707336223" width=500/>
 
 **Output:**
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/134/original/upload_188eeb11a6f84934ab19cecfd405325e.png?1696922288" width=400 />
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | 12 | 11 | 15 | 13 |
 
 
-**Initialize Data Structures:**
+### Result Array
 
-* Create an adjacency list (graph) to represent the cities and their distances.
-* Initialize a distances list with infinity for all cities except city-1 (set to 0).
-* Use a `Heap<pair>` (heap) to explore cities, starting with the pair (0, 0) (distance from city-1 is 0, and it's city-1 itself). The heap will contain `<Distance from the source vertex of a node, node>`.
-    
-**Explore Cities:**
+Lets say d is the Resultant Array,
 
-* While heap is not empty:
-  * Pop the pair (dist, u) with the shortest known distance.
-  * If dist is greater than the known distance to the city u, skip it.
-  * Otherwise, update the distance and explore its neighbors.
-    
-**Explore Neighbors:**
+`d[i] says that the minimum distance from the source node to the ith vertex`
 
-* For each neighbor of city u in the graph:
-    * Calculate the distance from city-1 via city u.
-    * If this new distance is shorter, update it and add the pair (new_distance, v) to the heap, where v is the neighbor.
-    
-**Termination:**
-
-* Continue until the heap is empty, exploring all cities.
-    
-**Return Result:**
-* The distances list now holds the minimum distances from city-1 to all other cities.
-    
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/053/136/original/upload_b3f70ce6b686d6fd40039eba2568927b.png?1696922372" width=700 />
+### Dry Run
+Lets take the above example and Dry Run it.
 
 
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/064/422/original/graph.jpg?1707336223" width=500/>
+
+Lets set the starting point as **1**.  So we need to find the Shortest to all the other vertexes from 1.
+
+
+Initally the distance array, d will be set to ∞.
+
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | ∞ | ∞ | ∞ | ∞ | ∞ | ∞ | ∞ |
+
+We know that, from 1 -> 1 is always 0.
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | ∞ | ∞ | ∞ | ∞ | ∞ | ∞ |
+
+Lets add the adjacent vertexes of 1 into the min-heap, which is used to pick the minimum weighted node.
+
+The elements of the min heap is in the form **(weight, vertex)**.
+
+min heap = `[ (7,2) (8, 3) ]`
+
+**(7, 2) Picked**
+
+Pick the minimum weighted one, which is **(7, 2)**. So we can say that, from **1 -> 2**, the minimum path is 7. Updating in the distance array as well.
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | ∞ | ∞ | ∞ | ∞ | ∞ |
+
+Lets add the adjacent vertexes of 2 into the min-heap, by adding the current weight + adjacent weight.
+i.e., (cost_to_reachfrom_1_to_2 + cost_to_reachfrom_2_to_3)
+(cost_to_reachfrom_1_to_2 + cost_to_reachfrom_2_to_4)
+
+Before adding the adjacent vertex in the min heap, check whether it is good enought to add it.
+
+Here the adjacent elements of 2 is 1, 3, 4.  We notice that, there is no point in visiting 1, by **1 -> 2 -> 1** for the cost of **14**.  Already we know that, 1 can be visited in **0 cost** by checking on the d (distance array).  So in this case, we **dont insert in our min heap**.
+
+
+
+Adding the remaining two pairs in the min heap.
+
+min heap = `[ (8, 3) (10, 3) (13, 4)]`
+
+
+**(8, 3) Picked**
+Picking the minimum (8, 3) and updating the distance array.
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | ∞ | ∞ | ∞ | ∞ |
+
+After adding the adjacent vertexes of 3,
+
+(16, 1) is not inserted, Since there is already a cost exist. 
+
+min heap = `[ (10, 3) (13, 4) (11, 5) (12, 4)]`
+
+
+
+---
+
+### Question
+
+The current states are,
+
+Given Graph
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/064/422/original/graph.jpg?1707336223" width=500/>
+
+min heap = `[ (10, 3) (13, 4) (11, 5) (12, 4)]`
+
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| distance array (d) | 0 | 7 | 8 | ∞ | ∞ | ∞ | ∞ |
+
+What would be the next step, which is going to take place?
+
+### Choices
+- [ ] Pick (10, 3) and Update the distance array at 3rd vertex as 10
+- [x] Pick (10, 3) and Dont update the distance array
+- [ ] Pick (13, 4) and Update the distance array at 4th vertex as 13
+- [ ] Pick (12, 4) and Dont update the distance array
+
+
+
+
+### Explanation:
+
+The current step is to **Pick (10, 3) and Dont update the distance array**.  Since we have noticed that, On the distance array, vertex 3 can be visited at cost 8, which is obviously lesser than 10.  So no need to update the array.
+
+After Picking (10, 3), the further steps are processed.
+
+---
+## Dijkstras Algorithm Dry Run continued
+
+**(10, 3) is Picked**
+
+But 3 can be visited by 8 cost already. So, No changes.
+
+min heap = `[ (13, 4) (11, 5) (12, 4)]`
+
+**(11, 5) is Picked**
+
+Updating the distance array
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | ∞ | 11 | ∞ | ∞ |
+
+Inserting the adjacent vertexes of 5,
+
+min heap = `[ (13, 4) (12, 4) (13, 4) (16, 6) (13, 7)]`
+
+The pairs, (14, 3) is not inserted, since there is already minimum cost exist in the distance array.
+
+**(12, 4) is Picked**
+
+Updating the distance array
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | 12 | 11 | ∞ | ∞ |
+
+Inserting adjacent of 4,
+
+min heap = `[ (13, 4) (13, 4) (16, 6) (13, 7) (17, 6)]`
+
+The other possible pairs are not inserted, since it has the minimum cost already.
+
+**(13, 4) is Picked**
+
+4 is on Already minimum cost
+
+min heap = `[ (13, 4) (16, 6) (13, 7) (17, 6)]`
+
+**(13, 4) is Picked**
+
+4 is on Already minimum cost
+
+min heap = `[ (16, 6) (13, 7) (17, 6)]`
+
+**(13, 7) is Picked**
+
+Updaing the distance array,
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | 12 | 11 | ∞ | 13 |
+
+
+min heap = `[(16, 6) (17, 6) (18, 7) (15, 6)]`
+
+**(15, 6) is Picked**
+
+Updaing the distance array,
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | 12 | 11 | 15 | 13 |
+
+
+min heap = `[(16, 6) (17, 6) (18, 7)]`
+
+
+**(16, 6) is Picked**
+
+No changes
+
+min heap = `[(17, 6) (18, 7)]`
+
+**(17, 6) is Picked**
+
+No changes
+
+min heap = `[(18, 7)]`
+
+**(18, 6) is Picked**
+
+No changes
+
+min heap = `[]`
+
+Thus the min heap is Emptied. 
+
+The distance array is,
+
+|  | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
+|---|---|---|---|---|---|---|---|
+| d | 0 | 7 | 8 | 12 | 11 | 15 | 13 |
+
+
+
+### Pseudo code
 ```java 
-  while (!hp.isEmpty()) {
-     Pair rp = hp.poll(); // Extract the minimum element
+ while (not hp.isEmpty()) {
+            rp = hp.pop();  // Extract the minimum element
 
-     int d = rp.first; // Distance
-     int u = rp.second; // City
+            d = rp.first;  // Distance
+            u = rp.second; // City
 
-     // Skip if this distance is greater than the known distance
-     if (d > dist[u]) {
-         continue;
-     }
+            // Skip if this distance is greater than the known distance
+            if (d > dist[u]) {
+                continue;
+            }
 
-     // Explore neighbors of u and update distances
-     for ( /* Loop through neighbors */ ) {
-         int v = /* Neighbor city */ ;
-         int w = /* Weight to reach v from u */ ;
+            // Explore neighbors of u and update distances
+            for (/* Loop through neighbors */) {
+                v = /* Neighbor city */;
+                w = /* Weight to reach v from u */;
 
-         // Calculate the new distance via u
-         int new_dist = dist[u] + w;
+                // Calculate the new distance via u
+                new_dist = dist[u] + w;
 
-         // If the new distance is shorter, update dist and add to heap
-         if (new_dist < dist[v]) {
-             dist[v] = new_dist;
-             hp.add(new Pair(new_dist, v));
-         }
-     }
- }
- }
+                // If the new distance is shorter, update dist and add to heap
+                if (new_dist < dist[v]) {
+                    dist[v] = new_dist;
+                    hp.add(Pair(new_dist, v));
+                }
+            }
+        }
+    }
 ```
 
 * The time complexity of the Dijkstra's algorithm implementation with a min-heap of pairs is $O((E + V) * log(V))$, where E is the number of edges, V is the number of vertices (cities), and log(V) represents the complexity of heap operations.
@@ -237,3 +470,19 @@ We need to return the answer in the form of array
 
 Dijkstra's algorithm is not suitable for graphs with negative edge weights as it assumes non-negative weights to guarantee correct results. Negative weights can lead to unexpected behavior and incorrect shortest path calculations.
 
+---
+
+
+### Question
+Is Dijkstra's algorithm is commonly used for finding the Minimum Spanning Tree ? 
+
+### Choices
+- [ ] Yes
+- [x] No
+
+
+### Explanation:
+
+Dijkstra's Algorithms is for finding the Single source shortest path algorithm
+
+---
