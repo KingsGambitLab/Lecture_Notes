@@ -1,48 +1,46 @@
-# DP 1: One Dimentional
+# DP 1: One Dimensional
 
----
-## Fibonacci  Series
 
+### Fibonacci  Series
 `0 1 1 2 3 5 8 13 21 ...`
 
-### fibonacci  Expresion
+### Fibonacci  Expresion
 * `fib(n) = fib(n-1) + fib(n-2)`
 * base case for the fibonacci expression -> `fib(0) = 0; fib(1) = 1`
 
 ### Psuedocode 
 ```java
-int fib(n) {
-    if (n <= 1) return n;
+function fib(n){
+    if(n <= 1) return n;
     return fib(n - 1) + (n - 2);
 }
 ```
 > Time complexity for the above code : **O(2^N)**
 > Space Complexity for the above code : **O(N)**
 
----
-### Problem 1 Fibonacci Series
 
 
-#### Properties of Dynamic Programming
+## Problem 1 Fibonacci Series
+### Properties of Dynamic Programming
 * **Optimal Substructure** - i.e. solving a problem by solving smaller subproblems 
 * **Overlapping Subproblems** - solving some subproblems multiple times 
 
-#### Solution for Dynamic Programming
+### Solution for Dynamic Programming
 * Store the information about already solved sub-problem and use it
 
 
-#### Psuedocode of Fibonacci series using dynamic Programming
-```java
-int f[N + 1] // intialize it with -1
-
-int fib(n) {
-    if (N <= 1) return n;
+### Psuedocode of Fibonacci series using dynamic Programming
+```java=
+function f[N + 1] // intialize it with -1
+    
+function fib(N){
+    if(N <= 1) return N;
 
     // if already solved, don't repeat
-    if (f[N] != -1) return f[N];
+    if(f[N] != -1) return f[N];
 
     // store it
-    f[N] = fib(n - 1) + (n - 2);
+    f[N] = fib(N - 1) + (N - 2);
     return f[N];
 }
 ```
@@ -50,7 +48,7 @@ int fib(n) {
 * If we have already solved a problem just return the solution, don't repeat the step
 * If not solved, solve and store the solution
 
-#### Dry Run
+### Dry Run
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/049/661/original/upload_e554134a63cd8d0282c8e28bc7b7a885.png?1695234686" width=600 />
 
@@ -76,56 +74,50 @@ We keep using these small answers to find the bigger ones. If we already know an
 
 By the end, we'll have the answer to fib(5), and all the smaller fib numbers stored in our array!
 
-#### Time and Space Complexity
+### Time and Space Complexity
 
 **Time Complexity for the above code is O(N)** and **space complexity is O(N)**. Thus, we were able to reduce the time complexity from O(2^N) to O(N) using dynamic programing
 
----
-### Dynamic Programming Types
-
-
-#### Types of DP Solution:
+## Dynamic Programming Types
+### Types of DP Solution:
 *Dynamic programming solution can be of two types*:
 * **`Top-Down`** [Also know as **Memoization**]
     * It is a recursive solution
     * We start with the biggest problem and keep on breaking it till we reach the base case.
     * Then store answers of already evaluated problems.
 
-* **`Bottom-Up`**
+* **`Bottom-Up`** [Also know as **Tabulation**]
     * It is an iterative solution
     * We start with the smallest problem, solve it and store its result.
     * Then we keep on moving to the bigger problems and use the already calculated results from sub-problems.
 
     
-#### Bottom Up Approach for Fibonacci series
-#### Psuedocode
+### Bottom Up Approach for Fibonacci series
+### Psuedocode
 ```java
-int fib[N + 1];
+fib[N + 1];
 
 fib[0] = 0;
 fib[1] = 1;
 
-for (i = 2, i <= N; i++) {
+for(i -> 2 to N){
     fib[i] = fib[i - 1] + fib[i - 2];
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N)
 **Space Complexity:** O(N)
-
 > Through this approach we were able to eliminate recursive stack.
 
-#### Further optimising the Space Complexity
+### Further optimising the Space Complexity
 
 If seen closely, the above approach can be optimised by using just simple variables instead of an array. In this way, we can further optimize the space.
 
-#### Pseudocode
+### Pseudocode
 ```java
-int a = 0;
-int b = 1;
-int c;
-for (int i = 2; i <= N; i++) {
+a = 0 , b = 1;
+for(int i -> 2 to N){
     c = a + b;
     a = b;
     b = c;
@@ -134,10 +126,10 @@ for (int i = 2; i <= N; i++) {
 > In the above code we were able to optimize the space complexity to O(1).
 
 ---
+
 ### Question
 What is the purpose of memoization in dynamic programming?
-
-**Choices**
+### Choices
 
 - [ ] To minimize the space complexity of the algorithm
 - [x] To store and reuse solutions to subproblems
@@ -145,11 +137,11 @@ What is the purpose of memoization in dynamic programming?
 - [ ] To improve the readability of the code
 
 ---
+
+
 ### Question
 Which approach is considered as an iterative process?
-
-**Choices**
-
+### Choices
 - [ ] Top-down approach
 - [x] Bottom-up approach
 - [ ] Both are iterative
@@ -157,10 +149,11 @@ Which approach is considered as an iterative process?
 
 
 ---
-### Problem 2 Climbing Staircase
+
+## Problem 2 Climbing Staircase
 
 
-
+### Problem Statement
 *Calculate the number of ways to reach the Nth stair. You can take 1 step at a time or 2 steps at a time.*
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/049/664/original/upload_233b00b5a73ec318e416b6bdbe360c77.png?1695234754" width=300 />
@@ -203,16 +196,18 @@ Number of ways to reach two stairs : 3 (as shown in fig)
 
 
 ---
+
 ### Question
 In Stairs Problems, the result for N=4
-
-**Choices**
+### Choices
 - [ ] 4
 - [x] 5
 - [ ] 6
 - [ ] 7
 
-**Explanation:**
+
+
+### Explanation:
 
 To reach 1st staircase : 1 way
 To reach 2nd staircase : 2 ways
@@ -221,13 +216,9 @@ To reach 4th staircase : 5 ways
 
 ---
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
+## Climbing Staircase Approach
 
-
-### Problem 2 Climbing Staircase Approach
-#### Approach
+### Approach
 
 We can come to 4th stair from 2nd and 3rd step.
 * If I get to know #steps to reach stair 3, we can take length 1 step and reach stair 4.
@@ -245,8 +236,9 @@ We can come to 4th stair from 2nd and 3rd step.
 We can see that the above has been deduced to fibonacii expression
 
 ---
-### Problem 3 Get Minimum Squares
+## Problem 3 Get Minimum Squares
 
+### Problem Statement
 *Find minimum number of perfect squares required to get sum = N. (duplicate squares are allowed)*
 
 *example 1 --> N = 6*
@@ -273,17 +265,20 @@ sum 10 can be obtained by the addition of following squares:
 
 
 ---
+
+
 ### Question
 What is the minimum number of perfect squares required to get sum = 5. (duplicate squares are allowed)
 
-**Choices**
+### Choices
 - [ ] 5
 - [ ] 1
 - [x] 2
 - [ ] 3
 
 
-**Explanation**:
+
+### Explanation:
 
 sum 5 can be obtained by the addition of following squares:
 * `1^2 + 1^2 + 1^2 + 1^2 + 1^2`
@@ -291,14 +286,10 @@ sum 5 can be obtained by the addition of following squares:
 
 
 ---
+##  Get Minimum Squares Approach
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-### Get Minimum Squares Approach
-
-#### Approach 1
+### Approach 1
 * Can we simply do **`N - (nearest perfect square)`** ?
 
     * Verifying approach 1 with example N=12
@@ -308,7 +299,7 @@ Please take some time to think about the solution approach on your own before re
     * 1-1 = 0 
     * We are using 4 perfect squares, whereas the minimum number of square is 3 (2^2 + 2^2 +2^2) so approach 1 is not useful in this case
 
-#### Brute Force Approach
+### Brute Force Approach
 * Try every possible way to form the sum using brute force to solve a example N = 12
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/049/672/original/upload_b2d3a0ce0edd55a79e60fb9cc25f7422.png?1695234985" width=500 />
 
@@ -318,20 +309,20 @@ Now, to get minimum sum of 12 we will find minimum square of 11 or minimum squar
 
 The above is a recursive problem where we can see overalapping subproblems, like for N=7.
 
-#### Dynamic Programming Approach
+### Dynamic Programming Approach
 Here optimal structure has been obtained as well as overlapping subproblems
 
 So, we can say that
 `square(i) = 1 + min{ squares(i - x^2) for all x^2 <= i} `and base case is square[0] = 0
 
-#### Psuedocode
+### Psuedocode
 ```java
-int dp[N + 1]; //initialise (-1)
-int psquares(int N, int dp[]) {
-    if (n == 0) return 0;
+dp[N + 1]; //initialise (-1)
+psquares(N) {
+    if (N == 0) return 0;
     if (dp[N] != -1) return dp[N];
-    ans = int - max;
-    for (x = 1; x * x <= N; x++) {
+    ans = infinity;
+    for (x -> 1 to sqrt(N)) {
         ans = min(ans, psquares(N - x ^ 2)); // dp
     }
     dp[N] = 1 + ans;
@@ -340,3 +331,4 @@ int psquares(int N, int dp[]) {
 ```
 Time complexity for the above code is O(N(sqrt(N))) and space complexity is O(N).
 
+---
