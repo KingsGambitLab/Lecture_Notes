@@ -1,6 +1,5 @@
-# Graphs 1: Introduction with BFS & DFS
+# Graphs 1: Introduction, DFS & Cycle Detection
 
----
 ## Graphs Introduction
 
 ### Introduction
@@ -20,9 +19,7 @@ Some real life examples of Graph -
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/780/original/Screenshot_2024-01-30_at_6.56.17_PM.png?1706621456" width="400" />
 
 
----
-### Types of Graph
-
+## Types of Graph
 
 ### Cyclic Graph
 
@@ -130,11 +127,7 @@ A -- B
 D -- C
 ```
 
-
-
----
-### How to store a graph
-
+## How to store a graph
 
 ### Graph:
 
@@ -151,10 +144,10 @@ In adjacency matrix, `mat[i][j] = 1`, if there is an edge between them else it w
 #### Pseudocode:
 
 ```cpp
-int N, M
-int mat[N+1][M+1] = {0}
+declare N, M 
+declare 2D matrix with all values 0 -> mat[N+1][M+1] 
 
-for(int i=0; i < A.size(); i++) {
+for(i -> 0 to A.size - 1) {
     u = A[i][0];
     v = A[i][1];
     
@@ -190,22 +183,20 @@ Stores the list of nodes connected corresponding to every node.
 
 We can create map of <int, list> or an array of lists
 ```
-map<int, list<int>> graph;
+map<integer, list<integer>> graph;
 
 OR
 
-list<int> graph[]
+list<integer> graph[]
 ```
 
 #### Pseudocode:
 ```javascript
-int N
-int M
-list < int > graph[N + 1]
-for (int i = 0; i < A.size(); i++) {
+list<integer> graph[N+1]
+for(i -> 0 to A.size - 1) {
     u = A[i][0]
     v = A[i][1]
-
+    
     graph[u].add(v)
     graph[v].add(u)
 }
@@ -214,17 +205,20 @@ for (int i = 0; i < A.size(); i++) {
 * We refer the adjacent nodes as **neighbours**.
 
 ---
+
+
 ### Question
 
 Consider a graph contains V vertices and E edges.  What is the **Space Complexity** of adjacency list?
 
-**Choices**
+### Choices
 
 - [ ] O(V^2)
 - [ ] O(E^2)
 - [x] O(V + E)
 - [ ] O(V*E)
 
+### Explanation
 
 
 Space is defined by the edges we store. An Edge e comprise of two nodes, a & b. For a, we store b and for b, we store a. Hence, 2 * E.
@@ -236,7 +230,6 @@ Space Complexity: O(V+E)
 
 ---
 ### Graph traversal algorithm - DFS
-
 
 There are two traversal algorithms - DFS (Depth First Search) and BFS(Breadth First Search).
 
@@ -295,44 +288,49 @@ C        D
 The order of traversal would be: **A → B → D → C → E**.
     
 
-#### Pseudocode:
+### Pseudocode:
 
 We'll take a visited array to mark the visited nodes.
 
 ```javascript
 // Depth-First Search function
-int maxN = 10 ^ 5 + 1
-list < int > graph[maxN];
-bool visited[maxN];
+maxN = 10^5 + 1
+list<integer> graph[maxN];
+visited[maxN];
 
-void dfs(int currentNode) {
+function dfs( currentNode) {
     // Mark the current node as visited
     visited[currentNode] = true;
 
     // Iterate through the neighbors of the current node
-    for (int i = 0; i < graph[currentNode].size(); i++) {
-        int neighbor = graph[u][i];
+    for (i -> 0 to graph[currentNode].size - 1) {
+        neighbor = graph[u][i];
         // If the neighbor is not visited, recursively visit it
-
-        if (!visited[neighbor]) {
+        
+        if (not visited[neighbor]) {
             dfs(neighbor);
         }
     }
 }
 ```
 
-><img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/784/original/IMG_1C2FED3C35EF-1.jpeg?1706628598" width="500" />
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/784/original/IMG_1C2FED3C35EF-1.jpeg?1706628598" width="500" />
 
 ---
+
+
 ### Question
 Time Complexity for DFS?
 
-**Choices**
+### Choices
 - [x] O(V + E) 
 - [ ] O(V)
 - [ ] O(2E)
 
-**Explanation**:
+
+
+### Explanation:
 
 The time complexity of the DFS algorithm is O(V + E), where V is the number of vertices (nodes) in the graph, and E is the number of edges. This is because, in the worst case, the algorithm visits each vertex once and each edge once.
 
@@ -340,11 +338,12 @@ The time complexity of the DFS algorithm is O(V + E), where V is the number of v
 
 
 ---
-### Problem 1 Detecting Cycles in a Directed Graph
+## Problem 1 Detecting Cycles in a Directed Graph
 
+### Problem Statement
 Check if given graph has a cycle?
 
-**Examples**
+### Examples
 
 1)
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/787/original/Screenshot_2024-01-30_at_9.16.41_PM.png?1706629671" width="250"/>
@@ -353,11 +352,13 @@ Check if given graph has a cycle?
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/786/original/Screenshot_2024-01-30_at_9.17.06_PM.png?1706629663" width="300"/>
 
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
 
-#### Approach
+
+**Counter Example:** It is not true, because we can come to a visited node via some other path
+For eg, in Example 2, start at 0 -> 1 -> 3, now we can't go anywhere, backtrack to 1->2, then via 2 we'll find 3 which is already visited but there's no cycle in the graph.
+
+
+### Approach
 
 Apply DFS, if a node in current path is encountered again, it means cycle is present!
 With this, we will have to keep track of the path.
@@ -380,120 +381,31 @@ path[] = {0, 1, 2, 3}
 Now, from 3, we come back to 1. 
 path[] = {0, 1, 2, 3, 1} ***[But 1 is already a part of that path, which means cycle is present]***
 
-#### Pseudocode
+### Pseudocode
 
 ```javascript
-list < int > graph[] //filled
-bool visited[] = {0}
-int path[N] = {0}
+list<integer> graph[] //filled
+visited[] = {0}
+path[N] = {0}
 
-bool dfs(int u) {
+function dfs( u) {
     visited[u] = true
     path[u] = 1
-
-    for (int i = 0; i < graph[u].size(); i++) {
-        int v = graph[u][i]
-        if (path[v] == 1) return true
-        else if (!visited[v] && dfs(v)) {
+    
+    for(i -> 0 to graph[u].size - 1) {
+        v = graph[u][i]
+        if(path[v] == 1) return true
+        else if(not visited[v] and dfs(v)) {
             return true
         }
     }
-    path[u] = 0;
+    path[u]=0;
     return false;
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(V + E)
 **Space Complexity:** O(V)
 
-
-
 ---
-### Problem 2 Number of Islands Statement and Approach
-
-
-You are given a 2D grid of '1's (land) and '0's (water). Your task is to determine the number of islands in the grid. An island is formed by connecting adjacent (horizontally or vertically) land cells. Diagonal connections are not considered.
-
-Given here if the cell values has 1 then there is land and 0 if it is water,  and you may assume all four edges of the grid are all surrounded by water.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/523/original/upload_a58eb3b65d084e2319c537762414bba7.jpeg?1697742306" width=400/>
-
-In this case we can see that our answer is 5. 
-
-**Que: Do we need adjacency list ?**
-Ans: No, since the information is already present in form of matrix which can be utilised as it is. 
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Approach:
-
-**Set a Counter:** Start with a counter at zero for tracking island count.
-
-**Scan the Grid:** Go through each cell in the grid.
-
-**Search for Islands:** When you find a land cell ('1'), use either BFS or DFS to explore all connected land cells.
-
-**Mark Visited Cells:** Change each visited '1' to '0' during the search to avoid recounting.
-
-**Count Each Island:** Increase the counter by 1 for every complete search that identifies a new island.
-
-**Finish the Search:** Continue until all grid cells are checked.
-
-**Result:** The counter will indicate the total number of islands.
-
-
----
-### Number of Islands Dry Run and Pseudocode
-
-#### Dry-Run:
-```java
-[
- ['1', '1', '0', '0', '0'],
- ['1', '1', '0', '0', '0'],
- ['0', '0', '0', '0', '0'],
- ['0', '0', '0', '1', '1']
-]
-```
-
-* Initialize variable islands = 0.
-* Start iterating through the grid:
-* At grid[0][0], we find '1'. Increment islands to 1 and call visitIsland(grid, 0, 0).
-* visitIsland will mark all connected land cells as '0', and we explore the neighboring cells recursively. After this, the grid becomes:
-
-
-```cpp-
-[ 
- ['0', '0', '0', '0', '0'],
- ['0', '0', '0', '0', '0'],
- ['0', '0', '1', '0', '0'],
- ['0', '0', '0', '1', '1']
-]
-```
-* Continue iterating through the grid:
-* At grid[2][2], we find '1'. Increment islands to 2 and call visitIsland(grid, 2, 2).
-* visitIsland will mark connected land cells as '0', and we explore the neighboring cells recursively. After this, the grid becomes:
-```java
-[ 
- ['0', '0', '0', '0', '0'],
- ['0', '0', '0', '0', '0'],
- ['0', '0', '0', '0', '0'],
- ['0', '0', '0', '1', '1']
-]
-```
-* Continue the iteration.
-* At grid[3][3], we find '1'. Increment islands to 3 and call visitIsland(grid, 3, 3).
-
-We can visit only 4 coordinates, considering them to be i, j; it means we can visit **(i,j-1), (i-1, j), (i, j+1), (i+1, j)**
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/792/original/Screenshot_2024-01-30_at_9.58.09_PM.png?1706632097" width=500 />
-
-#### Pseudocode
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/796/original/Screenshot_2024-01-30_at_10.04.29_PM.png?1706632480" width=400 />
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/794/original/Screenshot_2024-01-30_at_10.03.04_PM.png?1706632395" width=400 />
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/793/original/Screenshot_2024-01-30_at_10.02.10_PM.png?1706632342" width=400 />
