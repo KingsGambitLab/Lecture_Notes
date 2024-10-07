@@ -1,143 +1,90 @@
-# DP 2: Two Dimensional 
+# DP 2: Two Dimensional
 
----
-## Problem 1 Maximum Subsequence Sum
+## Problem 1 House Robber
+### Problem Statement:
+Given an integer array nums, where each element represents the amount of money in a house, determine the maximum amount of money you can rob without triggering an alarm. The constraint is that you cannot rob two adjacent houses (i.e., you cannot rob house i and house i+1 together).
 
-Find maximum subsequence sum from a given array, where selecting adjacent element is not allowed.
+**Example 1**:
+Input: nums = [1, 2, 3, 1]
+Output: 4
+**Explanation**:
+- Rob house 1 (money = 1) and house 3 (money = 3).
+- Total amount = 1 + 3 = 4.
 
-**Examples**
-Example 1: ar[] = {9, 4, 13} 
-Output 1: 22. Since out of all possible non adjacent element subsequences, the subsequence (9, 13) will yield maximum sum.
-
-Example 2: ar[] = {9, 4, 13, 24}
-Output 2: 33 (24 + 9)
-
-
----
-### Question
-Find maximum subsequence sum from `[10, 20, 30, 40]`, where selecting adjacent element is not allowed.
-
-**Choices**
-- [ ] 70
-- [x] 60
-- [ ] 100
-- [ ] 50
-
+**Example 2**:
+Input: nums = [2, 7, 9, 3, 1]
+Output: 12
 **Explanation**:
 
-Maximum Subsequence is 60. Since, Out of all possible non adjacent element subsequences, the subsequence (20, 40) will yield maximum sum of 60.
+- Rob house 1 (money = 2), house 3 (money = 9), and house 5 (money = 1).
+- Total amount = 2 + 9 + 1 = 12.
+
+**Step-by-Step Breakdown**:
+### Brute Force Approach (Inefficient):
+
+**Idea**: Recursively explore all subsets of houses by either robbing or skipping each house, and calculate the maximum amount you can rob.
+**Steps**:
+- For each house, you can choose to:
+1.Rob the house and skip the next one.
+2.Skip the house and move to the next one.
+- Recursively compute the maximum amount of money that can be robbed.
+**Complexity**:  O(2^n)
+ 
+**Flaws**:
+ - The brute force approach becomes extremely slow as the number of houses increases due to redundant calculations.
+ 
+## Problem 1 House Robber Optimised Approach
+###  Optimized Approach Using Dynamic Programming (DP):
+
+**Key Insight**: 
+For each house, you can either:
+1. Rob it and add its value to the total amount robbed from all non-adjacent previous houses.
+2. Skip it and take the maximum amount robbed from the previous house.
+
+**State Transition**:
+- Let dp[i] represent the maximum amount of money that can be robbed from the first i houses.
+- **For each house i**:
+dp[i] = max(dp[i-1], nums[i] + dp[i-2])
+- This means: either take the maximum amount up to the previous house dp[i-1], or rob the current house nums[i] and add the value from the non-adjacent house dp[i-2].
 
 
----
-### Maximum Subsequence Sum Brute Force Approach
+**Optimized Solution Pseudocode (Dynamic Programming Approach):**
 
-:::warning
-Please take some time to think about the brute force approach on your own before reading further.....
-:::
-
-#### Brute Force Approach
-- Consider all the valid subsequences **`(this a backtracking step)`**.
-- For creating subsequences, for every element we can make a choice, whether to select it or reject it.
-- Say, we start from right most element. If we keep it, then (n - 1)th element can't be considered, so jump to (n - 2)th. If we don't, then (n - 1)th element can be considered. So on...
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/331/original/upload_092f6de3c6b895d5870ff2a4edc751b9.png?1695530157" width=400 />
-
-
-The above image shows tree which has all the choices of selection. Here we can see that the choices are overlapping. 
-
-Moreover, as the problem can be broken into smaller problems and has overlapping sub problems, we can use **dynamic programming**.
-
-
----
-### Maximum Subsequence Sum Top Down Approach
-
-#### Top Down Approach
-So for **maxSum(i)** there are two options:
-* either we can select element present at index i 
-    * if we select that element we will include its value ie ar[i] and the recursive call will be **maxSum(i-2)**
-* or we cannot select the element present at index i
-    * so in this case we will not include its value and will make recursive call which is **maxSum(i-1)**
-
-`dp[i] = stores the maximum value that can be obtained by selecting 0 to ith toy.`
-
-The maximum of the choice we make will give us the final answer
-
-#### Psuedocode 
-
-```cpp
-int dp[N] //initialize it with negative infinity
-
-// i will be initialised with N-1, i.e we start with the last element
-int maxSum(int[] arr, i, dp[N]) {
-    if (i < 0) {
+``` cpp function rob(nums):
+    if len(nums) == 0:
         return 0
-    }
-    if (dp[i] != -infinity) {
-        return dp[i]
-    }
-    //Don't consider the ith element, in this case we can consider (i-1)th element
-    f1 = maxSum(arr, i - 1, dp);
 
-    //Consider the ith element, in this case we can't consider (i-1)th element, so we jump to (i-2)th element
-    f2 = arr[i] + maxSum(arr, i - 2, dp);
+    if len(nums) == 1:
+        return nums[0]
 
-    ans = max(f1, f2)
+    # Initialize base cases
+    dp[0] = nums[0]
+    dp[1] = max(nums[0], nums[1])
 
-    dp[i] = ans;
+    # Fill the dp array for each house
+    for i from 2 to len(nums) - 1:
+        dp[i] = max(dp[i-1], nums[i] + dp[i-2])
 
-    return ans
-}
+    # Return the maximum amount possible, which is dp[n-1]
+    return dp[len(nums) - 1]
 ```
-
-#### Time & Space Complexity
-
-**Time complexity:** O(N). As we are filling the DP array of size N linearly, it would take O(N) time.
-**Space complexity:** O(N), because of dp array of size N.
-
+    
+### Complexity Analysis:
+**Time Complexity**: O(n)
+**Space Complexity**:
+- The DP approach uses O(n) space to store the dp array.
+- The space-optimized version uses O(1) space, as it only maintains two variables.
 
 ---
-### Maximum Subsequence Sum Bottom Up Approach
+## Problem 2 Count Unique Paths
 
-**Problem 1**
-**`dp[i] is defined as the maximum subsequence sum from [0 - i] provided no adjacent elements are selected`**
-
-arr = {9, 4, 13, 24}
-
-We can start from arr[0] and we have two choices: either we can select arr[0] or reject.
-* If we select it, the maximum value we can acheive is arr[0] = 9
-* If we reject it, the value which we will get is 0
-* So, we will store arr[0] in dp[0]
-
-* Now, we will look at arr[0] and arr[1] to find the maximum
-    * As arr[0] > arr[1], we will store arr[0] in dp[1]
-* Similary we will repeat the above steps to fill dp[].
-
-
-#### Psuedocode
-
-```cpp
-dp[N]
-for(i = 0; i < N; i++){
-    dp[i] = max(dp[i - 1], arr[i] + dp[i - 2])
-}
-return dp[N - 1]
-```
-
-
-#### Time & Space Complexity
-**Time complexity:** O(N). As we are filling the DP array of size N linearly, it would take O(N) time.
-**Space complexity:** O(N), because of dp array of size N.
-
----
-### Problem 2 Count Unique Paths
-
+### Problem Statement
 Given mat[n][m], find total number of ways from (0,0) to (n - 1, m - 1). We can move 1 step in horizontal direction or 1 step in vertical direction.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/332/original/upload_cb3858a3235bba18e6037c9699d300f3.png?1695530323a" width=400 />
 
 
-**Example**
+### Example
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/333/original/upload_44295f53f281281555a9264d2acee1d4.png?1695530363" width=400 />
 
@@ -149,22 +96,23 @@ Given mat[n][m], find total number of ways from (0,0) to (n - 1, m - 1). We can 
 
 
 ---
+
+
 ### Question
 Find the total number of ways to go from (0, 0) to (1, 2)
 
-| o |   |   |
-|---|---|---|
-|   |   | **o** |
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/087/788/original/a.png?1724856036" width=400/>
 
 
-**Choices**
+
+### Choices
 - [ ] 1
 - [ ] 2
 - [x] 3
 - [ ] 4
 
 
-**Explanation**:
+### Explanation:
 
 The 2D matrix dp is
 
@@ -177,16 +125,12 @@ From here, the number of ways to go from (0, 0) to (1, 2) is 3.
 
 
 ---
-### Count Unique Paths Brute Force Approach
+## Count Unique Paths Brute Force Approach
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Brute Force Appoarch
+### Brute Force Appoarch
 **Backtracking**, i.e., start from (0, 0) and try all possible scenarios to reach (n - 1, m - 1)
 
-#### Observation
+### Observation
 Can we break it into subproblems?
 - We can reach (n - 1, m - 1) in one step (by moving vertically) from (n - 2, m - 1)
 - We can reach (n - 1, m - 1) in one step (by moving horizontally) (n - 1, m - 2)
@@ -195,19 +139,19 @@ Can we break it into subproblems?
 
 
 
-#### Recursive Relation
+### Recursive Relation
 
 **ways(i, j) = ways(i - 1, j) + ways(i, j - 1)**
 
-#### Base Condition
+### Base Condition
 - When i == 0, we have only one path to reach at the end, i.e., by moving vertically.
 - Similary, when j == 0,  we have only one path to reach at the end, i.e., by moving horizontally.
 
 Therefore, **ways(0, j) = ways(i, 0) = 1**
 
-#### Pseudocode:
+### Pseudocode:
 ```java
-int ways(i, j) {
+function ways(i, j) {
     if (i == 0 || j == 0) {
         return 1;
     }
@@ -218,10 +162,9 @@ int ways(i, j) {
 Time Complexity: O(2 ^ (N * M)), as at every step we have two options, and there are total of N * M cells.
 
 
----
-### Count Unique Paths Optimization
+## Count Unique Paths Optimization
 
-#### Optimization using DP
+### Optimization using DP
 
 We can see the **optimal substructure** in this problem as it can be defined in terms of smaller subproblems.
 
@@ -237,18 +180,18 @@ We can see that, `(i - 1, j - 1)` are the overlapping subproblems.
 *Which type of array should be used?*
 Since two args (i and j) are varying in above method, 2-d storage is needed of size N x M.
 
-#### Top Down Approach
+### Top Down Approach
 
 **`dp[i][j] = It is defined as the total ways to reach from 0,0 to i,j`**
 
-#### Pseudocode
+### Pseudocode
 ```java
-int dp[N][M]; // initialized with -1
-int ways(i, j) {
+dp[N][M]; // initialized with -1
+function ways(i, j) {
     if (i == 0 || j == 0) {
         return 1;
     }
-
+    
     if (dp[i][j] != -1) {
         return dp[i][j];
     }
@@ -257,7 +200,7 @@ int ways(i, j) {
     return ans;
 }
 ```
-#### Complexity
+### Complexity
 **Time Complexity:** O(N * M), as we are filling a matrix of size N * M.
 **Space Complexity:** O(N * M), as we have used dp matrix of size N * M.
 
@@ -265,7 +208,7 @@ int ways(i, j) {
 > 
 > If you say 0, that means there is no way to reach (0, 0) or (0, 0) is unreachable. Hence, to reach (0, 0) from (0, 0), there is 1 way and not 0.
 
-#### Bottom Up Approach:
+### Bottom Up Approach:
 Consider a 2D matrix `dp` of size N * M.
 `dp[i][j] = It is defined as the total ways to reach from 0,0 to i,j`
 
@@ -278,7 +221,7 @@ In bottom up approach, we start from the smallest problem which is (0, 0) in thi
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/336/original/upload_91d6c51f6c8e74ac6934f9096ed1e7d2.png?1695530605" width=500 />
 
-#### Pseudocode
+### Pseudocode
 ```java
 dp[N][M];
 // Initialize `dp` row - 0 and col - 0 with 1.
@@ -294,215 +237,111 @@ Time Complexity: O(N * M)
 Space Complexity: O(N * M)
 
 
-#### Can we further optimize the space complexity?
+### Can we further optimize the space complexity?
 
 - The answer of every row is dependent upon its previous row.
 - So, essentially, we require two rows at a time - (1) current row (2) previous row. Thus, the space can be optimized to use just two 1-D arrays.
 
 
 ---
-### Problem 3 Total number of ways to go to bottom right corner from top left corner
+## Problem 3 N digit numbers
+### Problem Statement:
+You are tasked with finding how many A-digit positive numbers exist, such that the sum of their digits equals B. A valid number does not contain leading zeros (i.e., the first digit must be between 1 and 9). Since the answer can be large, return the result modulo 10^9+7 (1000000007).
 
-
-Find the total number of ways to go to bottom right corner (N - 1, M - 1) from top left corner (0, 0) where cell with value 1 and 0 represents non-blocked and blocked cell respectively.
-We can either traverse one step down or one step right.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/337/original/upload_99f88e61619dbf00e937df23ee3548f2.png?1695530745" width=300 />
-
-
-#### Solution
-
-
-
-| 1 | 1 | 1 | 1 |
-| - | - | - | - |
-| 1     | 0     | 1     | 0     |
-| 0     | 0     | 1     | 1     |
-| 0     | 0     | 1     | 2     |
-| 0     | 0     | 1     | 3     |
-
-
-The given problem is just a variation of above problem. Only advancement is that if cell value has 0, then there is no way to reach the bottom right cell.
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-#### Pseudocode (Recursive Approach)
-
-```cpp
-if (mat[i][j] != 0) {
-    ways(i, j) = ways(i - 1, j) + ways(i, j - 1);
-} else {
-    ways[i][j] = 0;
-}
-```
-
-Similar base condition can be added to top-down and bottom-up approach to optimize it using DP.
-
-
----
-### Question
-How many unique paths in the grid from (0, 0) to (2, 2) ? 
-
-|   1   |   1   |   1   |
-|-------|-------|-------|
-| **0** | **0** | **0** |
-| **1** | **1** | **1** |
-
-where cell with value 1 and 0 represents non-blocked and blocked cell respectively.
-
-**Choices**
-- [x] 0
-- [ ] 1
-- [ ] 2
-- [ ] 3
-
-
+**Example 1**:
+Input: A = 2, B = 4
+Output: 4
 **Explanation**:
 
-On the Grid, Row 1 is completely blocked.  So there is no path from (0, 0) to (2, 2).
+- Valid numbers with 2 digits whose sum is 4 are: {22, 31, 13, 40}.
+- Hence, the output is 4.
 
-Thus, the Total number of unique paths is 0.
+**Example 2**:
+Input: A = 1, B = 3
+Output: 1
+**Explanation**:
 
----
-### Problem 4 Dungeons and Princess
+- The only valid 1-digit number whose sum is 3 is 3.
 
+**Step-by-Step Breakdown**:
+### Brute Force Approach (Inefficient):
 
-Find the minimum health level of the prince to start with to save the princess, where the negative numbers denote a dragon and positive numbers denote red bull.
+**Idea**: Generate all possible A-digit numbers, check each number to see if the sum of its digits equals B.
+**Steps**:
+- Iterate through all possible A-digit numbers.
+- For each number, calculate the sum of its digits and check if it equals B.
+- Count all valid numbers.
+**Time Complexity**: O(9^A)
 
-Redbull will increase the health whereas the dragons will decrease the health.
+**Flaws**:
 
-The prince can move either in horizontal right direction or vertical down direction.
-If health level <= 0, it means prince is dead.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/338/original/upload_f334edd38b0378a2a03a45fa9e3043d5.png?1695530793" width=300 />
-
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
-
-#### Observation 
-One might argue to solve it by finding the path with minimum sum or maximum sum.
-
-Let's check does it even work or not?
-
-#### Using path with minimum sum(fails)
-- For the above matrix, the path with minimum sum is -3 -> -6 -> -15 -> -7 -> 5 -> -3 -> -4, which yields sum as 33. So, minimum health level should be (3 + 6 + 15 + 7) + 1 = 32, right?
-- No because if we start with **health 4** and follow the path -3 -> 2 -> 4 -> -5 -> 6 -> -2 -> -4, we can definitely reach the princess with lesser initial health.
-- Thus, finding the path with minimum sum doesn't work/
-
-#### Using path with maximum sum(fails)
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/339/original/upload_873abf9a3e58fd0f728719430a0e887c.png?1695530837" width=300 />
+- This approach is inefficient for larger values of A since it involves generating many numbers and checking each one.
 
 
-- For the above matrix, the path with maximum sum is -2 -> -8 -> 100 -> 1, which yields sum as 91. So, minimum health level should be (2 + 8) + 1 = 11, right?
-- No because if we start with **health 7** and follow the path -2 -> -1 -> -3 -> 1, we can definitely reach the princess with lesser initial health.
-- Similarly, finding the path with maximum sum doesn't work.
 
-> NOTE:
-> Finding the path with maximum or minimum sum is a greedy approach, which doesn't work for this problem.
+## Problem 3 N digit numbers Optimized Approach
 
-#### How to approach the problem then?
-Let's start with finding the smallest problem. 
+### Optimized Approach Using Dynamic Programming (DP):
+**Key Insight**: Instead of generating all numbers, we can use dynamic programming to efficiently count valid numbers. We can build the solution step by step by keeping track of the sum of digits at each step.
 
-***Where does smallest problem lie?* (0, 0) ?*** **NO**
+**State Definition**:
 
-The smallest problem lies at **`(M - 1, N - 1)`**, because we need to find the minimum health to finally enter that cell to save the princess. 
+- Let dp[i][j] represent the number of valid i-digit numbers whose digit sum equals j.
+Our goal is to calculate dp[A][B].
 
-***Now, what should be the minimum health to enter a cell?***
+**State Transition**:
 
-Suppose the cell(M - 1, N - 1) has value -4, then to enter the cell needed is: minimum_health + (-4) > 0 => minimum_health + (-4) = 1 => minimum_health = 5
+- For each i (number of digits so far) and each j (current sum of digits), we add a new digit d (ranging from 0 to 9) and update the state:
+dp[i][j] += dp[i-1][j-d]
+- This means: for each number with i-1 digits whose sum is j-d, we can form a new number by adding a digit d to it, resulting in an i-digit number whose sum is j.
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/340/original/upload_843b46c743fe4d12773a667600e07d54.png?1695530898" width=300 />
+**Base Case**:
 
+- dp[1][sum] = 1 for all valid sums where 1 ≤ sum ≤ 9, because there is exactly one 1-digit number for each sum.
 
-There are two ways to enter the cell: 
-**(1)** via TOP **(2)** via LEFT. 
-***Which one to choose?***
+**Optimized Solution Pseudocode (DP Approach)**:
 
-We know, to enter the cell with value -4, the minimum health should be 5. Therefore, if we want to enter from top cell with value -2, then x + (-2) = 5; x = 7, where 'x' is minimum health to enter top cell.
+``` cpp function countValidNumbers(A, B):
+    MOD = 1000000007
+    
+    # Initialize dp array: dp[i][j] represents the number of valid i-digit numbers with digit sum j
+    dp = array of size [A + 1][B + 1] initialized to 0
+    
+    # Base case: For 1-digit numbers
+    for d from 1 to 9:
+        if d <= B:
+            dp[1][d] = 1  # There's exactly one way to get a sum of d with one digit
 
-Similary, y + (-3) = 5; y = 8.
+    # Fill dp array
+    for i from 2 to A:  # Iterate through digit counts
+        for j from 0 to B:  # Iterate through sums
+            for d from 0 to 9:  # Try adding each digit d
+                if j - d >= 0:
+                    dp[i][j] = (dp[i][j] + dp[i-1][j-d]) % MOD
 
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/341/original/upload_51f3ab59c91e9ade5cb5eef24a9bbd19.png?1695530962" width=600 />
-
-Hence, we should choose minimum of these and enter the cell via top.
-
-**What is the minimum health required to enter a cell (i, j) which has two options to move ahead?**
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/342/original/upload_1440f8d741c7f418205eb25601dfd9bf.png?1695531018" width=300 />
-
-</br>
-</br>
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/343/original/upload_6dcf579d339349697c4675985a1e1a10.png?1695531068" width=600 />
-
-> If the minimum health evaluates to negative, we should consider 1 in place of that as with any health <= 0, the prince will die.
-
-Let's fill the matrix using the same approach.
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/050/344/original/upload_951ca69af1ec1a1a6aab85b61d583e1b.png?1695531111" width=600 />
-
-
-Here, `dp[i][j]` = min health with which prince should take the entry at (i, j) so that he can save the princess. 
-
----
-### Question
-What is the Time Complexity to find minimum cost path from (0,0) to (r-1, c-1)?
-
-**Choices**
-- [ ] O(max(r, c))
-- [ ] O(c )
-- [x] O(r * c)
-- [ ] O(r + c)
-
----
-### Dungeons and Princess Algorithm and Pseudocode
-#### Algorithm
-```java
-arr[i][j] + x = min(dp[i + 1][j], dp[i][j + 1])
-x = min(dp[i + 1][j], dp[i][j + 1]) - arr[i][j]
+    # Return the result for A digits and sum B
+    return dp[A][B]
+    
 ```
+**Explanation:**
+**Base Case**:
 
-Since `x` should be > 0
+- For i = 1 (1-digit numbers), dp[1][d] = 1 for all d from 1 to 9. This initializes the base case where there is exactly one way to form a 1-digit number for each sum d.
 
-```java
-x = max(1, min(dp[i + 1][j], dp[i][j + 1]) - arr[i][j])
-```
+**Transition**:
 
-#### Pseudocode:
-```java
-declare dp[N][M];
-if (arr[N - 1][M - 1] > 0) {
-    dp[N - 1][M - 1] = 1;
-} else {
-    dp[N - 1][M - 1] = 1 + abs(arr[N - 1][M - 1]);
-}
+- For each digit count i (from 2 to A), and each sum j (from 0 to B), we check all possible new digits d (from 0 to 9).
+- If adding digit d to a number whose sum was j-d forms a valid i-digit number, we update the count of valid numbers for i digits and sum j.
 
-// Fill the last column and last row
+**Result**:
 
-for (i = N - 2; i >= 0; i--) {
-    for (j = M - 2; j >= 0; j--) {
-        x = max(1, min(dp[i + 1][j], dp[i][j + 1]) - arr[i][j]);
-        dp[i][j] = x;
-    }
-}
+- The final answer is stored in dp[A][B], which gives the number of valid A-digit numbers with a digit sum of B.
 
-return dp[0][0];
-```
+### Time Complexity Analysis:
+**Time Complexity**: O(A×B×10).
+**Space Complexity**: O(A×B).
 
-#### Complexity
-**Time Complexity:** O(N * M)
-**Space Complexity:** O(N * M)
-
-
----
 ### Catalan Numbers
-
 
 The Catalan numbers form a sequence of natural numbers that have numerous applications in combinatorial mathematics. Each number in the sequence is a solution to a variety of counting problems. The Nth Catalan number, denoted as Cn, can be used to determine:
 
@@ -519,29 +358,31 @@ C4 = C0 * C3 + C1 * C2 + C2 * C1 + C3 * C0 = 14
 C5 = C0 * C4 + C1 * C3 + C2 * C2 + C3 * C1 + C4 * C0 = 42
 ```
 
-#### Formula
+### Formula
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/800/original/catalan-formula.jpg?1706639109" width = 500 />
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/063/799/original/catalan.jpg?1706639038" width = 500 />
 
 
-#### Psuedo Code
+### Psuedo Code
 
 ```cpp
-int C[N + 1];
+declare array C[N + 1];
 
 C[0] = 1;
 C[1] = 1;
 
-for (int i = 2; i <= N; i++) {
-    for (int j = 0; j < i; j++) {
+for(i -> 2 to N)
+{
+    for(j -> 0 to i - 1)
+    {
         C[i] += C[j] * C[N - 1 - j];
     }
 }
 ```
 
-#### Complexity
+### Complexity
 
 **Time Complexity:** O(N^2^)
 **Space Complexity:** O(N) 
@@ -550,12 +391,13 @@ Now, Let's look into a problem, which can be solved by finding the **Nth catalan
 
 
 ---
-### Problem 5 Total Number of Unique BSTs
+## Problem 4 Total Number of Unique BSTs
 
+### Problem Statement
 
 You are given a number N, Count Total number of Unique Binary Search Trees, that can be formed using N distinct numbers.
 
-**Example**
+### Example
 
 **Input:**
 N = 3
@@ -575,18 +417,21 @@ The Unique binary Search Trees are
 ```
 
 ---
+
+
 ### Question
 Count Total number of Unique Binary Search Trees, that can be formed using 2 distinct numbers
 
-**Choices**
+### Choices
 - [ ] 1
 - [x] 2
 - [ ] 5
 - [ ] 4
 
-**Explanation**:
 
-Lets take 2 distinct numbers as [10, 20]
+### Explanation:
+
+Let's take 2 distinct numbers as [10, 20]
 
 The possible BSTs are
 ```
@@ -596,16 +441,10 @@ The possible BSTs are
 ```
 ---
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
 ### Total Number of Unique BSTs Dryrun
+Let's take N = 5, the numbers are [10, 20, 30, 40, 50].
 
-
-Lets take N = 5, the numbers are [10, 20, 30, 40, 50].
-
-Lets keep each number as the root! one by one.
+Let's keep each number as the root! one by one.
 
 **10 as root**
 ```
@@ -616,11 +455,11 @@ Lets keep each number as the root! one by one.
           20, 30, 40, 50
 ```
 
-Here we notice that, 20, 30, 40 and 50 can be structured by various sub-roots. So, lets denote by C4.
+Here we notice that, 20, 30, 40 and 50 will be present on right side of 10. With these 4 nodes, we can create further BSTs, let's denote by C4
 
 Also on the right side, there is no elements. So denoting by C0.
 
-`10 as root => C0 * C1`
+With `10 as root, the total number of BSTs => C0 * C1`
 
 
 **20 as root**
@@ -686,28 +525,28 @@ C5 = C0 * C4 + C1 * C3 + C2 * C2 + C3 * C1 + C4 * C0
 
 which is 42.
 
-#### Solution
+### Solution
 
 The Solution for finding the total number of Unique BSTs is the **Nth Catalan Number**.
 
 
+## Total Number of Unique BSTs Pseudo Code
 
----
-### Total Number of Unique BSTs Pseudo Code
-
-#### Psuedo Code
+### Psuedo Code
 
 The pseudo code is same as the Catalan Number Psuedo code.
 
 ```cpp
-function findTotalUniqueBSTs(int N) {
-    int C[N + 1];
+function findTotalUniqueBSTs(N){
+    declare array C[N + 1];
 
     C[0] = 1;
     C[1] = 1;
 
-    for (int i = 2; i <= N; i++) {
-        for (int j = 0; j < i; j++) {
+    for(i -> 2 to N)
+    {
+        for(j -> 0 to i - 1)
+        {
             C[i] += C[j] * C[N - 1 - j];
         }
     }
@@ -716,9 +555,9 @@ function findTotalUniqueBSTs(int N) {
 }    
 ```
 
-#### Complexity
+### Complexity
 
 **Time Complexity:** O(N^2^)
 **Space Complexity:** O(N) 
 
-
+---
