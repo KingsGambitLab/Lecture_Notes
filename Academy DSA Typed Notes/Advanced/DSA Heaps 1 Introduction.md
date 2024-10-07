@@ -1,19 +1,20 @@
 # Advanced DSA: Heaps 1: Introduction
 
----
-## Problem 1 Connecting the ropes 
 
+## Problem 1 Connecting the ropes
+
+### Problem Description
 We are given an array that represents the size of different ropes. In a single operation, you can connect two ropes. Cost of connecting two ropes is sum of the length of ropes you are connecting. Find the minimum cost of connecting all the ropes.
 
 **`To illustrate:`**
 
-**Example 1**:
+### Example 1:
 
 int A[] = {2, 5, 3, 2, 6}
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/154/original/Screenshot_2024-01-09_at_11.02.13_AM.png?1704778393" width=500 />
 
-**Example 2**:
+### Example 2:
 
 **`Initial Ropes: [2, 5, 6, 3]`**
 
@@ -34,7 +35,7 @@ Final Rope: [16]
 This is one of the options for finding the cost of connecting all ropes, but we need to find the minimum cost of connecting all the ropes.
 
 
-#### Observation
+### Observation
 Say, we have 3 ropes, **`x < y < z`**
 Which 2 ropes should we connect first ?
 
@@ -50,7 +51,7 @@ Comparing case 2 and 3, x and y are different, now since x < y, we can say cost 
 
 **`Conclusion:`** Connecting smaller length ropes gives us lesser cost.
 
-#### Process:
+### Process:
 
 **`Initial Setup:`** Start with an array of rope lengths, e.g., [2, 2, 3, 5, 6]. First, sort the array.
 
@@ -71,7 +72,7 @@ We are basically applying **`insertion sort`**.
 - Combine ropes 7 and 11 (cost = 18). Final rope: 18. Total cost: 40.
 
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(N^2^)
 **Space Complexity:** O(1)
 
@@ -79,15 +80,13 @@ We are basically applying **`insertion sort`**.
 ### Question
 What is the minimum cost of connecting all the ropes for the array [1, 2, 3, 4]?
 
-**Choices**
+### Choices
 - [x] 19
 - [ ] 20
 - [ ] 10
 - [ ] 0
 
-
-
-**Explanation**:
+### Explanation:
 
 **Always pick two of the smallest ropes and combine them.**
 
@@ -100,15 +99,9 @@ After combining the two smallest ropes at every step, we need to sort an array a
 Final Length: 10
 Total Cost  = (3 + 6 + 10) = 19 
 
-
 ---
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
 ### Connecting the ropes optimisation
-
 
 Heaps efficiently perform the necessary operations:
 
@@ -123,14 +116,13 @@ Say, for above problem, we use a min heap. At every step, it will give us the 2 
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/155/original/Screenshot_2024-01-09_at_11.22.15_AM.png?1704779546" width=700 />
 
-#### Time & Space Complexity
+### Time & Space Complexity
 For every operation, we are removing 2 elements and inserting one back, hence it is 3 * log N. For N operations, **`the time complexity will be O(N * log N)`**
 
 **`Space Complexity is O(N)`**
 
----
-## Heap Data Structure
 
+## Heap Data Structure
 The heap data structure is a binary tree with two special properties.
 - First property is based on structure.
     - **Complete Binary Tree:** All levels are completely filled. The last level can be the exception but is should also be filled from left to right.
@@ -138,7 +130,7 @@ The heap data structure is a binary tree with two special properties.
     - **Heap Order Property:** In the case of max heap, the value of the parent is greater than the value of the children. And in the case of min heap, the value of the parent is less than the value of the children.
 
 
-**Examples**
+### Examples
 
 **`Example 1:`**
 
@@ -157,9 +149,7 @@ The heap data structure is a binary tree with two special properties.
 - Heap Order Property is also valid at every point in the tree, as 58 is greater than 39 and 26, 39 is greater than 34 and 12, 26 is greater than 3 and 9, 34 is greater than 16 and 1.
 - Hence, it is a **max-heap.**
 
----
-### Array Implementation of Trees(Complete Binary Tree)
-
+### Binary Heap Implementation via Array
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/170/original/3.png?1704790911" width=300/>
 
@@ -179,9 +169,8 @@ The heap data structure is a binary tree with two special properties.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/172/original/5.png?1704790938" width=300/>
 
----
-### Insertion in min heap
 
+### Insertion in min heap
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/173/original/6.png?1704790952" width=400/>
 
@@ -190,7 +179,7 @@ The heap data structure is a binary tree with two special properties.
 |5|12|20|25|13|24|22|35|
 
 
-**Example 1**: Insert 10
+### Example 1: Insert 10
  
 In an array, if we will insert 10 at index 8, then our array becomes,
 
@@ -252,7 +241,7 @@ Now this tree satisfies the min-heap order property.
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/178/original/2.png?1704791329" width=350/>
 
-**Example 2**: Insert 3
+### Example 2: Insert 3
 
 First insert 3 at index 9.
 
@@ -276,11 +265,12 @@ First insert 3 at index 9.
 **`NOTE: The maximum swap we can perform for any element to be inserted is equal to the height of the tree.`**
 
 ---
+
 ### Question
 
 Time Complexity of inserting an element in a heap having n nodes?
 
-**Choices**
+### Choices
 
 - [ ] O(1)
 - [x] O(log n)
@@ -289,30 +279,31 @@ Time Complexity of inserting an element in a heap having n nodes?
 
 
 ---
-### Inserting in min heap pseudocode
-#### Pseudocode
+
+### Pseudocode
+
 ```cpp
 heap[];
 heap.insert(val); // inserting at last
 i = heap.size - 1;
-while (i > 0) {
-    pi = (i - 1) / 2;
-    if (heap[pi] > heap[i]) {
-        swap(heap, pi, i);
-        i = pi;
-    } else {
+while(i>0){
+    pi = (i-1)/2;
+    if(heap[pi] > heap[i]){
+        swap(heap,pi,i);
+        i=pi;
+    }
+    else 
+    {
         break;
     }
 }
 ```
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(height of tree) = O(logN)
 
 
----
 ### Extract Min
-
 
 **`Min Heap -`**
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/205/original/1.png?1704813588" width=250/>
@@ -325,6 +316,8 @@ while (i > 0) {
 In this tree, we have a minimum element at the root. First we swap the first and last elements, then remove the last index element of an array virtually, i.e. consider your array from index 0 to N-2.  
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/209/original/a.png?1704813720" width=300/>
+
+</br>
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/210/original/b.png?1704813732" width=300/>
 
@@ -340,44 +333,46 @@ But the tree is not satisfying the heap-order property. To regain this heap-orde
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/208/original/4.png?1704813681" width=300/>
 
-**`NOTE to Instructor: Perform extract-min again for more clarity on above tree.`**
 
 
-#### Pseudocode
+
+### Pseudocode
 ```cpp
-swap(heap, 0, heap - size() - 1)
-heap.remove(heap.size() - 1)
+swap(heap, 0, heap-size()-1)
+heap.remove(heap.size()-1)
 heapify(heap[], 0);
 
-void heapify(heap[], i) {
-    while (2 i + 1 < N) { //need to handle the edge case when left child is there but not the right child
-        x = min(heap[i], heap[2 i + 1], heap[2 i + 2])
-
+function heapify(heap[], i ) {
+    while (2i+1 < N) { //need to handle the edge case when left child is there but not the right child
+        x = min (heap [i], heap [2i+1], heap [2i+2])
+            
         if (x == heap[i]) {
             break
-        } else if (x == heap[2 i + 1]) {
-            swap(heap, i, 2 i + 1)
-            i = 2 i + 1
-        } else {
-            swap(heap, i, 2 i + 2)
-            i = 2 i + 2
+        }
+        else if (x == heap[2i+1]){
+            swap (heap, i, 2i+1)
+            i = 2i+1
+        }
+        else{
+            swap (heap, i, 2i+2)
+            i = 2i+2
         }
     }
 }
 ```
 
 
-#### Complexity
+### Complexity
 **Time Complexity:** O(log N)
 
 
----
+
 ### Build a heap
 
 We have an array of values, we want to make a heap of it.
 **`[5, 13, -2, 11, 27, 31, 0, 19]`**
 
-#### Idea 1
+### Idea 1
 Sort the array.
 [-2, 0, 5, 11, 13, 19, 27, 31]
 
@@ -389,7 +384,7 @@ Looking at the tree below, we can see this is a heap.
 **`Time Complexity: O(N * logN)`**
 
 
-#### Idea 2
+### Idea 2
 Call insert(arr[i]) for every element of an array.
 
 **Explanation:**
@@ -399,10 +394,9 @@ It will take N * logN, as for each element, we will take O(log N) as heapify sha
 
 **`Time Complexity:O(N * logN)`**
 
---
-### Build a heap Idea 3
+## Build a heap Idea 3 linear time
 
-#### Idea to build in linear time
+### Idea to build in linear time
 
 We have an array
 **`[7, 3, 5, 1, 6, 8, 10, 2, 13, 14, -2]`**
@@ -416,8 +410,8 @@ We can represent this array in the form of a tree.
 - The first non-leaf is nothing but the parent of the last leaf node of the tree and the index of the last node is $n-1$, so the index of the first non-leaf is $((n-1-1)/2)=((n-2)/2)=(n/2)-1$.
 - We will call heapify() starting from for $(n/2)-1$ index to index 0.
 
-```cpp
-for (int i = (n / 2) - 1; i >= 0; i--) {
+```cpp=
+for(i -> (n/2)-1 down to 0){
     heapify(heap[], i);
 }
 ```
@@ -451,7 +445,7 @@ for (int i = (n / 2) - 1; i >= 0; i--) {
 - Now all the nodes has valid heap-order property.
 
 
-#### Time Complexity
+### Time Complexity
 
 <img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/229/original/e.png?1704815439" width=300/>
 
@@ -490,68 +484,14 @@ Then
 Here both will cancel out with each other and so our overall time complexity for building a heap is **O(N)**
 
 ---
+
 ### Question
 What is the time complexity for building a heap with N nodes?
 
-**Choices**
+### Choices
 - [ ] O(1)
-- [ ] O(N$^2$)
+- [ ] O(N<sup>2</sup>)
 - [x] O(N)
 - [ ] O(logN)
 
-
-
 ---
-
-
-### Merge N-sorted arrays
-a - [2, 3, 11, 15, 20]
-b - [1, 5, 7, 9]
-c - [0, 2, 4]
-d - [3, 4, 5, 6, 7, 8]
-e - [-2, 5, 10, 20]
-
-We have to merge these sorted arrays.
- 
-#### Idea
-- If we want to merge two sorted arrays then we need two pointers. 
-- If we want to merge three sorted arrays then we need three pointers. 
-- If we want to merge N sorted arrays then we need N pointers, in which complexity becomes very high and we need to keep track of N pointers.
-
----
-### Question
-For merging N sorted arrays, which data structure would be the most efficient for this task ?
-
-**Choices**
-- [ ] Linked List
-- [ ] Array
-- [x] Min-Heap
-- [ ] Hash Table
-
-**Explanation:**
-
-A Min-Heap is an efficient data structure choice. The Min-Heap ensures that the smallest element among all the elements in the arrays is always at the front. This allows for constant-time access to the minimum element, making it efficient to extract and merge elements in sorted order.
-
-:::warning
-Please take some time to think about the optimised approach on your own before reading further.....
-:::
-
-#### Optimized Solution
-- First, we need to compare the 0th index element of every array.
-- Now we use heap here.
-- We will add an index 0 element of every array in the heap, in the form of element value, array number and Index of the element in particular.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/239/original/11.png?1704815927" width=250/>
-
-Now take the minimum element and insert it in the resultant array,
-
-- Now insert the next element of the list for which the minimum element is selected, like first, we have taken the fourth list element, so now insert the next element of the fourth list.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/061/240/original/22.png?1704815937" width=250/>
-
-- Now again extract-min() from the heap and insert the next element of that list to which the minimum element belongs.
-- And keep repeating this until we have done with all the elements.
-
-#### Time Complexity
-**Time Complexity:** (XlogN)
-Here X is a total number of elements of all arrays.
