@@ -1,8 +1,8 @@
 # Advanced DSA: Greedy
 
----
 ## Introduction on Greedy
 
+### Greedy
 The greedy approach deals with maximizing our profit and minimizing our loss.
 
 
@@ -29,9 +29,7 @@ If we involve only one factor then selection will become easier and if multiple 
 In this lecture, we are going to do questions which involve multiple factors.
 
 
----
 ### Problem 1 Flipkart's Challenge in Effective Inventory Management
-
 In the recent expansion into grocery delivery, Flipkart faces a crucial challenge in effective inventory management. Each grocery item on the platform carries its own expiration date and profit margin, represented by arrays A[i] (expiration date for the ith item) and B[i] (profit margin for the ith item). To mitigate potential losses due to expiring items, Flipkart is seeking a strategic solution. The objective is to identify a method to strategically promote certain items, ensuring they are sold before their expiration date, thereby maximizing overall profit. Can you assist Flipkart in developing an innovative approach to optimize their grocery inventory and enhance profitability?
 
 
@@ -42,7 +40,7 @@ Time starts with **T = 0**, and it takes 1 unit of time to sell one item and the
 
 Sell items such that the sum of the **profit by items is maximized.**
 
-**Example**
+### Example
 
 **`A[] = [3 1 3 2 3]`**
 **`B[] = [6 5 3 1 9]`**
@@ -125,6 +123,7 @@ Initially T = 0
 
 - Now the item at index 2 can't be sold as A[2] <= T. So we can not sell it
 
+
 So we have a total profit 20.
 
 Here we are getting the total profit greater than the total profit of the previously sold combination of items.
@@ -137,6 +136,7 @@ And we can achieve maximum profit 20.
 
 
 ---
+
 ### Question
 
 What is the maximum profit we can achieve if we have two items with expiration time in A and profit in B:
@@ -144,7 +144,7 @@ What is the maximum profit we can achieve if we have two items with expiration t
 A = [1, 2]
 B = [3, 1500]
 
-**Choices**
+### Choices
 
 - [ ] 3
 - [ ] 1500
@@ -153,7 +153,8 @@ B = [3, 1500]
 
 
 
-**Explanation**
+
+### Explanation
 
 A = [1, 2]
 B = [3, 1500]
@@ -162,7 +163,7 @@ B = [3, 1500]
 
 Initially T = 0
 
-- We have selected the item at index 9 and incremented T by 1.
+- We have selected the item at index 0 and incremented T by 1.
 
 
 |T|Item Index|Profit|
@@ -187,7 +188,7 @@ So we have a total profit 1503.
 
 - Pick the highest profit item first approach is not giving us the maximum profit, so it will not work. We have to think of another approach.
 
-#### Idea: Sell Everything
+### Idea: Sell Everything
 
 Our approach is always towards selling all the items so that we can achieve maximum profit.
  So our approach is to first sell the item with the minimum end time. 
@@ -283,12 +284,14 @@ So we have a total profit 28.
 **`At any point, if we weren't able to choose a item as T >= A[i] and realize we made a wrong choice before, we will get rid of the item with least profit we previously picked and choose the current one instead.`**
 
 
-#### Approach 
+### Approach 
 
 The solution to this question is just like the team selection. We have to select the strongest player, if we have any player who is stronger than the player in our team, then we will remove the weaker player from the team and add that player to our team.
 
+***`[Ask Learners] Which data structure should we select ?`***
+**`MIN HEAP!`**
 
-**Example**: Solving using min-heap
+### Example: Solving using min-heap
 
 | | 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 |
 | -- | -------- | -------- | -------- | -------- | -------- | -------- | -------- | -------- |
@@ -360,65 +363,71 @@ All the items are sorted in the ascending order of expiration time.
 So we have final answer = $1 + 3 + 4 + 5 + 7 + 8 = 28$
 
 
-#### PseudoCode
+### PseudoCode
 ```cpp
 1. Sort them in increasing order of time.
 2. Minheap heap:
     T = 0
-for (i = 0; i < N; i++) {
-    if (T < A[i]) {
-        heap.insert(B[i])
-        T++
-    } else {
-        if (B[i] <= root of heap) -> ignore {
-
-        }
-        else {
-            extractMin()
+    for( i -> 0 to N - 1 ){
+        if(T < A[i]){
             heap.insert(B[i])
+            T++
+        }
+        else{
+            if(B[i] <= root of heap) -> ignore
+            {
+                
+            }
+            else{
+                extractMin()
+                heap.insert(B[i])
+            }
         }
     }
-}
 3. Remove all elements from the heap and add them to get the answer.
 ```
 
 ---
+
+
 ### Question
 
 What is the time and space complexity of this question?
 
-**Choices**
+### Choices
 
 - [ ] TC: O(N), SC: O(N)
 - [x] TC: O(NlogN), SC: O(N)
 - [ ] TC: O(N$^2$), SC: O(N)
 - [ ] TC: O(N$^2$) , SC: O(N$^2$)
 
-
 ---
+
+
 ### Effective Inventory Management Complexity
 
 **Time Complexity**
 
 ```cpp
-1. Sort them in increasing order of time.-- -> NlogN
+1. Sort them in increasing order of time. ---> NlogN
 2. Minheap heap:
     T = 0
-for (i = 0; i < N; i++) {
-    -- -> N
-    if (T < A[i]) {
-        heap.insert(B[i]) -- -> logN
-        T++
-    } else {
-        if (B[i] <= root of heap) -> ignore {
-
+    for( i -> 0 to N - 1 ){ ---> N
+        if(T < A[i]){
+            heap.insert(B[i]) ---> logN
+            T++
         }
-        else {
-            extractMin() -- -> logN
-            heap.insert(B[i]) -- -> logN
+        else{
+            if(B[i] <= root of heap) -> ignore
+            {
+                
+            }
+            else{
+                extractMin()   ---> logN
+                heap.insert(B[i])  ---> logN
+            }
         }
     }
-}
 3. Remove all elements from the heap and add them to get the answer.
 ```
 
@@ -428,8 +437,179 @@ So overall time complexity = O(NlogN) + O(NlogN)
 - **Space Complexity: O(N)**
 
 
+
 ---
-### Problem 2 Candy Distribution
+##  Problem 2 Finish Maximum Jobs
+
+### Problem Statement
+
+Given N jobs with their start and end times. Find the maximum number of jobs that can be completed if only one job can be done at a time.
+
+### Example
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/036/original/upload_0ca0b899d1ddb61495488b3c3c3f37e9.png?1697563365" width=700/>
+
+**Answer:** 5
+
+We will select the jobs that are not overlapping:
+- We select job `9 am - 11 am`, then we can not select `10 am - 1 pm` and `10 am - 2 pm`
+- Then we select jobs `3 pm - 4 pm` and `4 pm - 6 pm`
+- Then we select job `4 pm - 8 pm` and `8 pm - 10 pm` but we do not select job `7 pm - 9 pm`
+
+
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/038/original/upload_601b84e96b4b18fa869cab47f002fead.png?1697563818" width=700/>
+
+
+### Approach
+We have to select the job in such a way that the start time of a currently selected job is greater than or equal to the end time of the previous job.
+
+`S[i] >= E[i - 1]`
+
+---
+
+### Question
+
+What is the maximum number of jobs one person can do if only one job at a time is allowed, the start times and end times of jobs are: 
+
+S = [1, 5, 8, 7, 12, 13]
+E = [2, 10, 10, 11, 20, 19]
+
+### Choices
+
+- [ ] 2
+- [x] 3
+- [ ] 4
+- [ ] 5
+
+
+
+### Explanation
+
+S = [1, 5, 8, 7, 12, 13]
+E = [2, 10, 10, 11, 20, 19]
+
+---
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/039/original/upload_ecd9a7d701d40cce82d3e88b79cc40e6.png?1697563907" width=700/>
+
+We will pick jobs `1 - 2`, `5 - 10` and `12 - 20`. So we can pick total three jobs.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/040/original/upload_58bf0a3865d6741323e81c8af091a536.png?1697563951" width=700/>
+
+
+
+### Maximum jobs - Solution
+
+The first idea towards a solution is to first pick a job with minimum duration.
+
+### Idea 1 - Greedy based on duration
+Pick the job in the ascending order of the minimum duration. Let us take an example:
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/041/original/upload_a804adfecfd43aca2a0261f335c13a88.png?1697564132" width=400/>
+
+In this case, if we select the minimum duration job first, then we will select the job `10 - 13`, then we can not select any other job because both overlap with it.
+
+But if we have not selected `10 - 13`, then we can select both other jobs, which means we can select two jobs.
+
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/042/original/upload_72b4c9c6b1f57b6c8806cdcd4db2a54e.png?1697564162" width=400/>
+
+So selecting a job in the ascending order of the duration will not always give us the maximum number of jobs.
+
+
+### Idea 2 - Greedy based on start time
+Pick the job in the ascending order of the start time. Let us take an example:
+
+
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/044/original/upload_f35dc9fc9e42b4db0fb130a21d908250.png?1697564278" width=400/>
+
+
+In this case, if we select the minimum start time job first, then we will select the job `2 - 20`, then we can not select any other job because both overlap with it.
+
+But if we have not selected `2 - 20`, then we can select both other jobs, which means we can select two jobs.
+
+<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/045/original/upload_3e89df3f9c13476b61f26929e380291c.png?1697564352" width=400/>
+
+So selecting a job in the ascending order of the start time will not always give us the maximum number of jobs.
+
+### Observation
+We have to take a combination of the above approaches means we have to start early with the minimum duration job. 
+
+start early + minimum duration
+
+A combination of both is nothing but simply means ending early.
+
+start early + minimum duration = end early
+
+### Solution
+We have to be greedy based on the end time, so we have to select jobs in the ascending order of end times.
+
+**Example:**
+
+S = [1, 5, 8, 7, 12, 13]
+E = [2, 10, 10, 11, 20, 19]
+
+Sort these jobs based on the end time.
+
+
+S = [1, 5, 8, 7, 13, 12]
+E = [2, 10, 10, 11, 19, 20]
+
+Initially ans = 0.
+
+|   Index    | 0   | 1   | 2   |  3  |  4  |  5  |
+|:----------:| --- | --- | --- |:---:|:---:|:---:|
+| Start time | 1   | 5   | 8   |  7  | 13  | 12  |
+|  end time  | 2   | 10  | 10  | 11  | 19  | 20  |
+
+
+- We will start with the first job, which has an end time 2 but now the start time of any next job must be greater than the end time of this job.
+
+
+**So we need to keep track of the last end time.**
+
+Till now lastEndTime = 2
+ans+=1, ans = 1
+
+- Now the job at index 1 has start time = 5, lastEndTime <= start time, so can select this job and lastEndTime will be updated to the end time of the current job and the answer is incremented by 1.
+lastEndTime = 10
+ans+=1, ans = 2
+- Now the job at index 2 has start time = 8, lastEndTime > start time, so we can not select this job.
+- Now the job at index 3 has start time = 7, lastEndTime > start time, so we can not select this job.
+- Now the job at index 4 has start time = 13, lastEndTime <= start time, so can select this job and lastEndTime will be updated to the end time of the current job and the answer is incremented by 1.
+lastEndTime = 19
+ans+=1, ans = 3
+- Now the job at index 5 has start time = 20, lastEndTime > start time, so we can not select this job.
+
+**Answer:** 3
+
+### PseudoCode
+```cpp
+1. Sort on the basis of end-time
+2. ans = 1, lastEndTime = E[0]
+   for( i -> 1 to N - 1){
+       if(S[i] >= lastEndTime){
+           ans++;
+           lastEndTime = E[i];
+       }
+   }
+3. return ans;
+```
+
+### Complexity
+
+- **Time Complexity:** O(NlogN)
+- **Space Complexity:** O(N)
+
+
+
+
+---
+## Problem 3 Distribute Candy
+
+### Problem Description
 
 There are N students with their marks. The teacher has to give them candies such that
 a) Every student should have at least one candy
@@ -438,7 +618,7 @@ b) Students with more marks than any of his/her neighbours have more candies tha
 Find minimum candies to distribute.
 
 
-**Example**
+### Example
 **Input:** [1, 5, 2, 1]
 **Explanation:** First we will give 1 candy to all students.
 |index|0|1|2|3|
@@ -473,11 +653,13 @@ Now all the conditions of the question are satisfied, so total 7 candies are req
 
 
 ---
+
+
 ### Question
 
 What is the minimum number of candies teacher has to use if the marks are: [4, 4, 4, 4, 4]
 
-**Choices**
+### Choices
 
 - [ ] 1
 - [x] 5
@@ -485,7 +667,8 @@ What is the minimum number of candies teacher has to use if the marks are: [4, 4
 - [ ] 20
 
 
-**Explanation**
+
+### Explanation
 
 [4, 4, 4, 4, 4]
 
@@ -502,9 +685,9 @@ Now any student does not have marks greater than its neighbors. So our candy dis
 
 
 ---
-### Candy Distribution Example
 
-**Example**
+## Candy Distribution Example
+### Example
 
 **Input:** [8, 10, 6, 2]
 
@@ -536,11 +719,12 @@ So total 7 candies are required.
 
 
 ---
+
 ### Question
 
 What is the minimum number of candies the teacher has to use if the marks are: [1, 6, 3, 1, 10, 12, 20, 5, 2]
 
-**Choices**
+### Choices
 
 - [ ] 15
 - [x] 19
@@ -548,7 +732,8 @@ What is the minimum number of candies the teacher has to use if the marks are: [
 - [ ] 20
 
 
-**Explanation**
+
+### Explanation
 
 [1, 6, 3, 1, 10, 12, 20, 5, 2]
 
@@ -632,10 +817,6 @@ So a total 19 candies are required.
 
 ### Candy Distribution - Solution
 
-:::warning
-Please take some time to think about the solution approach on your own before reading further.....
-:::
-
 **Step 1:** Assign 1 candy to all the students.
 **Step 2:** For all the values of i, consider its left neighbour, if(A[i] > A[i - 1]) then C[i] > C[i - 1], means candy of ith index should be greater than (i-1)th index candy, so we will follow the greedy approach as we want to distribute a minimum number of candies, so we do `C[i] = C[i - 1] + 1`
 
@@ -654,188 +835,26 @@ if(A[i] > A[i + 1]){
 }
 ```
 
-#### PsuedoCode
-```cpp
-int C[N];
+### PsuedoCode
+```cpp=
+C[N]; 
 for all i, C[i] = 1
-for (i = 1; i < N; i++) {
-    if (arr[i] > arr[i - 1]) {
-        C[i] = C[i - 1] + 1
+for( i -> 1 to N - 1){
+    if(arr[i] > arr[i - 1]){
+        C[i] = C[i - 1] + 1  
     }
 }
-for (i = N - 2; i >= 0; i--) {
-    if (arr[i] > arr[i + 1] && C[i] < C[i + 1] + 1) {
-        C[i] = C[i + 1] + 1
+for( i -> N - 2 down to 0 ){
+    if(arr[i] > arr[i + 1] and C[i] < C[i + 1] + 1 ){
+        C[i] = C[i + 1] + 1  
     }
 }
 
-ans = sum of all values in C[]
+ans  = sum of all values in C[]
 ```
-#### Complexity
+### Complexity
 
 - **Time Complexity:** O(N)
 - **Space Complexity:** O(N)
 
-
 ---
-### Problem 3 Maximum jobs
-
-
-Given N jobs with their start and end times. Find the maximum number of jobs that can be completed if only one job can be done at a time.
-
-**Example**
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/036/original/upload_0ca0b899d1ddb61495488b3c3c3f37e9.png?1697563365" width=700/>
-
-**Answer:** 5
-
-We will select the jobs that are not overlapping:
-- We select job `9 am - 11 am`, then we can not select `10 am - 1 pm` and `10 am - 2 pm`
-- Then we select jobs `3 pm - 4 pm` and `4 pm - 6 pm`
-- Then we select job `4 pm - 8 pm` and `8 pm - 10 pm` but we do not select job `7 pm - 9 pm`
-
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/038/original/upload_601b84e96b4b18fa869cab47f002fead.png?1697563818" width=700/>
-
-
-#### Approach
-We have to select the job in such a way that the start time of a currently selected job is greater than or equal to the end time of the previous job.
-
-`S[i] >= E[i - 1]`
-
-
----
-### Question
-
-What is the maximum number of jobs one person can do if only one job at a time is allowed, the start times and end times of jobs are: 
-
-S = [1, 5, 8, 7, 12, 13]
-E = [2, 10, 10, 11, 20, 19]
-
-**Choices**
-
-- [ ] 2
-- [x] 3
-- [ ] 4
-- [ ] 5
-
-
-**Explanation**
-
-S = [1, 5, 8, 7, 12, 13]
-E = [2, 10, 10, 11, 20, 19]
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/039/original/upload_ecd9a7d701d40cce82d3e88b79cc40e6.png?1697563907" width=700/>
-
-We will pick jobs `1 - 2`, `5 - 10` and `12 - 20`. So we can pick total three jobs.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/040/original/upload_58bf0a3865d6741323e81c8af091a536.png?1697563951" width=700/>
-
-
----
-
-
-### Maximum jobs - Solution
-
-The first idea towards a solution is to first pick a job with minimum duration.
-
-#### Idea 1 - Greedy based on duration
-Pick the job in the ascending order of the minimum duration. Let us take an example:
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/041/original/upload_a804adfecfd43aca2a0261f335c13a88.png?1697564132" width=400/>
-
-In this case, if we select the minimum duration job first, then we will select the job `10 - 13`, then we can not select any other job because both overlap with it.
-
-But if we have not selected `10 - 13`, then we can select both other jobs, which means we can select two jobs.
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/042/original/upload_72b4c9c6b1f57b6c8806cdcd4db2a54e.png?1697564162" width=400/>
-
-So selecting a job in the ascending order of the duration will not always give us the maximum number of jobs.
-
-
-#### Idea 2 - Greedy based on start time
-Pick the job in the ascending order of the start time. Let us take an example:
-
-
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/044/original/upload_f35dc9fc9e42b4db0fb130a21d908250.png?1697564278" width=400/>
-
-
-In this case, if we select the minimum start time job first, then we will select the job `2 - 20`, then we can not select any other job because both overlap with it.
-
-But if we have not selected `2 - 20`, then we can select both other jobs, which means we can select two jobs.
-
-<img src="https://d2beiqkhq929f0.cloudfront.net/public_assets/assets/000/054/045/original/upload_3e89df3f9c13476b61f26929e380291c.png?1697564352" width=400/>
-
-So selecting a job in the ascending order of the start time will not always give us the maximum number of jobs.
-
-#### Observation
-We have to take a combination of the above approaches means we have to start early with the minimum duration job. 
-
-start early + minimum duration
-
-A combination of both is nothing but simply means ending early.
-
-start early + minimum duration = end early
-
-#### Solution
-We have to be greedy based on the end time, so we have to select jobs in the ascending order of end times.
-
-**Example:**
-
-S = [1, 5, 8, 7, 12, 13]
-E = [2, 10, 10, 11, 20, 19]
-
-Sort these jobs based on the end time.
-
-
-S = [1, 5, 8, 7, 13, 12]
-E = [2, 10, 10, 11, 19, 20]
-
-Initially ans = 0.
-
-|   Index    | 0   | 1   | 2   |  3  |  4  |  5  |
-|:----------:| --- | --- | --- |:---:|:---:|:---:|
-| Start time | 1   | 5   | 8   |  7  | 13  | 12  |
-|  end time  | 2   | 10  | 10  | 11  | 19  | 20  |
-
-
-- We will start with the first job, which has an end time 2 but now the start time of any next job must be greater than the end time of this job.
-
-
-**So we need to keep track of the last end time.**
-
-Till now lastEndTime = 2
-ans+=1, ans = 1
-
-- Now the job at index 1 has start time = 5, lastEndTime <= start time, so can select this job and lastEndTime will be updated to the end time of the current job and the answer is incremented by 1.
-lastEndTime = 10
-ans+=1, ans = 2
-- Now the job at index 2 has start time = 8, lastEndTime > start time, so we can not select this job.
-- Now the job at index 3 has start time = 7, lastEndTime > start time, so we can not select this job.
-- Now the job at index 4 has start time = 13, lastEndTime <= start time, so can select this job and lastEndTime will be updated to the end time of the current job and the answer is incremented by 1.
-lastEndTime = 19
-ans+=1, ans = 3
-- Now the job at index 5 has start time = 20, lastEndTime > start time, so we can not select this job.
-
-**Answer:** 3
-
-#### PseudoCode
-```cpp
-1. Sort on the basis of end-time
-2. ans = 1, lastEndTime = E[0]
-   for( i = 1 ; i < N ; i++){
-       if(S[i] >= lastEndTime){
-           ans++;
-           lastEndTime = E[i];
-       }
-   }
-3. return ans;
-```
-
-#### Complexity
-
-- **Time Complexity:** O(NlogN)
-- **Space Complexity:** O(N)
