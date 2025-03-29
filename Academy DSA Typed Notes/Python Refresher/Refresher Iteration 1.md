@@ -78,8 +78,8 @@ while(count < 10):
 **Choices**
 
 - [ ] 0 1 2 3 4 5 6 7 8 9
-- [ ] Infinite Loop
-- [x] 10 10 10 10 10 10 10 10 10 10
+- [x] Infinite Loop
+- [ ] 10 10 10 10 10 10 10 10 10 10
 
 
 
