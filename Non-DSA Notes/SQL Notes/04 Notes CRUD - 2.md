@@ -258,8 +258,26 @@ for each row in answer:
 
 return filtered_answer
 ```
+You're absolutely right to catch this inconsistency. Let me correct that statement based on our discussion:
 
-If you see, the `ORDER BY` clause is applied after the `WHERE` clause. So, first the rows are filtered based on the `WHERE` clause and then they are sorted based on the `ORDER BY` clause. And only after that are the columns that have to be printed taken out. And that's why you can sort based on columns not even in the `SELECT` clause.
+## Corrected Explanation
+
+"If you see, the `ORDER BY` clause is applied after the `SELECT` clause (but **before** the final output projection). So, first the rows are filtered based on the `WHERE` clause, then the `SELECT` clause defines which columns to output, and then they are sorted based on the `ORDER BY` clause. **However, even though SELECT is processed before ORDER BY, the full dataset (all columns) remains available internally at the ORDER BY stage when DISTINCT is not used.** Only after sorting is complete are the columns finally projected to show just what was specified in SELECT. And that's why you can sort based on columns not even in the `SELECT` clause."
+
+## The Key Nuance
+
+The logical processing order is:
+```
+FROM → WHERE → SELECT → [DISTINCT] → ORDER BY → Final Projection
+```
+
+But there's an important distinction:
+- **SELECT clause execution**: Defines *what* will be in the output (evaluates expressions, determines columns)
+- **Final projection**: Actually *discards* the hidden columns (happens after ORDER BY in normal queries)
+
+**Without DISTINCT**: Hidden columns survive until after ORDER BY
+**With DISTINCT**: DISTINCT forces the final projection earlier, permanently removing hidden columns before ORDER BY.
+
 
 ---
 ORDER BY Clause with DISTINCT keyword
@@ -273,17 +291,47 @@ Consider the scenario where you attempt to order the results by a column not inc
 SELECT DISTINCT title FROM film ORDER BY release_year;
 ```
 
-The SQL engine would generate an error in this case. The reason behind this restriction lies in the potential ambiguity introduced when sorting by a column not present in the SELECT clause.
+The SQL engine would generate an error in this case. Let us see,Why?
 
-When you use DISTINCT, the database engine identifies unique values in the specified columns and returns a distinct set of records. However, when you attempt to order these distinct records by a column that wasn't part of the selection, ambiguity arises.
+## `ORDER BY` with and without `DISTINCT`:
+✅ **SQL Query Execution: ORDER BY and DISTINCT**
 
-Take the example query:
+The key difference lies in when the data is removed during the logical processing order. 
+Assume the Original Table has 10 columns.
 
-```sql
-SELECT DISTINCT title FROM film ORDER BY release_year;
-```
+### **Case 1: Without DISTINCT (e.g., `SELECT col1, col2 ...`)**
 
-Here, the result set will include distinct titles from the film table, but the sorting order is unclear. Multiple films may share the same title but have different release years. Without explicitly stating which release year to consider for sorting, the database engine encounters ambiguity.
+The `SELECT` clause only defines the final output shape; it doesn't immediately 
+discard data internally.
+
+| **Stage**        | **What Happens**                         | **Columns in Intermediate Table**       |
+| ---------------- | ---------------------------------------- | --------------------------------------- |
+| **FROM/WHERE**   | Data is fetched and filtered.            | 10 columns                              |
+| **SELECT**       | Output columns defined, expressions run. | 10 columns (internally still available) |
+| **ORDER BY**     | Data is sorted.                          | 10 columns (can sort by any of them)    |
+| **Final Output** | Result is displayed to user.             | 2 columns (e.g., col1, col2)            |
+
+**Conclusion:**
+`ORDER BY` can use hidden columns because the full dataset is still available 
+internally when the sorting occurs.
+
+### **Case 2: With DISTINCT (e.g., `SELECT DISTINCT col1, col2 ...`)**
+
+The `DISTINCT` clause forces the database to finalize the unique set of rows before 
+sorting, permanently discarding associated hidden data.
+
+| **Stage**        | **What Happens**                | **Columns in Intermediate Table**              |
+| ---------------- | ------------------------------- | ---------------------------------------------- |
+| **FROM/WHERE**   | Data is fetched and filtered.   | 10 columns                                     |
+| **SELECT**       | Output columns defined.         | 10 columns (internally)                        |
+| **DISTINCT**     | Duplicates removed permanently. | Only 2 columns (hidden data is lost)           |
+| **ORDER BY**     | Data is sorted.                 | Only 2 columns (cannot sort by hidden columns) |
+| **Final Output** | Result is displayed to user.    | 2 columns (e.g., col1, col2)                   |
+
+**Conclusion:**
+`ORDER BY` cannot use hidden columns because they are permanently removed from the 
+intermediate table by the `DISTINCT` operation which runs earlier in the process.
+
 
 By limiting the ORDER BY clause to columns present in the SELECT clause, you provide a clear directive on how the results should be sorted. In the corrected query:
 
