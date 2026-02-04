@@ -1,0 +1,73 @@
+1️⃣ Verified WSL was installed (Docker proved WSL 2 works)
+wsl -l -v
+
+
+(Showed docker-desktop → confirms WSL 2 enabled)
+
+2️⃣ Created a workspace on Windows
+mkdir C:\wsl
+cd C:\wsl
+
+3️⃣ Downloaded Ubuntu 22.04 WSL root filesystem (manual, no Store)
+curl.exe -L -o ubuntu-22.04.tar.gz https://mirrors.huaweicloud.com/repository/ubuntu-cloud-images/wsl/jammy/current/ubuntu-jammy-wsl-amd64-ubuntu22.04lts.rootfs.tar.gz
+
+
+✔ File size ≈ 325 MB (correct)
+
+4️⃣ Imported Ubuntu into WSL 2
+wsl --import Ubuntu-22.04 C:\wsl\Ubuntu-22.04 C:\wsl\ubuntu-22.04.tar.gz --version 2
+
+5️⃣ Launched Ubuntu explicitly
+wsl -d Ubuntu-22.04
+
+
+✔ Logged in as root initially
+
+6️⃣ Created a normal Linux user
+adduser himanshu
+usermod -aG sudo himanshu
+
+
+✔ User created
+✔ Added to sudo group
+
+7️⃣ Verified user groups
+id himanshu
+
+
+Output included:
+
+groups=himanshu,sudo
+
+8️⃣ Tested logging in as the new user
+su - himanshu
+sudo whoami
+
+
+✔ sudo works
+
+9️⃣ Configured WSL behavior (systemd + default user)
+sudo nano /etc/wsl.conf
+
+
+File contents:
+
+[boot]
+systemd=true
+
+[user]
+default=himanshu
+
+
+Saved and exited nano.
+
+🔟 Restarted WSL from Windows (required)
+wsl --shutdown
+
+1️⃣1️⃣ Verified coexistence with Docker Desktop
+
+wsl opens docker-desktop (expected, acceptable)
+
+Ubuntu is entered explicitly via:
+
+wsl -d Ubuntu-22.04
